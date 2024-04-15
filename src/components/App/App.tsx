@@ -8,10 +8,10 @@ export const App = () => (
     <AppShell
       header={{ height: 60, offset: false }}
       navbar={{ width: 300, breakpoint: 'sm' }}
-      padding='md'
+      padding='xl'
       withBorder={false}
     >
-      <AppShell.Header style={{ marginLeft: 300 }} bg='#fafbff'>
+      <AppShell.Header pl={`calc(300px + var(--mantine-spacing-xl))`} bg='#fafbff'>
         <ErrorBoundary>
           <Greeting />
         </ErrorBoundary>
@@ -19,7 +19,7 @@ export const App = () => (
       <AppShell.Navbar p='md'>
         <SidePanel />
       </AppShell.Navbar>
-      <AppShell.Main pt={`calc(${rem(40)} + var(--mantine-spacing-md))`} bg='#fafbff'>
+      <AppShell.Main pt={`calc(${rem(40)} + var(--mantine-spacing-xl))`} bg='#fafbff'>
         <ErrorBoundary>
           <AppRouter />
         </ErrorBoundary>
