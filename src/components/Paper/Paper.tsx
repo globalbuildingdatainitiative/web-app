@@ -9,7 +9,7 @@ export const Paper = (props: PaperProps) => {
   const { children } = props
 
   return (
-    <Card shadow='sm' padding='lg' radius='md' withBorder>
+    <Card shadow='sm' padding='lg' radius='lg' withBorder>
       {children}
     </Card>
   )
