@@ -1,34 +1,29 @@
 import { AppShell, MantineProvider, rem } from '@mantine/core'
-import { AppRouter, ErrorBoundary, theme } from '@components'
+import { AppRouter, ErrorBoundary, SidePanel, theme, Greeting } from '@components'
 import '@fontsource/outfit'
 import '@mantine/core/styles.css'
 
 export const App = () => (
   <MantineProvider theme={theme}>
     <AppShell
-      header={{ height: 40, offset: false }}
-      footer={{ height: { base: 60, sm: 80 } }}
+      header={{ height: 60, offset: false }}
+      navbar={{ width: 300, breakpoint: 'sm' }}
       padding='md'
       withBorder={false}
     >
-      <AppShell.Header>
+      <AppShell.Header style={{ marginLeft: 300 }} bg='#fafbff'>
         <ErrorBoundary>
-          <span>GBDI Header</span>
+          <Greeting />
         </ErrorBoundary>
       </AppShell.Header>
-      <AppShell.Main
-        pt={`calc(${rem(40)} + var(--mantine-spacing-md))`}
-        pb={`calc(${rem(100)} + var(--mantine-spacing-md))`}
-      >
+      <AppShell.Navbar p='md'>
+        <SidePanel />
+      </AppShell.Navbar>
+      <AppShell.Main pt={`calc(${rem(40)} + var(--mantine-spacing-md))`} bg='#fafbff'>
         <ErrorBoundary>
           <AppRouter />
         </ErrorBoundary>
       </AppShell.Main>
-      <AppShell.Footer>
-        <ErrorBoundary>
-          <span>GBDI Footer</span>
-        </ErrorBoundary>
-      </AppShell.Footer>
     </AppShell>
   </MantineProvider>
 )

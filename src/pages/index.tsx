@@ -1,1 +1,2 @@
-export * from './LandingPage'
+export * from './404Page'
+export * from './DashboardPage'
