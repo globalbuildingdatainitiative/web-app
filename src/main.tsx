@@ -31,9 +31,11 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
           <Route
             path='/'
             element={
-              //<SessionAuth>       // Used to maintain authenticated sessions
-              <App />
-              //</SessionAuth>
+              <SessionAuth>
+                {' '}
+                // Used to maintain authenticated sessions
+                <App />
+              </SessionAuth>
             }
           />
         </Routes>
