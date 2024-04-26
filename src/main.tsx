@@ -1,15 +1,11 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { App } from '@components'
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { BrowserRouter } from 'react-router-dom'
 
-// Adding supertokens
 import SuperTokens, { SuperTokensWrapper } from 'supertokens-auth-react'
 import EmailPassword from 'supertokens-auth-react/recipe/emailpassword'
-import Session, { SessionAuth } from 'supertokens-auth-react/recipe/session'
-import { getSuperTokensRoutesForReactRouterDom } from 'supertokens-auth-react/ui'
-import { EmailPasswordPreBuiltUI } from 'supertokens-auth-react/recipe/emailpassword/prebuiltui'
-import * as reactRouterDom from 'react-router-dom'
+import Session from 'supertokens-auth-react/recipe/session'
 
 SuperTokens.init({
   appInfo: {
@@ -26,19 +22,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <SuperTokensWrapper>
       <BrowserRouter>
-        <Routes>
-          {getSuperTokensRoutesForReactRouterDom(reactRouterDom, [EmailPasswordPreBuiltUI])}
-          <Route
-            path='/'
-            element={
-              <SessionAuth>
-                {' '}
-                // Used to maintain authenticated sessions
-                <App />
-              </SessionAuth>
-            }
-          />
-        </Routes>
+        <App />
       </BrowserRouter>
     </SuperTokensWrapper>
   </React.StrictMode>,
