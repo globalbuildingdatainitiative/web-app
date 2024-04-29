@@ -3,7 +3,7 @@ import { Title } from '@mantine/core'
 
 export const ContributionPaper = () => {
   return (
-    <Paper>
+    <Paper data-testid='ContributionPaper'>
       <Title order={3} style={{ marginBottom: 8 }}>
         All Contributions
       </Title>

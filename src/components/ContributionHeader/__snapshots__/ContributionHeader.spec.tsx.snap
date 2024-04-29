@@ -4,9 +4,14 @@ exports[`ContributionHeader 1`] = `
 <body>
   <div>
     <style
+      data-mantine-styles="true"
+    >
+      :root{--mantine-font-family: Outfit, sans-serif;--mantine-font-family-headings: Outfit, sans-serif;--mantine-breakpoint-xxl: 120em;}
+    </style>
+    <style
       data-mantine-styles="classes"
     >
-      @media (max-width: 35.99375em) {.mantine-visible-from-xs {display: none !important;}}@media (min-width: 36em) {.mantine-hidden-from-xs {display: none !important;}}@media (max-width: 47.99375em) {.mantine-visible-from-sm {display: none !important;}}@media (min-width: 48em) {.mantine-hidden-from-sm {display: none !important;}}@media (max-width: 61.99375em) {.mantine-visible-from-md {display: none !important;}}@media (min-width: 62em) {.mantine-hidden-from-md {display: none !important;}}@media (max-width: 74.99375em) {.mantine-visible-from-lg {display: none !important;}}@media (min-width: 75em) {.mantine-hidden-from-lg {display: none !important;}}@media (max-width: 87.99375em) {.mantine-visible-from-xl {display: none !important;}}@media (min-width: 88em) {.mantine-hidden-from-xl {display: none !important;}}
+      @media (max-width: 35.99375em) {.mantine-visible-from-xs {display: none !important;}}@media (min-width: 36em) {.mantine-hidden-from-xs {display: none !important;}}@media (max-width: 47.99375em) {.mantine-visible-from-sm {display: none !important;}}@media (min-width: 48em) {.mantine-hidden-from-sm {display: none !important;}}@media (max-width: 61.99375em) {.mantine-visible-from-md {display: none !important;}}@media (min-width: 62em) {.mantine-hidden-from-md {display: none !important;}}@media (max-width: 74.99375em) {.mantine-visible-from-lg {display: none !important;}}@media (min-width: 75em) {.mantine-hidden-from-lg {display: none !important;}}@media (max-width: 87.99375em) {.mantine-visible-from-xl {display: none !important;}}@media (min-width: 88em) {.mantine-hidden-from-xl {display: none !important;}}@media (max-width: 119.99375em) {.mantine-visible-from-xxl {display: none !important;}}@media (min-width: 120em) {.mantine-hidden-from-xxl {display: none !important;}}
     </style>
     <div
       class="m_e615b15f mantine-Card-root m_1b7284a3 mantine-Paper-root"
@@ -29,6 +34,7 @@ exports[`ContributionHeader 1`] = `
           class="m_3eebeb36 mantine-Divider-root"
           data-orientation="vertical"
           role="separator"
+          style=""
         />
         <h2
           class="m_8a5d1357 mantine-Title-root"
@@ -41,6 +47,7 @@ exports[`ContributionHeader 1`] = `
           class="m_3eebeb36 mantine-Divider-root"
           data-orientation="vertical"
           role="separator"
+          style=""
         />
         <button
           class="mantine-focus-auto mantine-active m_77c9d27d mantine-Button-root m_87cf2631 mantine-UnstyledButton-root"
@@ -49,9 +56,11 @@ exports[`ContributionHeader 1`] = `
         >
           <span
             class="m_80f1301b mantine-Button-inner"
+            style=""
           >
             <span
               class="m_811560b9 mantine-Button-label"
+              style=""
             >
               Contribute Now
             </span>

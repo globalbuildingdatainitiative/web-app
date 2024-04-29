@@ -28,6 +28,8 @@
       "@context": ["context"],
       "@pages": ["pages"],
       "@queries": ["queries"],
+      "@mocks": ["__mocks__"],
+      "@test": ["__test__"],
     }
   },
   "include": ["src"],
