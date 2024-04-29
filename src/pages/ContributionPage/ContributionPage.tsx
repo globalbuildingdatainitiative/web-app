@@ -1,11 +1,11 @@
-import { Paper } from '@components'
-import { Title } from '@mantine/core'
+import { ContributionHeader, ContributionPaper } from '@components'
+import { Stack } from '@mantine/core'
 
 export const ContributionPage = () => {
   return (
-    <Paper>
-      <Title order={2}>Contribution</Title>
-      <div>Here will be some graphs</div>
-    </Paper>
+    <Stack>
+      <ContributionHeader />
+      <ContributionPaper />
+    </Stack>
   )
 }

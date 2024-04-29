@@ -2,6 +2,7 @@ import { AppShell, MantineProvider, rem } from '@mantine/core'
 import { AppRouter, ErrorBoundary, SidePanel, theme, Greeting } from '@components'
 import '@fontsource/outfit'
 import '@mantine/core/styles.css'
+import '@mantine/dropzone/styles.css'
 
 export const App = () => (
   <MantineProvider theme={theme}>

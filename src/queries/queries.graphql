@@ -1,0 +1,15 @@
+query getContributions {
+  contributions {
+    id
+    uploadedAt
+    project {
+      name
+    }
+  }
+}
+
+mutation addContribution($contributions: [InputContribution!]!) {
+  addContributions(contributions: $contributions) {
+    id
+  }
+}

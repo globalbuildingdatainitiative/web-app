@@ -1,4 +1,5 @@
 export * from './404Page'
+export * from './ContributeNowPage'
 export * from './ContributionPage'
 export * from './DashboardPage'
 export * from './OrganizationPage'
