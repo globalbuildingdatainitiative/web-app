@@ -1,0 +1,64 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`ContributionHeader 1`] = `
+<body>
+  <div>
+    <style
+      data-mantine-styles="classes"
+    >
+      @media (max-width: 35.99375em) {.mantine-visible-from-xs {display: none !important;}}@media (min-width: 36em) {.mantine-hidden-from-xs {display: none !important;}}@media (max-width: 47.99375em) {.mantine-visible-from-sm {display: none !important;}}@media (min-width: 48em) {.mantine-hidden-from-sm {display: none !important;}}@media (max-width: 61.99375em) {.mantine-visible-from-md {display: none !important;}}@media (min-width: 62em) {.mantine-hidden-from-md {display: none !important;}}@media (max-width: 74.99375em) {.mantine-visible-from-lg {display: none !important;}}@media (min-width: 75em) {.mantine-hidden-from-lg {display: none !important;}}@media (max-width: 87.99375em) {.mantine-visible-from-xl {display: none !important;}}@media (min-width: 88em) {.mantine-hidden-from-xl {display: none !important;}}
+    </style>
+    <div
+      class="m_e615b15f mantine-Card-root m_1b7284a3 mantine-Paper-root"
+      data-testid="ContributionHeader"
+      data-with-border="true"
+      style="--paper-radius: var(--mantine-radius-lg); --paper-shadow: var(--mantine-shadow-sm); --card-padding: var(--mantine-spacing-lg);"
+    >
+      <div
+        class="m_4081bf90 mantine-Group-root"
+        style="--group-gap: var(--mantine-spacing-md); --group-align: center; --group-justify: space-between; --group-wrap: wrap;"
+      >
+        <h2
+          class="m_8a5d1357 mantine-Title-root"
+          data-order="2"
+          style="--title-fw: var(--mantine-h2-font-weight); --title-lh: var(--mantine-h2-line-height); --title-fz: var(--mantine-h2-font-size);"
+        >
+          Contribution Header
+        </h2>
+        <div
+          class="m_3eebeb36 mantine-Divider-root"
+          data-orientation="vertical"
+          role="separator"
+        />
+        <h2
+          class="m_8a5d1357 mantine-Title-root"
+          data-order="2"
+          style="--title-fw: var(--mantine-h2-font-weight); --title-lh: var(--mantine-h2-line-height); --title-fz: var(--mantine-h2-font-size);"
+        >
+          Contribution Header
+        </h2>
+        <div
+          class="m_3eebeb36 mantine-Divider-root"
+          data-orientation="vertical"
+          role="separator"
+        />
+        <button
+          class="mantine-focus-auto mantine-active m_77c9d27d mantine-Button-root m_87cf2631 mantine-UnstyledButton-root"
+          style="--button-radius: var(--mantine-radius-sm); --button-bg: var(--mantine-color-green-filled); --button-hover: var(--mantine-color-green-filled-hover); --button-color: var(--mantine-color-white); --button-bd: calc(0.0625rem * var(--mantine-scale)) solid transparent;"
+          type="button"
+        >
+          <span
+            class="m_80f1301b mantine-Button-inner"
+          >
+            <span
+              class="m_811560b9 mantine-Button-label"
+            >
+              Contribute Now
+            </span>
+          </span>
+        </button>
+      </div>
+    </div>
+  </div>
+</body>
+`;
