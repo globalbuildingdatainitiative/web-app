@@ -19,7 +19,6 @@ export const ContributionUploadPaper = () => {
     navigate('/contributions')
   }
 
-
   return (
     <Paper data-testid='ContributionUploadPaper'>
       <Title order={3}>Contribute Now</Title>
@@ -41,7 +40,7 @@ export const ContributionUploadPaper = () => {
         accept={['text/csv']}
         inputProps={{
           // @ts-expect-error data-testid is valid
-          'data-testid': 'dropzoneInput'
+          'data-testid': 'dropzoneInput',
         }}
       >
         <Group justify='center' gap='xl' mih={220} style={{ pointerEvents: 'none' }}>
