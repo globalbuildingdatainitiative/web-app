@@ -11,19 +11,23 @@ export const ContributionTable = () => {
       {
         accessorKey: 'id',
         header: 'ID',
+        size: 50,
       },
       {
         accessorKey: 'uploadedAt',
         header: 'Date',
-        Cell: ({ cell }) => <div>{dayjs(cell.getValue() as string).format('DD/MM/YYYY')}</div>,
+        Cell: ({ cell }) => <>{dayjs(cell.getValue() as string).format('DD/MM/YYYY')}</>,
+        size: 50,
       },
       {
         accessorKey: 'organization.name',
         header: 'Organization',
+        size: 300,
       },
       {
         accessorKey: 'project.name',
         header: 'Project',
+        size: 300,
       },
     ],
     [],
@@ -49,8 +53,12 @@ export const ContributionTable = () => {
     state: {
       isLoading: loading,
       showAlertBanner: !!error,
-      showSkeletons: loading,
+      showSkeletons: false,
     },
   })
-  return <MantineReactTable table={table} />
+  return (
+    <div data-testid='ContributionTable'>
+      <MantineReactTable table={table} />
+    </div>
+  )
 }
