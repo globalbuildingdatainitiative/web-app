@@ -32,10 +32,10 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Set up Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
           cache: 'npm'
@@ -45,6 +45,9 @@ jobs:
 
       - name: Check
         run: npm run check
+
+      - name: Test
+        run: npm run test
 
       - name: Build
         run: npm run build
