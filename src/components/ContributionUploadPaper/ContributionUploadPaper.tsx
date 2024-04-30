@@ -19,8 +19,9 @@ export const ContributionUploadPaper = () => {
     navigate('/contributions')
   }
 
+
   return (
-    <Paper>
+    <Paper data-testid='ContributionUploadPaper'>
       <Title order={3}>Contribute Now</Title>
       <Text>In order to process the data correctly, please follow the steps below:</Text>
       <Text>
@@ -32,11 +33,16 @@ export const ContributionUploadPaper = () => {
         </ol>
       </Text>
       <Dropzone
+        data-testid='contributionDropzone'
         disabled={!!contributionData}
         onDrop={(files) => setContributionData(processUploadedFile(files))}
         onReject={(files) => console.log('rejected files', files)}
         maxSize={5 * 1024 ** 2}
         accept={['text/csv']}
+        inputProps={{
+          // @ts-expect-error data-testid is valid
+          'data-testid': 'dropzoneInput'
+        }}
       >
         <Group justify='center' gap='xl' mih={220} style={{ pointerEvents: 'none' }}>
           <Dropzone.Accept>

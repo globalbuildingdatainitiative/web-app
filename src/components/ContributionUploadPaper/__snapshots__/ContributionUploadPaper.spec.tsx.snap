@@ -1,0 +1,130 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`ContributionUploadPaper > Snapshot 1`] = `
+<div>
+  <style
+    data-mantine-styles="true"
+  >
+    :root{--mantine-font-family: Outfit, sans-serif;--mantine-font-family-headings: Outfit, sans-serif;--mantine-breakpoint-xxl: 120em;}
+  </style>
+  <style
+    data-mantine-styles="classes"
+  >
+    @media (max-width: 35.99375em) {.mantine-visible-from-xs {display: none !important;}}@media (min-width: 36em) {.mantine-hidden-from-xs {display: none !important;}}@media (max-width: 47.99375em) {.mantine-visible-from-sm {display: none !important;}}@media (min-width: 48em) {.mantine-hidden-from-sm {display: none !important;}}@media (max-width: 61.99375em) {.mantine-visible-from-md {display: none !important;}}@media (min-width: 62em) {.mantine-hidden-from-md {display: none !important;}}@media (max-width: 74.99375em) {.mantine-visible-from-lg {display: none !important;}}@media (min-width: 75em) {.mantine-hidden-from-lg {display: none !important;}}@media (max-width: 87.99375em) {.mantine-visible-from-xl {display: none !important;}}@media (min-width: 88em) {.mantine-hidden-from-xl {display: none !important;}}@media (max-width: 119.99375em) {.mantine-visible-from-xxl {display: none !important;}}@media (min-width: 120em) {.mantine-hidden-from-xxl {display: none !important;}}
+  </style>
+  <div
+    class="m_e615b15f mantine-Card-root m_1b7284a3 mantine-Paper-root"
+    data-testid="ContributionUploadPaper"
+    data-with-border="true"
+    style="--paper-radius: var(--mantine-radius-lg); --paper-shadow: var(--mantine-shadow-sm); --card-padding: var(--mantine-spacing-lg);"
+  >
+    <h3
+      class="m_8a5d1357 mantine-Title-root"
+      data-order="3"
+      style="--title-fw: var(--mantine-h3-font-weight); --title-lh: var(--mantine-h3-line-height); --title-fz: var(--mantine-h3-font-size);"
+    >
+      Contribute Now
+    </h3>
+    <p
+      class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
+      style=""
+    >
+      In order to process the data correctly, please follow the steps below:
+    </p>
+    <p
+      class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
+      style=""
+    >
+      <ol>
+        <li>
+          Download the data template file here:
+        </li>
+        <li>
+          Paste your data as per template's format
+        </li>
+        <li>
+          Export the file as .xlsx
+        </li>
+        <li>
+          Upload the file below
+        </li>
+      </ol>
+    </p>
+    <div
+      class="mantine-focus-auto m_d46a4834 mantine-Dropzone-root"
+      data-activate-on-click="true"
+      data-idle="true"
+      data-testid="contributionDropzone"
+      data-variant="light"
+      role="presentation"
+      style="--dropzone-radius: var(--mantine-radius-default); --dropzone-accept-color: var(--mantine-color-blue-light-color); --dropzone-accept-bg: var(--mantine-color-blue-light); --dropzone-reject-color: var(--mantine-color-red-light-color); --dropzone-reject-bg: var(--mantine-color-red-light);"
+      tabindex="0"
+    >
+      <input
+        accept="text/csv"
+        data-testid="dropzoneInput"
+        formaction="http://localhost:3000/"
+        formmethod=""
+        multiple=""
+        style="display: none;"
+        tabindex="-1"
+        type="file"
+      />
+      <div
+        class="m_b85f7144 mantine-Dropzone-inner"
+        style=""
+      >
+        <div
+          class="m_4081bf90 mantine-Group-root"
+          style="--group-gap: var(--mantine-spacing-xl); --group-align: center; --group-justify: center; --group-wrap: wrap; pointer-events: none; min-height: calc(13.75rem * var(--mantine-scale));"
+        >
+          <svg
+            class="tabler-icon tabler-icon-photo "
+            fill="none"
+            height="24"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="1.5"
+            style="color: var(--mantine-color-dimmed);"
+            viewBox="0 0 24 24"
+            width="24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M15 8h.01"
+            />
+            <path
+              d="M3 6a3 3 0 0 1 3 -3h12a3 3 0 0 1 3 3v12a3 3 0 0 1 -3 3h-12a3 3 0 0 1 -3 -3v-12z"
+            />
+            <path
+              d="M3 16l5 -5c.928 -.893 2.072 -.893 3 0l5 5"
+            />
+            <path
+              d="M14 14l1 -1c.928 -.893 2.072 -.893 3 0l3 3"
+            />
+          </svg>
+          <div>
+            <p
+              class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
+              data-inline="true"
+              data-size="xl"
+              style="--text-fz: var(--mantine-font-size-xl); --text-lh: var(--mantine-line-height-xl);"
+            >
+              Drag Excel files here or click to select files
+            </p>
+            <p
+              class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
+              data-inline="true"
+              data-size="sm"
+              style="--text-fz: var(--mantine-font-size-sm); --text-lh: var(--mantine-line-height-sm); color: var(--mantine-color-dimmed);"
+            >
+              Attach as many files as you like, each file should not exceed 5mb
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
