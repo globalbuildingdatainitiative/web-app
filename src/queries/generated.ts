@@ -8,6 +8,7 @@ export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: 
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> }
 export type MakeEmpty<T extends { [key: string]: unknown }, K extends keyof T> = { [_ in K]?: never }
 export type Incremental<T> = T | { [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never }
+export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>
 export type RequireFields<T, K extends keyof T> = Omit<T, K> & { [P in K]-?: NonNullable<T[P]> }
 const defaultOptions = {} as const
 /** All built-in and custom scalars, mapped to their actual values */
@@ -17,10 +18,73 @@ export type Scalars = {
   Boolean: { input: boolean; output: boolean }
   Int: { input: number; output: number }
   Float: { input: number; output: number }
+  /** Date (isoformat) */
+  Date: { input: any; output: any }
   /** Date with time (isoformat) */
   DateTime: { input: any; output: any }
+  /** The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf). */
+  JSON: { input: any; output: any }
   UUID: { input: any; output: any }
   _FieldSet: { input: any; output: any }
+}
+
+export type AreaType = {
+  __typename?: 'AreaType'
+  definition: Scalars['String']['output']
+  unit: Unit
+  value: Scalars['Float']['output']
+}
+
+export type Assembly = {
+  __typename?: 'Assembly'
+  category?: Maybe<Scalars['String']['output']>
+  classification?: Maybe<Array<Classification>>
+  comment?: Maybe<Scalars['String']['output']>
+  description?: Maybe<Scalars['String']['output']>
+  id: Scalars['UUID']['output']
+  metaData: Scalars['JSON']['output']
+  name: Scalars['String']['output']
+  products: Array<Product>
+  quantity: Scalars['Float']['output']
+  results: Scalars['JSON']['output']
+  unit: Unit
+}
+
+export type BuildingModelScope = {
+  __typename?: 'BuildingModelScope'
+  buildingServices: Scalars['Boolean']['output']
+  externalWorks: Scalars['Boolean']['output']
+  facilitatingWorks: Scalars['Boolean']['output']
+  ffE: Scalars['Boolean']['output']
+  finishes: Scalars['Boolean']['output']
+  substructure: Scalars['Boolean']['output']
+  superstructureEnvelope: Scalars['Boolean']['output']
+  superstructureFrame: Scalars['Boolean']['output']
+  superstructureInternalElements: Scalars['Boolean']['output']
+}
+
+export enum BuildingType {
+  New = 'new',
+  Renovation = 'renovation',
+}
+
+export enum BuildingTypology {
+  Agricultural = 'agricultural',
+  Commercial = 'commercial',
+  Industrial = 'industrial',
+  Infrastructure = 'infrastructure',
+  Mixeduse = 'mixeduse',
+  Office = 'office',
+  Other = 'other',
+  Public = 'public',
+  Residential = 'residential',
+}
+
+export type Classification = {
+  __typename?: 'Classification'
+  code: Scalars['String']['output']
+  name: Scalars['String']['output']
+  system: Scalars['String']['output']
 }
 
 export type Contribution = {
@@ -46,17 +110,535 @@ export type ContributionSort = {
   userId?: InputMaybe<SortOptions>
 }
 
+export type Conversion = {
+  __typename?: 'Conversion'
+  metaData: Scalars['String']['output']
+  to: Unit
+  value: Scalars['Float']['output']
+}
+
+export enum Country {
+  Abw = 'abw',
+  Afg = 'afg',
+  Ago = 'ago',
+  Aia = 'aia',
+  Ala = 'ala',
+  Alb = 'alb',
+  And = 'and',
+  Are = 'are',
+  Arg = 'arg',
+  Arm = 'arm',
+  Asm = 'asm',
+  Ata = 'ata',
+  Atf = 'atf',
+  Atg = 'atg',
+  Aus = 'aus',
+  Aut = 'aut',
+  Aze = 'aze',
+  Bdi = 'bdi',
+  Bel = 'bel',
+  Ben = 'ben',
+  Bes = 'bes',
+  Bfa = 'bfa',
+  Bgd = 'bgd',
+  Bgr = 'bgr',
+  Bhr = 'bhr',
+  Bhs = 'bhs',
+  Bih = 'bih',
+  Blm = 'blm',
+  Blr = 'blr',
+  Blz = 'blz',
+  Bmu = 'bmu',
+  Bol = 'bol',
+  Bra = 'bra',
+  Brb = 'brb',
+  Brn = 'brn',
+  Btn = 'btn',
+  Bvt = 'bvt',
+  Bwa = 'bwa',
+  Caf = 'caf',
+  Can = 'can',
+  Cck = 'cck',
+  Che = 'che',
+  Chl = 'chl',
+  Chn = 'chn',
+  Civ = 'civ',
+  Cmr = 'cmr',
+  Cod = 'cod',
+  Cog = 'cog',
+  Cok = 'cok',
+  Col = 'col',
+  Com = 'com',
+  Cpv = 'cpv',
+  Cri = 'cri',
+  Cub = 'cub',
+  Cuw = 'cuw',
+  Cxr = 'cxr',
+  Cym = 'cym',
+  Cyp = 'cyp',
+  Cze = 'cze',
+  Deu = 'deu',
+  Dji = 'dji',
+  Dma = 'dma',
+  Dnk = 'dnk',
+  Dom = 'dom',
+  Dza = 'dza',
+  Ecu = 'ecu',
+  Egy = 'egy',
+  Eri = 'eri',
+  Esh = 'esh',
+  Esp = 'esp',
+  Est = 'est',
+  Eth = 'eth',
+  Fin = 'fin',
+  Fji = 'fji',
+  Flk = 'flk',
+  Fra = 'fra',
+  Fro = 'fro',
+  Fsm = 'fsm',
+  Gab = 'gab',
+  Gbr = 'gbr',
+  Geo = 'geo',
+  Ggy = 'ggy',
+  Gha = 'gha',
+  Gib = 'gib',
+  Gin = 'gin',
+  Glp = 'glp',
+  Gmb = 'gmb',
+  Gnb = 'gnb',
+  Gnq = 'gnq',
+  Grc = 'grc',
+  Grd = 'grd',
+  Grl = 'grl',
+  Gtm = 'gtm',
+  Guf = 'guf',
+  Gum = 'gum',
+  Guy = 'guy',
+  Hkg = 'hkg',
+  Hmd = 'hmd',
+  Hnd = 'hnd',
+  Hrv = 'hrv',
+  Hti = 'hti',
+  Hun = 'hun',
+  Idn = 'idn',
+  Imn = 'imn',
+  Ind = 'ind',
+  Iot = 'iot',
+  Irl = 'irl',
+  Irn = 'irn',
+  Irq = 'irq',
+  Isl = 'isl',
+  Isr = 'isr',
+  Ita = 'ita',
+  Jam = 'jam',
+  Jey = 'jey',
+  Jor = 'jor',
+  Jpn = 'jpn',
+  Kaz = 'kaz',
+  Ken = 'ken',
+  Kgz = 'kgz',
+  Khm = 'khm',
+  Kir = 'kir',
+  Kna = 'kna',
+  Kor = 'kor',
+  Kwt = 'kwt',
+  Lao = 'lao',
+  Lbn = 'lbn',
+  Lbr = 'lbr',
+  Lby = 'lby',
+  Lca = 'lca',
+  Lie = 'lie',
+  Lka = 'lka',
+  Lso = 'lso',
+  Ltu = 'ltu',
+  Lux = 'lux',
+  Lva = 'lva',
+  Mac = 'mac',
+  Maf = 'maf',
+  Mar = 'mar',
+  Mco = 'mco',
+  Mda = 'mda',
+  Mdg = 'mdg',
+  Mdv = 'mdv',
+  Mex = 'mex',
+  Mhl = 'mhl',
+  Mkd = 'mkd',
+  Mli = 'mli',
+  Mlt = 'mlt',
+  Mmr = 'mmr',
+  Mne = 'mne',
+  Mng = 'mng',
+  Mnp = 'mnp',
+  Moz = 'moz',
+  Mrt = 'mrt',
+  Msr = 'msr',
+  Mtq = 'mtq',
+  Mus = 'mus',
+  Mwi = 'mwi',
+  Mys = 'mys',
+  Myt = 'myt',
+  Nam = 'nam',
+  Ncl = 'ncl',
+  Ner = 'ner',
+  Nfk = 'nfk',
+  Nga = 'nga',
+  Nic = 'nic',
+  Niu = 'niu',
+  Nld = 'nld',
+  Nor = 'nor',
+  Npl = 'npl',
+  Nru = 'nru',
+  Nzl = 'nzl',
+  Omn = 'omn',
+  Pak = 'pak',
+  Pan = 'pan',
+  Pcn = 'pcn',
+  Per = 'per',
+  Phl = 'phl',
+  Plw = 'plw',
+  Png = 'png',
+  Pol = 'pol',
+  Pri = 'pri',
+  Prk = 'prk',
+  Prt = 'prt',
+  Pry = 'pry',
+  Pse = 'pse',
+  Pyf = 'pyf',
+  Qat = 'qat',
+  Reu = 'reu',
+  Rou = 'rou',
+  Rus = 'rus',
+  Rwa = 'rwa',
+  Sau = 'sau',
+  Sdn = 'sdn',
+  Sen = 'sen',
+  Sgp = 'sgp',
+  Sgs = 'sgs',
+  Shn = 'shn',
+  Sjm = 'sjm',
+  Slb = 'slb',
+  Sle = 'sle',
+  Slv = 'slv',
+  Smr = 'smr',
+  Som = 'som',
+  Spm = 'spm',
+  Srb = 'srb',
+  Ssd = 'ssd',
+  Stp = 'stp',
+  Sur = 'sur',
+  Svk = 'svk',
+  Svn = 'svn',
+  Swe = 'swe',
+  Swz = 'swz',
+  Sxm = 'sxm',
+  Syc = 'syc',
+  Syr = 'syr',
+  Tca = 'tca',
+  Tcd = 'tcd',
+  Tgo = 'tgo',
+  Tha = 'tha',
+  Tjk = 'tjk',
+  Tkl = 'tkl',
+  Tkm = 'tkm',
+  Tls = 'tls',
+  Ton = 'ton',
+  Tto = 'tto',
+  Tun = 'tun',
+  Tur = 'tur',
+  Tuv = 'tuv',
+  Twn = 'twn',
+  Tza = 'tza',
+  Uga = 'uga',
+  Ukr = 'ukr',
+  Umi = 'umi',
+  Unknown = 'unknown',
+  Ury = 'ury',
+  Usa = 'usa',
+  Uzb = 'uzb',
+  Vat = 'vat',
+  Vct = 'vct',
+  Ven = 'ven',
+  Vgb = 'vgb',
+  Vir = 'vir',
+  Vnm = 'vnm',
+  Vut = 'vut',
+  Wlf = 'wlf',
+  Wsm = 'wsm',
+  Yem = 'yem',
+  Zaf = 'zaf',
+  Zmb = 'zmb',
+  Zwe = 'zwe',
+}
+
+export type Epd = {
+  __typename?: 'EPD'
+  comment?: Maybe<Scalars['String']['output']>
+  conversions?: Maybe<Array<Conversion>>
+  declaredUnit: Unit
+  formatVersion: Scalars['String']['output']
+  id: Scalars['UUID']['output']
+  impacts: Scalars['JSON']['output']
+  location: Country
+  metaData: Scalars['JSON']['output']
+  name: Scalars['String']['output']
+  publishedDate: Scalars['Date']['output']
+  referenceServiceLife?: Maybe<Scalars['Int']['output']>
+  source?: Maybe<Source>
+  standard: Standard
+  subtype: SubType
+  validUntil: Scalars['Date']['output']
+  version: Scalars['String']['output']
+}
+
+export type EpdTechFlow = Epd | TechFlow
+
 export type FilterOptions = {
   equal?: InputMaybe<Scalars['String']['input']>
   isTrue?: InputMaybe<Scalars['Boolean']['input']>
+}
+
+export enum GeneralEnergyClass {
+  Advanced = 'advanced',
+  Existing = 'existing',
+  Standard = 'standard',
+  Unknown = 'unknown',
+}
+
+export type GraphQlInputImpactData = {
+  EPD?: InputMaybe<InputEpd>
+  techFlow?: InputMaybe<InputTechFlow>
+}
+
+export type GraphQlInputProjectInfo = {
+  buildingInfo?: InputMaybe<InputProjectInfo>
+}
+
+export enum ImpactCategoryKey {
+  Adpe = 'adpe',
+  Adpf = 'adpf',
+  Ap = 'ap',
+  Cru = 'cru',
+  Eee = 'eee',
+  Eet = 'eet',
+  Ep = 'ep',
+  EpFw = 'ep_fw',
+  EpMar = 'ep_mar',
+  EpTer = 'ep_ter',
+  EtpFw = 'etp_fw',
+  Fw = 'fw',
+  Gwp = 'gwp',
+  GwpBio = 'gwp_bio',
+  GwpFos = 'gwp_fos',
+  GwpLul = 'gwp_lul',
+  HtpC = 'htp_c',
+  HtpNc = 'htp_nc',
+  Hwd = 'hwd',
+  Irp = 'irp',
+  Mer = 'mer',
+  Mrf = 'mrf',
+  Nhwd = 'nhwd',
+  Nrsf = 'nrsf',
+  Odp = 'odp',
+  Penre = 'penre',
+  Penrm = 'penrm',
+  Penrt = 'penrt',
+  Pere = 'pere',
+  Perm = 'perm',
+  Pert = 'pert',
+  Pm = 'pm',
+  Pocp = 'pocp',
+  Rsf = 'rsf',
+  Rwd = 'rwd',
+  Sm = 'sm',
+  Sqp = 'sqp',
+  Wdp = 'wdp',
+}
+
+export type InputAreaType = {
+  definition: Scalars['String']['input']
+  unit: Unit
+  value: Scalars['Float']['input']
+}
+
+export type InputAssembly = {
+  category?: InputMaybe<Scalars['String']['input']>
+  classification?: InputMaybe<Array<InputClassification>>
+  comment?: InputMaybe<Scalars['String']['input']>
+  description?: InputMaybe<Scalars['String']['input']>
+  id?: InputMaybe<Scalars['UUID']['input']>
+  metaData?: InputMaybe<Scalars['JSON']['input']>
+  name: Scalars['String']['input']
+  products: Array<InputProduct>
+  quantity: Scalars['Float']['input']
+  results?: InputMaybe<Scalars['JSON']['input']>
+  unit: Unit
+}
+
+export type InputBuildingModelScope = {
+  buildingServices: Scalars['Boolean']['input']
+  externalWorks: Scalars['Boolean']['input']
+  facilitatingWorks: Scalars['Boolean']['input']
+  ffE: Scalars['Boolean']['input']
+  finishes: Scalars['Boolean']['input']
+  substructure: Scalars['Boolean']['input']
+  superstructureEnvelope: Scalars['Boolean']['input']
+  superstructureFrame: Scalars['Boolean']['input']
+  superstructureInternalElements: Scalars['Boolean']['input']
+}
+
+export type InputClassification = {
+  code: Scalars['String']['input']
+  name: Scalars['String']['input']
+  system: Scalars['String']['input']
 }
 
 export type InputContribution = {
   project: InputProject
 }
 
-export type InputProject = {
+export type InputConversion = {
+  metaData?: InputMaybe<Scalars['String']['input']>
+  to: Unit
+  value: Scalars['Float']['input']
+}
+
+export type InputEpd = {
+  comment?: InputMaybe<Scalars['String']['input']>
+  conversions?: InputMaybe<Array<InputConversion>>
+  declaredUnit: Unit
+  formatVersion: Scalars['String']['input']
+  id?: InputMaybe<Scalars['UUID']['input']>
+  impacts: Scalars['JSON']['input']
+  location: Country
+  metaData?: InputMaybe<Scalars['JSON']['input']>
   name: Scalars['String']['input']
+  publishedDate: Scalars['Date']['input']
+  referenceServiceLife?: InputMaybe<Scalars['Int']['input']>
+  source?: InputMaybe<InputSource>
+  standard: Standard
+  subtype: SubType
+  validUntil: Scalars['Date']['input']
+  version: Scalars['String']['input']
+}
+
+export type InputLocation = {
+  address?: InputMaybe<Scalars['String']['input']>
+  city?: InputMaybe<Scalars['String']['input']>
+  country: Country
+}
+
+export type InputProduct = {
+  description?: InputMaybe<Scalars['String']['input']>
+  id?: InputMaybe<Scalars['UUID']['input']>
+  impactData: GraphQlInputImpactData
+  metaData?: InputMaybe<Scalars['JSON']['input']>
+  name: Scalars['String']['input']
+  quantity: Scalars['Float']['input']
+  referenceServiceLife: Scalars['Int']['input']
+  results?: InputMaybe<Scalars['JSON']['input']>
+  transport?: InputMaybe<Scalars['JSON']['input']>
+  unit: Unit
+}
+
+export type InputProject = {
+  assemblies: Array<InputAssembly>
+  classificationSystem?: InputMaybe<Scalars['String']['input']>
+  comment?: InputMaybe<Scalars['String']['input']>
+  description?: InputMaybe<Scalars['String']['input']>
+  formatVersion: Scalars['String']['input']
+  id?: InputMaybe<Scalars['UUID']['input']>
+  impactCategories: Array<ImpactCategoryKey>
+  lciaMethod?: InputMaybe<Scalars['String']['input']>
+  lifeCycleStages: Array<LifeCycleStage>
+  location: InputLocation
+  metaData?: InputMaybe<Scalars['JSON']['input']>
+  name: Scalars['String']['input']
+  owner?: InputMaybe<Scalars['String']['input']>
+  projectInfo?: InputMaybe<GraphQlInputProjectInfo>
+  projectPhase: ProjectPhase
+  referenceStudyPeriod?: InputMaybe<Scalars['Int']['input']>
+  results?: InputMaybe<Scalars['JSON']['input']>
+  softwareInfo: InputSoftwareInfo
+}
+
+export type InputProjectInfo = {
+  buildingCompletionYear?: InputMaybe<Scalars['Int']['input']>
+  buildingFootprint?: InputMaybe<InputValueUnit>
+  buildingHeight?: InputMaybe<InputValueUnit>
+  buildingMass?: InputMaybe<InputValueUnit>
+  buildingModelScope?: InputMaybe<InputBuildingModelScope>
+  buildingPermitYear?: InputMaybe<Scalars['Int']['input']>
+  buildingType?: InputMaybe<BuildingType>
+  buildingTypology?: InputMaybe<BuildingTypology>
+  buildingUsers?: InputMaybe<Scalars['Int']['input']>
+  certifications?: InputMaybe<Array<Scalars['String']['input']>>
+  energyDemandElectricity?: InputMaybe<Scalars['Float']['input']>
+  energyDemandHeating?: InputMaybe<Scalars['Float']['input']>
+  energySupplyElectricity?: InputMaybe<Scalars['Float']['input']>
+  energySupplyHeating?: InputMaybe<Scalars['Float']['input']>
+  exportedElectricity?: InputMaybe<Scalars['Float']['input']>
+  floorsAboveGround: Scalars['Int']['input']
+  floorsBelowGround?: InputMaybe<Scalars['Int']['input']>
+  frameType?: InputMaybe<Scalars['String']['input']>
+  generalEnergyClass?: InputMaybe<GeneralEnergyClass>
+  grossFloorArea: InputAreaType
+  heatedFloorArea: InputAreaType
+  localEnergyClass?: InputMaybe<Scalars['String']['input']>
+  roofType?: InputMaybe<RoofType>
+}
+
+export type InputSoftwareInfo = {
+  calculationType?: InputMaybe<Scalars['String']['input']>
+  goalAndScopeDefinition?: InputMaybe<Scalars['String']['input']>
+  lcaSoftware: Scalars['String']['input']
+}
+
+export type InputSource = {
+  name: Scalars['String']['input']
+  url?: InputMaybe<Scalars['String']['input']>
+}
+
+export type InputTechFlow = {
+  comment?: InputMaybe<Scalars['String']['input']>
+  conversions?: InputMaybe<Array<InputConversion>>
+  declaredUnit: Unit
+  formatVersion: Scalars['String']['input']
+  id?: InputMaybe<Scalars['UUID']['input']>
+  impacts: Scalars['JSON']['input']
+  location: Country
+  metaData?: InputMaybe<Scalars['JSON']['input']>
+  name: Scalars['String']['input']
+  source?: InputMaybe<InputSource>
+}
+
+export type InputValueUnit = {
+  unit: Unit
+  value: Scalars['Float']['input']
+}
+
+export enum LifeCycleStage {
+  A1a3 = 'a1a3',
+  A4 = 'a4',
+  A5 = 'a5',
+  B1 = 'b1',
+  B2 = 'b2',
+  B3 = 'b3',
+  B4 = 'b4',
+  B5 = 'b5',
+  B6 = 'b6',
+  B7 = 'b7',
+  C1 = 'c1',
+  C2 = 'c2',
+  C3 = 'c3',
+  C4 = 'c4',
+  D = 'd',
+}
+
+export type Location = {
+  __typename?: 'Location'
+  address?: Maybe<Scalars['String']['output']>
+  city?: Maybe<Scalars['String']['output']>
+  country: Country
 }
 
 export type Mutation = {
@@ -69,10 +651,73 @@ export type MutationAddContributionsArgs = {
   contributions: Array<InputContribution>
 }
 
+export type Product = {
+  __typename?: 'Product'
+  description?: Maybe<Scalars['String']['output']>
+  id: Scalars['UUID']['output']
+  impactData: EpdTechFlow
+  metaData: Scalars['JSON']['output']
+  name: Scalars['String']['output']
+  quantity: Scalars['Float']['output']
+  referenceServiceLife: Scalars['Int']['output']
+  results: Scalars['JSON']['output']
+  unit: Unit
+}
+
 export type Project = {
   __typename?: 'Project'
+  assemblies: Array<Assembly>
+  classificationSystem?: Maybe<Scalars['String']['output']>
+  comment?: Maybe<Scalars['String']['output']>
+  description?: Maybe<Scalars['String']['output']>
+  formatVersion: Scalars['String']['output']
   id: Scalars['UUID']['output']
+  impactCategories: Array<ImpactCategoryKey>
+  lciaMethod?: Maybe<Scalars['String']['output']>
+  lifeCycleStages: Array<LifeCycleStage>
+  location: Location
+  metaData?: Maybe<Scalars['JSON']['output']>
   name: Scalars['String']['output']
+  owner?: Maybe<Scalars['String']['output']>
+  projectInfo: ProjectInfo
+  projectPhase: ProjectPhase
+  referenceStudyPeriod?: Maybe<Scalars['Int']['output']>
+  results?: Maybe<Scalars['JSON']['output']>
+  softwareInfo: SoftwareInfo
+}
+
+export type ProjectInfo = {
+  __typename?: 'ProjectInfo'
+  buildingCompletionYear?: Maybe<Scalars['Int']['output']>
+  buildingFootprint?: Maybe<ValueUnit>
+  buildingHeight?: Maybe<ValueUnit>
+  buildingMass?: Maybe<ValueUnit>
+  buildingModelScope?: Maybe<BuildingModelScope>
+  buildingPermitYear?: Maybe<Scalars['Int']['output']>
+  buildingType: BuildingType
+  buildingTypology: BuildingTypology
+  buildingUsers?: Maybe<Scalars['Int']['output']>
+  certifications?: Maybe<Array<Scalars['String']['output']>>
+  energyDemandElectricity?: Maybe<Scalars['Float']['output']>
+  energyDemandHeating?: Maybe<Scalars['Float']['output']>
+  energySupplyElectricity?: Maybe<Scalars['Float']['output']>
+  energySupplyHeating?: Maybe<Scalars['Float']['output']>
+  exportedElectricity?: Maybe<Scalars['Float']['output']>
+  floorsAboveGround: Scalars['Int']['output']
+  floorsBelowGround?: Maybe<Scalars['Int']['output']>
+  frameType?: Maybe<Scalars['String']['output']>
+  generalEnergyClass: GeneralEnergyClass
+  grossFloorArea?: Maybe<AreaType>
+  heatedFloorArea?: Maybe<AreaType>
+  localEnergyClass?: Maybe<Scalars['String']['output']>
+  roofType: RoofType
+}
+
+export enum ProjectPhase {
+  Built = 'built',
+  Design = 'design',
+  Ongoing = 'ongoing',
+  Other = 'other',
 }
 
 export type Query = {
@@ -88,9 +733,77 @@ export type QueryContributionsArgs = {
   sortBy?: InputMaybe<ContributionSort>
 }
 
+export enum RoofType {
+  Flat = 'flat',
+  Other = 'other',
+  Pitched = 'pitched',
+  Pyramid = 'pyramid',
+  Saddle = 'saddle',
+}
+
+export type SoftwareInfo = {
+  __typename?: 'SoftwareInfo'
+  calculationType?: Maybe<Scalars['String']['output']>
+  goalAndScopeDefinition?: Maybe<Scalars['String']['output']>
+  lcaSoftware: Scalars['String']['output']
+}
+
 export enum SortOptions {
   Asc = 'ASC',
   Dsc = 'DSC',
+}
+
+export type Source = {
+  __typename?: 'Source'
+  name: Scalars['String']['output']
+  url?: Maybe<Scalars['String']['output']>
+}
+
+export enum Standard {
+  En15804a1 = 'en15804a1',
+  En15804a2 = 'en15804a2',
+  Unknown = 'unknown',
+}
+
+export enum SubType {
+  Generic = 'generic',
+  Industry = 'industry',
+  Representative = 'representative',
+  Specific = 'specific',
+}
+
+export type TechFlow = {
+  __typename?: 'TechFlow'
+  comment?: Maybe<Scalars['String']['output']>
+  conversions?: Maybe<Array<Conversion>>
+  declaredUnit: Unit
+  formatVersion: Scalars['String']['output']
+  id: Scalars['UUID']['output']
+  impacts: Scalars['JSON']['output']
+  location: Country
+  metaData: Scalars['JSON']['output']
+  name: Scalars['String']['output']
+  source?: Maybe<Source>
+}
+
+export enum Unit {
+  Kg = 'kg',
+  Km = 'km',
+  L = 'l',
+  M = 'm',
+  M2 = 'm2',
+  M2r1 = 'm2r1',
+  M3 = 'm3',
+  Pcs = 'pcs',
+  Tones = 'tones',
+  TonesKm = 'tones_km',
+  Unknown = 'unknown',
+}
+
+export type ValueUnit = {
+  __typename?: 'ValueUnit'
+  unit: Unit
+  value: Scalars['Float']['output']
 }
 
 export type ResolverTypeWrapper<T> = Promise<T> | T
@@ -163,39 +876,122 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
   info: GraphQLResolveInfo,
 ) => TResult | Promise<TResult>
 
+/** Mapping of union types */
+// @ts-ignore
+export type ResolversUnionTypes<RefType extends Record<string, unknown>> = {
+  EPDTechFlow: Epd | TechFlow
+}
+
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
+  AreaType: ResolverTypeWrapper<AreaType>
+  String: ResolverTypeWrapper<Scalars['String']['output']>
+  Float: ResolverTypeWrapper<Scalars['Float']['output']>
+  Assembly: ResolverTypeWrapper<Assembly>
+  BuildingModelScope: ResolverTypeWrapper<BuildingModelScope>
+  Boolean: ResolverTypeWrapper<Scalars['Boolean']['output']>
+  BuildingType: BuildingType
+  BuildingTypology: BuildingTypology
+  Classification: ResolverTypeWrapper<Classification>
   Contribution: ResolverTypeWrapper<Contribution>
   ContributionFilters: ContributionFilters
   ContributionSort: ContributionSort
+  Conversion: ResolverTypeWrapper<Conversion>
+  Country: Country
+  Date: ResolverTypeWrapper<Scalars['Date']['output']>
   DateTime: ResolverTypeWrapper<Scalars['DateTime']['output']>
+  EPD: ResolverTypeWrapper<Epd>
+  Int: ResolverTypeWrapper<Scalars['Int']['output']>
+  EPDTechFlow: ResolverTypeWrapper<ResolversUnionTypes<ResolversTypes>['EPDTechFlow']>
   FilterOptions: FilterOptions
-  String: ResolverTypeWrapper<Scalars['String']['output']>
-  Boolean: ResolverTypeWrapper<Scalars['Boolean']['output']>
+  GeneralEnergyClass: GeneralEnergyClass
+  GraphQLInputImpactData: GraphQlInputImpactData
+  GraphQLInputProjectInfo: GraphQlInputProjectInfo
+  ImpactCategoryKey: ImpactCategoryKey
+  InputAreaType: InputAreaType
+  InputAssembly: InputAssembly
+  InputBuildingModelScope: InputBuildingModelScope
+  InputClassification: InputClassification
   InputContribution: InputContribution
+  InputConversion: InputConversion
+  InputEPD: InputEpd
+  InputLocation: InputLocation
+  InputProduct: InputProduct
   InputProject: InputProject
+  InputProjectInfo: InputProjectInfo
+  InputSoftwareInfo: InputSoftwareInfo
+  InputSource: InputSource
+  InputTechFlow: InputTechFlow
+  InputValueUnit: InputValueUnit
+  JSON: ResolverTypeWrapper<Scalars['JSON']['output']>
+  LifeCycleStage: LifeCycleStage
+  Location: ResolverTypeWrapper<Location>
   Mutation: ResolverTypeWrapper<{}>
+  Product: ResolverTypeWrapper<Omit<Product, 'impactData'> & { impactData: ResolversTypes['EPDTechFlow'] }>
   Project: ResolverTypeWrapper<Project>
+  ProjectInfo: ResolverTypeWrapper<ProjectInfo>
+  ProjectPhase: ProjectPhase
   Query: ResolverTypeWrapper<{}>
+  RoofType: RoofType
+  SoftwareInfo: ResolverTypeWrapper<SoftwareInfo>
   SortOptions: SortOptions
+  Source: ResolverTypeWrapper<Source>
+  Standard: Standard
+  SubType: SubType
+  TechFlow: ResolverTypeWrapper<TechFlow>
   UUID: ResolverTypeWrapper<Scalars['UUID']['output']>
+  Unit: Unit
+  ValueUnit: ResolverTypeWrapper<ValueUnit>
 }
 
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
+  AreaType: AreaType
+  String: Scalars['String']['output']
+  Float: Scalars['Float']['output']
+  Assembly: Assembly
+  BuildingModelScope: BuildingModelScope
+  Boolean: Scalars['Boolean']['output']
+  Classification: Classification
   Contribution: Contribution
   ContributionFilters: ContributionFilters
   ContributionSort: ContributionSort
+  Conversion: Conversion
+  Date: Scalars['Date']['output']
   DateTime: Scalars['DateTime']['output']
+  EPD: Epd
+  Int: Scalars['Int']['output']
+  EPDTechFlow: ResolversUnionTypes<ResolversParentTypes>['EPDTechFlow']
   FilterOptions: FilterOptions
-  String: Scalars['String']['output']
-  Boolean: Scalars['Boolean']['output']
+  GraphQLInputImpactData: GraphQlInputImpactData
+  GraphQLInputProjectInfo: GraphQlInputProjectInfo
+  InputAreaType: InputAreaType
+  InputAssembly: InputAssembly
+  InputBuildingModelScope: InputBuildingModelScope
+  InputClassification: InputClassification
   InputContribution: InputContribution
+  InputConversion: InputConversion
+  InputEPD: InputEpd
+  InputLocation: InputLocation
+  InputProduct: InputProduct
   InputProject: InputProject
+  InputProjectInfo: InputProjectInfo
+  InputSoftwareInfo: InputSoftwareInfo
+  InputSource: InputSource
+  InputTechFlow: InputTechFlow
+  InputValueUnit: InputValueUnit
+  JSON: Scalars['JSON']['output']
+  Location: Location
   Mutation: {}
+  Product: Omit<Product, 'impactData'> & { impactData: ResolversParentTypes['EPDTechFlow'] }
   Project: Project
+  ProjectInfo: ProjectInfo
   Query: {}
+  SoftwareInfo: SoftwareInfo
+  Source: Source
+  TechFlow: TechFlow
   UUID: Scalars['UUID']['output']
+  ValueUnit: ValueUnit
 }
 
 export type DeferDirectiveArgs = {
@@ -210,6 +1006,60 @@ export type DeferDirectiveResolver<Result, Parent, ContextType = any, Args = Def
   Args
 >
 
+export type AreaTypeResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['AreaType'] = ResolversParentTypes['AreaType'],
+> = {
+  definition?: Resolver<ResolversTypes['String'], ParentType, ContextType>
+  unit?: Resolver<ResolversTypes['Unit'], ParentType, ContextType>
+  value?: Resolver<ResolversTypes['Float'], ParentType, ContextType>
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>
+}
+
+export type AssemblyResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['Assembly'] = ResolversParentTypes['Assembly'],
+> = {
+  category?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
+  classification?: Resolver<Maybe<Array<ResolversTypes['Classification']>>, ParentType, ContextType>
+  comment?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
+  description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
+  id?: Resolver<ResolversTypes['UUID'], ParentType, ContextType>
+  metaData?: Resolver<ResolversTypes['JSON'], ParentType, ContextType>
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>
+  products?: Resolver<Array<ResolversTypes['Product']>, ParentType, ContextType>
+  quantity?: Resolver<ResolversTypes['Float'], ParentType, ContextType>
+  results?: Resolver<ResolversTypes['JSON'], ParentType, ContextType>
+  unit?: Resolver<ResolversTypes['Unit'], ParentType, ContextType>
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>
+}
+
+export type BuildingModelScopeResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['BuildingModelScope'] = ResolversParentTypes['BuildingModelScope'],
+> = {
+  buildingServices?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>
+  externalWorks?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>
+  facilitatingWorks?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>
+  ffE?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>
+  finishes?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>
+  substructure?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>
+  superstructureEnvelope?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>
+  superstructureFrame?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>
+  superstructureInternalElements?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>
+}
+
+export type ClassificationResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['Classification'] = ResolversParentTypes['Classification'],
+> = {
+  code?: Resolver<ResolversTypes['String'], ParentType, ContextType>
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>
+  system?: Resolver<ResolversTypes['String'], ParentType, ContextType>
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>
+}
+
 export type ContributionResolvers<
   ContextType = any,
   ParentType extends ResolversParentTypes['Contribution'] = ResolversParentTypes['Contribution'],
@@ -222,8 +1072,66 @@ export type ContributionResolvers<
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>
 }
 
+export type ConversionResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['Conversion'] = ResolversParentTypes['Conversion'],
+> = {
+  metaData?: Resolver<ResolversTypes['String'], ParentType, ContextType>
+  to?: Resolver<ResolversTypes['Unit'], ParentType, ContextType>
+  value?: Resolver<ResolversTypes['Float'], ParentType, ContextType>
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>
+}
+
+export interface DateScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['Date'], any> {
+  name: 'Date'
+}
+
 export interface DateTimeScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['DateTime'], any> {
   name: 'DateTime'
+}
+
+export type EpdResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['EPD'] = ResolversParentTypes['EPD'],
+> = {
+  comment?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
+  conversions?: Resolver<Maybe<Array<ResolversTypes['Conversion']>>, ParentType, ContextType>
+  declaredUnit?: Resolver<ResolversTypes['Unit'], ParentType, ContextType>
+  formatVersion?: Resolver<ResolversTypes['String'], ParentType, ContextType>
+  id?: Resolver<ResolversTypes['UUID'], ParentType, ContextType>
+  impacts?: Resolver<ResolversTypes['JSON'], ParentType, ContextType>
+  location?: Resolver<ResolversTypes['Country'], ParentType, ContextType>
+  metaData?: Resolver<ResolversTypes['JSON'], ParentType, ContextType>
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>
+  publishedDate?: Resolver<ResolversTypes['Date'], ParentType, ContextType>
+  referenceServiceLife?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>
+  source?: Resolver<Maybe<ResolversTypes['Source']>, ParentType, ContextType>
+  standard?: Resolver<ResolversTypes['Standard'], ParentType, ContextType>
+  subtype?: Resolver<ResolversTypes['SubType'], ParentType, ContextType>
+  validUntil?: Resolver<ResolversTypes['Date'], ParentType, ContextType>
+  version?: Resolver<ResolversTypes['String'], ParentType, ContextType>
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>
+}
+
+export type EpdTechFlowResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['EPDTechFlow'] = ResolversParentTypes['EPDTechFlow'],
+> = {
+  __resolveType: TypeResolveFn<'EPD' | 'TechFlow', ParentType, ContextType>
+}
+
+export interface JsonScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['JSON'], any> {
+  name: 'JSON'
+}
+
+export type LocationResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['Location'] = ResolversParentTypes['Location'],
+> = {
+  address?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
+  city?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
+  country?: Resolver<ResolversTypes['Country'], ParentType, ContextType>
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>
 }
 
 export type MutationResolvers<
@@ -238,12 +1146,74 @@ export type MutationResolvers<
   >
 }
 
+export type ProductResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['Product'] = ResolversParentTypes['Product'],
+> = {
+  description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
+  id?: Resolver<ResolversTypes['UUID'], ParentType, ContextType>
+  impactData?: Resolver<ResolversTypes['EPDTechFlow'], ParentType, ContextType>
+  metaData?: Resolver<ResolversTypes['JSON'], ParentType, ContextType>
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>
+  quantity?: Resolver<ResolversTypes['Float'], ParentType, ContextType>
+  referenceServiceLife?: Resolver<ResolversTypes['Int'], ParentType, ContextType>
+  results?: Resolver<ResolversTypes['JSON'], ParentType, ContextType>
+  unit?: Resolver<ResolversTypes['Unit'], ParentType, ContextType>
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>
+}
+
 export type ProjectResolvers<
   ContextType = any,
   ParentType extends ResolversParentTypes['Project'] = ResolversParentTypes['Project'],
 > = {
+  assemblies?: Resolver<Array<ResolversTypes['Assembly']>, ParentType, ContextType>
+  classificationSystem?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
+  comment?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
+  description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
+  formatVersion?: Resolver<ResolversTypes['String'], ParentType, ContextType>
   id?: Resolver<ResolversTypes['UUID'], ParentType, ContextType>
+  impactCategories?: Resolver<Array<ResolversTypes['ImpactCategoryKey']>, ParentType, ContextType>
+  lciaMethod?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
+  lifeCycleStages?: Resolver<Array<ResolversTypes['LifeCycleStage']>, ParentType, ContextType>
+  location?: Resolver<ResolversTypes['Location'], ParentType, ContextType>
+  metaData?: Resolver<Maybe<ResolversTypes['JSON']>, ParentType, ContextType>
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>
+  owner?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
+  projectInfo?: Resolver<ResolversTypes['ProjectInfo'], ParentType, ContextType>
+  projectPhase?: Resolver<ResolversTypes['ProjectPhase'], ParentType, ContextType>
+  referenceStudyPeriod?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>
+  results?: Resolver<Maybe<ResolversTypes['JSON']>, ParentType, ContextType>
+  softwareInfo?: Resolver<ResolversTypes['SoftwareInfo'], ParentType, ContextType>
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>
+}
+
+export type ProjectInfoResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['ProjectInfo'] = ResolversParentTypes['ProjectInfo'],
+> = {
+  buildingCompletionYear?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>
+  buildingFootprint?: Resolver<Maybe<ResolversTypes['ValueUnit']>, ParentType, ContextType>
+  buildingHeight?: Resolver<Maybe<ResolversTypes['ValueUnit']>, ParentType, ContextType>
+  buildingMass?: Resolver<Maybe<ResolversTypes['ValueUnit']>, ParentType, ContextType>
+  buildingModelScope?: Resolver<Maybe<ResolversTypes['BuildingModelScope']>, ParentType, ContextType>
+  buildingPermitYear?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>
+  buildingType?: Resolver<ResolversTypes['BuildingType'], ParentType, ContextType>
+  buildingTypology?: Resolver<ResolversTypes['BuildingTypology'], ParentType, ContextType>
+  buildingUsers?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>
+  certifications?: Resolver<Maybe<Array<ResolversTypes['String']>>, ParentType, ContextType>
+  energyDemandElectricity?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>
+  energyDemandHeating?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>
+  energySupplyElectricity?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>
+  energySupplyHeating?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>
+  exportedElectricity?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>
+  floorsAboveGround?: Resolver<ResolversTypes['Int'], ParentType, ContextType>
+  floorsBelowGround?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>
+  frameType?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
+  generalEnergyClass?: Resolver<ResolversTypes['GeneralEnergyClass'], ParentType, ContextType>
+  grossFloorArea?: Resolver<Maybe<ResolversTypes['AreaType']>, ParentType, ContextType>
+  heatedFloorArea?: Resolver<Maybe<ResolversTypes['AreaType']>, ParentType, ContextType>
+  localEnergyClass?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
+  roofType?: Resolver<ResolversTypes['RoofType'], ParentType, ContextType>
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>
 }
 
@@ -260,17 +1230,78 @@ export type QueryResolvers<
   projects?: Resolver<Array<ResolversTypes['Project']>, ParentType, ContextType>
 }
 
+export type SoftwareInfoResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['SoftwareInfo'] = ResolversParentTypes['SoftwareInfo'],
+> = {
+  calculationType?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
+  goalAndScopeDefinition?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
+  lcaSoftware?: Resolver<ResolversTypes['String'], ParentType, ContextType>
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>
+}
+
+export type SourceResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['Source'] = ResolversParentTypes['Source'],
+> = {
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>
+  url?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>
+}
+
+export type TechFlowResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['TechFlow'] = ResolversParentTypes['TechFlow'],
+> = {
+  comment?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
+  conversions?: Resolver<Maybe<Array<ResolversTypes['Conversion']>>, ParentType, ContextType>
+  declaredUnit?: Resolver<ResolversTypes['Unit'], ParentType, ContextType>
+  formatVersion?: Resolver<ResolversTypes['String'], ParentType, ContextType>
+  id?: Resolver<ResolversTypes['UUID'], ParentType, ContextType>
+  impacts?: Resolver<ResolversTypes['JSON'], ParentType, ContextType>
+  location?: Resolver<ResolversTypes['Country'], ParentType, ContextType>
+  metaData?: Resolver<ResolversTypes['JSON'], ParentType, ContextType>
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>
+  source?: Resolver<Maybe<ResolversTypes['Source']>, ParentType, ContextType>
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>
+}
+
 export interface UuidScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['UUID'], any> {
   name: 'UUID'
 }
 
+export type ValueUnitResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['ValueUnit'] = ResolversParentTypes['ValueUnit'],
+> = {
+  unit?: Resolver<ResolversTypes['Unit'], ParentType, ContextType>
+  value?: Resolver<ResolversTypes['Float'], ParentType, ContextType>
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>
+}
+
 export type Resolvers<ContextType = any> = {
+  AreaType?: AreaTypeResolvers<ContextType>
+  Assembly?: AssemblyResolvers<ContextType>
+  BuildingModelScope?: BuildingModelScopeResolvers<ContextType>
+  Classification?: ClassificationResolvers<ContextType>
   Contribution?: ContributionResolvers<ContextType>
+  Conversion?: ConversionResolvers<ContextType>
+  Date?: GraphQLScalarType
   DateTime?: GraphQLScalarType
+  EPD?: EpdResolvers<ContextType>
+  EPDTechFlow?: EpdTechFlowResolvers<ContextType>
+  JSON?: GraphQLScalarType
+  Location?: LocationResolvers<ContextType>
   Mutation?: MutationResolvers<ContextType>
+  Product?: ProductResolvers<ContextType>
   Project?: ProjectResolvers<ContextType>
+  ProjectInfo?: ProjectInfoResolvers<ContextType>
   Query?: QueryResolvers<ContextType>
+  SoftwareInfo?: SoftwareInfoResolvers<ContextType>
+  Source?: SourceResolvers<ContextType>
+  TechFlow?: TechFlowResolvers<ContextType>
   UUID?: GraphQLScalarType
+  ValueUnit?: ValueUnitResolvers<ContextType>
 }
 
 export type DirectiveResolvers<ContextType = any> = {
