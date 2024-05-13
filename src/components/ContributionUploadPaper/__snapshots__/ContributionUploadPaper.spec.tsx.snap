@@ -31,25 +31,35 @@ exports[`ContributionUploadPaper > Snapshot 1`] = `
     >
       In order to process the data correctly, please follow the steps below:
     </p>
-    <p
-      class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
-      style=""
+    <div
+      class="m_6d731127 mantine-Stack-root"
+      style="--stack-gap: 0rem; --stack-align: stretch; --stack-justify: flex-start; padding-left: var(--mantine-spacing-md);"
     >
-      <ol>
-        <li>
-          Download the data template file here:
-        </li>
-        <li>
-          Paste your data as per template's format
-        </li>
-        <li>
-          Export the file as .xlsx
-        </li>
-        <li>
-          Upload the file below
-        </li>
-      </ol>
-    </p>
+      <p
+        class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
+        style=""
+      >
+        1. Download the data template file here:
+      </p>
+      <p
+        class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
+        style=""
+      >
+        2. Paste your data as per template's format
+      </p>
+      <p
+        class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
+        style=""
+      >
+        3. Export the file as .xlsx
+      </p>
+      <p
+        class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
+        style=""
+      >
+        4. Upload the file below
+      </p>
+    </div>
     <div
       class="mantine-focus-auto m_d46a4834 mantine-Dropzone-root"
       data-activate-on-click="true"
@@ -61,7 +71,6 @@ exports[`ContributionUploadPaper > Snapshot 1`] = `
       tabindex="0"
     >
       <input
-        accept="text/csv"
         data-testid="dropzoneInput"
         formaction="http://localhost:3000/"
         formmethod=""
