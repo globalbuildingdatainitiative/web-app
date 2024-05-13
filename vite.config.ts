@@ -7,12 +7,17 @@ import wasm from 'vite-plugin-wasm'
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react(), tsconfigPaths(), wasm()],
+  esbuild: {
+    supported: {
+      'top-level-await': true, //browsers can handle top-level-await features
+    },
+  },
   test: {
     globals: true,
     environment: 'happy-dom',
     snapshotSerializers: ['src/__test__/snapshotSerializer.ts'],
     alias: {
       'lcax': `${__dirname}/src/__mocks__/lcax.ts`,
-    }
+    },
   },
 })
