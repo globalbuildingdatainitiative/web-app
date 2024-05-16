@@ -1,6 +1,6 @@
-import { CreateOrganizationPaper} from '@components'
+import { CreateOrganizationPaper } from '@components'
 import { MockedProvider } from '@apollo/client/testing'
-import { expect, render, screen, suite, test, userEvent } from '@test'
+import { expect, render, screen, suite, test } from '@test'
 import { MemoryRouter } from 'react-router-dom'
 import { Route, Routes } from 'react-router'
 
@@ -44,4 +44,4 @@ suite('CreateOrganizationPaper', () => {
 
     expect(await screen.findByText('Create Organization')).toBeTruthy()
   })
-});
+})

@@ -1,4 +1,4 @@
-import { CreateOrganizationHeader} from '@components'
+import { CreateOrganizationHeader } from '@components'
 import { MemoryRouter } from 'react-router-dom'
 import { Route, Routes } from 'react-router'
 import { expect, render, test, screen } from '@test'
