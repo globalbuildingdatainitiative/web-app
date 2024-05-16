@@ -1,11 +1,21 @@
 import { Paper } from '../Paper'
-import { Title } from '@mantine/core'
+import { Title, Button, Group, Divider } from '@mantine/core'
+import { useNavigate } from 'react-router-dom'
 
 export const OrganizationHeader = () => {
+  const navigate = useNavigate()
+
   return (
-    <Paper>
-      <Title order={2}>Organization Header</Title>
-      <div>Here will be information about your organization</div>
+    <Paper data-testid='OrganizationHeader'>
+      <Group justify='space-between'>
+        <Title order={2}>Organization Header</Title>
+        <Divider orientation='vertical' />
+        <Title order={2}>Organization Header</Title>
+        <Divider orientation='vertical' />
+        <Button color='green' radius='sm' px={16} onClick={() => navigate('/organization/create')}>
+          Create Organization
+        </Button>
+      </Group>
     </Paper>
   )
 }

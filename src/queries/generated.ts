@@ -370,6 +370,257 @@ export enum Country {
   Zwe = 'zwe',
 }
 
+export enum CountryCodes {
+  Abw = 'ABW',
+  Afg = 'AFG',
+  Ago = 'AGO',
+  Aia = 'AIA',
+  Ala = 'ALA',
+  Alb = 'ALB',
+  And = 'AND',
+  Are = 'ARE',
+  Arg = 'ARG',
+  Arm = 'ARM',
+  Asm = 'ASM',
+  Ata = 'ATA',
+  Atf = 'ATF',
+  Atg = 'ATG',
+  Aus = 'AUS',
+  Aut = 'AUT',
+  Aze = 'AZE',
+  Bdi = 'BDI',
+  Bel = 'BEL',
+  Ben = 'BEN',
+  Bes = 'BES',
+  Bfa = 'BFA',
+  Bgd = 'BGD',
+  Bgr = 'BGR',
+  Bhr = 'BHR',
+  Bhs = 'BHS',
+  Bih = 'BIH',
+  Blr = 'BLR',
+  Blz = 'BLZ',
+  Bmu = 'BMU',
+  Bol = 'BOL',
+  Bra = 'BRA',
+  Brb = 'BRB',
+  Brn = 'BRN',
+  Btn = 'BTN',
+  Bvt = 'BVT',
+  Bwa = 'BWA',
+  Caf = 'CAF',
+  Can = 'CAN',
+  Cck = 'CCK',
+  Che = 'CHE',
+  Chl = 'CHL',
+  Chn = 'CHN',
+  Civ = 'CIV',
+  Cmr = 'CMR',
+  Cod = 'COD',
+  Cog = 'COG',
+  Cok = 'COK',
+  Col = 'COL',
+  Com = 'COM',
+  Cpv = 'CPV',
+  Cri = 'CRI',
+  Cub = 'CUB',
+  Cuw = 'CUW',
+  Cxr = 'CXR',
+  Cym = 'CYM',
+  Cyp = 'CYP',
+  Cze = 'CZE',
+  Deu = 'DEU',
+  Dji = 'DJI',
+  Dma = 'DMA',
+  Dnk = 'DNK',
+  Dom = 'DOM',
+  Dza = 'DZA',
+  Ecu = 'ECU',
+  Egy = 'EGY',
+  Eri = 'ERI',
+  Esh = 'ESH',
+  Esp = 'ESP',
+  Est = 'EST',
+  Eth = 'ETH',
+  Fin = 'FIN',
+  Fji = 'FJI',
+  Flk = 'FLK',
+  Fra = 'FRA',
+  Fro = 'FRO',
+  Fsm = 'FSM',
+  Gab = 'GAB',
+  Gbr = 'GBR',
+  Geo = 'GEO',
+  Ggy = 'GGY',
+  Gha = 'GHA',
+  Gib = 'GIB',
+  Gin = 'GIN',
+  Glp = 'GLP',
+  Gmb = 'GMB',
+  Gnb = 'GNB',
+  Gnq = 'GNQ',
+  Grc = 'GRC',
+  Grd = 'GRD',
+  Grl = 'GRL',
+  Gtm = 'GTM',
+  Guf = 'GUF',
+  Gum = 'GUM',
+  Guy = 'GUY',
+  Hkg = 'HKG',
+  Hmd = 'HMD',
+  Hnd = 'HND',
+  Hrv = 'HRV',
+  Hti = 'HTI',
+  Hun = 'HUN',
+  Idn = 'IDN',
+  Ind = 'IND',
+  Iot = 'IOT',
+  Irl = 'IRL',
+  Irn = 'IRN',
+  Irq = 'IRQ',
+  Isl = 'ISL',
+  Isr = 'ISR',
+  Ita = 'ITA',
+  Jam = 'JAM',
+  Jey = 'JEY',
+  Jor = 'JOR',
+  Jpn = 'JPN',
+  Kaz = 'KAZ',
+  Ken = 'KEN',
+  Kgz = 'KGZ',
+  Khm = 'KHM',
+  Kir = 'KIR',
+  Kna = 'KNA',
+  Kor = 'KOR',
+  Kwt = 'KWT',
+  Lao = 'LAO',
+  Lbn = 'LBN',
+  Lbr = 'LBR',
+  Lby = 'LBY',
+  Lca = 'LCA',
+  Lie = 'LIE',
+  Lka = 'LKA',
+  Lso = 'LSO',
+  Ltu = 'LTU',
+  Lux = 'LUX',
+  Lva = 'LVA',
+  Mac = 'MAC',
+  Maf = 'MAF',
+  Mar = 'MAR',
+  Mco = 'MCO',
+  Mda = 'MDA',
+  Mdg = 'MDG',
+  Mdv = 'MDV',
+  Mex = 'MEX',
+  Mhl = 'MHL',
+  Mli = 'MLI',
+  Mlt = 'MLT',
+  Mmr = 'MMR',
+  Mne = 'MNE',
+  Mng = 'MNG',
+  Mnp = 'MNP',
+  Moz = 'MOZ',
+  Mrt = 'MRT',
+  Msr = 'MSR',
+  Mtq = 'MTQ',
+  Mus = 'MUS',
+  Mwi = 'MWI',
+  Mys = 'MYS',
+  Myt = 'MYT',
+  Nam = 'NAM',
+  Ncl = 'NCL',
+  Ner = 'NER',
+  Nfk = 'NFK',
+  Nga = 'NGA',
+  Nic = 'NIC',
+  Niu = 'NIU',
+  Nld = 'NLD',
+  Nor = 'NOR',
+  Npl = 'NPL',
+  Nru = 'NRU',
+  Nzl = 'NZL',
+  Omn = 'OMN',
+  Pak = 'PAK',
+  Pan = 'PAN',
+  Pcn = 'PCN',
+  Per = 'PER',
+  Phl = 'PHL',
+  Plw = 'PLW',
+  Png = 'PNG',
+  Pol = 'POL',
+  Pri = 'PRI',
+  Prk = 'PRK',
+  Prt = 'PRT',
+  Pry = 'PRY',
+  Pse = 'PSE',
+  Pyf = 'PYF',
+  Qat = 'QAT',
+  Reu = 'REU',
+  Rou = 'ROU',
+  Rus = 'RUS',
+  Rwa = 'RWA',
+  Ryu = 'RYU',
+  Sau = 'SAU',
+  Sbh = 'SBH',
+  Sdn = 'SDN',
+  Sen = 'SEN',
+  Sgp = 'SGP',
+  Sgs = 'SGS',
+  Shn = 'SHN',
+  Sjm = 'SJM',
+  Slb = 'SLB',
+  Sle = 'SLE',
+  Slv = 'SLV',
+  Smr = 'SMR',
+  Som = 'SOM',
+  Spm = 'SPM',
+  Srb = 'SRB',
+  Ssd = 'SSD',
+  Stp = 'STP',
+  Sur = 'SUR',
+  Svk = 'SVK',
+  Svn = 'SVN',
+  Swe = 'SWE',
+  Swz = 'SWZ',
+  Sxm = 'SXM',
+  Syc = 'SYC',
+  Syr = 'SYR',
+  Tca = 'TCA',
+  Tcd = 'TCD',
+  Tgo = 'TGO',
+  Tha = 'THA',
+  Tjk = 'TJK',
+  Tkl = 'TKL',
+  Tkm = 'TKM',
+  Tls = 'TLS',
+  Ton = 'TON',
+  Tto = 'TTO',
+  Tun = 'TUN',
+  Tur = 'TUR',
+  Tuv = 'TUV',
+  Twn = 'TWN',
+  Tza = 'TZA',
+  Uga = 'UGA',
+  Ukr = 'UKR',
+  Umi = 'UMI',
+  Ury = 'URY',
+  Usa = 'USA',
+  Uzb = 'UZB',
+  Vat = 'VAT',
+  Vct = 'VCT',
+  Ven = 'VEN',
+  Vgb = 'VGB',
+  Vir = 'VIR',
+  Vnm = 'VNM',
+  Vut = 'VUT',
+  Wlf = 'WLF',
+  Wsm = 'WSM',
+  Yem = 'YEM',
+  Zaf = 'ZAF',
+  Zmb = 'ZMB',
+  Zwe = 'ZWE',
+}
+
 export type Epd = {
   __typename?: 'EPD'
   comment?: Maybe<Scalars['String']['output']>
@@ -527,6 +778,14 @@ export type InputLocation = {
   country: Country
 }
 
+export type InputOrganization = {
+  address: Scalars['String']['input']
+  city: Scalars['String']['input']
+  country: CountryCodes
+  id?: Scalars['UUID']['input']
+  name: Scalars['String']['input']
+}
+
 export type InputProduct = {
   description?: InputMaybe<Scalars['String']['input']>
   id?: InputMaybe<Scalars['UUID']['input']>
@@ -645,10 +904,45 @@ export type Mutation = {
   __typename?: 'Mutation'
   /** Creates new Contributions */
   addContributions: Array<Contribution>
+  /** Creates multiple organizations and associates them with the current user */
+  createOrganizations: Array<Organization>
+  /** Deletes a list of Organizations by their IDs and returns a list of deleted IDs */
+  deleteOrganizations: Array<Scalars['UUID']['output']>
+  /** Updates an existing Organization */
+  updateOrganizations: Array<Organization>
 }
 
 export type MutationAddContributionsArgs = {
   contributions: Array<InputContribution>
+}
+
+export type MutationCreateOrganizationsArgs = {
+  organizations: Array<InputOrganization>
+}
+
+export type MutationDeleteOrganizationsArgs = {
+  ids: Array<Scalars['UUID']['input']>
+}
+
+export type MutationUpdateOrganizationsArgs = {
+  organizations: Array<InputOrganization>
+}
+
+export type Organization = {
+  __typename?: 'Organization'
+  address: Scalars['String']['output']
+  city: Scalars['String']['output']
+  country: CountryCodes
+  id: Scalars['UUID']['output']
+  name: Scalars['String']['output']
+}
+
+export type OrganizationFilter = {
+  address?: InputMaybe<FilterOptions>
+  city?: InputMaybe<FilterOptions>
+  country?: InputMaybe<FilterOptions>
+  id?: InputMaybe<FilterOptions>
+  name?: InputMaybe<FilterOptions>
 }
 
 export type Product = {
@@ -724,13 +1018,26 @@ export type Query = {
   __typename?: 'Query'
   /** Returns all contributions assigned to user */
   contributions: Array<Contribution>
+  /** Returns all Organizations */
+  organizations: Array<Organization>
   /** Returns all Projects */
   projects: Array<Project>
+  /** Returns all Users */
+  users: Array<User>
 }
 
 export type QueryContributionsArgs = {
   filters?: InputMaybe<ContributionFilters>
   sortBy?: InputMaybe<ContributionSort>
+}
+
+export type QueryOrganizationsArgs = {
+  filters?: InputMaybe<OrganizationFilter>
+}
+
+export type QueryUsersArgs = {
+  filters?: InputMaybe<UserFilters>
+  sortBy?: InputMaybe<UserSort>
 }
 
 export enum RoofType {
@@ -798,6 +1105,32 @@ export enum Unit {
   Tones = 'tones',
   TonesKm = 'tones_km',
   Unknown = 'unknown',
+}
+
+export type User = {
+  __typename?: 'User'
+  email: Scalars['String']['output']
+  firstName?: Maybe<Scalars['String']['output']>
+  id: Scalars['UUID']['output']
+  lastName?: Maybe<Scalars['String']['output']>
+  organizationId?: Maybe<Scalars['UUID']['output']>
+  timeJoined: Scalars['DateTime']['output']
+}
+
+export type UserFilters = {
+  email?: InputMaybe<FilterOptions>
+  firstName?: InputMaybe<FilterOptions>
+  id?: InputMaybe<FilterOptions>
+  lastName?: InputMaybe<FilterOptions>
+  organizationId?: InputMaybe<FilterOptions>
+}
+
+export type UserSort = {
+  firstName?: InputMaybe<SortOptions>
+  id?: InputMaybe<SortOptions>
+  lastName?: InputMaybe<SortOptions>
+  name?: InputMaybe<SortOptions>
+  organizationId?: InputMaybe<SortOptions>
 }
 
 export type ValueUnit = {
@@ -877,7 +1210,6 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 ) => TResult | Promise<TResult>
 
 /** Mapping of union types */
-// @ts-ignore
 export type ResolversUnionTypes<RefType extends Record<string, unknown>> = {
   EPDTechFlow: Epd | TechFlow
 }
@@ -898,6 +1230,7 @@ export type ResolversTypes = {
   ContributionSort: ContributionSort
   Conversion: ResolverTypeWrapper<Conversion>
   Country: Country
+  CountryCodes: CountryCodes
   Date: ResolverTypeWrapper<Scalars['Date']['output']>
   DateTime: ResolverTypeWrapper<Scalars['DateTime']['output']>
   EPD: ResolverTypeWrapper<Epd>
@@ -916,6 +1249,7 @@ export type ResolversTypes = {
   InputConversion: InputConversion
   InputEPD: InputEpd
   InputLocation: InputLocation
+  InputOrganization: InputOrganization
   InputProduct: InputProduct
   InputProject: InputProject
   InputProjectInfo: InputProjectInfo
@@ -927,6 +1261,8 @@ export type ResolversTypes = {
   LifeCycleStage: LifeCycleStage
   Location: ResolverTypeWrapper<Location>
   Mutation: ResolverTypeWrapper<{}>
+  Organization: ResolverTypeWrapper<Organization>
+  OrganizationFilter: OrganizationFilter
   Product: ResolverTypeWrapper<Omit<Product, 'impactData'> & { impactData: ResolversTypes['EPDTechFlow'] }>
   Project: ResolverTypeWrapper<Project>
   ProjectInfo: ResolverTypeWrapper<ProjectInfo>
@@ -941,6 +1277,9 @@ export type ResolversTypes = {
   TechFlow: ResolverTypeWrapper<TechFlow>
   UUID: ResolverTypeWrapper<Scalars['UUID']['output']>
   Unit: Unit
+  User: ResolverTypeWrapper<User>
+  UserFilters: UserFilters
+  UserSort: UserSort
   ValueUnit: ResolverTypeWrapper<ValueUnit>
 }
 
@@ -973,6 +1312,7 @@ export type ResolversParentTypes = {
   InputConversion: InputConversion
   InputEPD: InputEpd
   InputLocation: InputLocation
+  InputOrganization: InputOrganization
   InputProduct: InputProduct
   InputProject: InputProject
   InputProjectInfo: InputProjectInfo
@@ -983,6 +1323,8 @@ export type ResolversParentTypes = {
   JSON: Scalars['JSON']['output']
   Location: Location
   Mutation: {}
+  Organization: Organization
+  OrganizationFilter: OrganizationFilter
   Product: Omit<Product, 'impactData'> & { impactData: ResolversParentTypes['EPDTechFlow'] }
   Project: Project
   ProjectInfo: ProjectInfo
@@ -991,6 +1333,9 @@ export type ResolversParentTypes = {
   Source: Source
   TechFlow: TechFlow
   UUID: Scalars['UUID']['output']
+  User: User
+  UserFilters: UserFilters
+  UserSort: UserSort
   ValueUnit: ValueUnit
 }
 
@@ -1144,6 +1489,36 @@ export type MutationResolvers<
     ContextType,
     RequireFields<MutationAddContributionsArgs, 'contributions'>
   >
+  createOrganizations?: Resolver<
+    Array<ResolversTypes['Organization']>,
+    ParentType,
+    ContextType,
+    RequireFields<MutationCreateOrganizationsArgs, 'organizations'>
+  >
+  deleteOrganizations?: Resolver<
+    Array<ResolversTypes['UUID']>,
+    ParentType,
+    ContextType,
+    RequireFields<MutationDeleteOrganizationsArgs, 'ids'>
+  >
+  updateOrganizations?: Resolver<
+    Array<ResolversTypes['Organization']>,
+    ParentType,
+    ContextType,
+    RequireFields<MutationUpdateOrganizationsArgs, 'organizations'>
+  >
+}
+
+export type OrganizationResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['Organization'] = ResolversParentTypes['Organization'],
+> = {
+  address?: Resolver<ResolversTypes['String'], ParentType, ContextType>
+  city?: Resolver<ResolversTypes['String'], ParentType, ContextType>
+  country?: Resolver<ResolversTypes['CountryCodes'], ParentType, ContextType>
+  id?: Resolver<ResolversTypes['UUID'], ParentType, ContextType>
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>
 }
 
 export type ProductResolvers<
@@ -1227,7 +1602,19 @@ export type QueryResolvers<
     ContextType,
     RequireFields<QueryContributionsArgs, 'filters' | 'sortBy'>
   >
+  organizations?: Resolver<
+    Array<ResolversTypes['Organization']>,
+    ParentType,
+    ContextType,
+    RequireFields<QueryOrganizationsArgs, 'filters'>
+  >
   projects?: Resolver<Array<ResolversTypes['Project']>, ParentType, ContextType>
+  users?: Resolver<
+    Array<ResolversTypes['User']>,
+    ParentType,
+    ContextType,
+    RequireFields<QueryUsersArgs, 'filters' | 'sortBy'>
+  >
 }
 
 export type SoftwareInfoResolvers<
@@ -1270,6 +1657,19 @@ export interface UuidScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes
   name: 'UUID'
 }
 
+export type UserResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User'],
+> = {
+  email?: Resolver<ResolversTypes['String'], ParentType, ContextType>
+  firstName?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
+  id?: Resolver<ResolversTypes['UUID'], ParentType, ContextType>
+  lastName?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
+  organizationId?: Resolver<Maybe<ResolversTypes['UUID']>, ParentType, ContextType>
+  timeJoined?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>
+}
+
 export type ValueUnitResolvers<
   ContextType = any,
   ParentType extends ResolversParentTypes['ValueUnit'] = ResolversParentTypes['ValueUnit'],
@@ -1293,6 +1693,7 @@ export type Resolvers<ContextType = any> = {
   JSON?: GraphQLScalarType
   Location?: LocationResolvers<ContextType>
   Mutation?: MutationResolvers<ContextType>
+  Organization?: OrganizationResolvers<ContextType>
   Product?: ProductResolvers<ContextType>
   Project?: ProjectResolvers<ContextType>
   ProjectInfo?: ProjectInfoResolvers<ContextType>
@@ -1301,6 +1702,7 @@ export type Resolvers<ContextType = any> = {
   Source?: SourceResolvers<ContextType>
   TechFlow?: TechFlowResolvers<ContextType>
   UUID?: GraphQLScalarType
+  User?: UserResolvers<ContextType>
   ValueUnit?: ValueUnitResolvers<ContextType>
 }
 
@@ -1327,6 +1729,36 @@ export type AddContributionMutationVariables = Exact<{
 export type AddContributionMutation = {
   __typename?: 'Mutation'
   addContributions: Array<{ __typename?: 'Contribution'; id: any }>
+}
+
+export type GetOrganizationsQueryVariables = Exact<{ [key: string]: never }>
+
+export type GetOrganizationsQuery = {
+  __typename?: 'Query'
+  organizations: Array<{
+    __typename?: 'Organization'
+    id: any
+    name: string
+    address: string
+    city: string
+    country: CountryCodes
+  }>
+}
+
+export type CreateOrganizationsMutationVariables = Exact<{
+  organizations: Array<InputOrganization> | InputOrganization
+}>
+
+export type CreateOrganizationsMutation = {
+  __typename?: 'Mutation'
+  createOrganizations: Array<{
+    __typename?: 'Organization'
+    id: any
+    name: string
+    address: string
+    city: string
+    country: CountryCodes
+  }>
 }
 
 export const GetContributionsDocument = gql`
@@ -1421,4 +1853,104 @@ export type AddContributionMutationResult = Apollo.MutationResult<AddContributio
 export type AddContributionMutationOptions = Apollo.BaseMutationOptions<
   AddContributionMutation,
   AddContributionMutationVariables
+>
+export const GetOrganizationsDocument = gql`
+  query getOrganizations {
+    organizations {
+      id
+      name
+      address
+      city
+      country
+    }
+  }
+`
+
+/**
+ * __useGetOrganizationsQuery__
+ *
+ * To run a query within a React component, call `useGetOrganizationsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetOrganizationsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetOrganizationsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetOrganizationsQuery(
+  baseOptions?: Apollo.QueryHookOptions<GetOrganizationsQuery, GetOrganizationsQueryVariables>,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<GetOrganizationsQuery, GetOrganizationsQueryVariables>(GetOrganizationsDocument, options)
+}
+export function useGetOrganizationsLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<GetOrganizationsQuery, GetOrganizationsQueryVariables>,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<GetOrganizationsQuery, GetOrganizationsQueryVariables>(GetOrganizationsDocument, options)
+}
+export function useGetOrganizationsSuspenseQuery(
+  baseOptions?: Apollo.SuspenseQueryHookOptions<GetOrganizationsQuery, GetOrganizationsQueryVariables>,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useSuspenseQuery<GetOrganizationsQuery, GetOrganizationsQueryVariables>(
+    GetOrganizationsDocument,
+    options,
+  )
+}
+export type GetOrganizationsQueryHookResult = ReturnType<typeof useGetOrganizationsQuery>
+export type GetOrganizationsLazyQueryHookResult = ReturnType<typeof useGetOrganizationsLazyQuery>
+export type GetOrganizationsSuspenseQueryHookResult = ReturnType<typeof useGetOrganizationsSuspenseQuery>
+export type GetOrganizationsQueryResult = Apollo.QueryResult<GetOrganizationsQuery, GetOrganizationsQueryVariables>
+export const CreateOrganizationsDocument = gql`
+  mutation createOrganizations($organizations: [InputOrganization!]!) {
+    createOrganizations(organizations: $organizations) {
+      id
+      name
+      address
+      city
+      country
+    }
+  }
+`
+export type CreateOrganizationsMutationFn = Apollo.MutationFunction<
+  CreateOrganizationsMutation,
+  CreateOrganizationsMutationVariables
+>
+
+/**
+ * __useCreateOrganizationsMutation__
+ *
+ * To run a mutation, you first call `useCreateOrganizationsMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateOrganizationsMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createOrganizationsMutation, { data, loading, error }] = useCreateOrganizationsMutation({
+ *   variables: {
+ *      organizations: // value for 'organizations'
+ *   },
+ * });
+ */
+export function useCreateOrganizationsMutation(
+  baseOptions?: Apollo.MutationHookOptions<CreateOrganizationsMutation, CreateOrganizationsMutationVariables>,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<CreateOrganizationsMutation, CreateOrganizationsMutationVariables>(
+    CreateOrganizationsDocument,
+    options,
+  )
+}
+export type CreateOrganizationsMutationHookResult = ReturnType<typeof useCreateOrganizationsMutation>
+export type CreateOrganizationsMutationResult = Apollo.MutationResult<CreateOrganizationsMutation>
+export type CreateOrganizationsMutationOptions = Apollo.BaseMutationOptions<
+  CreateOrganizationsMutation,
+  CreateOrganizationsMutationVariables
 >
