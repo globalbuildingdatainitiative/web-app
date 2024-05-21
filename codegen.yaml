@@ -22,3 +22,5 @@ generates:
       withComponent: false
       withHOC: false
       federation: true
+      namingConvention:
+        enumValues: 'change-case-all#upperCase'

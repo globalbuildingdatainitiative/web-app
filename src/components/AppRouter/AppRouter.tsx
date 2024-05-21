@@ -14,7 +14,7 @@ export const AppRouter = () => (
     <Routes>
       <Route path='/' element={<DashboardPage />} />
       <Route path='/organization' element={<OrganizationPage />} />
-      <Route path='/organization/create' element={<CreateOrganizationPage />} />
+      <Route path='/organization/new' element={<CreateOrganizationPage />} />
       <Route path='/contributions' element={<ContributionPage />} />
       <Route path='/contributions/new' element={<ContributeNowPage />} />
       <Route path='*' element={<Page404 />} />

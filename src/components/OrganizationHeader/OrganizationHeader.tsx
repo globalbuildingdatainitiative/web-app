@@ -12,7 +12,7 @@ export const OrganizationHeader = () => {
         <Divider orientation='vertical' />
         <Title order={2}>Organization Header</Title>
         <Divider orientation='vertical' />
-        <Button color='green' radius='sm' px={16} onClick={() => navigate('/organization/create')}>
+        <Button color='green' radius='sm' px={16} onClick={() => navigate('/organization/new')}>
           Create Organization
         </Button>
       </Group>

@@ -3,8 +3,10 @@ import { Button, Group, Stack, Text, TextInput, Title } from '@mantine/core'
 import { useForm } from '@mantine/form'
 import { CountryCodes, useCreateOrganizationsMutation } from '@queries'
 import logo from 'assets/logo.png'
+import { useNavigate } from 'react-router-dom'
 
 export const CreateOrganizationPaper = () => {
+  const navigate = useNavigate()
   const [createOrganization, { loading, error }] = useCreateOrganizationsMutation()
   const form = useForm({
     initialValues: {
@@ -16,8 +18,16 @@ export const CreateOrganizationPaper = () => {
   })
 
   const handleSubmit = async (values: typeof form.values) => {
-    await createOrganization({ variables: { organizations: [{ ...values, country: values.country as CountryCodes }] } })
-    // Handle post-creation logic like navigation or showing a success message
+    const country = CountryCodes[values.country as keyof typeof CountryCodes]
+
+    if (!country) {
+      //Test
+      console.error('Invalid country code:', values.country) //Test
+      return //Test
+    } //Test
+
+    await createOrganization({ variables: { organizations: [{ ...values, country }] } })
+    navigate('/organization')
   }
 
   return (
@@ -63,7 +73,7 @@ export const CreateOrganizationPaper = () => {
               {...form.getInputProps('country')}
               required
             />
-            {error && <Text color='red'>{error.message}</Text>}
+            {error && <Text c='red'>{error.message}</Text>}
             <Button
               color='green'
               radius='lg'

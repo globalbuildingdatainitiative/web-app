@@ -19,7 +19,6 @@
   },
   "dependencies": {
     "@fontsource/outfit": "^5.0.12",
-    "@mantine/colors-generator": "^7.9.1",
     "@mantine/core": "^7.6.2",
     "@mantine/dates": "^7.8.1",
     "@mantine/dropzone": "^7.8.1",
