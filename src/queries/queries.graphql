@@ -13,3 +13,23 @@ mutation addContribution($contributions: [InputContribution!]!) {
     id
   }
 }
+
+query getOrganizations {
+  organizations {
+    id
+    name
+    address
+    city
+    country
+  }
+}
+
+mutation createOrganizations($organizations: [InputOrganization!]!) {
+  createOrganizations(organizations: $organizations) {
+    id
+    name
+    address
+    city
+    country
+  }
+}

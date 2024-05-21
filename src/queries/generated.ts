@@ -64,20 +64,20 @@ export type BuildingModelScope = {
 }
 
 export enum BuildingType {
-  New = 'new',
-  Renovation = 'renovation',
+  NEW = 'new',
+  RENOVATION = 'renovation',
 }
 
 export enum BuildingTypology {
-  Agricultural = 'agricultural',
-  Commercial = 'commercial',
-  Industrial = 'industrial',
-  Infrastructure = 'infrastructure',
-  Mixeduse = 'mixeduse',
-  Office = 'office',
-  Other = 'other',
-  Public = 'public',
-  Residential = 'residential',
+  AGRICULTURAL = 'agricultural',
+  COMMERCIAL = 'commercial',
+  INDUSTRIAL = 'industrial',
+  INFRASTRUCTURE = 'infrastructure',
+  MIXEDUSE = 'mixeduse',
+  OFFICE = 'office',
+  OTHER = 'other',
+  PUBLIC = 'public',
+  RESIDENTIAL = 'residential',
 }
 
 export type Classification = {
@@ -118,256 +118,507 @@ export type Conversion = {
 }
 
 export enum Country {
-  Abw = 'abw',
-  Afg = 'afg',
-  Ago = 'ago',
-  Aia = 'aia',
-  Ala = 'ala',
-  Alb = 'alb',
-  And = 'and',
-  Are = 'are',
-  Arg = 'arg',
-  Arm = 'arm',
-  Asm = 'asm',
-  Ata = 'ata',
-  Atf = 'atf',
-  Atg = 'atg',
-  Aus = 'aus',
-  Aut = 'aut',
-  Aze = 'aze',
-  Bdi = 'bdi',
-  Bel = 'bel',
-  Ben = 'ben',
-  Bes = 'bes',
-  Bfa = 'bfa',
-  Bgd = 'bgd',
-  Bgr = 'bgr',
-  Bhr = 'bhr',
-  Bhs = 'bhs',
-  Bih = 'bih',
-  Blm = 'blm',
-  Blr = 'blr',
-  Blz = 'blz',
-  Bmu = 'bmu',
-  Bol = 'bol',
-  Bra = 'bra',
-  Brb = 'brb',
-  Brn = 'brn',
-  Btn = 'btn',
-  Bvt = 'bvt',
-  Bwa = 'bwa',
-  Caf = 'caf',
-  Can = 'can',
-  Cck = 'cck',
-  Che = 'che',
-  Chl = 'chl',
-  Chn = 'chn',
-  Civ = 'civ',
-  Cmr = 'cmr',
-  Cod = 'cod',
-  Cog = 'cog',
-  Cok = 'cok',
-  Col = 'col',
-  Com = 'com',
-  Cpv = 'cpv',
-  Cri = 'cri',
-  Cub = 'cub',
-  Cuw = 'cuw',
-  Cxr = 'cxr',
-  Cym = 'cym',
-  Cyp = 'cyp',
-  Cze = 'cze',
-  Deu = 'deu',
-  Dji = 'dji',
-  Dma = 'dma',
-  Dnk = 'dnk',
-  Dom = 'dom',
-  Dza = 'dza',
-  Ecu = 'ecu',
-  Egy = 'egy',
-  Eri = 'eri',
-  Esh = 'esh',
-  Esp = 'esp',
-  Est = 'est',
-  Eth = 'eth',
-  Fin = 'fin',
-  Fji = 'fji',
-  Flk = 'flk',
-  Fra = 'fra',
-  Fro = 'fro',
-  Fsm = 'fsm',
-  Gab = 'gab',
-  Gbr = 'gbr',
-  Geo = 'geo',
-  Ggy = 'ggy',
-  Gha = 'gha',
-  Gib = 'gib',
-  Gin = 'gin',
-  Glp = 'glp',
-  Gmb = 'gmb',
-  Gnb = 'gnb',
-  Gnq = 'gnq',
-  Grc = 'grc',
-  Grd = 'grd',
-  Grl = 'grl',
-  Gtm = 'gtm',
-  Guf = 'guf',
-  Gum = 'gum',
-  Guy = 'guy',
-  Hkg = 'hkg',
-  Hmd = 'hmd',
-  Hnd = 'hnd',
-  Hrv = 'hrv',
-  Hti = 'hti',
-  Hun = 'hun',
-  Idn = 'idn',
-  Imn = 'imn',
-  Ind = 'ind',
-  Iot = 'iot',
-  Irl = 'irl',
-  Irn = 'irn',
-  Irq = 'irq',
-  Isl = 'isl',
-  Isr = 'isr',
-  Ita = 'ita',
-  Jam = 'jam',
-  Jey = 'jey',
-  Jor = 'jor',
-  Jpn = 'jpn',
-  Kaz = 'kaz',
-  Ken = 'ken',
-  Kgz = 'kgz',
-  Khm = 'khm',
-  Kir = 'kir',
-  Kna = 'kna',
-  Kor = 'kor',
-  Kwt = 'kwt',
-  Lao = 'lao',
-  Lbn = 'lbn',
-  Lbr = 'lbr',
-  Lby = 'lby',
-  Lca = 'lca',
-  Lie = 'lie',
-  Lka = 'lka',
-  Lso = 'lso',
-  Ltu = 'ltu',
-  Lux = 'lux',
-  Lva = 'lva',
-  Mac = 'mac',
-  Maf = 'maf',
-  Mar = 'mar',
-  Mco = 'mco',
-  Mda = 'mda',
-  Mdg = 'mdg',
-  Mdv = 'mdv',
-  Mex = 'mex',
-  Mhl = 'mhl',
-  Mkd = 'mkd',
-  Mli = 'mli',
-  Mlt = 'mlt',
-  Mmr = 'mmr',
-  Mne = 'mne',
-  Mng = 'mng',
-  Mnp = 'mnp',
-  Moz = 'moz',
-  Mrt = 'mrt',
-  Msr = 'msr',
-  Mtq = 'mtq',
-  Mus = 'mus',
-  Mwi = 'mwi',
-  Mys = 'mys',
-  Myt = 'myt',
-  Nam = 'nam',
-  Ncl = 'ncl',
-  Ner = 'ner',
-  Nfk = 'nfk',
-  Nga = 'nga',
-  Nic = 'nic',
-  Niu = 'niu',
-  Nld = 'nld',
-  Nor = 'nor',
-  Npl = 'npl',
-  Nru = 'nru',
-  Nzl = 'nzl',
-  Omn = 'omn',
-  Pak = 'pak',
-  Pan = 'pan',
-  Pcn = 'pcn',
-  Per = 'per',
-  Phl = 'phl',
-  Plw = 'plw',
-  Png = 'png',
-  Pol = 'pol',
-  Pri = 'pri',
-  Prk = 'prk',
-  Prt = 'prt',
-  Pry = 'pry',
-  Pse = 'pse',
-  Pyf = 'pyf',
-  Qat = 'qat',
-  Reu = 'reu',
-  Rou = 'rou',
-  Rus = 'rus',
-  Rwa = 'rwa',
-  Sau = 'sau',
-  Sdn = 'sdn',
-  Sen = 'sen',
-  Sgp = 'sgp',
-  Sgs = 'sgs',
-  Shn = 'shn',
-  Sjm = 'sjm',
-  Slb = 'slb',
-  Sle = 'sle',
-  Slv = 'slv',
-  Smr = 'smr',
-  Som = 'som',
-  Spm = 'spm',
-  Srb = 'srb',
-  Ssd = 'ssd',
-  Stp = 'stp',
-  Sur = 'sur',
-  Svk = 'svk',
-  Svn = 'svn',
-  Swe = 'swe',
-  Swz = 'swz',
-  Sxm = 'sxm',
-  Syc = 'syc',
-  Syr = 'syr',
-  Tca = 'tca',
-  Tcd = 'tcd',
-  Tgo = 'tgo',
-  Tha = 'tha',
-  Tjk = 'tjk',
-  Tkl = 'tkl',
-  Tkm = 'tkm',
-  Tls = 'tls',
-  Ton = 'ton',
-  Tto = 'tto',
-  Tun = 'tun',
-  Tur = 'tur',
-  Tuv = 'tuv',
-  Twn = 'twn',
-  Tza = 'tza',
-  Uga = 'uga',
-  Ukr = 'ukr',
-  Umi = 'umi',
-  Unknown = 'unknown',
-  Ury = 'ury',
-  Usa = 'usa',
-  Uzb = 'uzb',
-  Vat = 'vat',
-  Vct = 'vct',
-  Ven = 'ven',
-  Vgb = 'vgb',
-  Vir = 'vir',
-  Vnm = 'vnm',
-  Vut = 'vut',
-  Wlf = 'wlf',
-  Wsm = 'wsm',
-  Yem = 'yem',
-  Zaf = 'zaf',
-  Zmb = 'zmb',
-  Zwe = 'zwe',
+  ABW = 'abw',
+  AFG = 'afg',
+  AGO = 'ago',
+  AIA = 'aia',
+  ALA = 'ala',
+  ALB = 'alb',
+  AND = 'and',
+  ARE = 'are',
+  ARG = 'arg',
+  ARM = 'arm',
+  ASM = 'asm',
+  ATA = 'ata',
+  ATF = 'atf',
+  ATG = 'atg',
+  AUS = 'aus',
+  AUT = 'aut',
+  AZE = 'aze',
+  BDI = 'bdi',
+  BEL = 'bel',
+  BEN = 'ben',
+  BES = 'bes',
+  BFA = 'bfa',
+  BGD = 'bgd',
+  BGR = 'bgr',
+  BHR = 'bhr',
+  BHS = 'bhs',
+  BIH = 'bih',
+  BLM = 'blm',
+  BLR = 'blr',
+  BLZ = 'blz',
+  BMU = 'bmu',
+  BOL = 'bol',
+  BRA = 'bra',
+  BRB = 'brb',
+  BRN = 'brn',
+  BTN = 'btn',
+  BVT = 'bvt',
+  BWA = 'bwa',
+  CAF = 'caf',
+  CAN = 'can',
+  CCK = 'cck',
+  CHE = 'che',
+  CHL = 'chl',
+  CHN = 'chn',
+  CIV = 'civ',
+  CMR = 'cmr',
+  COD = 'cod',
+  COG = 'cog',
+  COK = 'cok',
+  COL = 'col',
+  COM = 'com',
+  CPV = 'cpv',
+  CRI = 'cri',
+  CUB = 'cub',
+  CUW = 'cuw',
+  CXR = 'cxr',
+  CYM = 'cym',
+  CYP = 'cyp',
+  CZE = 'cze',
+  DEU = 'deu',
+  DJI = 'dji',
+  DMA = 'dma',
+  DNK = 'dnk',
+  DOM = 'dom',
+  DZA = 'dza',
+  ECU = 'ecu',
+  EGY = 'egy',
+  ERI = 'eri',
+  ESH = 'esh',
+  ESP = 'esp',
+  EST = 'est',
+  ETH = 'eth',
+  FIN = 'fin',
+  FJI = 'fji',
+  FLK = 'flk',
+  FRA = 'fra',
+  FRO = 'fro',
+  FSM = 'fsm',
+  GAB = 'gab',
+  GBR = 'gbr',
+  GEO = 'geo',
+  GGY = 'ggy',
+  GHA = 'gha',
+  GIB = 'gib',
+  GIN = 'gin',
+  GLP = 'glp',
+  GMB = 'gmb',
+  GNB = 'gnb',
+  GNQ = 'gnq',
+  GRC = 'grc',
+  GRD = 'grd',
+  GRL = 'grl',
+  GTM = 'gtm',
+  GUF = 'guf',
+  GUM = 'gum',
+  GUY = 'guy',
+  HKG = 'hkg',
+  HMD = 'hmd',
+  HND = 'hnd',
+  HRV = 'hrv',
+  HTI = 'hti',
+  HUN = 'hun',
+  IDN = 'idn',
+  IMN = 'imn',
+  IND = 'ind',
+  IOT = 'iot',
+  IRL = 'irl',
+  IRN = 'irn',
+  IRQ = 'irq',
+  ISL = 'isl',
+  ISR = 'isr',
+  ITA = 'ita',
+  JAM = 'jam',
+  JEY = 'jey',
+  JOR = 'jor',
+  JPN = 'jpn',
+  KAZ = 'kaz',
+  KEN = 'ken',
+  KGZ = 'kgz',
+  KHM = 'khm',
+  KIR = 'kir',
+  KNA = 'kna',
+  KOR = 'kor',
+  KWT = 'kwt',
+  LAO = 'lao',
+  LBN = 'lbn',
+  LBR = 'lbr',
+  LBY = 'lby',
+  LCA = 'lca',
+  LIE = 'lie',
+  LKA = 'lka',
+  LSO = 'lso',
+  LTU = 'ltu',
+  LUX = 'lux',
+  LVA = 'lva',
+  MAC = 'mac',
+  MAF = 'maf',
+  MAR = 'mar',
+  MCO = 'mco',
+  MDA = 'mda',
+  MDG = 'mdg',
+  MDV = 'mdv',
+  MEX = 'mex',
+  MHL = 'mhl',
+  MKD = 'mkd',
+  MLI = 'mli',
+  MLT = 'mlt',
+  MMR = 'mmr',
+  MNE = 'mne',
+  MNG = 'mng',
+  MNP = 'mnp',
+  MOZ = 'moz',
+  MRT = 'mrt',
+  MSR = 'msr',
+  MTQ = 'mtq',
+  MUS = 'mus',
+  MWI = 'mwi',
+  MYS = 'mys',
+  MYT = 'myt',
+  NAM = 'nam',
+  NCL = 'ncl',
+  NER = 'ner',
+  NFK = 'nfk',
+  NGA = 'nga',
+  NIC = 'nic',
+  NIU = 'niu',
+  NLD = 'nld',
+  NOR = 'nor',
+  NPL = 'npl',
+  NRU = 'nru',
+  NZL = 'nzl',
+  OMN = 'omn',
+  PAK = 'pak',
+  PAN = 'pan',
+  PCN = 'pcn',
+  PER = 'per',
+  PHL = 'phl',
+  PLW = 'plw',
+  PNG = 'png',
+  POL = 'pol',
+  PRI = 'pri',
+  PRK = 'prk',
+  PRT = 'prt',
+  PRY = 'pry',
+  PSE = 'pse',
+  PYF = 'pyf',
+  QAT = 'qat',
+  REU = 'reu',
+  ROU = 'rou',
+  RUS = 'rus',
+  RWA = 'rwa',
+  SAU = 'sau',
+  SDN = 'sdn',
+  SEN = 'sen',
+  SGP = 'sgp',
+  SGS = 'sgs',
+  SHN = 'shn',
+  SJM = 'sjm',
+  SLB = 'slb',
+  SLE = 'sle',
+  SLV = 'slv',
+  SMR = 'smr',
+  SOM = 'som',
+  SPM = 'spm',
+  SRB = 'srb',
+  SSD = 'ssd',
+  STP = 'stp',
+  SUR = 'sur',
+  SVK = 'svk',
+  SVN = 'svn',
+  SWE = 'swe',
+  SWZ = 'swz',
+  SXM = 'sxm',
+  SYC = 'syc',
+  SYR = 'syr',
+  TCA = 'tca',
+  TCD = 'tcd',
+  TGO = 'tgo',
+  THA = 'tha',
+  TJK = 'tjk',
+  TKL = 'tkl',
+  TKM = 'tkm',
+  TLS = 'tls',
+  TON = 'ton',
+  TTO = 'tto',
+  TUN = 'tun',
+  TUR = 'tur',
+  TUV = 'tuv',
+  TWN = 'twn',
+  TZA = 'tza',
+  UGA = 'uga',
+  UKR = 'ukr',
+  UMI = 'umi',
+  UNKNOWN = 'unknown',
+  URY = 'ury',
+  USA = 'usa',
+  UZB = 'uzb',
+  VAT = 'vat',
+  VCT = 'vct',
+  VEN = 'ven',
+  VGB = 'vgb',
+  VIR = 'vir',
+  VNM = 'vnm',
+  VUT = 'vut',
+  WLF = 'wlf',
+  WSM = 'wsm',
+  YEM = 'yem',
+  ZAF = 'zaf',
+  ZMB = 'zmb',
+  ZWE = 'zwe',
+}
+
+export enum CountryCodes {
+  ABW = 'ABW',
+  AFG = 'AFG',
+  AGO = 'AGO',
+  AIA = 'AIA',
+  ALA = 'ALA',
+  ALB = 'ALB',
+  AND = 'AND',
+  ARE = 'ARE',
+  ARG = 'ARG',
+  ARM = 'ARM',
+  ASM = 'ASM',
+  ATA = 'ATA',
+  ATF = 'ATF',
+  ATG = 'ATG',
+  AUS = 'AUS',
+  AUT = 'AUT',
+  AZE = 'AZE',
+  BDI = 'BDI',
+  BEL = 'BEL',
+  BEN = 'BEN',
+  BES = 'BES',
+  BFA = 'BFA',
+  BGD = 'BGD',
+  BGR = 'BGR',
+  BHR = 'BHR',
+  BHS = 'BHS',
+  BIH = 'BIH',
+  BLR = 'BLR',
+  BLZ = 'BLZ',
+  BMU = 'BMU',
+  BOL = 'BOL',
+  BRA = 'BRA',
+  BRB = 'BRB',
+  BRN = 'BRN',
+  BTN = 'BTN',
+  BVT = 'BVT',
+  BWA = 'BWA',
+  CAF = 'CAF',
+  CAN = 'CAN',
+  CCK = 'CCK',
+  CHE = 'CHE',
+  CHL = 'CHL',
+  CHN = 'CHN',
+  CIV = 'CIV',
+  CMR = 'CMR',
+  COD = 'COD',
+  COG = 'COG',
+  COK = 'COK',
+  COL = 'COL',
+  COM = 'COM',
+  CPV = 'CPV',
+  CRI = 'CRI',
+  CUB = 'CUB',
+  CUW = 'CUW',
+  CXR = 'CXR',
+  CYM = 'CYM',
+  CYP = 'CYP',
+  CZE = 'CZE',
+  DEU = 'DEU',
+  DJI = 'DJI',
+  DMA = 'DMA',
+  DNK = 'DNK',
+  DOM = 'DOM',
+  DZA = 'DZA',
+  ECU = 'ECU',
+  EGY = 'EGY',
+  ERI = 'ERI',
+  ESH = 'ESH',
+  ESP = 'ESP',
+  EST = 'EST',
+  ETH = 'ETH',
+  FIN = 'FIN',
+  FJI = 'FJI',
+  FLK = 'FLK',
+  FRA = 'FRA',
+  FRO = 'FRO',
+  FSM = 'FSM',
+  GAB = 'GAB',
+  GBR = 'GBR',
+  GEO = 'GEO',
+  GGY = 'GGY',
+  GHA = 'GHA',
+  GIB = 'GIB',
+  GIN = 'GIN',
+  GLP = 'GLP',
+  GMB = 'GMB',
+  GNB = 'GNB',
+  GNQ = 'GNQ',
+  GRC = 'GRC',
+  GRD = 'GRD',
+  GRL = 'GRL',
+  GTM = 'GTM',
+  GUF = 'GUF',
+  GUM = 'GUM',
+  GUY = 'GUY',
+  HKG = 'HKG',
+  HMD = 'HMD',
+  HND = 'HND',
+  HRV = 'HRV',
+  HTI = 'HTI',
+  HUN = 'HUN',
+  IDN = 'IDN',
+  IND = 'IND',
+  IOT = 'IOT',
+  IRL = 'IRL',
+  IRN = 'IRN',
+  IRQ = 'IRQ',
+  ISL = 'ISL',
+  ISR = 'ISR',
+  ITA = 'ITA',
+  JAM = 'JAM',
+  JEY = 'JEY',
+  JOR = 'JOR',
+  JPN = 'JPN',
+  KAZ = 'KAZ',
+  KEN = 'KEN',
+  KGZ = 'KGZ',
+  KHM = 'KHM',
+  KIR = 'KIR',
+  KNA = 'KNA',
+  KOR = 'KOR',
+  KWT = 'KWT',
+  LAO = 'LAO',
+  LBN = 'LBN',
+  LBR = 'LBR',
+  LBY = 'LBY',
+  LCA = 'LCA',
+  LIE = 'LIE',
+  LKA = 'LKA',
+  LSO = 'LSO',
+  LTU = 'LTU',
+  LUX = 'LUX',
+  LVA = 'LVA',
+  MAC = 'MAC',
+  MAF = 'MAF',
+  MAR = 'MAR',
+  MCO = 'MCO',
+  MDA = 'MDA',
+  MDG = 'MDG',
+  MDV = 'MDV',
+  MEX = 'MEX',
+  MHL = 'MHL',
+  MLI = 'MLI',
+  MLT = 'MLT',
+  MMR = 'MMR',
+  MNE = 'MNE',
+  MNG = 'MNG',
+  MNP = 'MNP',
+  MOZ = 'MOZ',
+  MRT = 'MRT',
+  MSR = 'MSR',
+  MTQ = 'MTQ',
+  MUS = 'MUS',
+  MWI = 'MWI',
+  MYS = 'MYS',
+  MYT = 'MYT',
+  NAM = 'NAM',
+  NCL = 'NCL',
+  NER = 'NER',
+  NFK = 'NFK',
+  NGA = 'NGA',
+  NIC = 'NIC',
+  NIU = 'NIU',
+  NLD = 'NLD',
+  NOR = 'NOR',
+  NPL = 'NPL',
+  NRU = 'NRU',
+  NZL = 'NZL',
+  OMN = 'OMN',
+  PAK = 'PAK',
+  PAN = 'PAN',
+  PCN = 'PCN',
+  PER = 'PER',
+  PHL = 'PHL',
+  PLW = 'PLW',
+  PNG = 'PNG',
+  POL = 'POL',
+  PRI = 'PRI',
+  PRK = 'PRK',
+  PRT = 'PRT',
+  PRY = 'PRY',
+  PSE = 'PSE',
+  PYF = 'PYF',
+  QAT = 'QAT',
+  REU = 'REU',
+  ROU = 'ROU',
+  RUS = 'RUS',
+  RWA = 'RWA',
+  RYU = 'RYU',
+  SAU = 'SAU',
+  SBH = 'SBH',
+  SDN = 'SDN',
+  SEN = 'SEN',
+  SGP = 'SGP',
+  SGS = 'SGS',
+  SHN = 'SHN',
+  SJM = 'SJM',
+  SLB = 'SLB',
+  SLE = 'SLE',
+  SLV = 'SLV',
+  SMR = 'SMR',
+  SOM = 'SOM',
+  SPM = 'SPM',
+  SRB = 'SRB',
+  SSD = 'SSD',
+  STP = 'STP',
+  SUR = 'SUR',
+  SVK = 'SVK',
+  SVN = 'SVN',
+  SWE = 'SWE',
+  SWZ = 'SWZ',
+  SXM = 'SXM',
+  SYC = 'SYC',
+  SYR = 'SYR',
+  TCA = 'TCA',
+  TCD = 'TCD',
+  TGO = 'TGO',
+  THA = 'THA',
+  TJK = 'TJK',
+  TKL = 'TKL',
+  TKM = 'TKM',
+  TLS = 'TLS',
+  TON = 'TON',
+  TTO = 'TTO',
+  TUN = 'TUN',
+  TUR = 'TUR',
+  TUV = 'TUV',
+  TWN = 'TWN',
+  TZA = 'TZA',
+  UGA = 'UGA',
+  UKR = 'UKR',
+  UMI = 'UMI',
+  URY = 'URY',
+  USA = 'USA',
+  UZB = 'UZB',
+  VAT = 'VAT',
+  VCT = 'VCT',
+  VEN = 'VEN',
+  VGB = 'VGB',
+  VIR = 'VIR',
+  VNM = 'VNM',
+  VUT = 'VUT',
+  WLF = 'WLF',
+  WSM = 'WSM',
+  YEM = 'YEM',
+  ZAF = 'ZAF',
+  ZMB = 'ZMB',
+  ZWE = 'ZWE',
 }
 
 export type Epd = {
@@ -398,10 +649,10 @@ export type FilterOptions = {
 }
 
 export enum GeneralEnergyClass {
-  Advanced = 'advanced',
-  Existing = 'existing',
-  Standard = 'standard',
-  Unknown = 'unknown',
+  ADVANCED = 'advanced',
+  EXISTING = 'existing',
+  STANDARD = 'standard',
+  UNKNOWN = 'unknown',
 }
 
 export type GraphQlInputImpactData = {
@@ -414,44 +665,44 @@ export type GraphQlInputProjectInfo = {
 }
 
 export enum ImpactCategoryKey {
-  Adpe = 'adpe',
-  Adpf = 'adpf',
-  Ap = 'ap',
-  Cru = 'cru',
-  Eee = 'eee',
-  Eet = 'eet',
-  Ep = 'ep',
-  EpFw = 'ep_fw',
-  EpMar = 'ep_mar',
-  EpTer = 'ep_ter',
-  EtpFw = 'etp_fw',
-  Fw = 'fw',
-  Gwp = 'gwp',
-  GwpBio = 'gwp_bio',
-  GwpFos = 'gwp_fos',
-  GwpLul = 'gwp_lul',
-  HtpC = 'htp_c',
-  HtpNc = 'htp_nc',
-  Hwd = 'hwd',
-  Irp = 'irp',
-  Mer = 'mer',
-  Mrf = 'mrf',
-  Nhwd = 'nhwd',
-  Nrsf = 'nrsf',
-  Odp = 'odp',
-  Penre = 'penre',
-  Penrm = 'penrm',
-  Penrt = 'penrt',
-  Pere = 'pere',
-  Perm = 'perm',
-  Pert = 'pert',
-  Pm = 'pm',
-  Pocp = 'pocp',
-  Rsf = 'rsf',
-  Rwd = 'rwd',
-  Sm = 'sm',
-  Sqp = 'sqp',
-  Wdp = 'wdp',
+  ADPE = 'adpe',
+  ADPF = 'adpf',
+  AP = 'ap',
+  CRU = 'cru',
+  EEE = 'eee',
+  EET = 'eet',
+  EP = 'ep',
+  EP_FW = 'ep_fw',
+  EP_MAR = 'ep_mar',
+  EP_TER = 'ep_ter',
+  ETP_FW = 'etp_fw',
+  FW = 'fw',
+  GWP = 'gwp',
+  GWP_BIO = 'gwp_bio',
+  GWP_FOS = 'gwp_fos',
+  GWP_LUL = 'gwp_lul',
+  HTP_C = 'htp_c',
+  HTP_NC = 'htp_nc',
+  HWD = 'hwd',
+  IRP = 'irp',
+  MER = 'mer',
+  MRF = 'mrf',
+  NHWD = 'nhwd',
+  NRSF = 'nrsf',
+  ODP = 'odp',
+  PENRE = 'penre',
+  PENRM = 'penrm',
+  PENRT = 'penrt',
+  PERE = 'pere',
+  PERM = 'perm',
+  PERT = 'pert',
+  PM = 'pm',
+  POCP = 'pocp',
+  RSF = 'rsf',
+  RWD = 'rwd',
+  SM = 'sm',
+  SQP = 'sqp',
+  WDP = 'wdp',
 }
 
 export type InputAreaType = {
@@ -525,6 +776,14 @@ export type InputLocation = {
   address?: InputMaybe<Scalars['String']['input']>
   city?: InputMaybe<Scalars['String']['input']>
   country: Country
+}
+
+export type InputOrganization = {
+  address: Scalars['String']['input']
+  city: Scalars['String']['input']
+  country: CountryCodes
+  id?: Scalars['UUID']['input']
+  name: Scalars['String']['input']
 }
 
 export type InputProduct = {
@@ -617,7 +876,7 @@ export type InputValueUnit = {
 }
 
 export enum LifeCycleStage {
-  A1a3 = 'a1a3',
+  A1A3 = 'a1a3',
   A4 = 'a4',
   A5 = 'a5',
   B1 = 'b1',
@@ -645,10 +904,45 @@ export type Mutation = {
   __typename?: 'Mutation'
   /** Creates new Contributions */
   addContributions: Array<Contribution>
+  /** Creates multiple organizations and associates them with the current user */
+  createOrganizations: Array<Organization>
+  /** Deletes a list of Organizations by their IDs and returns a list of deleted IDs */
+  deleteOrganizations: Array<Scalars['UUID']['output']>
+  /** Updates an existing Organization */
+  updateOrganizations: Array<Organization>
 }
 
 export type MutationAddContributionsArgs = {
   contributions: Array<InputContribution>
+}
+
+export type MutationCreateOrganizationsArgs = {
+  organizations: Array<InputOrganization>
+}
+
+export type MutationDeleteOrganizationsArgs = {
+  ids: Array<Scalars['UUID']['input']>
+}
+
+export type MutationUpdateOrganizationsArgs = {
+  organizations: Array<InputOrganization>
+}
+
+export type Organization = {
+  __typename?: 'Organization'
+  address: Scalars['String']['output']
+  city: Scalars['String']['output']
+  country: CountryCodes
+  id: Scalars['UUID']['output']
+  name: Scalars['String']['output']
+}
+
+export type OrganizationFilter = {
+  address?: InputMaybe<FilterOptions>
+  city?: InputMaybe<FilterOptions>
+  country?: InputMaybe<FilterOptions>
+  id?: InputMaybe<FilterOptions>
+  name?: InputMaybe<FilterOptions>
 }
 
 export type Product = {
@@ -714,18 +1008,22 @@ export type ProjectInfo = {
 }
 
 export enum ProjectPhase {
-  Built = 'built',
-  Design = 'design',
-  Ongoing = 'ongoing',
-  Other = 'other',
+  BUILT = 'built',
+  DESIGN = 'design',
+  ONGOING = 'ongoing',
+  OTHER = 'other',
 }
 
 export type Query = {
   __typename?: 'Query'
   /** Returns all contributions assigned to user */
   contributions: Array<Contribution>
+  /** Returns all Organizations */
+  organizations: Array<Organization>
   /** Returns all Projects */
   projects: Array<Project>
+  /** Returns all Users */
+  users: Array<User>
 }
 
 export type QueryContributionsArgs = {
@@ -733,12 +1031,21 @@ export type QueryContributionsArgs = {
   sortBy?: InputMaybe<ContributionSort>
 }
 
+export type QueryOrganizationsArgs = {
+  filters?: InputMaybe<OrganizationFilter>
+}
+
+export type QueryUsersArgs = {
+  filters?: InputMaybe<UserFilters>
+  sortBy?: InputMaybe<UserSort>
+}
+
 export enum RoofType {
-  Flat = 'flat',
-  Other = 'other',
-  Pitched = 'pitched',
-  Pyramid = 'pyramid',
-  Saddle = 'saddle',
+  FLAT = 'flat',
+  OTHER = 'other',
+  PITCHED = 'pitched',
+  PYRAMID = 'pyramid',
+  SADDLE = 'saddle',
 }
 
 export type SoftwareInfo = {
@@ -749,8 +1056,8 @@ export type SoftwareInfo = {
 }
 
 export enum SortOptions {
-  Asc = 'ASC',
-  Dsc = 'DSC',
+  ASC = 'ASC',
+  DSC = 'DSC',
 }
 
 export type Source = {
@@ -760,16 +1067,16 @@ export type Source = {
 }
 
 export enum Standard {
-  En15804a1 = 'en15804a1',
-  En15804a2 = 'en15804a2',
-  Unknown = 'unknown',
+  EN15804A1 = 'en15804a1',
+  EN15804A2 = 'en15804a2',
+  UNKNOWN = 'unknown',
 }
 
 export enum SubType {
-  Generic = 'generic',
-  Industry = 'industry',
-  Representative = 'representative',
-  Specific = 'specific',
+  GENERIC = 'generic',
+  INDUSTRY = 'industry',
+  REPRESENTATIVE = 'representative',
+  SPECIFIC = 'specific',
 }
 
 export type TechFlow = {
@@ -787,17 +1094,43 @@ export type TechFlow = {
 }
 
 export enum Unit {
-  Kg = 'kg',
-  Km = 'km',
+  KG = 'kg',
+  KM = 'km',
   L = 'l',
   M = 'm',
   M2 = 'm2',
-  M2r1 = 'm2r1',
+  M2R1 = 'm2r1',
   M3 = 'm3',
-  Pcs = 'pcs',
-  Tones = 'tones',
-  TonesKm = 'tones_km',
-  Unknown = 'unknown',
+  PCS = 'pcs',
+  TONES = 'tones',
+  TONES_KM = 'tones_km',
+  UNKNOWN = 'unknown',
+}
+
+export type User = {
+  __typename?: 'User'
+  email: Scalars['String']['output']
+  firstName?: Maybe<Scalars['String']['output']>
+  id: Scalars['UUID']['output']
+  lastName?: Maybe<Scalars['String']['output']>
+  organizationId?: Maybe<Scalars['UUID']['output']>
+  timeJoined: Scalars['DateTime']['output']
+}
+
+export type UserFilters = {
+  email?: InputMaybe<FilterOptions>
+  firstName?: InputMaybe<FilterOptions>
+  id?: InputMaybe<FilterOptions>
+  lastName?: InputMaybe<FilterOptions>
+  organizationId?: InputMaybe<FilterOptions>
+}
+
+export type UserSort = {
+  firstName?: InputMaybe<SortOptions>
+  id?: InputMaybe<SortOptions>
+  lastName?: InputMaybe<SortOptions>
+  name?: InputMaybe<SortOptions>
+  organizationId?: InputMaybe<SortOptions>
 }
 
 export type ValueUnit = {
@@ -877,7 +1210,6 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 ) => TResult | Promise<TResult>
 
 /** Mapping of union types */
-// @ts-ignore
 export type ResolversUnionTypes<RefType extends Record<string, unknown>> = {
   EPDTechFlow: Epd | TechFlow
 }
@@ -898,6 +1230,7 @@ export type ResolversTypes = {
   ContributionSort: ContributionSort
   Conversion: ResolverTypeWrapper<Conversion>
   Country: Country
+  CountryCodes: CountryCodes
   Date: ResolverTypeWrapper<Scalars['Date']['output']>
   DateTime: ResolverTypeWrapper<Scalars['DateTime']['output']>
   EPD: ResolverTypeWrapper<Epd>
@@ -916,6 +1249,7 @@ export type ResolversTypes = {
   InputConversion: InputConversion
   InputEPD: InputEpd
   InputLocation: InputLocation
+  InputOrganization: InputOrganization
   InputProduct: InputProduct
   InputProject: InputProject
   InputProjectInfo: InputProjectInfo
@@ -927,6 +1261,8 @@ export type ResolversTypes = {
   LifeCycleStage: LifeCycleStage
   Location: ResolverTypeWrapper<Location>
   Mutation: ResolverTypeWrapper<{}>
+  Organization: ResolverTypeWrapper<Organization>
+  OrganizationFilter: OrganizationFilter
   Product: ResolverTypeWrapper<Omit<Product, 'impactData'> & { impactData: ResolversTypes['EPDTechFlow'] }>
   Project: ResolverTypeWrapper<Project>
   ProjectInfo: ResolverTypeWrapper<ProjectInfo>
@@ -941,6 +1277,9 @@ export type ResolversTypes = {
   TechFlow: ResolverTypeWrapper<TechFlow>
   UUID: ResolverTypeWrapper<Scalars['UUID']['output']>
   Unit: Unit
+  User: ResolverTypeWrapper<User>
+  UserFilters: UserFilters
+  UserSort: UserSort
   ValueUnit: ResolverTypeWrapper<ValueUnit>
 }
 
@@ -973,6 +1312,7 @@ export type ResolversParentTypes = {
   InputConversion: InputConversion
   InputEPD: InputEpd
   InputLocation: InputLocation
+  InputOrganization: InputOrganization
   InputProduct: InputProduct
   InputProject: InputProject
   InputProjectInfo: InputProjectInfo
@@ -983,6 +1323,8 @@ export type ResolversParentTypes = {
   JSON: Scalars['JSON']['output']
   Location: Location
   Mutation: {}
+  Organization: Organization
+  OrganizationFilter: OrganizationFilter
   Product: Omit<Product, 'impactData'> & { impactData: ResolversParentTypes['EPDTechFlow'] }
   Project: Project
   ProjectInfo: ProjectInfo
@@ -991,6 +1333,9 @@ export type ResolversParentTypes = {
   Source: Source
   TechFlow: TechFlow
   UUID: Scalars['UUID']['output']
+  User: User
+  UserFilters: UserFilters
+  UserSort: UserSort
   ValueUnit: ValueUnit
 }
 
@@ -1144,6 +1489,36 @@ export type MutationResolvers<
     ContextType,
     RequireFields<MutationAddContributionsArgs, 'contributions'>
   >
+  createOrganizations?: Resolver<
+    Array<ResolversTypes['Organization']>,
+    ParentType,
+    ContextType,
+    RequireFields<MutationCreateOrganizationsArgs, 'organizations'>
+  >
+  deleteOrganizations?: Resolver<
+    Array<ResolversTypes['UUID']>,
+    ParentType,
+    ContextType,
+    RequireFields<MutationDeleteOrganizationsArgs, 'ids'>
+  >
+  updateOrganizations?: Resolver<
+    Array<ResolversTypes['Organization']>,
+    ParentType,
+    ContextType,
+    RequireFields<MutationUpdateOrganizationsArgs, 'organizations'>
+  >
+}
+
+export type OrganizationResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['Organization'] = ResolversParentTypes['Organization'],
+> = {
+  address?: Resolver<ResolversTypes['String'], ParentType, ContextType>
+  city?: Resolver<ResolversTypes['String'], ParentType, ContextType>
+  country?: Resolver<ResolversTypes['CountryCodes'], ParentType, ContextType>
+  id?: Resolver<ResolversTypes['UUID'], ParentType, ContextType>
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>
 }
 
 export type ProductResolvers<
@@ -1227,7 +1602,19 @@ export type QueryResolvers<
     ContextType,
     RequireFields<QueryContributionsArgs, 'filters' | 'sortBy'>
   >
+  organizations?: Resolver<
+    Array<ResolversTypes['Organization']>,
+    ParentType,
+    ContextType,
+    RequireFields<QueryOrganizationsArgs, 'filters'>
+  >
   projects?: Resolver<Array<ResolversTypes['Project']>, ParentType, ContextType>
+  users?: Resolver<
+    Array<ResolversTypes['User']>,
+    ParentType,
+    ContextType,
+    RequireFields<QueryUsersArgs, 'filters' | 'sortBy'>
+  >
 }
 
 export type SoftwareInfoResolvers<
@@ -1270,6 +1657,19 @@ export interface UuidScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes
   name: 'UUID'
 }
 
+export type UserResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User'],
+> = {
+  email?: Resolver<ResolversTypes['String'], ParentType, ContextType>
+  firstName?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
+  id?: Resolver<ResolversTypes['UUID'], ParentType, ContextType>
+  lastName?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
+  organizationId?: Resolver<Maybe<ResolversTypes['UUID']>, ParentType, ContextType>
+  timeJoined?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>
+}
+
 export type ValueUnitResolvers<
   ContextType = any,
   ParentType extends ResolversParentTypes['ValueUnit'] = ResolversParentTypes['ValueUnit'],
@@ -1293,6 +1693,7 @@ export type Resolvers<ContextType = any> = {
   JSON?: GraphQLScalarType
   Location?: LocationResolvers<ContextType>
   Mutation?: MutationResolvers<ContextType>
+  Organization?: OrganizationResolvers<ContextType>
   Product?: ProductResolvers<ContextType>
   Project?: ProjectResolvers<ContextType>
   ProjectInfo?: ProjectInfoResolvers<ContextType>
@@ -1301,6 +1702,7 @@ export type Resolvers<ContextType = any> = {
   Source?: SourceResolvers<ContextType>
   TechFlow?: TechFlowResolvers<ContextType>
   UUID?: GraphQLScalarType
+  User?: UserResolvers<ContextType>
   ValueUnit?: ValueUnitResolvers<ContextType>
 }
 
@@ -1327,6 +1729,36 @@ export type AddContributionMutationVariables = Exact<{
 export type AddContributionMutation = {
   __typename?: 'Mutation'
   addContributions: Array<{ __typename?: 'Contribution'; id: any }>
+}
+
+export type GetOrganizationsQueryVariables = Exact<{ [key: string]: never }>
+
+export type GetOrganizationsQuery = {
+  __typename?: 'Query'
+  organizations: Array<{
+    __typename?: 'Organization'
+    id: any
+    name: string
+    address: string
+    city: string
+    country: CountryCodes
+  }>
+}
+
+export type CreateOrganizationsMutationVariables = Exact<{
+  organizations: Array<InputOrganization> | InputOrganization
+}>
+
+export type CreateOrganizationsMutation = {
+  __typename?: 'Mutation'
+  createOrganizations: Array<{
+    __typename?: 'Organization'
+    id: any
+    name: string
+    address: string
+    city: string
+    country: CountryCodes
+  }>
 }
 
 export const GetContributionsDocument = gql`
@@ -1421,4 +1853,104 @@ export type AddContributionMutationResult = Apollo.MutationResult<AddContributio
 export type AddContributionMutationOptions = Apollo.BaseMutationOptions<
   AddContributionMutation,
   AddContributionMutationVariables
+>
+export const GetOrganizationsDocument = gql`
+  query getOrganizations {
+    organizations {
+      id
+      name
+      address
+      city
+      country
+    }
+  }
+`
+
+/**
+ * __useGetOrganizationsQuery__
+ *
+ * To run a query within a React component, call `useGetOrganizationsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetOrganizationsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetOrganizationsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetOrganizationsQuery(
+  baseOptions?: Apollo.QueryHookOptions<GetOrganizationsQuery, GetOrganizationsQueryVariables>,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<GetOrganizationsQuery, GetOrganizationsQueryVariables>(GetOrganizationsDocument, options)
+}
+export function useGetOrganizationsLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<GetOrganizationsQuery, GetOrganizationsQueryVariables>,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<GetOrganizationsQuery, GetOrganizationsQueryVariables>(GetOrganizationsDocument, options)
+}
+export function useGetOrganizationsSuspenseQuery(
+  baseOptions?: Apollo.SuspenseQueryHookOptions<GetOrganizationsQuery, GetOrganizationsQueryVariables>,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useSuspenseQuery<GetOrganizationsQuery, GetOrganizationsQueryVariables>(
+    GetOrganizationsDocument,
+    options,
+  )
+}
+export type GetOrganizationsQueryHookResult = ReturnType<typeof useGetOrganizationsQuery>
+export type GetOrganizationsLazyQueryHookResult = ReturnType<typeof useGetOrganizationsLazyQuery>
+export type GetOrganizationsSuspenseQueryHookResult = ReturnType<typeof useGetOrganizationsSuspenseQuery>
+export type GetOrganizationsQueryResult = Apollo.QueryResult<GetOrganizationsQuery, GetOrganizationsQueryVariables>
+export const CreateOrganizationsDocument = gql`
+  mutation createOrganizations($organizations: [InputOrganization!]!) {
+    createOrganizations(organizations: $organizations) {
+      id
+      name
+      address
+      city
+      country
+    }
+  }
+`
+export type CreateOrganizationsMutationFn = Apollo.MutationFunction<
+  CreateOrganizationsMutation,
+  CreateOrganizationsMutationVariables
+>
+
+/**
+ * __useCreateOrganizationsMutation__
+ *
+ * To run a mutation, you first call `useCreateOrganizationsMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateOrganizationsMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createOrganizationsMutation, { data, loading, error }] = useCreateOrganizationsMutation({
+ *   variables: {
+ *      organizations: // value for 'organizations'
+ *   },
+ * });
+ */
+export function useCreateOrganizationsMutation(
+  baseOptions?: Apollo.MutationHookOptions<CreateOrganizationsMutation, CreateOrganizationsMutationVariables>,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<CreateOrganizationsMutation, CreateOrganizationsMutationVariables>(
+    CreateOrganizationsDocument,
+    options,
+  )
+}
+export type CreateOrganizationsMutationHookResult = ReturnType<typeof useCreateOrganizationsMutation>
+export type CreateOrganizationsMutationResult = Apollo.MutationResult<CreateOrganizationsMutation>
+export type CreateOrganizationsMutationOptions = Apollo.BaseMutationOptions<
+  CreateOrganizationsMutation,
+  CreateOrganizationsMutationVariables
 >

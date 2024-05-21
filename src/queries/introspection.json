@@ -857,6 +857,265 @@
         "possibleTypes": null
       },
       {
+        "kind": "ENUM",
+        "name": "CountryCodes",
+        "description": null,
+        "fields": null,
+        "inputFields": null,
+        "interfaces": null,
+        "enumValues": [
+          { "name": "ABW", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "AFG", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "AGO", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "AIA", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "ALA", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "ALB", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "AND", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "ARE", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "ARG", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "ARM", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "ASM", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "ATA", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "ATF", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "ATG", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "AUS", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "AUT", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "AZE", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "BDI", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "BEL", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "BEN", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "BES", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "BFA", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "BGD", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "BGR", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "BHR", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "BHS", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "BIH", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "BLR", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "BLZ", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "BMU", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "BOL", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "BRA", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "BRB", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "BRN", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "BTN", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "BVT", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "BWA", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "CAF", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "CAN", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "CCK", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "CHE", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "CHL", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "CHN", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "CIV", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "CMR", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "COD", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "COG", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "COK", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "COL", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "COM", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "CPV", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "CRI", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "CUB", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "CUW", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "CXR", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "CYM", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "CYP", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "CZE", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "DEU", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "DJI", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "DMA", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "DNK", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "DOM", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "DZA", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "ECU", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "EGY", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "ERI", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "ESH", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "ESP", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "EST", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "ETH", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "FIN", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "FJI", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "FLK", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "FRA", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "FRO", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "FSM", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "GAB", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "GBR", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "GEO", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "GGY", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "GHA", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "GIB", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "GIN", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "GLP", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "GMB", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "GNB", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "GNQ", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "GRC", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "GRD", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "GRL", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "GTM", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "GUF", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "GUM", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "GUY", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "HKG", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "HMD", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "HND", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "HRV", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "HTI", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "HUN", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "IDN", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "IND", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "IOT", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "IRL", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "IRN", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "IRQ", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "ISL", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "ISR", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "ITA", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "JAM", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "JEY", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "JOR", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "JPN", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "KAZ", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "KEN", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "KGZ", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "KHM", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "KIR", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "KNA", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "KOR", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "KWT", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "LAO", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "LBN", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "LBR", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "LBY", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "LCA", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "LIE", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "LKA", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "LSO", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "LTU", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "LUX", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "LVA", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "MAC", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "MAF", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "MAR", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "MCO", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "MDA", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "MDG", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "MDV", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "MEX", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "MHL", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "MLI", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "MLT", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "MMR", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "MNE", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "MNG", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "MNP", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "MOZ", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "MRT", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "MSR", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "MTQ", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "MUS", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "MWI", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "MYS", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "MYT", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "NAM", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "NCL", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "NER", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "NFK", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "NGA", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "NIC", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "NIU", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "NLD", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "NOR", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "NPL", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "NRU", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "NZL", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "OMN", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "PAK", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "PAN", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "PCN", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "PER", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "PHL", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "PLW", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "PNG", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "POL", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "PRI", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "PRK", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "PRT", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "PRY", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "PSE", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "PYF", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "QAT", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "REU", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "ROU", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "RUS", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "RWA", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "RYU", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "SAU", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "SBH", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "SDN", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "SEN", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "SGP", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "SGS", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "SHN", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "SJM", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "SLB", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "SLE", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "SLV", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "SMR", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "SOM", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "SPM", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "SRB", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "SSD", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "STP", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "SUR", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "SVK", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "SVN", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "SWE", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "SWZ", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "SXM", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "SYC", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "SYR", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "TCA", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "TCD", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "TGO", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "THA", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "TJK", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "TKL", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "TKM", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "TLS", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "TON", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "TTO", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "TUN", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "TUR", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "TUV", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "TWN", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "TZA", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "UGA", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "UKR", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "UMI", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "URY", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "USA", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "UZB", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "VAT", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "VCT", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "VEN", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "VGB", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "VIR", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "VNM", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "VUT", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "WLF", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "WSM", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "YEM", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "ZAF", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "ZMB", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "ZWE", "description": null, "isDeprecated": false, "deprecationReason": null }
+        ],
+        "possibleTypes": null
+      },
+      {
         "kind": "SCALAR",
         "name": "Date",
         "description": "Date (isoformat)",
@@ -1849,6 +2108,77 @@
       },
       {
         "kind": "INPUT_OBJECT",
+        "name": "InputOrganization",
+        "description": null,
+        "fields": null,
+        "inputFields": [
+          {
+            "name": "address",
+            "description": null,
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": { "kind": "SCALAR", "name": "String", "ofType": null }
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "city",
+            "description": null,
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": { "kind": "SCALAR", "name": "String", "ofType": null }
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "country",
+            "description": null,
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": { "kind": "ENUM", "name": "CountryCodes", "ofType": null }
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "id",
+            "description": null,
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": { "kind": "SCALAR", "name": "UUID", "ofType": null }
+            },
+            "defaultValue": "\"annotation=NoneType required=False default_factory=uuid4\"",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "name",
+            "description": null,
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": { "kind": "SCALAR", "name": "String", "ofType": null }
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
         "name": "InputProduct",
         "description": null,
         "fields": null,
@@ -2718,10 +3048,255 @@
             },
             "isDeprecated": false,
             "deprecationReason": null
+          },
+          {
+            "name": "createOrganizations",
+            "description": "Creates multiple organizations and associates them with the current user",
+            "args": [
+              {
+                "name": "organizations",
+                "description": null,
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "LIST",
+                    "name": null,
+                    "ofType": {
+                      "kind": "NON_NULL",
+                      "name": null,
+                      "ofType": { "kind": "INPUT_OBJECT", "name": "InputOrganization", "ofType": null }
+                    }
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": { "kind": "OBJECT", "name": "Organization", "ofType": null }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "deleteOrganizations",
+            "description": "Deletes a list of Organizations by their IDs and returns a list of deleted IDs",
+            "args": [
+              {
+                "name": "ids",
+                "description": null,
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "LIST",
+                    "name": null,
+                    "ofType": {
+                      "kind": "NON_NULL",
+                      "name": null,
+                      "ofType": { "kind": "SCALAR", "name": "UUID", "ofType": null }
+                    }
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": { "kind": "SCALAR", "name": "UUID", "ofType": null }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "updateOrganizations",
+            "description": "Updates an existing Organization",
+            "args": [
+              {
+                "name": "organizations",
+                "description": null,
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "LIST",
+                    "name": null,
+                    "ofType": {
+                      "kind": "NON_NULL",
+                      "name": null,
+                      "ofType": { "kind": "INPUT_OBJECT", "name": "InputOrganization", "ofType": null }
+                    }
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": { "kind": "OBJECT", "name": "Organization", "ofType": null }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
           }
         ],
         "inputFields": null,
         "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "Organization",
+        "description": null,
+        "fields": [
+          {
+            "name": "address",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": { "kind": "SCALAR", "name": "String", "ofType": null }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "city",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": { "kind": "SCALAR", "name": "String", "ofType": null }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "country",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": { "kind": "ENUM", "name": "CountryCodes", "ofType": null }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "id",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": { "kind": "SCALAR", "name": "UUID", "ofType": null }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "name",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": { "kind": "SCALAR", "name": "String", "ofType": null }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "OrganizationFilter",
+        "description": null,
+        "fields": null,
+        "inputFields": [
+          {
+            "name": "address",
+            "description": null,
+            "type": { "kind": "INPUT_OBJECT", "name": "FilterOptions", "ofType": null },
+            "defaultValue": "null",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "city",
+            "description": null,
+            "type": { "kind": "INPUT_OBJECT", "name": "FilterOptions", "ofType": null },
+            "defaultValue": "null",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "country",
+            "description": null,
+            "type": { "kind": "INPUT_OBJECT", "name": "FilterOptions", "ofType": null },
+            "defaultValue": "null",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "id",
+            "description": null,
+            "type": { "kind": "INPUT_OBJECT", "name": "FilterOptions", "ofType": null },
+            "defaultValue": "null",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "name",
+            "description": null,
+            "type": { "kind": "INPUT_OBJECT", "name": "FilterOptions", "ofType": null },
+            "defaultValue": "null",
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "interfaces": null,
         "enumValues": null,
         "possibleTypes": null
       },
@@ -3328,6 +3903,35 @@
             "deprecationReason": null
           },
           {
+            "name": "organizations",
+            "description": "Returns all Organizations",
+            "args": [
+              {
+                "name": "filters",
+                "description": null,
+                "type": { "kind": "INPUT_OBJECT", "name": "OrganizationFilter", "ofType": null },
+                "defaultValue": "null",
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": { "kind": "OBJECT", "name": "Organization", "ofType": null }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "projects",
             "description": "Returns all Projects",
             "args": [],
@@ -3341,6 +3945,43 @@
                   "kind": "NON_NULL",
                   "name": null,
                   "ofType": { "kind": "OBJECT", "name": "Project", "ofType": null }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "users",
+            "description": "Returns all Users",
+            "args": [
+              {
+                "name": "filters",
+                "description": null,
+                "type": { "kind": "INPUT_OBJECT", "name": "UserFilters", "ofType": null },
+                "defaultValue": "null",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "sortBy",
+                "description": null,
+                "type": { "kind": "INPUT_OBJECT", "name": "UserSort", "ofType": null },
+                "defaultValue": "null",
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": { "kind": "OBJECT", "name": "User", "ofType": null }
                 }
               }
             },
@@ -3644,6 +4285,179 @@
           { "name": "tones_km", "description": null, "isDeprecated": false, "deprecationReason": null },
           { "name": "unknown", "description": null, "isDeprecated": false, "deprecationReason": null }
         ],
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "User",
+        "description": null,
+        "fields": [
+          {
+            "name": "email",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": { "kind": "SCALAR", "name": "String", "ofType": null }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "firstName",
+            "description": null,
+            "args": [],
+            "type": { "kind": "SCALAR", "name": "String", "ofType": null },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "id",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": { "kind": "SCALAR", "name": "UUID", "ofType": null }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "lastName",
+            "description": null,
+            "args": [],
+            "type": { "kind": "SCALAR", "name": "String", "ofType": null },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "organizationId",
+            "description": null,
+            "args": [],
+            "type": { "kind": "SCALAR", "name": "UUID", "ofType": null },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "timeJoined",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": { "kind": "SCALAR", "name": "DateTime", "ofType": null }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "UserFilters",
+        "description": null,
+        "fields": null,
+        "inputFields": [
+          {
+            "name": "email",
+            "description": null,
+            "type": { "kind": "INPUT_OBJECT", "name": "FilterOptions", "ofType": null },
+            "defaultValue": "null",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "firstName",
+            "description": null,
+            "type": { "kind": "INPUT_OBJECT", "name": "FilterOptions", "ofType": null },
+            "defaultValue": "null",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "id",
+            "description": null,
+            "type": { "kind": "INPUT_OBJECT", "name": "FilterOptions", "ofType": null },
+            "defaultValue": "null",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "lastName",
+            "description": null,
+            "type": { "kind": "INPUT_OBJECT", "name": "FilterOptions", "ofType": null },
+            "defaultValue": "null",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "organizationId",
+            "description": null,
+            "type": { "kind": "INPUT_OBJECT", "name": "FilterOptions", "ofType": null },
+            "defaultValue": "null",
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "UserSort",
+        "description": null,
+        "fields": null,
+        "inputFields": [
+          {
+            "name": "firstName",
+            "description": null,
+            "type": { "kind": "ENUM", "name": "SortOptions", "ofType": null },
+            "defaultValue": "null",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "id",
+            "description": null,
+            "type": { "kind": "ENUM", "name": "SortOptions", "ofType": null },
+            "defaultValue": "null",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "lastName",
+            "description": null,
+            "type": { "kind": "ENUM", "name": "SortOptions", "ofType": null },
+            "defaultValue": "null",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "name",
+            "description": null,
+            "type": { "kind": "ENUM", "name": "SortOptions", "ofType": null },
+            "defaultValue": "null",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "organizationId",
+            "description": null,
+            "type": { "kind": "ENUM", "name": "SortOptions", "ofType": null },
+            "defaultValue": "null",
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "interfaces": null,
+        "enumValues": null,
         "possibleTypes": null
       },
       {
