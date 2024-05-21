@@ -20,7 +20,27 @@ SuperTokens.init({
     apiBasePath: import.meta.env.VITE_AUTH_API_PATH,
     websiteBasePath: import.meta.env.VITE_AUTH_WEB_PATH,
   },
-  recipeList: [EmailPassword.init(), Session.init()],
+  recipeList: [
+    EmailPassword.init({
+      signInAndUpFeature: {
+        signUpForm: {
+          formFields: [
+            {
+              id: 'firstName',
+              label: 'First Name',
+              placeholder: 'First Name',
+            },
+            {
+              id: 'lastName',
+              label: 'Last Name',
+              placeholder: 'Last Name',
+            },
+          ],
+        },
+      },
+    }),
+    Session.init(),
+  ],
 })
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
