@@ -33,3 +33,12 @@ mutation createOrganizations($organizations: [InputOrganization!]!) {
     country
   }
 }
+
+query getUsers {
+  users {
+    id
+    firstName
+    lastName
+    email
+  }
+}
