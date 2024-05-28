@@ -1765,7 +1765,14 @@ export type GetUsersQueryVariables = Exact<{ [key: string]: never }>
 
 export type GetUsersQuery = {
   __typename?: 'Query'
-  users: Array<{ __typename?: 'User'; id: any; firstName?: string | null; lastName?: string | null; email: string }>
+  users: Array<{
+    __typename?: 'User'
+    id: any
+    firstName?: string | null
+    lastName?: string | null
+    email: string
+    organizationId?: any | null
+  }>
 }
 
 export const GetContributionsDocument = gql`
@@ -1968,6 +1975,7 @@ export const GetUsersDocument = gql`
       firstName
       lastName
       email
+      organizationId
     }
   }
 `

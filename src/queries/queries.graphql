@@ -40,5 +40,6 @@ query getUsers {
     firstName
     lastName
     email
+    organizationId
   }
 }
