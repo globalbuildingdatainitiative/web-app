@@ -25,26 +25,28 @@ export const SidePanel = () => {
   const users = usersData?.users
   const organizations = organizationsData?.organizations
 
-  const currentUserID = session?.userId ?? ''
-
   useEffect(() => {
     async function fetchFirstNameAndOrganization() {
       if (session.loading || !session.doesSessionExist) {
         return
       }
 
-      try {
-        const currentUser = users?.find((user) => user.id === currentUserID)
-        if (currentUser && currentUser.firstName) {
-          setFirstName(currentUser.firstName)
-        }
+      const currentUserID = session.userId
 
-        if (currentUser && currentUser.organizationId) {
-          const currentOrganization = organizations?.find(
-            (organization) => organization.id === currentUser.organizationId,
-          )
-          if (currentOrganization && currentOrganization.name) {
-            setOrganization(currentOrganization.name)
+      try {
+        if (currentUserID) {
+          const currentUser = users?.find((user) => user.id === currentUserID)
+          if (currentUser && currentUser.firstName) {
+            setFirstName(currentUser.firstName)
+          }
+
+          if (currentUser && currentUser.organizationId) {
+            const currentOrganization = organizations?.find(
+              (organization) => organization.id === currentUser.organizationId,
+            )
+            if (currentOrganization && currentOrganization.name) {
+              setOrganization(currentOrganization.name)
+            }
           }
         }
       } catch (error) {
