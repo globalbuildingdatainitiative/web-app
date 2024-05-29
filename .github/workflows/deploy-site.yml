@@ -41,6 +41,13 @@ jobs:
 
       - name: Build
         run: npm run build
+        env:
+          VITE_APP_NAME: GBDI
+          VITE_GRAPHQL_API_DOMAIN: https://api.gbdi.io
+          VITE_WEB_DOMAIN: https://app.gbdi.io
+          VITE_AUTH_API_DOMAIN: https://api.gbdi.io
+          VITE_AUTH_API_PATH: /api/auth
+          VITE_AUTH_WEB_PATH: /auth
 
       - name: Upload artifact for deployment job
         if: github.event_name != 'pull_request'
