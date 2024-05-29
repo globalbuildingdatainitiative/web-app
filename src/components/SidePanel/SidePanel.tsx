@@ -1,6 +1,7 @@
 import { AppShell, Button, Group, Stack, Title } from '@mantine/core'
 import { IconAffiliate, IconChevronRight, IconDashboard, IconUpload, IconUser } from '@tabler/icons-react'
 import { useLocation, useNavigate } from 'react-router-dom'
+import { SignOut } from '../SignOut'
 
 interface ButtonProps {
   name: string
@@ -46,7 +47,9 @@ export const SidePanel = () => {
           ))}
         </Stack>
       </AppShell.Section>
-      <AppShell.Section>Hassan from EPFL</AppShell.Section>
+      <AppShell.Section style={{ display: 'inline-flex', justifyContent: 'center', alignItems: 'center' }}>
+        <SignOut />
+      </AppShell.Section>
     </>
   )
 }

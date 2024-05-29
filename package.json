@@ -19,11 +19,11 @@
   },
   "dependencies": {
     "@fontsource/outfit": "^5.0.12",
-    "@mantine/core": "^7.6.2",
-    "@mantine/dates": "^7.8.1",
-    "@mantine/dropzone": "^7.8.1",
-    "@mantine/form": "^7.9.1",
-    "@mantine/hooks": "^7.6.2",
+    "@mantine/core": "^7.10.0",
+    "@mantine/dates": "^7.10.0",
+    "@mantine/dropzone": "^7.10.0",
+    "@mantine/form": "^7.10.0",
+    "@mantine/hooks": "^7.10.0",
     "@tabler/icons-react": "^3.2.0",
     "clsx": "^2.1.1",
     "dayjs": "^1.11.10",
@@ -32,7 +32,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.22.3",
-    "supertokens-auth-react": "^0.40.0"
+    "supertokens-auth-react": "^0.40.1"
   },
   "devDependencies": {
     "@apollo/client": "^3.10.1",
