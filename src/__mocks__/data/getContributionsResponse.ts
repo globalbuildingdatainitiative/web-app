@@ -7,6 +7,9 @@ export default {
         project: {
           name: 'My Project',
         },
+        organization: {
+          name: 'My Organization',
+        },
       },
     ],
   },

@@ -1772,6 +1772,7 @@ export type GetUsersQuery = {
     lastName?: string | null
     email: string
     organizationId?: any | null
+    timeJoined: any
   }>
 }
 
@@ -1976,6 +1977,7 @@ export const GetUsersDocument = gql`
       lastName
       email
       organizationId
+      timeJoined
     }
   }
 `

@@ -41,5 +41,6 @@ query getUsers {
     lastName
     email
     organizationId
+    timeJoined
   }
 }
