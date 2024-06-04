@@ -33,11 +33,6 @@ export const MemberTable: React.FC<MemberTableProps> = ({ organizationId }) => {
         Cell: ({ cell }) => new Date(cell.getValue<string>()).toLocaleDateString(),
         size: 100,
       },
-      {
-        accessorKey: 'organizationName',
-        header: 'Organization',
-        size: 200,
-      },
     ],
     [],
   )
