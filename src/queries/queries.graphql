@@ -34,12 +34,13 @@ mutation createOrganizations($organizations: [InputOrganization!]!) {
   }
 }
 
-query getUsers {
-  users {
+query getUsers($filters: UserFilters) {
+  users(filters: $filters) {
     id
     firstName
     lastName
     email
     organizationId
+    timeJoined
   }
 }

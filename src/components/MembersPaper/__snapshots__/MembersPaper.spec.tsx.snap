@@ -1,0 +1,255 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`MemberPaper 1`] = `
+<body>
+  <div>
+    <style
+      data-mantine-styles="true"
+    >
+      :root{--mantine-font-family: Outfit, sans-serif;--mantine-font-family-headings: Outfit, sans-serif;--mantine-breakpoint-xxl: 120em;}
+    </style>
+    <style
+      data-mantine-styles="classes"
+    >
+      @media (max-width: 35.99375em) {.mantine-visible-from-xs {display: none !important;}}@media (min-width: 36em) {.mantine-hidden-from-xs {display: none !important;}}@media (max-width: 47.99375em) {.mantine-visible-from-sm {display: none !important;}}@media (min-width: 48em) {.mantine-hidden-from-sm {display: none !important;}}@media (max-width: 61.99375em) {.mantine-visible-from-md {display: none !important;}}@media (min-width: 62em) {.mantine-hidden-from-md {display: none !important;}}@media (max-width: 74.99375em) {.mantine-visible-from-lg {display: none !important;}}@media (min-width: 75em) {.mantine-hidden-from-lg {display: none !important;}}@media (max-width: 87.99375em) {.mantine-visible-from-xl {display: none !important;}}@media (min-width: 88em) {.mantine-hidden-from-xl {display: none !important;}}@media (max-width: 119.99375em) {.mantine-visible-from-xxl {display: none !important;}}@media (min-width: 120em) {.mantine-hidden-from-xxl {display: none !important;}}
+    </style>
+    <div
+      class="m_e615b15f mantine-Card-root m_1b7284a3 mantine-Paper-root"
+      data-testid="MemberPaper"
+      data-with-border="true"
+      style="--paper-radius: var(--mantine-radius-lg); --paper-shadow: var(--mantine-shadow-sm); --card-padding: var(--mantine-spacing-lg);"
+    >
+      <h2
+        class="m_8a5d1357 mantine-Title-root"
+        data-order="2"
+        style="--title-fw: var(--mantine-h2-font-weight); --title-lh: var(--mantine-h2-line-height); --title-fz: var(--mantine-h2-font-size);"
+      >
+        All Members
+      </h2>
+      <div
+        class="m_e615b15f mantine-Card-root m_1b7284a3 mantine-Paper-root"
+        data-testid="CreateOrganizationPaper"
+        data-with-border="true"
+        style="--paper-radius: var(--mantine-radius-lg); --paper-shadow: var(--mantine-shadow-sm); --card-padding: var(--mantine-spacing-lg);"
+      >
+        <div
+          class="m_4081bf90 mantine-Group-root"
+          style="--group-gap: var(--mantine-spacing-md); --group-align: center; --group-justify: flex-start; --group-wrap: wrap;"
+        >
+          <img
+            alt="Company Logo"
+            src="/src/assets/logo.png"
+            style="max-width: 400px;"
+          />
+          <form
+            style="flex-grow: 1; flex-shrink: 1; flex-basis: 0%;"
+          >
+            <div
+              class="m_6d731127 mantine-Stack-root"
+              style="--stack-gap: var(--mantine-spacing-xl); --stack-align: center; --stack-justify: flex-start;"
+            >
+              <h2
+                class="m_8a5d1357 mantine-Title-root"
+                data-order="2"
+                style="--title-fw: var(--mantine-h2-font-weight); --title-lh: var(--mantine-h2-line-height); --title-fz: var(--mantine-h2-font-size);"
+              >
+                Create An Organization
+              </h2>
+              <div
+                class="m_46b77525 mantine-InputWrapper-root mantine-TextInput-root"
+                data-size="md"
+                style="width: 500px;"
+              >
+                <label
+                  class="m_8fdc1311 mantine-InputWrapper-label mantine-TextInput-label"
+                  data-required="true"
+                  data-size="md"
+                  for=""
+                  id=""
+                  style="--input-label-size: var(--mantine-font-size-md);"
+                >
+                  Organization Name
+                  <span
+                    aria-hidden="true"
+                    class="m_78a94662 mantine-InputWrapper-required mantine-TextInput-required"
+                    style=""
+                  >
+                     *
+                  </span>
+                </label>
+                <div
+                  class="m_6c018570 mantine-Input-wrapper mantine-TextInput-wrapper"
+                  data-size="md"
+                  data-variant="default"
+                  style="--input-height: var(--input-height-md); --input-fz: var(--mantine-font-size-md); --input-radius: var(--mantine-radius-md);"
+                >
+                  <input
+                    aria-invalid="false"
+                    class="m_8fb7ebe7 mantine-Input-input mantine-TextInput-input"
+                    data-path="name"
+                    data-variant="default"
+                    formaction="http://localhost:3000/"
+                    formmethod=""
+                    id=""
+                    placeholder="Enter Name"
+                    required=""
+                    style=""
+                    value=""
+                  />
+                </div>
+              </div>
+              <div
+                class="m_46b77525 mantine-InputWrapper-root mantine-TextInput-root"
+                data-size="md"
+                style="width: 500px;"
+              >
+                <label
+                  class="m_8fdc1311 mantine-InputWrapper-label mantine-TextInput-label"
+                  data-required="true"
+                  data-size="md"
+                  for=""
+                  id=""
+                  style="--input-label-size: var(--mantine-font-size-md);"
+                >
+                  Organization Address
+                  <span
+                    aria-hidden="true"
+                    class="m_78a94662 mantine-InputWrapper-required mantine-TextInput-required"
+                    style=""
+                  >
+                     *
+                  </span>
+                </label>
+                <div
+                  class="m_6c018570 mantine-Input-wrapper mantine-TextInput-wrapper"
+                  data-size="md"
+                  data-variant="default"
+                  style="--input-height: var(--input-height-md); --input-fz: var(--mantine-font-size-md); --input-radius: var(--mantine-radius-md);"
+                >
+                  <input
+                    aria-invalid="false"
+                    class="m_8fb7ebe7 mantine-Input-input mantine-TextInput-input"
+                    data-path="address"
+                    data-variant="default"
+                    formaction="http://localhost:3000/"
+                    formmethod=""
+                    id=""
+                    placeholder="Enter Address"
+                    required=""
+                    style=""
+                    value=""
+                  />
+                </div>
+              </div>
+              <div
+                class="m_46b77525 mantine-InputWrapper-root mantine-TextInput-root"
+                data-size="md"
+                style="width: 500px;"
+              >
+                <label
+                  class="m_8fdc1311 mantine-InputWrapper-label mantine-TextInput-label"
+                  data-required="true"
+                  data-size="md"
+                  for=""
+                  id=""
+                  style="--input-label-size: var(--mantine-font-size-md);"
+                >
+                  City
+                  <span
+                    aria-hidden="true"
+                    class="m_78a94662 mantine-InputWrapper-required mantine-TextInput-required"
+                    style=""
+                  >
+                     *
+                  </span>
+                </label>
+                <div
+                  class="m_6c018570 mantine-Input-wrapper mantine-TextInput-wrapper"
+                  data-size="md"
+                  data-variant="default"
+                  style="--input-height: var(--input-height-md); --input-fz: var(--mantine-font-size-md); --input-radius: var(--mantine-radius-md);"
+                >
+                  <input
+                    aria-invalid="false"
+                    class="m_8fb7ebe7 mantine-Input-input mantine-TextInput-input"
+                    data-path="city"
+                    data-variant="default"
+                    formaction="http://localhost:3000/"
+                    formmethod=""
+                    id=""
+                    placeholder="Enter City"
+                    required=""
+                    style=""
+                    value=""
+                  />
+                </div>
+              </div>
+              <div
+                class="m_46b77525 mantine-InputWrapper-root mantine-TextInput-root"
+                data-size="md"
+                style="width: 500px;"
+              >
+                <label
+                  class="m_8fdc1311 mantine-InputWrapper-label mantine-TextInput-label"
+                  data-required="true"
+                  data-size="md"
+                  for=""
+                  id=""
+                  style="--input-label-size: var(--mantine-font-size-md);"
+                >
+                  Country
+                  <span
+                    aria-hidden="true"
+                    class="m_78a94662 mantine-InputWrapper-required mantine-TextInput-required"
+                    style=""
+                  >
+                     *
+                  </span>
+                </label>
+                <div
+                  class="m_6c018570 mantine-Input-wrapper mantine-TextInput-wrapper"
+                  data-size="md"
+                  data-variant="default"
+                  style="--input-height: var(--input-height-md); --input-fz: var(--mantine-font-size-md); --input-radius: var(--mantine-radius-md);"
+                >
+                  <input
+                    aria-invalid="false"
+                    class="m_8fb7ebe7 mantine-Input-input mantine-TextInput-input"
+                    data-path="country"
+                    data-variant="default"
+                    formaction="http://localhost:3000/"
+                    formmethod=""
+                    id=""
+                    placeholder="Enter Country"
+                    required=""
+                    style=""
+                    value=""
+                  />
+                </div>
+              </div>
+              <button
+                class="mantine-focus-auto mantine-active m_77c9d27d mantine-Button-root m_87cf2631 mantine-UnstyledButton-root"
+                data-size="md"
+                style="--button-height: var(--button-height-md); --button-padding-x: var(--button-padding-x-md); --button-fz: var(--mantine-font-size-md); --button-radius: var(--mantine-radius-lg); --button-bg: var(--mantine-color-green-filled); --button-hover: var(--mantine-color-green-filled-hover); --button-color: var(--mantine-color-white); --button-bd: calc(0.0625rem * var(--mantine-scale)) solid transparent; width: 500px;"
+                type="submit"
+              >
+                <span
+                  class="m_80f1301b mantine-Button-inner"
+                  style=""
+                >
+                  <span
+                    class="m_811560b9 mantine-Button-label"
+                    style=""
+                  >
+                    Create Organization
+                  </span>
+                </span>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+`;
