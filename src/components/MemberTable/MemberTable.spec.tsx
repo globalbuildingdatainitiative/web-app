@@ -2,13 +2,13 @@ import { MemberTable } from '@components'
 import { MockedProvider } from '@apollo/client/testing'
 import { getUsersMock, getOrganizationsMock, MockSessionProvider } from '@mocks'
 import { expect, render, screen, suite, test, waitFor } from '@test'
-import { ClaimValidationError } from 'supertokens-auth-react/recipe/session'
+import { MemoryRouter } from 'react-router-dom'
 
 suite('MemberTable', () => {
   const mockSessionContext = {
     loading: false as const,
-    userId: '1', // Mock user ID for the session
-    invalidClaims: [] as ClaimValidationError[],
+    userId: '1',
+    invalidClaims: [],
     doesSessionExist: true,
     accessTokenPayload: {},
   }
@@ -17,7 +17,9 @@ suite('MemberTable', () => {
     const { container } = render(
       <MockedProvider mocks={[...getUsersMock, ...getOrganizationsMock]} addTypename={false}>
         <MockSessionProvider sessionContext={mockSessionContext}>
-          <MemberTable organizationId='1' /> {/* Pass the organizationId prop */}
+          <MemoryRouter>
+            <MemberTable organizationId='1' />
+          </MemoryRouter>
         </MockSessionProvider>
       </MockedProvider>,
     )
@@ -28,7 +30,9 @@ suite('MemberTable', () => {
     render(
       <MockedProvider mocks={[...getUsersMock, ...getOrganizationsMock]} addTypename={false}>
         <MockSessionProvider sessionContext={mockSessionContext}>
-          <MemberTable organizationId='1' /> {/* Pass the organizationId prop */}
+          <MemoryRouter>
+            <MemberTable organizationId='1' />
+          </MemoryRouter>
         </MockSessionProvider>
       </MockedProvider>,
     )
@@ -39,7 +43,9 @@ suite('MemberTable', () => {
     render(
       <MockedProvider mocks={[...getUsersMock, ...getOrganizationsMock]} addTypename={false}>
         <MockSessionProvider sessionContext={mockSessionContext}>
-          <MemberTable organizationId='1' /> {/* Pass the organizationId prop */}
+          <MemoryRouter>
+            <MemberTable organizationId='1' />
+          </MemoryRouter>
         </MockSessionProvider>
       </MockedProvider>,
     )

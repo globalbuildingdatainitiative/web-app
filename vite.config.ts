@@ -15,6 +15,7 @@ export default defineConfig({
   test: {
     globals: true,
     environment: 'happy-dom',
+    setupFiles: 'src/vitest.setup.ts', // Add the setup file here
     snapshotSerializers: ['src/__test__/snapshotSerializer.ts'],
     alias: {
       'lcax': `${__dirname}/src/__mocks__/lcax.ts`,

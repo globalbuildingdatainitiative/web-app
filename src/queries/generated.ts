@@ -1761,7 +1761,9 @@ export type CreateOrganizationsMutation = {
   }>
 }
 
-export type GetUsersQueryVariables = Exact<{ [key: string]: never }>
+export type GetUsersQueryVariables = Exact<{
+  filters?: InputMaybe<UserFilters>
+}>
 
 export type GetUsersQuery = {
   __typename?: 'Query'
@@ -1970,8 +1972,8 @@ export type CreateOrganizationsMutationOptions = Apollo.BaseMutationOptions<
   CreateOrganizationsMutationVariables
 >
 export const GetUsersDocument = gql`
-  query getUsers {
-    users {
+  query getUsers($filters: UserFilters) {
+    users(filters: $filters) {
       id
       firstName
       lastName
@@ -1994,6 +1996,7 @@ export const GetUsersDocument = gql`
  * @example
  * const { data, loading, error } = useGetUsersQuery({
  *   variables: {
+ *      filters: // value for 'filters'
  *   },
  * });
  */

@@ -3,13 +3,13 @@ import { MockedProvider } from '@apollo/client/testing'
 import { getUsersMock, getOrganizationsMock } from '@mocks'
 import { expect, render, screen, test, waitFor } from '@test'
 import { MockSessionProvider } from '@mocks'
-import { ClaimValidationError } from 'supertokens-auth-react/recipe/session'
+import { MemoryRouter } from 'react-router-dom'
 
 test('MemberPaper', async () => {
   const mockSessionContext = {
     loading: false as const,
-    userId: '1', // Mock user ID for the session
-    invalidClaims: [] as ClaimValidationError[],
+    userId: '1',
+    invalidClaims: [],
     doesSessionExist: true,
     accessTokenPayload: {},
   }
@@ -17,7 +17,9 @@ test('MemberPaper', async () => {
   const { baseElement } = render(
     <MockedProvider mocks={[...getUsersMock, ...getOrganizationsMock]} addTypename={false}>
       <MockSessionProvider sessionContext={mockSessionContext}>
-        <MemberPaper />
+        <MemoryRouter>
+          <MemberPaper />
+        </MemoryRouter>
       </MockSessionProvider>
     </MockedProvider>,
   )
