@@ -910,6 +910,8 @@ export type Mutation = {
   deleteOrganizations: Array<Scalars['UUID']['output']>
   /** Updates an existing Organization */
   updateOrganizations: Array<Organization>
+  /** Update user details */
+  updateUser: User
 }
 
 export type MutationAddContributionsArgs = {
@@ -926,6 +928,10 @@ export type MutationDeleteOrganizationsArgs = {
 
 export type MutationUpdateOrganizationsArgs = {
   organizations: Array<InputOrganization>
+}
+
+export type MutationUpdateUserArgs = {
+  userInput: UpdateUserInput
 }
 
 export type Organization = {
@@ -1107,6 +1113,16 @@ export enum Unit {
   UNKNOWN = 'unknown',
 }
 
+export type UpdateUserInput = {
+  currentPassword?: InputMaybe<Scalars['String']['input']>
+  email?: InputMaybe<Scalars['String']['input']>
+  firstName?: InputMaybe<Scalars['String']['input']>
+  id: Scalars['UUID']['input']
+  lastName?: InputMaybe<Scalars['String']['input']>
+  newPassword?: InputMaybe<Scalars['String']['input']>
+  organizationId?: InputMaybe<Scalars['UUID']['input']>
+}
+
 export type User = {
   __typename?: 'User'
   email: Scalars['String']['output']
@@ -1277,6 +1293,7 @@ export type ResolversTypes = {
   TechFlow: ResolverTypeWrapper<TechFlow>
   UUID: ResolverTypeWrapper<Scalars['UUID']['output']>
   Unit: Unit
+  UpdateUserInput: UpdateUserInput
   User: ResolverTypeWrapper<User>
   UserFilters: UserFilters
   UserSort: UserSort
@@ -1333,6 +1350,7 @@ export type ResolversParentTypes = {
   Source: Source
   TechFlow: TechFlow
   UUID: Scalars['UUID']['output']
+  UpdateUserInput: UpdateUserInput
   User: User
   UserFilters: UserFilters
   UserSort: UserSort
@@ -1506,6 +1524,12 @@ export type MutationResolvers<
     ParentType,
     ContextType,
     RequireFields<MutationUpdateOrganizationsArgs, 'organizations'>
+  >
+  updateUser?: Resolver<
+    ResolversTypes['User'],
+    ParentType,
+    ContextType,
+    RequireFields<MutationUpdateUserArgs, 'userInput'>
   >
 }
 
@@ -1778,6 +1802,22 @@ export type GetUsersQuery = {
   }>
 }
 
+export type UpdateUserMutationVariables = Exact<{
+  userInput: UpdateUserInput
+}>
+
+export type UpdateUserMutation = {
+  __typename?: 'Mutation'
+  updateUser: {
+    __typename?: 'User'
+    id: any
+    firstName?: string | null
+    lastName?: string | null
+    email: string
+    timeJoined: any
+  }
+}
+
 export const GetContributionsDocument = gql`
   query getContributions {
     contributions {
@@ -2018,3 +2058,42 @@ export type GetUsersQueryHookResult = ReturnType<typeof useGetUsersQuery>
 export type GetUsersLazyQueryHookResult = ReturnType<typeof useGetUsersLazyQuery>
 export type GetUsersSuspenseQueryHookResult = ReturnType<typeof useGetUsersSuspenseQuery>
 export type GetUsersQueryResult = Apollo.QueryResult<GetUsersQuery, GetUsersQueryVariables>
+export const UpdateUserDocument = gql`
+  mutation updateUser($userInput: UpdateUserInput!) {
+    updateUser(userInput: $userInput) {
+      id
+      firstName
+      lastName
+      email
+      timeJoined
+    }
+  }
+`
+export type UpdateUserMutationFn = Apollo.MutationFunction<UpdateUserMutation, UpdateUserMutationVariables>
+
+/**
+ * __useUpdateUserMutation__
+ *
+ * To run a mutation, you first call `useUpdateUserMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateUserMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateUserMutation, { data, loading, error }] = useUpdateUserMutation({
+ *   variables: {
+ *      userInput: // value for 'userInput'
+ *   },
+ * });
+ */
+export function useUpdateUserMutation(
+  baseOptions?: Apollo.MutationHookOptions<UpdateUserMutation, UpdateUserMutationVariables>,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<UpdateUserMutation, UpdateUserMutationVariables>(UpdateUserDocument, options)
+}
+export type UpdateUserMutationHookResult = ReturnType<typeof useUpdateUserMutation>
+export type UpdateUserMutationResult = Apollo.MutationResult<UpdateUserMutation>
+export type UpdateUserMutationOptions = Apollo.BaseMutationOptions<UpdateUserMutation, UpdateUserMutationVariables>

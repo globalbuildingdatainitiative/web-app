@@ -7,6 +7,7 @@ const ContributeNowPage = lazy(() => import('../../pages/ContributeNowPage'))
 const DashboardPage = lazy(() => import('../../pages/DashboardPage'))
 const OrganizationPage = lazy(() => import('../../pages/OrganizationPage'))
 const CreateOrganizationPage = lazy(() => import('../../pages/CreateOrganizationPage'))
+const ProfilePage = lazy(() => import('../../pages/ProfilePage'))
 const Page404 = lazy(() => import('../../pages/404Page'))
 
 export const AppRouter = () => (
@@ -17,6 +18,7 @@ export const AppRouter = () => (
       <Route path='/organization/new' element={<CreateOrganizationPage />} />
       <Route path='/contributions' element={<ContributionPage />} />
       <Route path='/contributions/new' element={<ContributeNowPage />} />
+      <Route path='/profile' element={<ProfilePage />} />
       <Route path='*' element={<Page404 />} />
     </Routes>
   </React.Suspense>
