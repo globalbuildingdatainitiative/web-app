@@ -1,13 +1,17 @@
 import { Paper } from '@components'
 import { Button, Group, Stack, Text, TextInput, Title } from '@mantine/core'
 import { useForm } from '@mantine/form'
-import { CountryCodes, useCreateOrganizationsMutation } from '@queries'
+import { CountryCodes, GetCurrentUserDocument, useCreateOrganizationsMutation } from '@queries'
 import logo from 'assets/logo.png'
 import { useNavigate } from 'react-router-dom'
+import { useUserContext } from '@context'
 
 export const CreateOrganizationPaper = () => {
   const navigate = useNavigate()
-  const [createOrganization, { loading, error }] = useCreateOrganizationsMutation()
+  const { user } = useUserContext()
+  const [createOrganization, { loading, error }] = useCreateOrganizationsMutation({
+    refetchQueries: [{ query: GetCurrentUserDocument, variables: { id: user?.id } }],
+  })
   const form = useForm({
     initialValues: {
       name: '',
