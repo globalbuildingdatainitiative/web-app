@@ -1,0 +1,380 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`EditProfileForm > Snapshot 1`] = `
+<div>
+  <style
+    data-mantine-styles="true"
+  >
+    :root{--mantine-font-family: Outfit, sans-serif;--mantine-font-family-headings: Outfit, sans-serif;--mantine-breakpoint-xxl: 120em;}
+  </style>
+  <style
+    data-mantine-styles="classes"
+  >
+    @media (max-width: 35.99375em) {.mantine-visible-from-xs {display: none !important;}}@media (min-width: 36em) {.mantine-hidden-from-xs {display: none !important;}}@media (max-width: 47.99375em) {.mantine-visible-from-sm {display: none !important;}}@media (min-width: 48em) {.mantine-hidden-from-sm {display: none !important;}}@media (max-width: 61.99375em) {.mantine-visible-from-md {display: none !important;}}@media (min-width: 62em) {.mantine-hidden-from-md {display: none !important;}}@media (max-width: 74.99375em) {.mantine-visible-from-lg {display: none !important;}}@media (min-width: 75em) {.mantine-hidden-from-lg {display: none !important;}}@media (max-width: 87.99375em) {.mantine-visible-from-xl {display: none !important;}}@media (min-width: 88em) {.mantine-hidden-from-xl {display: none !important;}}@media (max-width: 119.99375em) {.mantine-visible-from-xxl {display: none !important;}}@media (min-width: 120em) {.mantine-hidden-from-xxl {display: none !important;}}
+  </style>
+  <div
+    class="m_e615b15f mantine-Card-root m_1b7284a3 mantine-Paper-root"
+    data-testid="EditProfileForm"
+    data-with-border="true"
+    style="--paper-radius: var(--mantine-radius-lg); --paper-shadow: var(--mantine-shadow-sm); --card-padding: var(--mantine-spacing-lg);"
+  >
+    <h3
+      class="m_8a5d1357 mantine-Title-root"
+      data-order="3"
+      style="--title-fw: var(--mantine-h3-font-weight); --title-lh: var(--mantine-h3-line-height); --title-fz: var(--mantine-h3-font-size); margin-bottom: var(--mantine-spacing-md);"
+    >
+      Edit Profile
+    </h3>
+    <form>
+      <div
+        class="m_46b77525 mantine-InputWrapper-root mantine-TextInput-root"
+        style="margin-bottom: var(--mantine-spacing-sm);"
+      >
+        <label
+          class="m_8fdc1311 mantine-InputWrapper-label mantine-TextInput-label"
+          for=""
+          id=""
+          style=""
+        >
+          First Name
+        </label>
+        <div
+          class="m_6c018570 mantine-Input-wrapper mantine-TextInput-wrapper"
+          data-variant="default"
+          style=""
+        >
+          <input
+            aria-invalid="false"
+            class="m_8fb7ebe7 mantine-Input-input mantine-TextInput-input"
+            data-path="firstName"
+            data-variant="default"
+            formaction="http://localhost:3000/"
+            formmethod=""
+            id=""
+            placeholder="Your first name"
+            style=""
+            value=""
+          />
+        </div>
+      </div>
+      <div
+        class="m_46b77525 mantine-InputWrapper-root mantine-TextInput-root"
+        style="margin-bottom: var(--mantine-spacing-sm);"
+      >
+        <label
+          class="m_8fdc1311 mantine-InputWrapper-label mantine-TextInput-label"
+          for=""
+          id=""
+          style=""
+        >
+          Last Name
+        </label>
+        <div
+          class="m_6c018570 mantine-Input-wrapper mantine-TextInput-wrapper"
+          data-variant="default"
+          style=""
+        >
+          <input
+            aria-invalid="false"
+            class="m_8fb7ebe7 mantine-Input-input mantine-TextInput-input"
+            data-path="lastName"
+            data-variant="default"
+            formaction="http://localhost:3000/"
+            formmethod=""
+            id=""
+            placeholder="Your last name"
+            style=""
+            value=""
+          />
+        </div>
+      </div>
+      <div
+        class="m_46b77525 mantine-InputWrapper-root mantine-TextInput-root"
+        style="margin-bottom: var(--mantine-spacing-sm);"
+      >
+        <label
+          class="m_8fdc1311 mantine-InputWrapper-label mantine-TextInput-label"
+          for=""
+          id=""
+          style=""
+        >
+          Email Address
+        </label>
+        <div
+          class="m_6c018570 mantine-Input-wrapper mantine-TextInput-wrapper"
+          data-variant="default"
+          style=""
+        >
+          <input
+            aria-invalid="false"
+            class="m_8fb7ebe7 mantine-Input-input mantine-TextInput-input"
+            data-path="email"
+            data-variant="default"
+            formaction="http://localhost:3000/"
+            formmethod=""
+            id=""
+            placeholder="Your email"
+            style=""
+            value=""
+          />
+        </div>
+      </div>
+      <div
+        class="m_f61ca620 mantine-PasswordInput-root m_46b77525 mantine-InputWrapper-root mantine-PasswordInput-root"
+        style="margin-bottom: var(--mantine-spacing-sm);"
+      >
+        <label
+          class="m_8fdc1311 mantine-InputWrapper-label mantine-PasswordInput-label"
+          for=""
+          id=""
+          style=""
+        >
+          Current Password
+        </label>
+        <div
+          class="m_6c018570 mantine-Input-wrapper mantine-PasswordInput-wrapper"
+          data-variant="default"
+          data-with-right-section="true"
+          style="--input-left-section-pointer-events: none; --input-right-section-pointer-events: all;"
+        >
+          <div
+            class="m_ccf8da4c m_8fb7ebe7 mantine-Input-input mantine-PasswordInput-input"
+            data-variant="default"
+            style=""
+          >
+            <input
+              autocomplete="off"
+              class="m_f2d85dd2 mantine-PasswordInput-innerInput"
+              data-path="currentPassword"
+              formaction="http://localhost:3000/"
+              formmethod=""
+              id=""
+              placeholder="Current password"
+              style=""
+              type="password"
+              value=""
+            />
+          </div>
+          <div
+            class="m_82577fc2 mantine-Input-section mantine-PasswordInput-section"
+            data-position="right"
+            style=""
+          >
+            <button
+              aria-hidden="true"
+              class="mantine-focus-auto mantine-active m_b1072d44 mantine-PasswordInput-visibilityToggle m_8d3f4000 mantine-ActionIcon-root m_87cf2631 mantine-UnstyledButton-root"
+              data-variant="subtle"
+              style="--ai-bg: transparent; --ai-hover: var(--mantine-color-gray-light-hover); --ai-color: var(--mantine-color-gray-light-color); --ai-bd: calc(0.0625rem * var(--mantine-scale)) solid transparent;"
+              tabindex="-1"
+              type="button"
+            >
+              <span
+                class="m_8d3afb97 mantine-ActionIcon-icon"
+                style=""
+              >
+                <svg
+                  fill="none"
+                  style="width: var(--psi-icon-size); height: var(--psi-icon-size);"
+                  viewBox="0 0 15 15"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    clip-rule="evenodd"
+                    d="M7.5 11C4.80285 11 2.52952 9.62184 1.09622 7.50001C2.52952 5.37816 4.80285 4 7.5 4C10.1971 4 12.4705 5.37816 13.9038 7.50001C12.4705 9.62183 10.1971 11 7.5 11ZM7.5 3C4.30786 3 1.65639 4.70638 0.0760002 7.23501C-0.0253338 7.39715 -0.0253334 7.60288 0.0760014 7.76501C1.65639 10.2936 4.30786 12 7.5 12C10.6921 12 13.3436 10.2936 14.924 7.76501C15.0253 7.60288 15.0253 7.39715 14.924 7.23501C13.3436 4.70638 10.6921 3 7.5 3ZM7.5 9.5C8.60457 9.5 9.5 8.60457 9.5 7.5C9.5 6.39543 8.60457 5.5 7.5 5.5C6.39543 5.5 5.5 6.39543 5.5 7.5C5.5 8.60457 6.39543 9.5 7.5 9.5Z"
+                    fill="currentColor"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div
+        class="m_f61ca620 mantine-PasswordInput-root m_46b77525 mantine-InputWrapper-root mantine-PasswordInput-root"
+        style="margin-bottom: var(--mantine-spacing-sm);"
+      >
+        <label
+          class="m_8fdc1311 mantine-InputWrapper-label mantine-PasswordInput-label"
+          for=""
+          id=""
+          style=""
+        >
+          New Password
+        </label>
+        <div
+          class="m_6c018570 mantine-Input-wrapper mantine-PasswordInput-wrapper"
+          data-variant="default"
+          data-with-right-section="true"
+          style="--input-left-section-pointer-events: none; --input-right-section-pointer-events: all;"
+        >
+          <div
+            class="m_ccf8da4c m_8fb7ebe7 mantine-Input-input mantine-PasswordInput-input"
+            data-variant="default"
+            style=""
+          >
+            <input
+              autocomplete="off"
+              class="m_f2d85dd2 mantine-PasswordInput-innerInput"
+              data-path="newPassword"
+              formaction="http://localhost:3000/"
+              formmethod=""
+              id=""
+              placeholder="New password"
+              style=""
+              type="password"
+              value=""
+            />
+          </div>
+          <div
+            class="m_82577fc2 mantine-Input-section mantine-PasswordInput-section"
+            data-position="right"
+            style=""
+          >
+            <button
+              aria-hidden="true"
+              class="mantine-focus-auto mantine-active m_b1072d44 mantine-PasswordInput-visibilityToggle m_8d3f4000 mantine-ActionIcon-root m_87cf2631 mantine-UnstyledButton-root"
+              data-variant="subtle"
+              style="--ai-bg: transparent; --ai-hover: var(--mantine-color-gray-light-hover); --ai-color: var(--mantine-color-gray-light-color); --ai-bd: calc(0.0625rem * var(--mantine-scale)) solid transparent;"
+              tabindex="-1"
+              type="button"
+            >
+              <span
+                class="m_8d3afb97 mantine-ActionIcon-icon"
+                style=""
+              >
+                <svg
+                  fill="none"
+                  style="width: var(--psi-icon-size); height: var(--psi-icon-size);"
+                  viewBox="0 0 15 15"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    clip-rule="evenodd"
+                    d="M7.5 11C4.80285 11 2.52952 9.62184 1.09622 7.50001C2.52952 5.37816 4.80285 4 7.5 4C10.1971 4 12.4705 5.37816 13.9038 7.50001C12.4705 9.62183 10.1971 11 7.5 11ZM7.5 3C4.30786 3 1.65639 4.70638 0.0760002 7.23501C-0.0253338 7.39715 -0.0253334 7.60288 0.0760014 7.76501C1.65639 10.2936 4.30786 12 7.5 12C10.6921 12 13.3436 10.2936 14.924 7.76501C15.0253 7.60288 15.0253 7.39715 14.924 7.23501C13.3436 4.70638 10.6921 3 7.5 3ZM7.5 9.5C8.60457 9.5 9.5 8.60457 9.5 7.5C9.5 6.39543 8.60457 5.5 7.5 5.5C6.39543 5.5 5.5 6.39543 5.5 7.5C5.5 8.60457 6.39543 9.5 7.5 9.5Z"
+                    fill="currentColor"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div
+        class="m_f61ca620 mantine-PasswordInput-root m_46b77525 mantine-InputWrapper-root mantine-PasswordInput-root"
+        style="margin-bottom: var(--mantine-spacing-md);"
+      >
+        <label
+          class="m_8fdc1311 mantine-InputWrapper-label mantine-PasswordInput-label"
+          for=""
+          id=""
+          style=""
+        >
+          Confirm New Password
+        </label>
+        <div
+          class="m_6c018570 mantine-Input-wrapper mantine-PasswordInput-wrapper"
+          data-variant="default"
+          data-with-right-section="true"
+          style="--input-left-section-pointer-events: none; --input-right-section-pointer-events: all;"
+        >
+          <div
+            class="m_ccf8da4c m_8fb7ebe7 mantine-Input-input mantine-PasswordInput-input"
+            data-variant="default"
+            style=""
+          >
+            <input
+              autocomplete="off"
+              class="m_f2d85dd2 mantine-PasswordInput-innerInput"
+              data-path="confirmPassword"
+              formaction="http://localhost:3000/"
+              formmethod=""
+              id=""
+              placeholder="Confirm new password"
+              style=""
+              type="password"
+              value=""
+            />
+          </div>
+          <div
+            class="m_82577fc2 mantine-Input-section mantine-PasswordInput-section"
+            data-position="right"
+            style=""
+          >
+            <button
+              aria-hidden="true"
+              class="mantine-focus-auto mantine-active m_b1072d44 mantine-PasswordInput-visibilityToggle m_8d3f4000 mantine-ActionIcon-root m_87cf2631 mantine-UnstyledButton-root"
+              data-variant="subtle"
+              style="--ai-bg: transparent; --ai-hover: var(--mantine-color-gray-light-hover); --ai-color: var(--mantine-color-gray-light-color); --ai-bd: calc(0.0625rem * var(--mantine-scale)) solid transparent;"
+              tabindex="-1"
+              type="button"
+            >
+              <span
+                class="m_8d3afb97 mantine-ActionIcon-icon"
+                style=""
+              >
+                <svg
+                  fill="none"
+                  style="width: var(--psi-icon-size); height: var(--psi-icon-size);"
+                  viewBox="0 0 15 15"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    clip-rule="evenodd"
+                    d="M7.5 11C4.80285 11 2.52952 9.62184 1.09622 7.50001C2.52952 5.37816 4.80285 4 7.5 4C10.1971 4 12.4705 5.37816 13.9038 7.50001C12.4705 9.62183 10.1971 11 7.5 11ZM7.5 3C4.30786 3 1.65639 4.70638 0.0760002 7.23501C-0.0253338 7.39715 -0.0253334 7.60288 0.0760014 7.76501C1.65639 10.2936 4.30786 12 7.5 12C10.6921 12 13.3436 10.2936 14.924 7.76501C15.0253 7.60288 15.0253 7.39715 14.924 7.23501C13.3436 4.70638 10.6921 3 7.5 3ZM7.5 9.5C8.60457 9.5 9.5 8.60457 9.5 7.5C9.5 6.39543 8.60457 5.5 7.5 5.5C6.39543 5.5 5.5 6.39543 5.5 7.5C5.5 8.60457 6.39543 9.5 7.5 9.5Z"
+                    fill="currentColor"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div
+        class="m_4081bf90 mantine-Group-root"
+        style="--group-gap: var(--mantine-spacing-md); --group-align: center; --group-justify: flex-start; --group-wrap: wrap; margin-top: var(--mantine-spacing-md);"
+      >
+        <button
+          class="mantine-focus-auto mantine-active m_77c9d27d mantine-Button-root m_87cf2631 mantine-UnstyledButton-root"
+          data-variant="default"
+          style="--button-bg: var(--mantine-color-default); --button-hover: var(--mantine-color-default-hover); --button-color: var(--mantine-color-default-color); --button-bd: calc(0.0625rem * var(--mantine-scale)) solid var(--mantine-color-default-border);"
+          type="button"
+        >
+          <span
+            class="m_80f1301b mantine-Button-inner"
+            style=""
+          >
+            <span
+              class="m_811560b9 mantine-Button-label"
+              style=""
+            >
+              Cancel
+            </span>
+          </span>
+        </button>
+        <button
+          class="mantine-focus-auto m_77c9d27d mantine-Button-root m_87cf2631 mantine-UnstyledButton-root"
+          data-disabled="true"
+          disabled=""
+          style="--button-radius: var(--mantine-radius-sm); --button-bg: var(--mantine-color-green-filled); --button-hover: var(--mantine-color-green-filled-hover); --button-color: var(--mantine-color-white); --button-bd: calc(0.0625rem * var(--mantine-scale)) solid transparent;"
+          type="submit"
+        >
+          <span
+            class="m_80f1301b mantine-Button-inner"
+            style=""
+          >
+            <span
+              class="m_811560b9 mantine-Button-label"
+              style=""
+            >
+              Save Changes
+            </span>
+          </span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+`;

@@ -57,3 +57,13 @@ query getCurrentUser($id: String!) {
     timeJoined
   }
 }
+
+mutation updateUser($userInput: UpdateUserInput!) {
+  updateUser(userInput: $userInput) {
+    id
+    firstName
+    lastName
+    email
+    timeJoined
+  }
+}
