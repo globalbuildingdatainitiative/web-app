@@ -40,7 +40,20 @@ query getUsers($filters: UserFilters) {
     firstName
     lastName
     email
-    organizationId
+    timeJoined
+  }
+}
+
+query getCurrentUser($id: String!) {
+  users(filters: { id: { equal: $id } }) {
+    id
+    firstName
+    lastName
+    email
+    organization {
+      id
+      name
+    }
     timeJoined
   }
 }

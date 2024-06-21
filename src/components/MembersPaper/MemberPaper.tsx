@@ -1,49 +1,22 @@
-import { ErrorBoundary, Paper } from '@components'
+import { CreateOrganizationPaper, ErrorBoundary, Loading, MemberTable, Paper } from '@components'
 import { Title } from '@mantine/core'
-import { MemberTable, CreateOrganizationPaper } from '@components'
-import { useGetUsersQuery } from '@queries'
-import { doesSessionExist, getUserId } from 'supertokens-auth-react/recipe/session'
-import { useEffect, useState } from 'react'
-
-type UserFilters = {
-  id?: {
-    equal?: string | null
-  }
-}
+import { useUserContext, User } from '@context'
 
 export const MemberPaper = () => {
-  const [currentUserId, setCurrentUserId] = useState<string | null>(null)
-
-  useEffect(() => {
-    const fetchCurrentUserId = async () => {
-      if (await doesSessionExist()) {
-        const id = await getUserId()
-        setCurrentUserId(id)
-      }
-    }
-    fetchCurrentUserId()
-  }, [])
-
-  const { data: usersData } = useGetUsersQuery({
-    variables: {
-      filters: {
-        id: {
-          equal: currentUserId,
-        },
-      } as UserFilters,
-    },
-    skip: !currentUserId,
-  })
-
-  const currentUser = usersData?.users.find((user) => user.id === currentUserId)
-  const currentOrganizationId = currentUser?.organizationId
+  const { user } = useUserContext()
 
   return (
     <Paper data-testid='MemberPaper'>
       <ErrorBoundary>
         <Title order={2}>All Members</Title>
-        {currentOrganizationId ? <MemberTable organizationId={currentOrganizationId} /> : <CreateOrganizationPaper />}
+        <Wrapper user={user} />
       </ErrorBoundary>
     </Paper>
   )
+}
+
+const Wrapper = ({ user }: { user: User | null }) => {
+  if (!user) return <Loading />
+  if (!user.organization) return <CreateOrganizationPaper />
+  return <MemberTable organizationId={user.organization.id} />
 }

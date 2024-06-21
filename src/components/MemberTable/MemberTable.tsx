@@ -1,4 +1,4 @@
-import { useGetUsersQuery, useGetOrganizationsQuery, User } from '@queries'
+import { useGetUsersQuery } from '@queries'
 import { MantineReactTable, MRT_ColumnDef, useMantineReactTable } from 'mantine-react-table'
 import React, { useMemo } from 'react'
 
@@ -6,15 +6,29 @@ interface MemberTableProps {
   organizationId: string
 }
 
-export const MemberTable: React.FC<MemberTableProps> = ({ organizationId }) => {
-  const { loading: loadingUsers, error: errorUsers, data: usersData } = useGetUsersQuery()
-  const {
-    loading: loadingOrganizations,
-    error: errorOrganizations,
-    data: organizationsData,
-  } = useGetOrganizationsQuery()
+interface Row {
+  firstName: string
+  lastName: string
+  email: string
+  timeJoined: string
+}
 
-  const columns = useMemo<MRT_ColumnDef<User>[]>(
+export const MemberTable: React.FC<MemberTableProps> = ({ organizationId }) => {
+  const {
+    loading: loadingUsers,
+    error: errorUsers,
+    data: usersData,
+  } = useGetUsersQuery({
+    variables: {
+      filters: {
+        organizationId: {
+          equal: organizationId,
+        },
+      },
+    },
+  })
+
+  const columns = useMemo<MRT_ColumnDef<Row>[]>(
     () => [
       {
         accessorKey: 'name',
@@ -38,23 +52,10 @@ export const MemberTable: React.FC<MemberTableProps> = ({ organizationId }) => {
   )
 
   const rowData = useMemo(() => {
-    if (!usersData || !organizationsData) return []
-    const organizationsMap: Record<string, string> = organizationsData.organizations.reduce(
-      (acc: Record<string, string>, org) => {
-        acc[org.id] = org.name
-        return acc
-      },
-      {},
-    )
+    if (!usersData) return []
 
-    return usersData.users
-      .filter((user) => String(user.organizationId) === String(organizationId))
-      .map((user) => ({
-        ...user,
-        organizationName: organizationsMap[user.organizationId] || '<Unknown>',
-        timeJoined: user.timeJoined, // Assuming this is the actual joined date field
-      }))
-  }, [usersData, organizationsData, organizationId])
+    return usersData.users as Row[]
+  }, [usersData])
 
   const table = useMantineReactTable({
     columns,
@@ -64,16 +65,15 @@ export const MemberTable: React.FC<MemberTableProps> = ({ organizationId }) => {
     enableColumnFilters: false,
     enablePagination: false,
     enableSorting: false,
-    mantineToolbarAlertBannerProps:
-      errorUsers || errorOrganizations
-        ? {
-            color: 'red',
-            children: errorUsers?.message || errorOrganizations?.message,
-          }
-        : undefined,
+    mantineToolbarAlertBannerProps: errorUsers
+      ? {
+          color: 'red',
+          children: errorUsers?.message,
+        }
+      : undefined,
     state: {
-      isLoading: loadingUsers || loadingOrganizations,
-      showAlertBanner: !!errorUsers || !!errorOrganizations,
+      isLoading: loadingUsers,
+      showAlertBanner: !!errorUsers,
       showSkeletons: false,
     },
   })

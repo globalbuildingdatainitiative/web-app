@@ -1,14 +1,14 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { App } from '@components'
+import * as reactRouterDom from 'react-router-dom'
 import { BrowserRouter } from 'react-router-dom'
 
 import SuperTokens, { SuperTokensWrapper } from 'supertokens-auth-react'
 import EmailPassword from 'supertokens-auth-react/recipe/emailpassword'
 import Session, { SessionAuth } from 'supertokens-auth-react/recipe/session'
-import { GraphQLProvider } from '@context'
+import { GraphQLProvider, UserProvider } from '@context'
 import { getSuperTokensRoutesForReactRouterDom } from 'supertokens-auth-react/ui'
-import * as reactRouterDom from 'react-router-dom'
 import { EmailPasswordPreBuiltUI } from 'supertokens-auth-react/recipe/emailpassword/prebuiltui'
 import { Route, Routes } from 'react-router'
 
@@ -48,17 +48,19 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
     <SuperTokensWrapper>
       <BrowserRouter>
         <GraphQLProvider>
-          <Routes>
-            {getSuperTokensRoutesForReactRouterDom(reactRouterDom, [EmailPasswordPreBuiltUI])}
-            <Route
-              path='*'
-              element={
-                <SessionAuth>
-                  <App />
-                </SessionAuth>
-              }
-            />
-          </Routes>
+          <UserProvider>
+            <Routes>
+              {getSuperTokensRoutesForReactRouterDom(reactRouterDom, [EmailPasswordPreBuiltUI])}
+              <Route
+                path='*'
+                element={
+                  <SessionAuth>
+                    <App />
+                  </SessionAuth>
+                }
+              />
+            </Routes>
+          </UserProvider>
         </GraphQLProvider>
       </BrowserRouter>
     </SuperTokensWrapper>
