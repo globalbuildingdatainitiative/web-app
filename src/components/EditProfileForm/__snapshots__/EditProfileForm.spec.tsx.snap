@@ -355,7 +355,9 @@ exports[`EditProfileForm > Snapshot 1`] = `
           </span>
         </button>
         <button
-          class="mantine-focus-auto mantine-active m_77c9d27d mantine-Button-root m_87cf2631 mantine-UnstyledButton-root"
+          class="mantine-focus-auto m_77c9d27d mantine-Button-root m_87cf2631 mantine-UnstyledButton-root"
+          data-disabled="true"
+          disabled=""
           style="--button-radius: var(--mantine-radius-sm); --button-bg: var(--mantine-color-green-filled); --button-hover: var(--mantine-color-green-filled-hover); --button-color: var(--mantine-color-white); --button-bd: calc(0.0625rem * var(--mantine-scale)) solid transparent;"
           type="submit"
         >

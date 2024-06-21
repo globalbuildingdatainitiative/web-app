@@ -4369,14 +4369,6 @@
             "defaultValue": "null",
             "isDeprecated": false,
             "deprecationReason": null
-          },
-          {
-            "name": "organizationId",
-            "description": null,
-            "type": { "kind": "SCALAR", "name": "UUID", "ofType": null },
-            "defaultValue": "null",
-            "isDeprecated": false,
-            "deprecationReason": null
           }
         ],
         "interfaces": null,

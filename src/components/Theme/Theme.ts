@@ -21,4 +21,8 @@ export const theme = createTheme({
     xl: '88em',
     xxl: '120em',
   },
+
+  other: {
+    backgroundColor: '#fafbff',
+  },
 })

@@ -1120,7 +1120,6 @@ export type UpdateUserInput = {
   id: Scalars['UUID']['input']
   lastName?: InputMaybe<Scalars['String']['input']>
   newPassword?: InputMaybe<Scalars['String']['input']>
-  organizationId?: InputMaybe<Scalars['UUID']['input']>
 }
 
 export type User = {
@@ -1129,6 +1128,7 @@ export type User = {
   firstName?: Maybe<Scalars['String']['output']>
   id: Scalars['UUID']['output']
   lastName?: Maybe<Scalars['String']['output']>
+  organization?: Maybe<Organization>
   organizationId?: Maybe<Scalars['UUID']['output']>
   timeJoined: Scalars['DateTime']['output']
 }
@@ -1689,6 +1689,7 @@ export type UserResolvers<
   firstName?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
   id?: Resolver<ResolversTypes['UUID'], ParentType, ContextType>
   lastName?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
+  organization?: Resolver<Maybe<ResolversTypes['Organization']>, ParentType, ContextType>
   organizationId?: Resolver<Maybe<ResolversTypes['UUID']>, ParentType, ContextType>
   timeJoined?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>
@@ -1797,8 +1798,24 @@ export type GetUsersQuery = {
     firstName?: string | null
     lastName?: string | null
     email: string
-    organizationId?: any | null
     timeJoined: any
+  }>
+}
+
+export type GetCurrentUserQueryVariables = Exact<{
+  id: Scalars['String']['input']
+}>
+
+export type GetCurrentUserQuery = {
+  __typename?: 'Query'
+  users: Array<{
+    __typename?: 'User'
+    id: any
+    firstName?: string | null
+    lastName?: string | null
+    email: string
+    timeJoined: any
+    organization?: { __typename?: 'Organization'; id: any; name: string } | null
   }>
 }
 
@@ -2018,7 +2035,6 @@ export const GetUsersDocument = gql`
       firstName
       lastName
       email
-      organizationId
       timeJoined
     }
   }
@@ -2058,6 +2074,61 @@ export type GetUsersQueryHookResult = ReturnType<typeof useGetUsersQuery>
 export type GetUsersLazyQueryHookResult = ReturnType<typeof useGetUsersLazyQuery>
 export type GetUsersSuspenseQueryHookResult = ReturnType<typeof useGetUsersSuspenseQuery>
 export type GetUsersQueryResult = Apollo.QueryResult<GetUsersQuery, GetUsersQueryVariables>
+export const GetCurrentUserDocument = gql`
+  query getCurrentUser($id: String!) {
+    users(filters: { id: { equal: $id } }) {
+      id
+      firstName
+      lastName
+      email
+      organization {
+        id
+        name
+      }
+      timeJoined
+    }
+  }
+`
+
+/**
+ * __useGetCurrentUserQuery__
+ *
+ * To run a query within a React component, call `useGetCurrentUserQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetCurrentUserQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetCurrentUserQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useGetCurrentUserQuery(
+  baseOptions: Apollo.QueryHookOptions<GetCurrentUserQuery, GetCurrentUserQueryVariables> &
+    ({ variables: GetCurrentUserQueryVariables; skip?: boolean } | { skip: boolean }),
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<GetCurrentUserQuery, GetCurrentUserQueryVariables>(GetCurrentUserDocument, options)
+}
+export function useGetCurrentUserLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<GetCurrentUserQuery, GetCurrentUserQueryVariables>,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<GetCurrentUserQuery, GetCurrentUserQueryVariables>(GetCurrentUserDocument, options)
+}
+export function useGetCurrentUserSuspenseQuery(
+  baseOptions?: Apollo.SuspenseQueryHookOptions<GetCurrentUserQuery, GetCurrentUserQueryVariables>,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useSuspenseQuery<GetCurrentUserQuery, GetCurrentUserQueryVariables>(GetCurrentUserDocument, options)
+}
+export type GetCurrentUserQueryHookResult = ReturnType<typeof useGetCurrentUserQuery>
+export type GetCurrentUserLazyQueryHookResult = ReturnType<typeof useGetCurrentUserLazyQuery>
+export type GetCurrentUserSuspenseQueryHookResult = ReturnType<typeof useGetCurrentUserSuspenseQuery>
+export type GetCurrentUserQueryResult = Apollo.QueryResult<GetCurrentUserQuery, GetCurrentUserQueryVariables>
 export const UpdateUserDocument = gql`
   mutation updateUser($userInput: UpdateUserInput!) {
     updateUser(userInput: $userInput) {

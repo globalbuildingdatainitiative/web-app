@@ -1,8 +1,8 @@
 import { Paper } from '@components'
 import { Button, Group, PasswordInput, TextInput, Title } from '@mantine/core'
-import { useForm } from '@mantine/form'
-import { useGetUsersQuery, useUpdateUserMutation } from '@queries'
-import { useNavigate } from 'react-router-dom'
+import { isEmail, useForm } from '@mantine/form'
+import { GetCurrentUserDocument, useUpdateUserMutation } from '@queries'
+import { useUserContext } from '@context'
 
 interface UserInputValues {
   firstName: string
@@ -13,15 +13,16 @@ interface UserInputValues {
 }
 
 export const EditProfileForm = () => {
-  const { data: usersData } = useGetUsersQuery()
-  const [updateUser] = useUpdateUserMutation()
-  const navigate = useNavigate()
+  const { user } = useUserContext()
+  const [updateUser] = useUpdateUserMutation({
+    refetchQueries: [{ query: GetCurrentUserDocument, variables: { id: user?.id } }],
+  })
 
   const form = useForm({
     initialValues: {
-      firstName: usersData?.users[0]?.firstName || '',
-      lastName: usersData?.users[0]?.lastName || '',
-      email: usersData?.users[0]?.email || '',
+      firstName: user?.firstName || '',
+      lastName: user?.lastName || '',
+      email: user?.email || '',
       currentPassword: '',
       newPassword: '',
       confirmPassword: '',
@@ -30,7 +31,7 @@ export const EditProfileForm = () => {
     validate: {
       firstName: (value) => (value ? null : 'First name is required'),
       lastName: (value) => (value ? null : 'Last name is required'),
-      email: (value) => (/^\S+@\S+$/.test(value) ? null : 'Invalid email'),
+      email: isEmail('Invalid email'),
       newPassword: (value, values) => (value !== values.confirmPassword ? 'Passwords did not match' : null),
       confirmPassword: (value, values) => (value !== values.newPassword ? 'Passwords did not match' : null),
     },
@@ -38,12 +39,10 @@ export const EditProfileForm = () => {
 
   const handleSubmit = async (values: UserInputValues) => {
     try {
-      console.log('values', values)
-      console.log('usersData', usersData?.users[0]?.id)
       await updateUser({
         variables: {
           userInput: {
-            id: usersData?.users[0]?.id,
+            id: user?.id,
             firstName: values.firstName,
             lastName: values.lastName,
             email: values.email,
@@ -52,11 +51,8 @@ export const EditProfileForm = () => {
           },
         },
       })
-      console.log('About to be redirected')
-      navigate('/')
-      console.log('Navigated to /')
+      form.resetDirty()
     } catch (error) {
-      console.log('Error Caught')
       console.error(error)
     }
   }
@@ -69,13 +65,7 @@ export const EditProfileForm = () => {
       <form onSubmit={form.onSubmit(handleSubmit)}>
         <TextInput label='First Name' placeholder='Your first name' {...form.getInputProps('firstName')} mb='sm' />
         <TextInput label='Last Name' placeholder='Your last name' {...form.getInputProps('lastName')} mb='sm' />
-        <TextInput
-          label='Email Address'
-          placeholder='Your email'
-          {...form.getInputProps('email')}
-          mb='sm'
-          //disabled
-        />
+        <TextInput label='Email Address' placeholder='Your email' {...form.getInputProps('email')} mb='sm' />
         <PasswordInput
           label='Current Password'
           placeholder='Current password'
@@ -91,7 +81,7 @@ export const EditProfileForm = () => {
         />
         <Group mt='md'>
           <Button variant='default'>Cancel</Button>
-          <Button color='green' radius='sm' px={16} type='submit'>
+          <Button color='green' radius='sm' px={16} type='submit' disabled={!form.isDirty()}>
             Save Changes
           </Button>
         </Group>
