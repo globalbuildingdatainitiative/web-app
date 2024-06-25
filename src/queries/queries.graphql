@@ -67,3 +67,13 @@ mutation updateUser($userInput: UpdateUserInput!) {
     timeJoined
   }
 }
+
+query getProjectsCountsByCountry {
+  projectsCountsByCountry {
+    location {
+      latitude
+      longitude
+    }
+    count
+  }
+}

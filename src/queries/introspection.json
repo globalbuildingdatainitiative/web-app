@@ -3653,6 +3653,37 @@
       },
       {
         "kind": "OBJECT",
+        "name": "ProjectAggregation",
+        "description": null,
+        "fields": [
+          {
+            "name": "count",
+            "description": null,
+            "args": [],
+            "type": { "kind": "NON_NULL", "name": null, "ofType": { "kind": "SCALAR", "name": "Int", "ofType": null } },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "location",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": { "kind": "OBJECT", "name": "ProjectLocation", "ofType": null }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
         "name": "ProjectInfo",
         "description": null,
         "fields": [
@@ -3871,6 +3902,41 @@
         "possibleTypes": null
       },
       {
+        "kind": "OBJECT",
+        "name": "ProjectLocation",
+        "description": null,
+        "fields": [
+          {
+            "name": "latitude",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": { "kind": "SCALAR", "name": "Float", "ofType": null }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "longitude",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": { "kind": "SCALAR", "name": "Float", "ofType": null }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
         "kind": "ENUM",
         "name": "ProjectPhase",
         "description": null,
@@ -3957,8 +4023,8 @@
             "deprecationReason": null
           },
           {
-            "name": "projects",
-            "description": "Returns all Projects",
+            "name": "projectsCountsByCountry",
+            "description": "Returns aggregated Projects with location and count by country",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -3969,7 +4035,7 @@
                 "ofType": {
                   "kind": "NON_NULL",
                   "name": null,
-                  "ofType": { "kind": "OBJECT", "name": "Project", "ofType": null }
+                  "ofType": { "kind": "OBJECT", "name": "ProjectAggregation", "ofType": null }
                 }
               }
             },

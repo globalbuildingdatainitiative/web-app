@@ -986,6 +986,12 @@ export type Project = {
   softwareInfo: SoftwareInfo
 }
 
+export type ProjectAggregation = {
+  __typename?: 'ProjectAggregation'
+  count: Scalars['Int']['output']
+  location: ProjectLocation
+}
+
 export type ProjectInfo = {
   __typename?: 'ProjectInfo'
   buildingCompletionYear?: Maybe<Scalars['Int']['output']>
@@ -1013,6 +1019,12 @@ export type ProjectInfo = {
   roofType: RoofType
 }
 
+export type ProjectLocation = {
+  __typename?: 'ProjectLocation'
+  latitude: Scalars['Float']['output']
+  longitude: Scalars['Float']['output']
+}
+
 export enum ProjectPhase {
   BUILT = 'built',
   DESIGN = 'design',
@@ -1026,8 +1038,8 @@ export type Query = {
   contributions: Array<Contribution>
   /** Returns all Organizations */
   organizations: Array<Organization>
-  /** Returns all Projects */
-  projects: Array<Project>
+  /** Returns aggregated Projects with location and count by country */
+  projectsCountsByCountry: Array<ProjectAggregation>
   /** Returns all Users */
   users: Array<User>
 }
@@ -1281,7 +1293,9 @@ export type ResolversTypes = {
   OrganizationFilter: OrganizationFilter
   Product: ResolverTypeWrapper<Omit<Product, 'impactData'> & { impactData: ResolversTypes['EPDTechFlow'] }>
   Project: ResolverTypeWrapper<Project>
+  ProjectAggregation: ResolverTypeWrapper<ProjectAggregation>
   ProjectInfo: ResolverTypeWrapper<ProjectInfo>
+  ProjectLocation: ResolverTypeWrapper<ProjectLocation>
   ProjectPhase: ProjectPhase
   Query: ResolverTypeWrapper<{}>
   RoofType: RoofType
@@ -1344,7 +1358,9 @@ export type ResolversParentTypes = {
   OrganizationFilter: OrganizationFilter
   Product: Omit<Product, 'impactData'> & { impactData: ResolversParentTypes['EPDTechFlow'] }
   Project: Project
+  ProjectAggregation: ProjectAggregation
   ProjectInfo: ProjectInfo
+  ProjectLocation: ProjectLocation
   Query: {}
   SoftwareInfo: SoftwareInfo
   Source: Source
@@ -1586,6 +1602,15 @@ export type ProjectResolvers<
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>
 }
 
+export type ProjectAggregationResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['ProjectAggregation'] = ResolversParentTypes['ProjectAggregation'],
+> = {
+  count?: Resolver<ResolversTypes['Int'], ParentType, ContextType>
+  location?: Resolver<ResolversTypes['ProjectLocation'], ParentType, ContextType>
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>
+}
+
 export type ProjectInfoResolvers<
   ContextType = any,
   ParentType extends ResolversParentTypes['ProjectInfo'] = ResolversParentTypes['ProjectInfo'],
@@ -1616,6 +1641,15 @@ export type ProjectInfoResolvers<
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>
 }
 
+export type ProjectLocationResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['ProjectLocation'] = ResolversParentTypes['ProjectLocation'],
+> = {
+  latitude?: Resolver<ResolversTypes['Float'], ParentType, ContextType>
+  longitude?: Resolver<ResolversTypes['Float'], ParentType, ContextType>
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>
+}
+
 export type QueryResolvers<
   ContextType = any,
   ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query'],
@@ -1632,7 +1666,7 @@ export type QueryResolvers<
     ContextType,
     RequireFields<QueryOrganizationsArgs, 'filters'>
   >
-  projects?: Resolver<Array<ResolversTypes['Project']>, ParentType, ContextType>
+  projectsCountsByCountry?: Resolver<Array<ResolversTypes['ProjectAggregation']>, ParentType, ContextType>
   users?: Resolver<
     Array<ResolversTypes['User']>,
     ParentType,
@@ -1721,7 +1755,9 @@ export type Resolvers<ContextType = any> = {
   Organization?: OrganizationResolvers<ContextType>
   Product?: ProductResolvers<ContextType>
   Project?: ProjectResolvers<ContextType>
+  ProjectAggregation?: ProjectAggregationResolvers<ContextType>
   ProjectInfo?: ProjectInfoResolvers<ContextType>
+  ProjectLocation?: ProjectLocationResolvers<ContextType>
   Query?: QueryResolvers<ContextType>
   SoftwareInfo?: SoftwareInfoResolvers<ContextType>
   Source?: SourceResolvers<ContextType>
@@ -1833,6 +1869,17 @@ export type UpdateUserMutation = {
     email: string
     timeJoined: any
   }
+}
+
+export type GetProjectsCountsByCountryQueryVariables = Exact<{ [key: string]: never }>
+
+export type GetProjectsCountsByCountryQuery = {
+  __typename?: 'Query'
+  projectsCountsByCountry: Array<{
+    __typename?: 'ProjectAggregation'
+    count: number
+    location: { __typename?: 'ProjectLocation'; latitude: number; longitude: number }
+  }>
 }
 
 export const GetContributionsDocument = gql`
@@ -2168,3 +2215,69 @@ export function useUpdateUserMutation(
 export type UpdateUserMutationHookResult = ReturnType<typeof useUpdateUserMutation>
 export type UpdateUserMutationResult = Apollo.MutationResult<UpdateUserMutation>
 export type UpdateUserMutationOptions = Apollo.BaseMutationOptions<UpdateUserMutation, UpdateUserMutationVariables>
+export const GetProjectsCountsByCountryDocument = gql`
+  query getProjectsCountsByCountry {
+    projectsCountsByCountry {
+      location {
+        latitude
+        longitude
+      }
+      count
+    }
+  }
+`
+
+/**
+ * __useGetProjectsCountsByCountryQuery__
+ *
+ * To run a query within a React component, call `useGetProjectsCountsByCountryQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetProjectsCountsByCountryQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetProjectsCountsByCountryQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetProjectsCountsByCountryQuery(
+  baseOptions?: Apollo.QueryHookOptions<GetProjectsCountsByCountryQuery, GetProjectsCountsByCountryQueryVariables>,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<GetProjectsCountsByCountryQuery, GetProjectsCountsByCountryQueryVariables>(
+    GetProjectsCountsByCountryDocument,
+    options,
+  )
+}
+export function useGetProjectsCountsByCountryLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<GetProjectsCountsByCountryQuery, GetProjectsCountsByCountryQueryVariables>,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<GetProjectsCountsByCountryQuery, GetProjectsCountsByCountryQueryVariables>(
+    GetProjectsCountsByCountryDocument,
+    options,
+  )
+}
+export function useGetProjectsCountsByCountrySuspenseQuery(
+  baseOptions?: Apollo.SuspenseQueryHookOptions<
+    GetProjectsCountsByCountryQuery,
+    GetProjectsCountsByCountryQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useSuspenseQuery<GetProjectsCountsByCountryQuery, GetProjectsCountsByCountryQueryVariables>(
+    GetProjectsCountsByCountryDocument,
+    options,
+  )
+}
+export type GetProjectsCountsByCountryQueryHookResult = ReturnType<typeof useGetProjectsCountsByCountryQuery>
+export type GetProjectsCountsByCountryLazyQueryHookResult = ReturnType<typeof useGetProjectsCountsByCountryLazyQuery>
+export type GetProjectsCountsByCountrySuspenseQueryHookResult = ReturnType<
+  typeof useGetProjectsCountsByCountrySuspenseQuery
+>
+export type GetProjectsCountsByCountryQueryResult = Apollo.QueryResult<
+  GetProjectsCountsByCountryQuery,
+  GetProjectsCountsByCountryQueryVariables
+>
