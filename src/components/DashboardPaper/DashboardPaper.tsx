@@ -4,6 +4,7 @@ import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
 import { useGetProjectsCountsByCountryQuery } from '@queries'
 import 'leaflet/dist/leaflet.css'
 import L from 'leaflet'
+import { useEffect } from 'react';
 
 
 interface Project {
@@ -15,7 +16,12 @@ interface Project {
 }
 
 export const DashboardPaper = () => {
-  const { data, loading, error } = useGetProjectsCountsByCountryQuery();
+  const { data, loading, error, refetch } = useGetProjectsCountsByCountryQuery();
+
+  useEffect(() => {
+    refetch();
+  }, [])
+
   console.log("Data:", data)
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
