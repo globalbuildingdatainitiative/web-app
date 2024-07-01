@@ -77,3 +77,16 @@ query getProjectsCountsByCountry {
     count
   }
 }
+
+query getProjects($filters: ProjectFilters!, $sort: ProjectSortOptions!) {
+  projects(filters: $filters, sort: $sort) {
+    id
+    name
+    description
+    location {
+      country
+      city
+    }
+    projectPhase
+  }
+}

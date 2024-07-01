@@ -992,6 +992,13 @@ export type ProjectAggregation = {
   location: ProjectLocation
 }
 
+export type ProjectFilters = {
+  city?: InputMaybe<Scalars['String']['input']>
+  classificationSystem?: InputMaybe<Scalars['String']['input']>
+  country?: InputMaybe<Scalars['String']['input']>
+  projectPhase?: InputMaybe<Scalars['String']['input']>
+}
+
 export type ProjectInfo = {
   __typename?: 'ProjectInfo'
   buildingCompletionYear?: Maybe<Scalars['Int']['output']>
@@ -1032,12 +1039,19 @@ export enum ProjectPhase {
   OTHER = 'other',
 }
 
+export type ProjectSortOptions = {
+  field: Scalars['String']['input']
+  order: Scalars['String']['input']
+}
+
 export type Query = {
   __typename?: 'Query'
   /** Returns all contributions assigned to user */
   contributions: Array<Contribution>
   /** Returns all Organizations */
   organizations: Array<Organization>
+  /** Returns filtered and sorted Projects */
+  projects: Array<Project>
   /** Returns aggregated Projects with location and count by country */
   projectsCountsByCountry: Array<ProjectAggregation>
   /** Returns all Users */
@@ -1051,6 +1065,11 @@ export type QueryContributionsArgs = {
 
 export type QueryOrganizationsArgs = {
   filters?: InputMaybe<OrganizationFilter>
+}
+
+export type QueryProjectsArgs = {
+  filters: ProjectFilters
+  sort: ProjectSortOptions
 }
 
 export type QueryUsersArgs = {
@@ -1294,9 +1313,11 @@ export type ResolversTypes = {
   Product: ResolverTypeWrapper<Omit<Product, 'impactData'> & { impactData: ResolversTypes['EPDTechFlow'] }>
   Project: ResolverTypeWrapper<Project>
   ProjectAggregation: ResolverTypeWrapper<ProjectAggregation>
+  ProjectFilters: ProjectFilters
   ProjectInfo: ResolverTypeWrapper<ProjectInfo>
   ProjectLocation: ResolverTypeWrapper<ProjectLocation>
   ProjectPhase: ProjectPhase
+  ProjectSortOptions: ProjectSortOptions
   Query: ResolverTypeWrapper<{}>
   RoofType: RoofType
   SoftwareInfo: ResolverTypeWrapper<SoftwareInfo>
@@ -1359,8 +1380,10 @@ export type ResolversParentTypes = {
   Product: Omit<Product, 'impactData'> & { impactData: ResolversParentTypes['EPDTechFlow'] }
   Project: Project
   ProjectAggregation: ProjectAggregation
+  ProjectFilters: ProjectFilters
   ProjectInfo: ProjectInfo
   ProjectLocation: ProjectLocation
+  ProjectSortOptions: ProjectSortOptions
   Query: {}
   SoftwareInfo: SoftwareInfo
   Source: Source
@@ -1666,6 +1689,12 @@ export type QueryResolvers<
     ContextType,
     RequireFields<QueryOrganizationsArgs, 'filters'>
   >
+  projects?: Resolver<
+    Array<ResolversTypes['Project']>,
+    ParentType,
+    ContextType,
+    RequireFields<QueryProjectsArgs, 'filters' | 'sort'>
+  >
   projectsCountsByCountry?: Resolver<Array<ResolversTypes['ProjectAggregation']>, ParentType, ContextType>
   users?: Resolver<
     Array<ResolversTypes['User']>,
@@ -1879,6 +1908,23 @@ export type GetProjectsCountsByCountryQuery = {
     __typename?: 'ProjectAggregation'
     count: number
     location: { __typename?: 'ProjectLocation'; latitude: number; longitude: number }
+  }>
+}
+
+export type GetProjectsQueryVariables = Exact<{
+  filters: ProjectFilters
+  sort: ProjectSortOptions
+}>
+
+export type GetProjectsQuery = {
+  __typename?: 'Query'
+  projects: Array<{
+    __typename?: 'Project'
+    id: any
+    name: string
+    description?: string | null
+    projectPhase: ProjectPhase
+    location: { __typename?: 'Location'; country: Country; city?: string | null }
   }>
 }
 
@@ -2281,3 +2327,58 @@ export type GetProjectsCountsByCountryQueryResult = Apollo.QueryResult<
   GetProjectsCountsByCountryQuery,
   GetProjectsCountsByCountryQueryVariables
 >
+export const GetProjectsDocument = gql`
+  query getProjects($filters: ProjectFilters!, $sort: ProjectSortOptions!) {
+    projects(filters: $filters, sort: $sort) {
+      id
+      name
+      description
+      location {
+        country
+        city
+      }
+      projectPhase
+    }
+  }
+`
+
+/**
+ * __useGetProjectsQuery__
+ *
+ * To run a query within a React component, call `useGetProjectsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetProjectsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetProjectsQuery({
+ *   variables: {
+ *      filters: // value for 'filters'
+ *      sort: // value for 'sort'
+ *   },
+ * });
+ */
+export function useGetProjectsQuery(
+  baseOptions: Apollo.QueryHookOptions<GetProjectsQuery, GetProjectsQueryVariables> &
+    ({ variables: GetProjectsQueryVariables; skip?: boolean } | { skip: boolean }),
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<GetProjectsQuery, GetProjectsQueryVariables>(GetProjectsDocument, options)
+}
+export function useGetProjectsLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<GetProjectsQuery, GetProjectsQueryVariables>,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<GetProjectsQuery, GetProjectsQueryVariables>(GetProjectsDocument, options)
+}
+export function useGetProjectsSuspenseQuery(
+  baseOptions?: Apollo.SuspenseQueryHookOptions<GetProjectsQuery, GetProjectsQueryVariables>,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useSuspenseQuery<GetProjectsQuery, GetProjectsQueryVariables>(GetProjectsDocument, options)
+}
+export type GetProjectsQueryHookResult = ReturnType<typeof useGetProjectsQuery>
+export type GetProjectsLazyQueryHookResult = ReturnType<typeof useGetProjectsLazyQuery>
+export type GetProjectsSuspenseQueryHookResult = ReturnType<typeof useGetProjectsSuspenseQuery>
+export type GetProjectsQueryResult = Apollo.QueryResult<GetProjectsQuery, GetProjectsQueryVariables>
