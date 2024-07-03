@@ -180,7 +180,7 @@ export const CreateOrganizationPaper = () => {
               data={countryNames}
               {...form.getInputProps('country')}
               required
-              aria-label='Country'  // Add this line for better accessibility in tests
+              aria-label='Country' // Add this line for better accessibility in tests
             />
             {error && <Text c='red'>{error.message}</Text>}
             <Button
