@@ -171,12 +171,12 @@ exports[`CreateOrganizationPaper > Snapshot 1`] = `
             </div>
           </div>
           <div
-            class="m_46b77525 mantine-InputWrapper-root mantine-TextInput-root"
+            class="m_46b77525 mantine-InputWrapper-root mantine-Autocomplete-root"
             data-size="md"
             style="width: 500px;"
           >
             <label
-              class="m_8fdc1311 mantine-InputWrapper-label mantine-TextInput-label"
+              class="m_8fdc1311 mantine-InputWrapper-label mantine-Autocomplete-label"
               data-required="true"
               data-size="md"
               for=""
@@ -186,27 +186,30 @@ exports[`CreateOrganizationPaper > Snapshot 1`] = `
               Country
               <span
                 aria-hidden="true"
-                class="m_78a94662 mantine-InputWrapper-required mantine-TextInput-required"
+                class="m_78a94662 mantine-InputWrapper-required mantine-Autocomplete-required"
                 style=""
               >
                  *
               </span>
             </label>
             <div
-              class="m_6c018570 mantine-Input-wrapper mantine-TextInput-wrapper"
+              class="m_6c018570 mantine-Input-wrapper mantine-Autocomplete-wrapper"
               data-size="md"
               data-variant="default"
               style="--input-height: var(--input-height-md); --input-fz: var(--mantine-font-size-md); --input-radius: var(--mantine-radius-md);"
             >
               <input
+                aria-haspopup="listbox"
                 aria-invalid="false"
-                class="m_8fb7ebe7 mantine-Input-input mantine-TextInput-input"
+                aria-label="Country"
+                autocomplete="off"
+                class="m_8fb7ebe7 mantine-Input-input mantine-Autocomplete-input"
                 data-path="country"
                 data-variant="default"
                 formaction="http://localhost:3000/"
                 formmethod=""
                 id=""
-                placeholder="Enter Country"
+                placeholder="Select Country"
                 required=""
                 style=""
                 value=""

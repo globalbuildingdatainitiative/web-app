@@ -1,10 +1,11 @@
 import { Paper } from '@components'
-import { Button, Group, Stack, Text, TextInput, Title } from '@mantine/core'
+import { Button, Group, Stack, Text, TextInput, Title, Autocomplete } from '@mantine/core'
 import { useForm } from '@mantine/form'
-import { CountryCodes, GetCurrentUserDocument, useCreateOrganizationsMutation } from '@queries'
+import { GetCurrentUserDocument, useCreateOrganizationsMutation, CountryCodes } from '@queries'
 import logo from 'assets/logo.png'
 import { useNavigate } from 'react-router-dom'
 import { useUserContext } from '@context'
+import { countryNameToAlpha3 } from './countryCodesMapping'
 
 export const CreateOrganizationPaper = () => {
   const navigate = useNavigate()
@@ -17,22 +18,22 @@ export const CreateOrganizationPaper = () => {
       name: '',
       address: '',
       city: '',
-      country: '',
+      country: '' as keyof typeof countryNameToAlpha3, // Ensure this is typed correctly
     },
   })
 
   const handleSubmit = async (values: typeof form.values) => {
-    const country = CountryCodes[values.country as keyof typeof CountryCodes]
+    const alpha3Code = countryNameToAlpha3[values.country]
+    if (!alpha3Code) {
+      console.error('Invalid country name:', values.country)
+      return
+    }
 
-    if (!country) {
-      //Test
-      console.error('Invalid country code:', values.country) //Test
-      return //Test
-    } //Test
-
-    await createOrganization({ variables: { organizations: [{ ...values, country }] } })
+    await createOrganization({ variables: { organizations: [{ ...values, country: alpha3Code as CountryCodes }] } })
     navigate('/organization')
   }
+
+  const countryNames = Object.keys(countryNameToAlpha3)
 
   return (
     <Paper data-testid='CreateOrganizationPaper'>
@@ -68,14 +69,16 @@ export const CreateOrganizationPaper = () => {
               {...form.getInputProps('city')}
               required
             />
-            <TextInput
+            <Autocomplete
               size='md'
               radius='md'
               label='Country'
-              placeholder='Enter Country'
+              placeholder='Select Country'
               style={{ width: '500px' }}
+              data={countryNames}
               {...form.getInputProps('country')}
               required
+              aria-label='Country' // Add this line for better accessibility in tests
             />
             {error && <Text c='red'>{error.message}</Text>}
             <Button
