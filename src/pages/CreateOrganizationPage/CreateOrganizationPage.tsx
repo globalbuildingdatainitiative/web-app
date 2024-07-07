@@ -1,10 +1,10 @@
-import { CreateOrganizationHeader, CreateOrganizationPaper } from '@components'
+import { OrganizationHeader, CreateOrganizationPaper } from '@components'
 import { Stack } from '@mantine/core'
 
 export const CreateOrganizationPage = () => {
   return (
     <Stack>
-      <CreateOrganizationHeader />
+      <OrganizationHeader context='createOrganization' />
       <CreateOrganizationPaper />
     </Stack>
   )

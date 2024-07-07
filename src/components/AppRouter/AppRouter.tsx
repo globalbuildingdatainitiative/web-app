@@ -3,6 +3,7 @@ import { Route, Routes } from 'react-router'
 import { AppLayout, Loading } from '@components'
 import { Center } from '@mantine/core'
 
+const AddMembersPage = lazy(() => import('../../pages/AddMembersPage'))
 const ContributionPage = lazy(() => import('../../pages/ContributionPage'))
 const ContributeNowPage = lazy(() => import('../../pages/ContributeNowPage'))
 const DashboardPage = lazy(() => import('../../pages/DashboardPage'))
@@ -24,6 +25,7 @@ export const AppRouter = () => (
         <Route path='/' element={<DashboardPage />} />
         <Route path='/organization' element={<OrganizationPage />} />
         <Route path='/organization/new' element={<CreateOrganizationPage />} />
+        <Route path='/organization/addmembers' element={<AddMembersPage />} />
         <Route path='/contributions' element={<ContributionPage />} />
         <Route path='/contributions/new' element={<ContributeNowPage />} />
         <Route path='/profile' element={<ProfilePage />} />
