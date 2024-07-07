@@ -7,6 +7,13 @@ import wasm from 'vite-plugin-wasm'
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react(), tsconfigPaths(), wasm()],
+  optimizeDeps: {
+    exclude: [
+      'chunk-YSDLPTTY.js',
+      'chunk-XBHG3ID7.js',
+      'chunk-AVL2GBNE.js'
+    ]
+  },
   esbuild: {
     supported: {
       'top-level-await': true, //browsers can handle top-level-await features
