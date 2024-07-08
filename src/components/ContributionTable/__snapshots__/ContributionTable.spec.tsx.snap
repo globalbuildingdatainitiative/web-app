@@ -324,7 +324,7 @@ exports[`ContributionTable > Snapshot 1`] = `
                 class="m_4e7aa4f3 mantine-Table-th MRT_TableHeadCell-module_root__6y50a"
                 colspan="1"
                 data-index="0"
-                style="min-width: max(calc(var(--header-id-size) * 1px), 40px); --mrt-table-head-cell-padding: 16;"
+                style="min-width: max(calc(var(--header-id-size) * 1px), 40px);"
               >
                 <div
                   class="mrt-table-head-cell-content MRT_TableHeadCell-module_content__-pzSK m_8bffd616 mantine-Flex-root __m__-r1g"
@@ -332,7 +332,7 @@ exports[`ContributionTable > Snapshot 1`] = `
                 >
                   <div
                     class="mrt-table-head-cell-labels MRT_TableHeadCell-module_labels__oiMSr MRT_TableHeadCell-module_labels-data__PvFGO m_8bffd616 mantine-Flex-root __m__-r1i"
-                    style="--mrt-table-head-cell-labels-padding-left: 0;"
+                    style="--mrt-table-head-cell-labels-padding-left: 1.75;"
                   >
                     <div
                       class="mrt-table-head-cell-content-wrapper MRT_TableHeadCell-module_content-wrapper__py6aJ MRT_TableHeadCell-module_content-wrapper-hidden-overflow__QY40r MRT_TableHeadCell-module_content-wrapper-nowrap__-4aIg m_8bffd616 mantine-Flex-root __m__-r1k"
@@ -352,7 +352,7 @@ exports[`ContributionTable > Snapshot 1`] = `
                 class="m_4e7aa4f3 mantine-Table-th MRT_TableHeadCell-module_root__6y50a"
                 colspan="1"
                 data-index="1"
-                style="min-width: max(calc(var(--header-uploadedAt-size) * 1px), 40px); --mrt-table-head-cell-padding: 16;"
+                style="min-width: max(calc(var(--header-uploadedAt-size) * 1px), 40px);"
               >
                 <div
                   class="mrt-table-head-cell-content MRT_TableHeadCell-module_content__-pzSK m_8bffd616 mantine-Flex-root __m__-r1p"
@@ -360,7 +360,7 @@ exports[`ContributionTable > Snapshot 1`] = `
                 >
                   <div
                     class="mrt-table-head-cell-labels MRT_TableHeadCell-module_labels__oiMSr MRT_TableHeadCell-module_labels-data__PvFGO m_8bffd616 mantine-Flex-root __m__-r1r"
-                    style="--mrt-table-head-cell-labels-padding-left: 0;"
+                    style="--mrt-table-head-cell-labels-padding-left: 1.75;"
                   >
                     <div
                       class="mrt-table-head-cell-content-wrapper MRT_TableHeadCell-module_content-wrapper__py6aJ MRT_TableHeadCell-module_content-wrapper-hidden-overflow__QY40r MRT_TableHeadCell-module_content-wrapper-nowrap__-4aIg m_8bffd616 mantine-Flex-root __m__-r1t"
@@ -380,7 +380,7 @@ exports[`ContributionTable > Snapshot 1`] = `
                 class="m_4e7aa4f3 mantine-Table-th MRT_TableHeadCell-module_root__6y50a"
                 colspan="1"
                 data-index="2"
-                style="min-width: max(calc(var(--header-organization_name-size) * 1px), 40px); --mrt-table-head-cell-padding: 16;"
+                style="min-width: max(calc(var(--header-organization_name-size) * 1px), 40px);"
               >
                 <div
                   class="mrt-table-head-cell-content MRT_TableHeadCell-module_content__-pzSK m_8bffd616 mantine-Flex-root __m__-r22"
@@ -388,7 +388,7 @@ exports[`ContributionTable > Snapshot 1`] = `
                 >
                   <div
                     class="mrt-table-head-cell-labels MRT_TableHeadCell-module_labels__oiMSr MRT_TableHeadCell-module_labels-data__PvFGO m_8bffd616 mantine-Flex-root __m__-r24"
-                    style="--mrt-table-head-cell-labels-padding-left: 0;"
+                    style="--mrt-table-head-cell-labels-padding-left: 1.75;"
                   >
                     <div
                       class="mrt-table-head-cell-content-wrapper MRT_TableHeadCell-module_content-wrapper__py6aJ MRT_TableHeadCell-module_content-wrapper-hidden-overflow__QY40r MRT_TableHeadCell-module_content-wrapper-nowrap__-4aIg m_8bffd616 mantine-Flex-root __m__-r26"
@@ -408,7 +408,7 @@ exports[`ContributionTable > Snapshot 1`] = `
                 class="m_4e7aa4f3 mantine-Table-th MRT_TableHeadCell-module_root__6y50a"
                 colspan="1"
                 data-index="3"
-                style="min-width: max(calc(var(--header-project_name-size) * 1px), 40px); --mrt-table-head-cell-padding: 16;"
+                style="min-width: max(calc(var(--header-project_name-size) * 1px), 40px);"
               >
                 <div
                   class="mrt-table-head-cell-content MRT_TableHeadCell-module_content__-pzSK m_8bffd616 mantine-Flex-root __m__-r2b"
@@ -416,7 +416,7 @@ exports[`ContributionTable > Snapshot 1`] = `
                 >
                   <div
                     class="mrt-table-head-cell-labels MRT_TableHeadCell-module_labels__oiMSr MRT_TableHeadCell-module_labels-data__PvFGO m_8bffd616 mantine-Flex-root __m__-r2d"
-                    style="--mrt-table-head-cell-labels-padding-left: 0;"
+                    style="--mrt-table-head-cell-labels-padding-left: 1.75;"
                   >
                     <div
                       class="mrt-table-head-cell-content-wrapper MRT_TableHeadCell-module_content-wrapper__py6aJ MRT_TableHeadCell-module_content-wrapper-hidden-overflow__QY40r MRT_TableHeadCell-module_content-wrapper-nowrap__-4aIg m_8bffd616 mantine-Flex-root __m__-r2f"
