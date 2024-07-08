@@ -28,6 +28,24 @@ export type Scalars = {
   _FieldSet: { input: any; output: any }
 }
 
+export enum AggregationMethod {
+  AVG = 'AVG',
+  MAX = 'MAX',
+  MEDIAN = 'MEDIAN',
+  MIN = 'MIN',
+  PCT25 = 'PCT25',
+  PCT75 = 'PCT75',
+  STD = 'STD',
+  SUM = 'SUM',
+}
+
+export type AggregationResult = {
+  __typename?: 'AggregationResult'
+  field: Scalars['String']['output']
+  method: AggregationMethod
+  value?: Maybe<Scalars['Float']['output']>
+}
+
 export type AreaType = {
   __typename?: 'AreaType'
   definition: Scalars['String']['output']
@@ -37,7 +55,6 @@ export type AreaType = {
 
 export type Assembly = {
   __typename?: 'Assembly'
-  category?: Maybe<Scalars['String']['output']>
   classification?: Maybe<Array<Classification>>
   comment?: Maybe<Scalars['String']['output']>
   description?: Maybe<Scalars['String']['output']>
@@ -97,10 +114,10 @@ export type Contribution = {
 }
 
 export type ContributionFilters = {
-  id?: InputMaybe<FilterOptions>
-  organizationId?: InputMaybe<FilterOptions>
-  uploadAt?: InputMaybe<FilterOptions>
-  userId?: InputMaybe<FilterOptions>
+  id?: InputMaybe<UuidFilterOptions>
+  organizationId?: InputMaybe<UuidFilterOptions>
+  uploadAt?: InputMaybe<DatetimeFilterOptions>
+  userId?: InputMaybe<UuidFilterOptions>
 }
 
 export type ContributionSort = {
@@ -621,6 +638,11 @@ export enum CountryCodes {
   ZWE = 'ZWE',
 }
 
+export type DatetimeFilterOptions = {
+  equal?: InputMaybe<Scalars['DateTime']['input']>
+  isTrue?: InputMaybe<Scalars['Boolean']['input']>
+}
+
 export type Epd = {
   __typename?: 'EPD'
   comment?: Maybe<Scalars['String']['output']>
@@ -703,6 +725,11 @@ export enum ImpactCategoryKey {
   SM = 'sm',
   SQP = 'sqp',
   WDP = 'wdp',
+}
+
+export type InputAggregation = {
+  field: Scalars['String']['input']
+  method: AggregationMethod
 }
 
 export type InputAreaType = {
@@ -898,6 +925,9 @@ export type Location = {
   address?: Maybe<Scalars['String']['output']>
   city?: Maybe<Scalars['String']['output']>
   country: Country
+  countryName: Scalars['String']['output']
+  latitude: Scalars['Float']['output']
+  longitude: Scalars['Float']['output']
 }
 
 export type Mutation = {
@@ -986,6 +1016,54 @@ export type Project = {
   softwareInfo: SoftwareInfo
 }
 
+export type ProjectFilters = {
+  description?: InputMaybe<StrFilterOptions>
+  id?: InputMaybe<UuidFilterOptions>
+  name?: InputMaybe<StrFilterOptions>
+}
+
+export type ProjectGraphQlGroupResponse = {
+  __typename?: 'ProjectGraphQLGroupResponse'
+  aggregation: Array<AggregationResult>
+  count: Scalars['Int']['output']
+  group: Scalars['String']['output']
+  items: Array<Project>
+}
+
+export type ProjectGraphQlGroupResponseAggregationArgs = {
+  apply: Array<InputAggregation>
+}
+
+export type ProjectGraphQlGroupResponseItemsArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>
+}
+
+export type ProjectGraphQlResponse = {
+  __typename?: 'ProjectGraphQLResponse'
+  aggregation: Array<AggregationResult>
+  /** Total number of items in the filtered dataset. */
+  count: Scalars['Int']['output']
+  groups: Array<ProjectGraphQlGroupResponse>
+  /** The list of items in this pagination window. */
+  items?: Maybe<Array<Project>>
+}
+
+export type ProjectGraphQlResponseAggregationArgs = {
+  apply: Array<InputAggregation>
+}
+
+export type ProjectGraphQlResponseGroupsArgs = {
+  groupBy: Scalars['String']['input']
+  limit?: Scalars['Int']['input']
+}
+
+export type ProjectGraphQlResponseItemsArgs = {
+  filterBy: ProjectFilters
+  limit?: Scalars['Int']['input']
+  offset?: Scalars['Int']['input']
+  sortBy: ProjectSort
+}
+
 export type ProjectInfo = {
   __typename?: 'ProjectInfo'
   buildingCompletionYear?: Maybe<Scalars['Int']['output']>
@@ -1020,14 +1098,19 @@ export enum ProjectPhase {
   OTHER = 'other',
 }
 
+export type ProjectSort = {
+  description?: InputMaybe<SortOptions>
+  id?: InputMaybe<SortOptions>
+  name?: InputMaybe<SortOptions>
+}
+
 export type Query = {
   __typename?: 'Query'
   /** Returns all contributions assigned to user */
   contributions: Array<Contribution>
   /** Returns all Organizations */
   organizations: Array<Organization>
-  /** Returns all Projects */
-  projects: Array<Project>
+  projects: ProjectGraphQlResponse
   /** Returns all Users */
   users: Array<User>
 }
@@ -1078,6 +1161,11 @@ export enum Standard {
   UNKNOWN = 'unknown',
 }
 
+export type StrFilterOptions = {
+  equal?: InputMaybe<Scalars['String']['input']>
+  isTrue?: InputMaybe<Scalars['Boolean']['input']>
+}
+
 export enum SubType {
   GENERIC = 'generic',
   INDUSTRY = 'industry',
@@ -1097,6 +1185,11 @@ export type TechFlow = {
   metaData: Scalars['JSON']['output']
   name: Scalars['String']['output']
   source?: Maybe<Source>
+}
+
+export type UuidFilterOptions = {
+  equal?: InputMaybe<Scalars['UUID']['input']>
+  isTrue?: InputMaybe<Scalars['Boolean']['input']>
 }
 
 export enum Unit {
@@ -1232,9 +1325,11 @@ export type ResolversUnionTypes<RefType extends Record<string, unknown>> = {
 
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
-  AreaType: ResolverTypeWrapper<AreaType>
+  AggregationMethod: AggregationMethod
+  AggregationResult: ResolverTypeWrapper<AggregationResult>
   String: ResolverTypeWrapper<Scalars['String']['output']>
   Float: ResolverTypeWrapper<Scalars['Float']['output']>
+  AreaType: ResolverTypeWrapper<AreaType>
   Assembly: ResolverTypeWrapper<Assembly>
   BuildingModelScope: ResolverTypeWrapper<BuildingModelScope>
   Boolean: ResolverTypeWrapper<Scalars['Boolean']['output']>
@@ -1249,6 +1344,7 @@ export type ResolversTypes = {
   CountryCodes: CountryCodes
   Date: ResolverTypeWrapper<Scalars['Date']['output']>
   DateTime: ResolverTypeWrapper<Scalars['DateTime']['output']>
+  DatetimeFilterOptions: DatetimeFilterOptions
   EPD: ResolverTypeWrapper<Epd>
   Int: ResolverTypeWrapper<Scalars['Int']['output']>
   EPDTechFlow: ResolverTypeWrapper<ResolversUnionTypes<ResolversTypes>['EPDTechFlow']>
@@ -1257,6 +1353,7 @@ export type ResolversTypes = {
   GraphQLInputImpactData: GraphQlInputImpactData
   GraphQLInputProjectInfo: GraphQlInputProjectInfo
   ImpactCategoryKey: ImpactCategoryKey
+  InputAggregation: InputAggregation
   InputAreaType: InputAreaType
   InputAssembly: InputAssembly
   InputBuildingModelScope: InputBuildingModelScope
@@ -1281,17 +1378,23 @@ export type ResolversTypes = {
   OrganizationFilter: OrganizationFilter
   Product: ResolverTypeWrapper<Omit<Product, 'impactData'> & { impactData: ResolversTypes['EPDTechFlow'] }>
   Project: ResolverTypeWrapper<Project>
+  ProjectFilters: ProjectFilters
+  ProjectGraphQLGroupResponse: ResolverTypeWrapper<ProjectGraphQlGroupResponse>
+  ProjectGraphQLResponse: ResolverTypeWrapper<ProjectGraphQlResponse>
   ProjectInfo: ResolverTypeWrapper<ProjectInfo>
   ProjectPhase: ProjectPhase
+  ProjectSort: ProjectSort
   Query: ResolverTypeWrapper<{}>
   RoofType: RoofType
   SoftwareInfo: ResolverTypeWrapper<SoftwareInfo>
   SortOptions: SortOptions
   Source: ResolverTypeWrapper<Source>
   Standard: Standard
+  StrFilterOptions: StrFilterOptions
   SubType: SubType
   TechFlow: ResolverTypeWrapper<TechFlow>
   UUID: ResolverTypeWrapper<Scalars['UUID']['output']>
+  UUIDFilterOptions: UuidFilterOptions
   Unit: Unit
   UpdateUserInput: UpdateUserInput
   User: ResolverTypeWrapper<User>
@@ -1302,9 +1405,10 @@ export type ResolversTypes = {
 
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
-  AreaType: AreaType
+  AggregationResult: AggregationResult
   String: Scalars['String']['output']
   Float: Scalars['Float']['output']
+  AreaType: AreaType
   Assembly: Assembly
   BuildingModelScope: BuildingModelScope
   Boolean: Scalars['Boolean']['output']
@@ -1315,12 +1419,14 @@ export type ResolversParentTypes = {
   Conversion: Conversion
   Date: Scalars['Date']['output']
   DateTime: Scalars['DateTime']['output']
+  DatetimeFilterOptions: DatetimeFilterOptions
   EPD: Epd
   Int: Scalars['Int']['output']
   EPDTechFlow: ResolversUnionTypes<ResolversParentTypes>['EPDTechFlow']
   FilterOptions: FilterOptions
   GraphQLInputImpactData: GraphQlInputImpactData
   GraphQLInputProjectInfo: GraphQlInputProjectInfo
+  InputAggregation: InputAggregation
   InputAreaType: InputAreaType
   InputAssembly: InputAssembly
   InputBuildingModelScope: InputBuildingModelScope
@@ -1344,12 +1450,18 @@ export type ResolversParentTypes = {
   OrganizationFilter: OrganizationFilter
   Product: Omit<Product, 'impactData'> & { impactData: ResolversParentTypes['EPDTechFlow'] }
   Project: Project
+  ProjectFilters: ProjectFilters
+  ProjectGraphQLGroupResponse: ProjectGraphQlGroupResponse
+  ProjectGraphQLResponse: ProjectGraphQlResponse
   ProjectInfo: ProjectInfo
+  ProjectSort: ProjectSort
   Query: {}
   SoftwareInfo: SoftwareInfo
   Source: Source
+  StrFilterOptions: StrFilterOptions
   TechFlow: TechFlow
   UUID: Scalars['UUID']['output']
+  UUIDFilterOptions: UuidFilterOptions
   UpdateUserInput: UpdateUserInput
   User: User
   UserFilters: UserFilters
@@ -1369,6 +1481,16 @@ export type DeferDirectiveResolver<Result, Parent, ContextType = any, Args = Def
   Args
 >
 
+export type AggregationResultResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['AggregationResult'] = ResolversParentTypes['AggregationResult'],
+> = {
+  field?: Resolver<ResolversTypes['String'], ParentType, ContextType>
+  method?: Resolver<ResolversTypes['AggregationMethod'], ParentType, ContextType>
+  value?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>
+}
+
 export type AreaTypeResolvers<
   ContextType = any,
   ParentType extends ResolversParentTypes['AreaType'] = ResolversParentTypes['AreaType'],
@@ -1383,7 +1505,6 @@ export type AssemblyResolvers<
   ContextType = any,
   ParentType extends ResolversParentTypes['Assembly'] = ResolversParentTypes['Assembly'],
 > = {
-  category?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
   classification?: Resolver<Maybe<Array<ResolversTypes['Classification']>>, ParentType, ContextType>
   comment?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
   description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
@@ -1494,6 +1615,9 @@ export type LocationResolvers<
   address?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
   city?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
   country?: Resolver<ResolversTypes['Country'], ParentType, ContextType>
+  countryName?: Resolver<ResolversTypes['String'], ParentType, ContextType>
+  latitude?: Resolver<ResolversTypes['Float'], ParentType, ContextType>
+  longitude?: Resolver<ResolversTypes['Float'], ParentType, ContextType>
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>
 }
 
@@ -1586,6 +1710,54 @@ export type ProjectResolvers<
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>
 }
 
+export type ProjectGraphQlGroupResponseResolvers<
+  ContextType = any,
+  ParentType extends
+    ResolversParentTypes['ProjectGraphQLGroupResponse'] = ResolversParentTypes['ProjectGraphQLGroupResponse'],
+> = {
+  aggregation?: Resolver<
+    Array<ResolversTypes['AggregationResult']>,
+    ParentType,
+    ContextType,
+    RequireFields<ProjectGraphQlGroupResponseAggregationArgs, 'apply'>
+  >
+  count?: Resolver<ResolversTypes['Int'], ParentType, ContextType>
+  group?: Resolver<ResolversTypes['String'], ParentType, ContextType>
+  items?: Resolver<
+    Array<ResolversTypes['Project']>,
+    ParentType,
+    ContextType,
+    RequireFields<ProjectGraphQlGroupResponseItemsArgs, 'limit'>
+  >
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>
+}
+
+export type ProjectGraphQlResponseResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['ProjectGraphQLResponse'] = ResolversParentTypes['ProjectGraphQLResponse'],
+> = {
+  aggregation?: Resolver<
+    Array<ResolversTypes['AggregationResult']>,
+    ParentType,
+    ContextType,
+    RequireFields<ProjectGraphQlResponseAggregationArgs, 'apply'>
+  >
+  count?: Resolver<ResolversTypes['Int'], ParentType, ContextType>
+  groups?: Resolver<
+    Array<ResolversTypes['ProjectGraphQLGroupResponse']>,
+    ParentType,
+    ContextType,
+    RequireFields<ProjectGraphQlResponseGroupsArgs, 'groupBy' | 'limit'>
+  >
+  items?: Resolver<
+    Maybe<Array<ResolversTypes['Project']>>,
+    ParentType,
+    ContextType,
+    RequireFields<ProjectGraphQlResponseItemsArgs, 'filterBy' | 'limit' | 'offset' | 'sortBy'>
+  >
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>
+}
+
 export type ProjectInfoResolvers<
   ContextType = any,
   ParentType extends ResolversParentTypes['ProjectInfo'] = ResolversParentTypes['ProjectInfo'],
@@ -1632,7 +1804,7 @@ export type QueryResolvers<
     ContextType,
     RequireFields<QueryOrganizationsArgs, 'filters'>
   >
-  projects?: Resolver<Array<ResolversTypes['Project']>, ParentType, ContextType>
+  projects?: Resolver<ResolversTypes['ProjectGraphQLResponse'], ParentType, ContextType>
   users?: Resolver<
     Array<ResolversTypes['User']>,
     ParentType,
@@ -1705,6 +1877,7 @@ export type ValueUnitResolvers<
 }
 
 export type Resolvers<ContextType = any> = {
+  AggregationResult?: AggregationResultResolvers<ContextType>
   AreaType?: AreaTypeResolvers<ContextType>
   Assembly?: AssemblyResolvers<ContextType>
   BuildingModelScope?: BuildingModelScopeResolvers<ContextType>
@@ -1721,6 +1894,8 @@ export type Resolvers<ContextType = any> = {
   Organization?: OrganizationResolvers<ContextType>
   Product?: ProductResolvers<ContextType>
   Project?: ProjectResolvers<ContextType>
+  ProjectGraphQLGroupResponse?: ProjectGraphQlGroupResponseResolvers<ContextType>
+  ProjectGraphQLResponse?: ProjectGraphQlResponseResolvers<ContextType>
   ProjectInfo?: ProjectInfoResolvers<ContextType>
   Query?: QueryResolvers<ContextType>
   SoftwareInfo?: SoftwareInfoResolvers<ContextType>
@@ -1832,6 +2007,45 @@ export type UpdateUserMutation = {
     lastName?: string | null
     email: string
     timeJoined: any
+  }
+}
+
+export type GetProjectsCountsByCountryQueryVariables = Exact<{ [key: string]: never }>
+
+export type GetProjectsCountsByCountryQuery = {
+  __typename?: 'Query'
+  projects: {
+    __typename?: 'ProjectGraphQLResponse'
+    groups: Array<{
+      __typename?: 'ProjectGraphQLGroupResponse'
+      group: string
+      count: number
+      items: Array<{
+        __typename?: 'Project'
+        id: any
+        location: { __typename?: 'Location'; countryName: string; longitude: number; latitude: number }
+      }>
+    }>
+  }
+}
+
+export type GetProjectDataForBoxPlotQueryVariables = Exact<{ [key: string]: never }>
+
+export type GetProjectDataForBoxPlotQuery = {
+  __typename?: 'Query'
+  projects: {
+    __typename?: 'ProjectGraphQLResponse'
+    groups: Array<{
+      __typename?: 'ProjectGraphQLGroupResponse'
+      group: string
+      items: Array<{ __typename?: 'Project'; id: any }>
+      aggregation: Array<{
+        __typename?: 'AggregationResult'
+        method: AggregationMethod
+        field: string
+        value?: number | null
+      }>
+    }>
   }
 }
 
@@ -2168,3 +2382,154 @@ export function useUpdateUserMutation(
 export type UpdateUserMutationHookResult = ReturnType<typeof useUpdateUserMutation>
 export type UpdateUserMutationResult = Apollo.MutationResult<UpdateUserMutation>
 export type UpdateUserMutationOptions = Apollo.BaseMutationOptions<UpdateUserMutation, UpdateUserMutationVariables>
+export const GetProjectsCountsByCountryDocument = gql`
+  query getProjectsCountsByCountry {
+    projects {
+      groups(groupBy: "location.country") {
+        group
+        count
+        items(limit: 1) {
+          id
+          location {
+            countryName
+            longitude
+            latitude
+          }
+        }
+      }
+    }
+  }
+`
+
+/**
+ * __useGetProjectsCountsByCountryQuery__
+ *
+ * To run a query within a React component, call `useGetProjectsCountsByCountryQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetProjectsCountsByCountryQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetProjectsCountsByCountryQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetProjectsCountsByCountryQuery(
+  baseOptions?: Apollo.QueryHookOptions<GetProjectsCountsByCountryQuery, GetProjectsCountsByCountryQueryVariables>,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<GetProjectsCountsByCountryQuery, GetProjectsCountsByCountryQueryVariables>(
+    GetProjectsCountsByCountryDocument,
+    options,
+  )
+}
+export function useGetProjectsCountsByCountryLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<GetProjectsCountsByCountryQuery, GetProjectsCountsByCountryQueryVariables>,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<GetProjectsCountsByCountryQuery, GetProjectsCountsByCountryQueryVariables>(
+    GetProjectsCountsByCountryDocument,
+    options,
+  )
+}
+export function useGetProjectsCountsByCountrySuspenseQuery(
+  baseOptions?: Apollo.SuspenseQueryHookOptions<
+    GetProjectsCountsByCountryQuery,
+    GetProjectsCountsByCountryQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useSuspenseQuery<GetProjectsCountsByCountryQuery, GetProjectsCountsByCountryQueryVariables>(
+    GetProjectsCountsByCountryDocument,
+    options,
+  )
+}
+export type GetProjectsCountsByCountryQueryHookResult = ReturnType<typeof useGetProjectsCountsByCountryQuery>
+export type GetProjectsCountsByCountryLazyQueryHookResult = ReturnType<typeof useGetProjectsCountsByCountryLazyQuery>
+export type GetProjectsCountsByCountrySuspenseQueryHookResult = ReturnType<
+  typeof useGetProjectsCountsByCountrySuspenseQuery
+>
+export type GetProjectsCountsByCountryQueryResult = Apollo.QueryResult<
+  GetProjectsCountsByCountryQuery,
+  GetProjectsCountsByCountryQueryVariables
+>
+export const GetProjectDataForBoxPlotDocument = gql`
+  query getProjectDataForBoxPlot {
+    projects {
+      groups(groupBy: "location.country") {
+        group
+        items {
+          id
+        }
+        aggregation(
+          apply: [
+            { method: AVG, field: "results.gwp.a1a3" }
+            { method: MIN, field: "results.gwp.a1a3" }
+            { method: MAX, field: "results.gwp.a1a3" }
+            { method: MEDIAN, field: "results.gwp.a1a3" }
+            { method: PCT25, field: "results.gwp.a1a3" }
+            { method: PCT75, field: "results.gwp.a1a3" }
+          ]
+        ) {
+          method
+          field
+          value
+        }
+      }
+    }
+  }
+`
+
+/**
+ * __useGetProjectDataForBoxPlotQuery__
+ *
+ * To run a query within a React component, call `useGetProjectDataForBoxPlotQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetProjectDataForBoxPlotQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetProjectDataForBoxPlotQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetProjectDataForBoxPlotQuery(
+  baseOptions?: Apollo.QueryHookOptions<GetProjectDataForBoxPlotQuery, GetProjectDataForBoxPlotQueryVariables>,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<GetProjectDataForBoxPlotQuery, GetProjectDataForBoxPlotQueryVariables>(
+    GetProjectDataForBoxPlotDocument,
+    options,
+  )
+}
+export function useGetProjectDataForBoxPlotLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<GetProjectDataForBoxPlotQuery, GetProjectDataForBoxPlotQueryVariables>,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<GetProjectDataForBoxPlotQuery, GetProjectDataForBoxPlotQueryVariables>(
+    GetProjectDataForBoxPlotDocument,
+    options,
+  )
+}
+export function useGetProjectDataForBoxPlotSuspenseQuery(
+  baseOptions?: Apollo.SuspenseQueryHookOptions<GetProjectDataForBoxPlotQuery, GetProjectDataForBoxPlotQueryVariables>,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useSuspenseQuery<GetProjectDataForBoxPlotQuery, GetProjectDataForBoxPlotQueryVariables>(
+    GetProjectDataForBoxPlotDocument,
+    options,
+  )
+}
+export type GetProjectDataForBoxPlotQueryHookResult = ReturnType<typeof useGetProjectDataForBoxPlotQuery>
+export type GetProjectDataForBoxPlotLazyQueryHookResult = ReturnType<typeof useGetProjectDataForBoxPlotLazyQuery>
+export type GetProjectDataForBoxPlotSuspenseQueryHookResult = ReturnType<
+  typeof useGetProjectDataForBoxPlotSuspenseQuery
+>
+export type GetProjectDataForBoxPlotQueryResult = Apollo.QueryResult<
+  GetProjectDataForBoxPlotQuery,
+  GetProjectDataForBoxPlotQueryVariables
+>
