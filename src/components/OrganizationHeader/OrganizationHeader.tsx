@@ -24,14 +24,13 @@ export const OrganizationHeader = ({ context }: OrganizationHeaderProps) => {
   })
   const totalMembers = usersData?.users?.length || 0
   const organizationName = user?.organization?.name || 'Unknown'
-  const renderButton = (buttonName: string, navigateTo: string, isEnabled: boolean) => {
+  const renderButton = (buttonName: string, navigateTo: string) => {
     return (
       <Button
-        color={isEnabled ? 'green' : 'gray'}
+        color='green'
         radius='sm'
         px={16}
         onClick={() => navigate(navigateTo)}
-        disabled={!isEnabled}
         styles={(theme) => ({
           root: {
             boxShadow: theme.shadows.sm,
@@ -45,8 +44,8 @@ export const OrganizationHeader = ({ context }: OrganizationHeaderProps) => {
 
   return (
     <Paper data-testid='OrganizationHeader'>
-      <Group justify='space-between' align='center'>
-        <Group justify='space-between' align='center'>
+      <Group grow align='center'>
+        <Group align='center'>
           <IconUser size={48} color='#00A859' />
           <Stack align='center'>
             <Text>Total Members</Text>
@@ -55,7 +54,7 @@ export const OrganizationHeader = ({ context }: OrganizationHeaderProps) => {
         </Group>
         <Divider orientation='vertical' />
 
-        <Group justify='space-between' align='center'>
+        <Group align='center'>
           <IconBuilding size={48} color='#00A859' />
           <Stack align='center'>
             <Text>Organization Name</Text>
@@ -63,28 +62,13 @@ export const OrganizationHeader = ({ context }: OrganizationHeaderProps) => {
           </Stack>
         </Group>
         <Divider orientation='vertical' />
-
-        {context === 'organization' && (
-          <>
-            {renderButton('Create Organization', '/organization/new', true)}
-            <Divider orientation='vertical' />
-            {renderButton('Add Members', '/organization/addmembers', true)}
-          </>
-        )}
-        {context === 'createOrganization' && (
-          <>
-            {renderButton('View Members', '/organization', false)}
-            <Divider orientation='vertical' />
-            {renderButton('Add Members', '/organization/addmembers', false)}
-          </>
-        )}
-        {context === 'addMembers' && (
-          <>
-            {renderButton('View Members', '/organization', true)}
-            <Divider orientation='vertical' />
-            {renderButton('Add Members', '/organization/addmembers', false)}
-          </>
-        )}
+        <Group align='center'>
+          {context === 'organization' && organizationName !== 'Unknown' && (
+            <>{renderButton('Add Members', '/organization/addmembers')}</>
+          )}
+          {context === 'organization' && organizationName === 'Unknown' && null}
+          {context === 'addMembers' && <>{renderButton('View Members', '/organization')}</>}
+        </Group>
       </Group>
     </Paper>
   )
