@@ -69,24 +69,43 @@ mutation updateUser($userInput: UpdateUserInput!) {
 }
 
 query getProjectsCountsByCountry {
-  projectsCountsByCountry {
-    location {
-      latitude
-      longitude
+  projects {
+    groups(groupBy: "location.country") {
+      group
+      count
+      items(limit: 1) {
+        id
+        location {
+          countryName
+          longitude
+          latitude
+        }
+      }
     }
-    count
   }
 }
 
-query getProjects($filters: ProjectFilters!, $sort: ProjectSortOptions!) {
-  projects(filters: $filters, sort: $sort) {
-    id
-    name
-    description
-    location {
-      country
-      city
+query getProjectDataForBoxPlot {
+  projects {
+    groups(groupBy: "location.country") {
+      group
+      items {
+        id
+      }
+      aggregation(
+        apply: [
+          { method: AVG, field: "results.gwp.a1a3" }
+          { method: MIN, field: "results.gwp.a1a3" }
+          { method: MAX, field: "results.gwp.a1a3" }
+          { method: MEDIAN, field: "results.gwp.a1a3" }
+          { method: PCT25, field: "results.gwp.a1a3" }
+          { method: PCT75, field: "results.gwp.a1a3" }
+        ]
+      ) {
+        method
+        field
+        value
+      }
     }
-    projectPhase
   }
 }

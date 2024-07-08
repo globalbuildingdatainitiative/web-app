@@ -1,7 +1,5 @@
-import { DashboardPaper} from '@components'
+import { DashboardPaper } from '@components'
 
 export const DashboardPage = () => {
-  return (
-    <DashboardPaper/>
-  )
+  return <DashboardPaper />
 }

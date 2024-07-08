@@ -34,6 +34,17 @@ export const ContributionUploadPaper = () => {
     navigate('/contributions')
   }
 
+  const fileValidator = (file: File) => {
+    const validExtension = file.name.endsWith('.parquet') || file.name.endsWith('.json')
+    if (!validExtension) {
+      return {
+        code: 'file-invalid-type',
+        message: 'Invalid file type. Only .parquet and .json files are allowed.',
+      }
+    }
+    return null
+  }
+
   const processUploadedFile = async (files: File[]): Promise<InputContribution[]> => {
     const file = files[0]
     setFileName(file.name)
@@ -43,6 +54,8 @@ export const ContributionUploadPaper = () => {
       const contributions = parseSLiCEtoContribution(new Uint8Array(await file.arrayBuffer()))
       setFileLoading(false)
       return contributions
+    } else if (file.name.endsWith('.json')) {
+      return JSON.parse(await file.text()).map((project: InputProject) => ({ project }))
     }
     return [{ project: { name: file.name } as InputProject }]
   }
@@ -64,6 +77,7 @@ export const ContributionUploadPaper = () => {
         onDrop={async (files) => setContributionData(await processUploadedFile(files))}
         onReject={(files) => console.log('rejected files', files)}
         maxSize={50 * 1024 ** 2}
+        validator={fileValidator}
         inputProps={{
           // @ts-expect-error data-testid is valid
           'data-testid': 'dropzoneInput',

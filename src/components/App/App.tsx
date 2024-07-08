@@ -3,6 +3,7 @@ import { AppRouter, Loading, theme } from '@components'
 import '@fontsource/outfit'
 import '@mantine/core/styles.css'
 import '@mantine/dropzone/styles.css'
+import '@mantine/charts/styles.css'
 import { useUserContext } from '@context'
 
 export const App = () => {
