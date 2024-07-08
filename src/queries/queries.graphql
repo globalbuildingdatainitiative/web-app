@@ -4,6 +4,9 @@ query getContributions {
     uploadedAt
     project {
       name
+      location {
+        country
+      }
     }
   }
 }
