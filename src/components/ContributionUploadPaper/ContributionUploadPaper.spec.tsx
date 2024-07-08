@@ -41,7 +41,7 @@ suite('ContributionUploadPaper', () => {
         </MemoryRouter>
       </MockedProvider>,
     )
-    const file = new File(['file stuff'], 'file.csv', { type: 'text/csv' })
+    const file = new File(['[{"name": "File"}]'], 'file.json', { type: 'application/json' })
     const dropzone = getByTestId('dropzoneInput')
     await userEvent.upload(dropzone, file)
     expect(await screen.findByText('Contribute')).toBeTruthy()
