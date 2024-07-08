@@ -32,7 +32,7 @@ suite('EditProfileForm', () => {
     expect(await screen.findByTestId('EditProfileForm')).toBeTruthy()
   })
 
-  test('Render Save Changes Button', async () => {
+  test('Render Save Changes ActionButton', async () => {
     render(
       <MockedProvider mocks={getUsersMock} addTypename={false}>
         <MemoryRouter initialEntries={['/']}>

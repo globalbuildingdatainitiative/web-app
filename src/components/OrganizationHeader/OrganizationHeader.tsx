@@ -1,8 +1,7 @@
-import { Paper } from '@components'
-import { Button, Divider, Group, Stack, Text } from '@mantine/core'
+import { Paper, ActionButton } from '@components'
+import { Divider, Group, Stack, Text } from '@mantine/core'
 import { useUserContext } from '@context'
 import { useGetUsersQuery } from '@queries'
-import { useNavigate } from 'react-router-dom'
 import { IconBuilding, IconUser } from '@tabler/icons-react'
 
 interface OrganizationHeaderProps {
@@ -10,7 +9,6 @@ interface OrganizationHeaderProps {
 }
 
 export const OrganizationHeader = ({ context }: OrganizationHeaderProps) => {
-  const navigate = useNavigate()
   const { user } = useUserContext()
   const organizationId = user?.organization?.id || ' '
   const { data: usersData } = useGetUsersQuery({
@@ -24,23 +22,6 @@ export const OrganizationHeader = ({ context }: OrganizationHeaderProps) => {
   })
   const totalMembers = usersData?.users?.length || 0
   const organizationName = user?.organization?.name || 'Unknown'
-  const renderButton = (buttonName: string, navigateTo: string) => {
-    return (
-      <Button
-        color='green'
-        radius='sm'
-        px={16}
-        onClick={() => navigate(navigateTo)}
-        styles={(theme) => ({
-          root: {
-            boxShadow: theme.shadows.sm,
-          },
-        })}
-      >
-        {buttonName}
-      </Button>
-    )
-  }
 
   return (
     <Paper data-testid='OrganizationHeader'>
@@ -61,13 +42,20 @@ export const OrganizationHeader = ({ context }: OrganizationHeaderProps) => {
             <Text size='xl'>{organizationName}</Text>
           </Stack>
         </Group>
-        <Divider orientation='vertical' />
         <Group align='center'>
           {context === 'organization' && organizationName !== 'Unknown' && (
-            <>{renderButton('Add Members', '/organization/addmembers')}</>
+            <>
+              <Divider orientation='vertical' />
+              <ActionButton buttonName='Add Members' navigateTo='/organization/addmembers' />
+            </>
           )}
           {context === 'organization' && organizationName === 'Unknown' && null}
-          {context === 'addMembers' && <>{renderButton('View Members', '/organization')}</>}
+          {context === 'addMembers' && (
+            <>
+              <Divider orientation='vertical' />
+              <ActionButton buttonName='View Members' navigateTo='/organization' />
+            </>
+          )}
         </Group>
       </Group>
     </Paper>

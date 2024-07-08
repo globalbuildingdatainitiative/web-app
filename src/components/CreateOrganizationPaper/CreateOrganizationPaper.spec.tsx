@@ -31,7 +31,7 @@ suite('CreateOrganizationPaper', () => {
     expect(await screen.findByTestId('CreateOrganizationPaper')).toBeTruthy()
   })
 
-  test('Render Create Organization Button', async () => {
+  test('Render Create Organization ActionButton', async () => {
     render(
       <MockedProvider addTypename={false}>
         <MemoryRouter initialEntries={['/']}>
