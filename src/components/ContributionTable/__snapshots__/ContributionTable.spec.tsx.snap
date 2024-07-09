@@ -352,8 +352,7 @@ exports[`ContributionTable > Snapshot 1`] = `
                 class="m_4e7aa4f3 mantine-Table-th MRT_TableHeadCell-module_root__6y50a"
                 colspan="1"
                 data-index="1"
-                style="min-width: max(calc(var(--header-uploadedAt-size) * 1px), 40px);"
-
+                style="min-width: max(calc(var(--header-project_name-size) * 1px), 40px);"
               >
                 <div
                   class="mrt-table-head-cell-content MRT_TableHeadCell-module_content__-pzSK m_8bffd616 mantine-Flex-root __m__-r1p"
@@ -381,7 +380,7 @@ exports[`ContributionTable > Snapshot 1`] = `
                 class="m_4e7aa4f3 mantine-Table-th MRT_TableHeadCell-module_root__6y50a"
                 colspan="1"
                 data-index="2"
-                style="min-width: max(calc(var(--header-organization_name-size) * 1px), 40px);"
+                style="min-width: max(calc(var(--header-uploadedAt-size) * 1px), 40px);"
               >
                 <div
                   class="mrt-table-head-cell-content MRT_TableHeadCell-module_content__-pzSK m_8bffd616 mantine-Flex-root __m__-r22"
@@ -409,7 +408,7 @@ exports[`ContributionTable > Snapshot 1`] = `
                 class="m_4e7aa4f3 mantine-Table-th MRT_TableHeadCell-module_root__6y50a"
                 colspan="1"
                 data-index="3"
-                style="min-width: max(calc(var(--header-project_name-size) * 1px), 40px);"
+                style="min-width: max(calc(var(--header-project_location_country-size) * 1px), 40px);"
               >
                 <div
                   class="mrt-table-head-cell-content MRT_TableHeadCell-module_content__-pzSK m_8bffd616 mantine-Flex-root __m__-r2b"

@@ -38,6 +38,17 @@ SuperTokens.init({
           ],
         },
       },
+      onHandleEvent: async (context) => {
+        if (context.action === 'SUCCESS') {
+          if (context.isNewRecipeUser && context.user.loginMethods.length === 1) {
+            console.log('New user signed up with email and password', context.user)
+            window.location.reload()
+          } else {
+            console.log('User signed in with email and password', context.user)
+            window.location.reload()
+          }
+        }
+      },
     }),
     Session.init(),
   ],
