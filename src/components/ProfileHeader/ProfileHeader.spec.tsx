@@ -26,7 +26,7 @@ suite('ProfileHeader', () => {
     expect(await screen.findByTestId('ProfileHeader')).toBeTruthy()
   })
 
-  test('Render Contribute Now Button', async () => {
+  test('Render Contribute Now ActionButton', async () => {
     render(
       <MemoryRouter initialEntries={['/']}>
         <Routes>
