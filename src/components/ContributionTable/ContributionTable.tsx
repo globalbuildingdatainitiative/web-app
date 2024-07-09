@@ -1,19 +1,10 @@
 import { Contribution, useGetContributionsQuery } from '@queries'
 import { MantineReactTable, MRT_ColumnDef, useMantineReactTable } from 'mantine-react-table'
-import { useEffect, useMemo } from 'react'
+import { useMemo } from 'react'
 import dayjs from 'dayjs'
 
 export const ContributionTable = () => {
   const { loading, error, data } = useGetContributionsQuery()
-
-  useEffect(() => {
-    if (data && data.contributions) {
-      data.contributions.forEach((contribution) => {
-        console.log('Country:', contribution.project?.location?.countryName)
-      })
-    }
-  }, [data])
-
   const columns = useMemo<MRT_ColumnDef<Pick<Contribution, 'id'>>[]>(
     () => [
       {
