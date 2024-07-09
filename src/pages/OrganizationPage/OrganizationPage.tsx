@@ -4,7 +4,7 @@ import { Stack } from '@mantine/core'
 export const OrganizationPage = () => {
   return (
     <Stack>
-      <OrganizationHeader />
+      <OrganizationHeader context='organization' />
       <MemberPaper />
     </Stack>
   )

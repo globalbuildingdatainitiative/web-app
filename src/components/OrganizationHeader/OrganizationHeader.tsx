@@ -1,28 +1,62 @@
-import { Paper } from '../Paper'
-import { Title, Button, Group, Divider } from '@mantine/core'
-import { useNavigate } from 'react-router-dom'
+import { Paper, ActionButton } from '@components'
+import { Divider, Group, Stack, Text } from '@mantine/core'
 import { useUserContext } from '@context'
+import { useGetUsersQuery } from '@queries'
+import { IconBuilding, IconUser } from '@tabler/icons-react'
 
-export const OrganizationHeader = () => {
-  const navigate = useNavigate()
+interface OrganizationHeaderProps {
+  context: 'organization' | 'addMembers' | 'createOrganization'
+}
+
+export const OrganizationHeader = ({ context }: OrganizationHeaderProps) => {
   const { user } = useUserContext()
+  const organizationId = user?.organization?.id || ' '
+  const { data: usersData } = useGetUsersQuery({
+    variables: {
+      filters: {
+        organizationId: {
+          equal: organizationId,
+        },
+      },
+    },
+  })
+  const totalMembers = usersData?.users?.length || 0
+  const organizationName = user?.organization?.name || 'Unknown'
 
   return (
     <Paper data-testid='OrganizationHeader'>
-      <Group justify='space-between'>
-        <Title order={2}>Organization Header</Title>
+      <Group grow align='center'>
+        <Group align='center'>
+          <IconUser size={48} color='#00A859' />
+          <Stack align='center'>
+            <Text>Total Members</Text>
+            <Text>{totalMembers}</Text>
+          </Stack>
+        </Group>
         <Divider orientation='vertical' />
-        <Title order={2}>Organization Header</Title>
-        <Divider orientation='vertical' />
-        <Button
-          color='green'
-          radius='sm'
-          px={16}
-          onClick={() => navigate('/organization/new')}
-          disabled={user?.organization?.id}
-        >
-          Create Organization
-        </Button>
+
+        <Group align='center'>
+          <IconBuilding size={48} color='#00A859' />
+          <Stack align='center'>
+            <Text>Organization Name</Text>
+            <Text size='xl'>{organizationName}</Text>
+          </Stack>
+        </Group>
+        <Group align='center'>
+          {context === 'organization' && organizationName !== 'Unknown' && (
+            <>
+              <Divider orientation='vertical' />
+              <ActionButton buttonName='Add Members' navigateTo='/organization/addmembers' />
+            </>
+          )}
+          {context === 'organization' && organizationName === 'Unknown' && null}
+          {context === 'addMembers' && (
+            <>
+              <Divider orientation='vertical' />
+              <ActionButton buttonName='View Members' navigateTo='/organization' />
+            </>
+          )}
+        </Group>
       </Group>
     </Paper>
   )

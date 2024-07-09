@@ -31,7 +31,7 @@ suite('ContributionUploadPaper', () => {
     expect(await screen.findByTestId('ContributionUploadPaper')).toBeTruthy()
   })
 
-  test('Render Contribution Button', async () => {
+  test('Render Contribution ActionButton', async () => {
     const { getByTestId } = render(
       <MockedProvider addTypename={false}>
         <MemoryRouter initialEntries={['/']}>
