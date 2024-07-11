@@ -15,6 +15,7 @@ export const SignOut = () => {
   async function onLogout() {
     await client.resetStore()
     await signOut()
+    localStorage.setItem('supertokens', 'false')
     navigate('/auth')
   }
   return (
