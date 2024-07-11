@@ -40,8 +40,7 @@ SuperTokens.init({
       },
       onHandleEvent: async (context) => {
         if (context.action === 'SUCCESS') {
-          localStorage.setItem('supertokens', 'true')
-          //window.location.reload()
+          localStorage.setItem('userId', context.user.id)
         }
       },
     }),
@@ -54,19 +53,19 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
     <SuperTokensWrapper>
       <BrowserRouter>
         <GraphQLProvider>
-          <UserProvider>
-            <Routes>
-              {getSuperTokensRoutesForReactRouterDom(reactRouterDom, [EmailPasswordPreBuiltUI])}
-              <Route
-                path='*'
-                element={
+          <Routes>
+            {getSuperTokensRoutesForReactRouterDom(reactRouterDom, [EmailPasswordPreBuiltUI])}
+            <Route
+              path='*'
+              element={
+                <UserProvider>
                   <SessionAuth>
                     <App />
                   </SessionAuth>
-                }
-              />
-            </Routes>
-          </UserProvider>
+                </UserProvider>
+              }
+            />
+          </Routes>
         </GraphQLProvider>
       </BrowserRouter>
     </SuperTokensWrapper>

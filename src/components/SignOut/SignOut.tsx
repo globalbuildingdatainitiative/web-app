@@ -15,9 +15,11 @@ export const SignOut = () => {
   async function onLogout() {
     await client.resetStore()
     await signOut()
-    localStorage.setItem('supertokens', 'false')
+    localStorage.removeItem('userId')
     navigate('/auth')
   }
+
+  console.log('SIGN OUT', user?.firstName)
   return (
     <>
       <Button

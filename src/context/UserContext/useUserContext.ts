@@ -1,4 +1,4 @@
 import { useContext } from 'react'
-import { UserContext } from '@context'
+import { UserContext } from './UserContext.tsx'
 
 export const useUserContext = () => useContext(UserContext)
