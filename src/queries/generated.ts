@@ -1918,7 +1918,7 @@ export type GetContributionsQuery = {
     __typename?: 'Contribution'
     id: any
     uploadedAt: any
-    project: { __typename?: 'Project'; name: string; location: { __typename?: 'Location'; country: Country } }
+    project: { __typename?: 'Project'; name: string; location: { __typename?: 'Location'; countryName: string } }
   }>
 }
 
@@ -2057,7 +2057,7 @@ export const GetContributionsDocument = gql`
       project {
         name
         location {
-          country
+          countryName
         }
       }
     }

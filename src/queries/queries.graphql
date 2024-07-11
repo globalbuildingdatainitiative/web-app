@@ -5,7 +5,7 @@ query getContributions {
     project {
       name
       location {
-        country
+        countryName
       }
     }
   }
