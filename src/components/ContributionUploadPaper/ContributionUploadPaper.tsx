@@ -20,7 +20,7 @@ export const ContributionUploadPaper = () => {
     }
     const chunkSize = 10
     if (contributionData.length > chunkSize) {
-      console.log(
+      console.warn(
         `Attempting to upload ${contributionData.length} contributions. Will batch it to ${chunkSize} contributions per request.`,
       )
       for (let i = 0; i < contributionData.length; i += chunkSize) {
@@ -75,7 +75,7 @@ export const ContributionUploadPaper = () => {
         disabled={!!contributionData}
         loading={fileLoading}
         onDrop={async (files) => setContributionData(await processUploadedFile(files))}
-        onReject={(files) => console.log('rejected files', files)}
+        onReject={(files) => console.error('rejected files', files)}
         maxSize={50 * 1024 ** 2}
         validator={fileValidator}
         inputProps={{

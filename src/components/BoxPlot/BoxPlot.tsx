@@ -54,7 +54,6 @@ export const BoxPlot = (props: BoxPlotProps) => {
       }),
     [props.data],
   )
-  console.log(data)
 
   return (
     <ResponsiveContainer minHeight={600}>
@@ -64,7 +63,7 @@ export const BoxPlot = (props: BoxPlotProps) => {
           type='number'
           domain={[0, 100]}
           tickCount={7}
-          label={{ value: 'GWP Intensity (kgCO2eq/m2)', position: 'insideBottom', offset: -10 }}
+          label={{ value: 'GWP Intensity (kgCO₂eq/m²)', position: 'insideBottom', offset: -10 }}
         />
         <YAxis type='category' dataKey='name' />
         <Tooltip />
