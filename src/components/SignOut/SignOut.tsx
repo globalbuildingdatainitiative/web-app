@@ -19,7 +19,6 @@ export const SignOut = () => {
     navigate('/auth')
   }
 
-  console.log('SIGN OUT', user?.firstName)
   return (
     <>
       <Button

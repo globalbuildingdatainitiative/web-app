@@ -2038,7 +2038,7 @@ export type GetProjectDataForBoxPlotQuery = {
     groups: Array<{
       __typename?: 'ProjectGraphQLGroupResponse'
       group: string
-      items: Array<{ __typename?: 'Project'; id: any }>
+      items: Array<{ __typename?: 'Project'; id: any; location: { __typename?: 'Location'; countryName: string } }>
       aggregation: Array<{
         __typename?: 'AggregationResult'
         method: AggregationMethod
@@ -2465,6 +2465,9 @@ export const GetProjectDataForBoxPlotDocument = gql`
         group
         items {
           id
+          location {
+            countryName
+          }
         }
         aggregation(
           apply: [

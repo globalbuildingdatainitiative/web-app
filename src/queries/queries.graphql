@@ -94,6 +94,9 @@ query getProjectDataForBoxPlot {
       group
       items {
         id
+        location {
+          countryName
+        }
       }
       aggregation(
         apply: [

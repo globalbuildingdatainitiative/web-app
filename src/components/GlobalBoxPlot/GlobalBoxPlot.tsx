@@ -9,8 +9,9 @@ export const GlobalBoxPlot = () => {
   const boxPlotData: BoxPlotData[] = useMemo(() => {
     if (!data) return []
 
-    const _data = data.projects.groups.map((group) =>
-      group.aggregation.reduce(
+    const _data = data.projects.groups.map((group) => {
+      const countryName = group.items[0]?.location?.countryName || group.group // Fallback to group name if countryName is not available
+      return group.aggregation.reduce(
         (acc, curr) => {
           if (curr.method.toLowerCase() === 'min') acc.min = curr.value!
           if (curr.method.toLowerCase() === 'pct25') acc.pct25 = curr.value!
@@ -18,10 +19,11 @@ export const GlobalBoxPlot = () => {
           if (curr.method.toLowerCase() === 'pct75') acc.pct75 = curr.value!
           if (curr.method.toLowerCase() === 'max') acc.max = curr.value!
           if (curr.method.toLowerCase() === 'avg') acc.avg = curr.value!
+          acc.name = countryName
           return acc
         },
         {
-          name: group.group,
+          name: countryName,
           min: 0,
           pct25: 0,
           median: 0,
@@ -29,8 +31,8 @@ export const GlobalBoxPlot = () => {
           max: 0,
           avg: 0,
         } as BoxPlotData,
-      ),
-    )
+      )
+    })
 
     return _data
   }, [data])

@@ -8,9 +8,9 @@ import {
   Bar,
   RectangleProps,
   Scatter,
+  Tooltip,
 } from 'recharts'
 import { useMemo } from 'react'
-// import { useMantineTheme } from '@mantine/core'
 import { BoxPlotData } from './types.ts'
 
 const HorizonBar = (props: RectangleProps) => {
@@ -30,17 +30,7 @@ const DotBar = (props: RectangleProps) => {
     return null
   }
 
-  return (
-    <line
-      x1={x + width / 2}
-      y1={y + height}
-      x2={x + width / 2}
-      y2={y}
-      stroke='#000'
-      strokeWidth={5}
-      strokeDasharray='5'
-    />
-  )
+  return <line x1={x + width / 2} y1={y + height} x2={x + width / 2} y2={y} stroke='#000' strokeWidth={3} />
 }
 
 interface BoxPlotProps {
@@ -48,11 +38,11 @@ interface BoxPlotProps {
 }
 
 export const BoxPlot = (props: BoxPlotProps) => {
-  // const theme = useMantineTheme()
   const data = useMemo(
     () =>
       props.data.map((v) => {
         return {
+          name: v.name, // Ensure that the name is correctly set here for the y-axis
           min: v.min,
           bottomWhisker: v.pct25 - v.min,
           bottomBox: v.median - v.pct25,
@@ -67,21 +57,26 @@ export const BoxPlot = (props: BoxPlotProps) => {
 
   return (
     <ResponsiveContainer minHeight={600}>
-      <ComposedChart data={data}>
+      <ComposedChart layout='vertical' data={data} margin={{ left: 100, right: 50, bottom: 50 }}>
         <CartesianGrid strokeDasharray='3 3' />
+        <XAxis
+          type='number'
+          domain={[0, 100]}
+          tickCount={7}
+          label={{ value: 'GWP Intensity (kgCO₂eq/m²)', position: 'insideBottom', offset: -10 }}
+        />
+        <YAxis type='category' dataKey='name' />
+        <Tooltip />
         <Bar stackId='a' dataKey='min' fill='none' />
         <Bar stackId='a' dataKey='bar' shape={<HorizonBar />} />
         <Bar stackId='a' dataKey='bottomWhisker' shape={<DotBar />} />
-        <Bar stackId='a' dataKey='bottomBox' fill='#8884d8' />
+        <Bar stackId='a' dataKey='bottomBox' fill='#444E86' />
         <Bar stackId='a' dataKey='bar' shape={<HorizonBar />} />
-        <Bar stackId='a' dataKey='topBox' fill='#8884d8' />
+        <Bar stackId='a' dataKey='topBox' fill='#444E86' />
         <Bar stackId='a' dataKey='topWhisker' shape={<DotBar />} />
         <Bar stackId='a' dataKey='bar' shape={<HorizonBar />} />
         <ZAxis type='number' dataKey='size' range={[0, 250]} />
-
         <Scatter dataKey='average' fill='red' stroke='#FFF' />
-        <XAxis />
-        <YAxis />
       </ComposedChart>
     </ResponsiveContainer>
   )
