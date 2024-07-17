@@ -1,119 +1,119 @@
 query getContributions {
-    contributions {
-        items {
-            id
-            uploadedAt
-            project {
-                name
-                location {
-                    countryName
-                }
-            }
+  contributions {
+    items {
+      id
+      uploadedAt
+      project {
+        name
+        location {
+          countryName
         }
+      }
     }
+  }
 }
 
 mutation addContribution($contributions: [InputContribution!]!) {
-    addContributions(contributions: $contributions) {
-        id
-    }
+  addContributions(contributions: $contributions) {
+    id
+  }
 }
 
 query getOrganizations {
-    organizations {
-        id
-        name
-        address
-        city
-        country
-    }
+  organizations {
+    id
+    name
+    address
+    city
+    country
+  }
 }
 
 mutation createOrganizations($organizations: [InputOrganization!]!) {
-    createOrganizations(organizations: $organizations) {
-        id
-        name
-        address
-        city
-        country
-    }
+  createOrganizations(organizations: $organizations) {
+    id
+    name
+    address
+    city
+    country
+  }
 }
 
 query getUsers($filters: UserFilters) {
-    users(filters: $filters) {
-        id
-        firstName
-        lastName
-        email
-        timeJoined
-    }
+  users(filters: $filters) {
+    id
+    firstName
+    lastName
+    email
+    timeJoined
+  }
 }
 
 query getCurrentUser($id: String!) {
-    users(filters: { id: { equal: $id } }) {
-        id
-        firstName
-        lastName
-        email
-        organization {
-            id
-            name
-        }
-        timeJoined
+  users(filters: { id: { equal: $id } }) {
+    id
+    firstName
+    lastName
+    email
+    organization {
+      id
+      name
     }
+    timeJoined
+  }
 }
 
 mutation updateUser($userInput: UpdateUserInput!) {
-    updateUser(userInput: $userInput) {
-        id
-        firstName
-        lastName
-        email
-        timeJoined
-    }
+  updateUser(userInput: $userInput) {
+    id
+    firstName
+    lastName
+    email
+    timeJoined
+  }
 }
 
 query getProjectsCountsByCountry {
-    projects {
-        groups(groupBy: "location.country") {
-            group
-            count
-            items(limit: 1) {
-                id
-                location {
-                    countryName
-                    longitude
-                    latitude
-                }
-            }
+  projects {
+    groups(groupBy: "location.country") {
+      group
+      count
+      items(limit: 1) {
+        id
+        location {
+          countryName
+          longitude
+          latitude
         }
+      }
     }
+  }
 }
 
 query getProjectDataForBoxPlot {
-    projects {
-        groups(groupBy: "location.country") {
-            group
-            items {
-                id
-                location {
-                    countryName
-                }
-            }
-            aggregation(
-                apply: [
-                    { method: AVG, field: "results.gwp.a1a3" }
-                    { method: MIN, field: "results.gwp.a1a3" }
-                    { method: MAX, field: "results.gwp.a1a3" }
-                    { method: MEDIAN, field: "results.gwp.a1a3" }
-                    { method: PCT25, field: "results.gwp.a1a3" }
-                    { method: PCT75, field: "results.gwp.a1a3" }
-                ]
-            ) {
-                method
-                field
-                value
-            }
+  projects {
+    groups(groupBy: "location.country") {
+      group
+      items {
+        id
+        location {
+          countryName
         }
+      }
+      aggregation(
+        apply: [
+          { method: AVG, field: "results.gwp.a1a3" }
+          { method: MIN, field: "results.gwp.a1a3" }
+          { method: MAX, field: "results.gwp.a1a3" }
+          { method: MEDIAN, field: "results.gwp.a1a3" }
+          { method: PCT25, field: "results.gwp.a1a3" }
+          { method: PCT75, field: "results.gwp.a1a3" }
+        ]
+      ) {
+        method
+        field
+        value
+      }
     }
+  }
 }
