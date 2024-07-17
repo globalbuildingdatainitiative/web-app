@@ -22,7 +22,7 @@ export type Scalars = {
   Date: { input: any; output: any }
   /** Date with time (isoformat) */
   DateTime: { input: any; output: any }
-  /** The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf). */
+  /** The `JSON` scalar type represents JSON values as specified by [ECMA-404](https://ecma-international.org/wp-content/uploads/ECMA-404_2nd_edition_december_2017.pdf). */
   JSON: { input: any; output: any }
   UUID: { input: any; output: any }
   _FieldSet: { input: any; output: any }
@@ -113,18 +113,46 @@ export type Contribution = {
   userId: Scalars['UUID']['output']
 }
 
-export type ContributionFilters = {
-  id?: InputMaybe<UuidFilterOptions>
-  organizationId?: InputMaybe<UuidFilterOptions>
-  uploadAt?: InputMaybe<DatetimeFilterOptions>
-  userId?: InputMaybe<UuidFilterOptions>
+export type ContributionGraphQlGroupResponse = {
+  __typename?: 'ContributionGraphQLGroupResponse'
+  aggregation: Array<AggregationResult>
+  count: Scalars['Int']['output']
+  group: Scalars['String']['output']
+  items: Array<Contribution>
 }
 
-export type ContributionSort = {
-  id?: InputMaybe<SortOptions>
-  organizationId?: InputMaybe<SortOptions>
-  uploadAt?: InputMaybe<SortOptions>
-  userId?: InputMaybe<SortOptions>
+export type ContributionGraphQlGroupResponseAggregationArgs = {
+  apply: Array<InputAggregation>
+}
+
+export type ContributionGraphQlGroupResponseItemsArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>
+}
+
+export type ContributionGraphQlResponse = {
+  __typename?: 'ContributionGraphQLResponse'
+  aggregation: Array<AggregationResult>
+  /** Total number of items in the filtered dataset. */
+  count: Scalars['Int']['output']
+  groups: Array<ContributionGraphQlGroupResponse>
+  /** The list of items in this pagination window. */
+  items?: Maybe<Array<Contribution>>
+}
+
+export type ContributionGraphQlResponseAggregationArgs = {
+  apply: Array<InputAggregation>
+}
+
+export type ContributionGraphQlResponseGroupsArgs = {
+  groupBy: Scalars['String']['input']
+  limit?: Scalars['Int']['input']
+}
+
+export type ContributionGraphQlResponseItemsArgs = {
+  filterBy?: InputMaybe<FilterBy>
+  limit?: Scalars['Int']['input']
+  offset?: Scalars['Int']['input']
+  sortBy?: InputMaybe<SortBy>
 }
 
 export type Conversion = {
@@ -638,11 +666,6 @@ export enum CountryCodes {
   ZWE = 'ZWE',
 }
 
-export type DatetimeFilterOptions = {
-  equal?: InputMaybe<Scalars['DateTime']['input']>
-  isTrue?: InputMaybe<Scalars['Boolean']['input']>
-}
-
 export type Epd = {
   __typename?: 'EPD'
   comment?: Maybe<Scalars['String']['output']>
@@ -664,6 +687,11 @@ export type Epd = {
 }
 
 export type EpdTechFlow = Epd | TechFlow
+
+export type FilterBy = {
+  equal?: InputMaybe<Scalars['JSON']['input']>
+  isTrue?: InputMaybe<Scalars['Boolean']['input']>
+}
 
 export type FilterOptions = {
   equal?: InputMaybe<Scalars['String']['input']>
@@ -1016,12 +1044,6 @@ export type Project = {
   softwareInfo: SoftwareInfo
 }
 
-export type ProjectFilters = {
-  description?: InputMaybe<StrFilterOptions>
-  id?: InputMaybe<UuidFilterOptions>
-  name?: InputMaybe<StrFilterOptions>
-}
-
 export type ProjectGraphQlGroupResponse = {
   __typename?: 'ProjectGraphQLGroupResponse'
   aggregation: Array<AggregationResult>
@@ -1058,10 +1080,10 @@ export type ProjectGraphQlResponseGroupsArgs = {
 }
 
 export type ProjectGraphQlResponseItemsArgs = {
-  filterBy: ProjectFilters
+  filterBy?: InputMaybe<FilterBy>
   limit?: Scalars['Int']['input']
   offset?: Scalars['Int']['input']
-  sortBy: ProjectSort
+  sortBy?: InputMaybe<SortBy>
 }
 
 export type ProjectInfo = {
@@ -1098,26 +1120,16 @@ export enum ProjectPhase {
   OTHER = 'other',
 }
 
-export type ProjectSort = {
-  description?: InputMaybe<SortOptions>
-  id?: InputMaybe<SortOptions>
-  name?: InputMaybe<SortOptions>
-}
-
 export type Query = {
   __typename?: 'Query'
-  /** Returns all contributions assigned to user */
-  contributions: Array<Contribution>
+  /** Returns all contributions of a user's organization */
+  contributions: ContributionGraphQlResponse
   /** Returns all Organizations */
   organizations: Array<Organization>
+  /** Returns all projects of a user's organization */
   projects: ProjectGraphQlResponse
   /** Returns all Users */
   users: Array<User>
-}
-
-export type QueryContributionsArgs = {
-  filters?: InputMaybe<ContributionFilters>
-  sortBy?: InputMaybe<ContributionSort>
 }
 
 export type QueryOrganizationsArgs = {
@@ -1144,6 +1156,11 @@ export type SoftwareInfo = {
   lcaSoftware: Scalars['String']['output']
 }
 
+export type SortBy = {
+  asc?: InputMaybe<Scalars['String']['input']>
+  dsc?: InputMaybe<Scalars['String']['input']>
+}
+
 export enum SortOptions {
   ASC = 'ASC',
   DSC = 'DSC',
@@ -1159,11 +1176,6 @@ export enum Standard {
   EN15804A1 = 'en15804a1',
   EN15804A2 = 'en15804a2',
   UNKNOWN = 'unknown',
-}
-
-export type StrFilterOptions = {
-  equal?: InputMaybe<Scalars['String']['input']>
-  isTrue?: InputMaybe<Scalars['Boolean']['input']>
 }
 
 export enum SubType {
@@ -1185,11 +1197,6 @@ export type TechFlow = {
   metaData: Scalars['JSON']['output']
   name: Scalars['String']['output']
   source?: Maybe<Source>
-}
-
-export type UuidFilterOptions = {
-  equal?: InputMaybe<Scalars['UUID']['input']>
-  isTrue?: InputMaybe<Scalars['Boolean']['input']>
 }
 
 export enum Unit {
@@ -1337,17 +1344,17 @@ export type ResolversTypes = {
   BuildingTypology: BuildingTypology
   Classification: ResolverTypeWrapper<Classification>
   Contribution: ResolverTypeWrapper<Contribution>
-  ContributionFilters: ContributionFilters
-  ContributionSort: ContributionSort
+  ContributionGraphQLGroupResponse: ResolverTypeWrapper<ContributionGraphQlGroupResponse>
+  Int: ResolverTypeWrapper<Scalars['Int']['output']>
+  ContributionGraphQLResponse: ResolverTypeWrapper<ContributionGraphQlResponse>
   Conversion: ResolverTypeWrapper<Conversion>
   Country: Country
   CountryCodes: CountryCodes
   Date: ResolverTypeWrapper<Scalars['Date']['output']>
   DateTime: ResolverTypeWrapper<Scalars['DateTime']['output']>
-  DatetimeFilterOptions: DatetimeFilterOptions
   EPD: ResolverTypeWrapper<Epd>
-  Int: ResolverTypeWrapper<Scalars['Int']['output']>
   EPDTechFlow: ResolverTypeWrapper<ResolversUnionTypes<ResolversTypes>['EPDTechFlow']>
+  FilterBy: FilterBy
   FilterOptions: FilterOptions
   GeneralEnergyClass: GeneralEnergyClass
   GraphQLInputImpactData: GraphQlInputImpactData
@@ -1378,23 +1385,20 @@ export type ResolversTypes = {
   OrganizationFilter: OrganizationFilter
   Product: ResolverTypeWrapper<Omit<Product, 'impactData'> & { impactData: ResolversTypes['EPDTechFlow'] }>
   Project: ResolverTypeWrapper<Project>
-  ProjectFilters: ProjectFilters
   ProjectGraphQLGroupResponse: ResolverTypeWrapper<ProjectGraphQlGroupResponse>
   ProjectGraphQLResponse: ResolverTypeWrapper<ProjectGraphQlResponse>
   ProjectInfo: ResolverTypeWrapper<ProjectInfo>
   ProjectPhase: ProjectPhase
-  ProjectSort: ProjectSort
   Query: ResolverTypeWrapper<{}>
   RoofType: RoofType
   SoftwareInfo: ResolverTypeWrapper<SoftwareInfo>
+  SortBy: SortBy
   SortOptions: SortOptions
   Source: ResolverTypeWrapper<Source>
   Standard: Standard
-  StrFilterOptions: StrFilterOptions
   SubType: SubType
   TechFlow: ResolverTypeWrapper<TechFlow>
   UUID: ResolverTypeWrapper<Scalars['UUID']['output']>
-  UUIDFilterOptions: UuidFilterOptions
   Unit: Unit
   UpdateUserInput: UpdateUserInput
   User: ResolverTypeWrapper<User>
@@ -1414,15 +1418,15 @@ export type ResolversParentTypes = {
   Boolean: Scalars['Boolean']['output']
   Classification: Classification
   Contribution: Contribution
-  ContributionFilters: ContributionFilters
-  ContributionSort: ContributionSort
+  ContributionGraphQLGroupResponse: ContributionGraphQlGroupResponse
+  Int: Scalars['Int']['output']
+  ContributionGraphQLResponse: ContributionGraphQlResponse
   Conversion: Conversion
   Date: Scalars['Date']['output']
   DateTime: Scalars['DateTime']['output']
-  DatetimeFilterOptions: DatetimeFilterOptions
   EPD: Epd
-  Int: Scalars['Int']['output']
   EPDTechFlow: ResolversUnionTypes<ResolversParentTypes>['EPDTechFlow']
+  FilterBy: FilterBy
   FilterOptions: FilterOptions
   GraphQLInputImpactData: GraphQlInputImpactData
   GraphQLInputProjectInfo: GraphQlInputProjectInfo
@@ -1450,18 +1454,15 @@ export type ResolversParentTypes = {
   OrganizationFilter: OrganizationFilter
   Product: Omit<Product, 'impactData'> & { impactData: ResolversParentTypes['EPDTechFlow'] }
   Project: Project
-  ProjectFilters: ProjectFilters
   ProjectGraphQLGroupResponse: ProjectGraphQlGroupResponse
   ProjectGraphQLResponse: ProjectGraphQlResponse
   ProjectInfo: ProjectInfo
-  ProjectSort: ProjectSort
   Query: {}
   SoftwareInfo: SoftwareInfo
+  SortBy: SortBy
   Source: Source
-  StrFilterOptions: StrFilterOptions
   TechFlow: TechFlow
   UUID: Scalars['UUID']['output']
-  UUIDFilterOptions: UuidFilterOptions
   UpdateUserInput: UpdateUserInput
   User: User
   UserFilters: UserFilters
@@ -1553,6 +1554,55 @@ export type ContributionResolvers<
   project?: Resolver<ResolversTypes['Project'], ParentType, ContextType>
   uploadedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>
   userId?: Resolver<ResolversTypes['UUID'], ParentType, ContextType>
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>
+}
+
+export type ContributionGraphQlGroupResponseResolvers<
+  ContextType = any,
+  ParentType extends
+    ResolversParentTypes['ContributionGraphQLGroupResponse'] = ResolversParentTypes['ContributionGraphQLGroupResponse'],
+> = {
+  aggregation?: Resolver<
+    Array<ResolversTypes['AggregationResult']>,
+    ParentType,
+    ContextType,
+    RequireFields<ContributionGraphQlGroupResponseAggregationArgs, 'apply'>
+  >
+  count?: Resolver<ResolversTypes['Int'], ParentType, ContextType>
+  group?: Resolver<ResolversTypes['String'], ParentType, ContextType>
+  items?: Resolver<
+    Array<ResolversTypes['Contribution']>,
+    ParentType,
+    ContextType,
+    RequireFields<ContributionGraphQlGroupResponseItemsArgs, 'limit'>
+  >
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>
+}
+
+export type ContributionGraphQlResponseResolvers<
+  ContextType = any,
+  ParentType extends
+    ResolversParentTypes['ContributionGraphQLResponse'] = ResolversParentTypes['ContributionGraphQLResponse'],
+> = {
+  aggregation?: Resolver<
+    Array<ResolversTypes['AggregationResult']>,
+    ParentType,
+    ContextType,
+    RequireFields<ContributionGraphQlResponseAggregationArgs, 'apply'>
+  >
+  count?: Resolver<ResolversTypes['Int'], ParentType, ContextType>
+  groups?: Resolver<
+    Array<ResolversTypes['ContributionGraphQLGroupResponse']>,
+    ParentType,
+    ContextType,
+    RequireFields<ContributionGraphQlResponseGroupsArgs, 'groupBy' | 'limit'>
+  >
+  items?: Resolver<
+    Maybe<Array<ResolversTypes['Contribution']>>,
+    ParentType,
+    ContextType,
+    RequireFields<ContributionGraphQlResponseItemsArgs, 'filterBy' | 'limit' | 'offset' | 'sortBy'>
+  >
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>
 }
 
@@ -1792,12 +1842,7 @@ export type QueryResolvers<
   ContextType = any,
   ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query'],
 > = {
-  contributions?: Resolver<
-    Array<ResolversTypes['Contribution']>,
-    ParentType,
-    ContextType,
-    RequireFields<QueryContributionsArgs, 'filters' | 'sortBy'>
-  >
+  contributions?: Resolver<ResolversTypes['ContributionGraphQLResponse'], ParentType, ContextType>
   organizations?: Resolver<
     Array<ResolversTypes['Organization']>,
     ParentType,
@@ -1883,6 +1928,8 @@ export type Resolvers<ContextType = any> = {
   BuildingModelScope?: BuildingModelScopeResolvers<ContextType>
   Classification?: ClassificationResolvers<ContextType>
   Contribution?: ContributionResolvers<ContextType>
+  ContributionGraphQLGroupResponse?: ContributionGraphQlGroupResponseResolvers<ContextType>
+  ContributionGraphQLResponse?: ContributionGraphQlResponseResolvers<ContextType>
   Conversion?: ConversionResolvers<ContextType>
   Date?: GraphQLScalarType
   DateTime?: GraphQLScalarType
@@ -1914,12 +1961,15 @@ export type GetContributionsQueryVariables = Exact<{ [key: string]: never }>
 
 export type GetContributionsQuery = {
   __typename?: 'Query'
-  contributions: Array<{
-    __typename?: 'Contribution'
-    id: any
-    uploadedAt: any
-    project: { __typename?: 'Project'; name: string; location: { __typename?: 'Location'; countryName: string } }
-  }>
+  contributions: {
+    __typename?: 'ContributionGraphQLResponse'
+    items?: Array<{
+      __typename?: 'Contribution'
+      id: any
+      uploadedAt: any
+      project: { __typename?: 'Project'; name: string; location: { __typename?: 'Location'; countryName: string } }
+    }> | null
+  }
 }
 
 export type AddContributionMutationVariables = Exact<{
@@ -2052,12 +2102,14 @@ export type GetProjectDataForBoxPlotQuery = {
 export const GetContributionsDocument = gql`
   query getContributions {
     contributions {
-      id
-      uploadedAt
-      project {
-        name
-        location {
-          countryName
+      items {
+        id
+        uploadedAt
+        project {
+          name
+          location {
+            countryName
+          }
         }
       }
     }
