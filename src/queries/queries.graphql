@@ -1,11 +1,13 @@
 query getContributions {
   contributions {
-    id
-    uploadedAt
-    project {
-      name
-      location {
-        countryName
+    items {
+      id
+      uploadedAt
+      project {
+        name
+        location {
+          countryName
+        }
       }
     }
   }

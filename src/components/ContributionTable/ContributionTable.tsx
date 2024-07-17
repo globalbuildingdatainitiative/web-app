@@ -32,8 +32,8 @@ export const ContributionTable = () => {
     [],
   )
 
-  const rowData = useMemo(() => data?.contributions || [], [data])
-  const totalRowCount = useMemo(() => data?.contributions.length || 0, [data])
+  const rowData = useMemo(() => data?.contributions.items || [], [data])
+  const totalRowCount = useMemo(() => data?.contributions?.items?.length || 0, [data])
 
   const table = useMantineReactTable({
     columns,
