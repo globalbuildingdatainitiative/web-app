@@ -6,6 +6,7 @@ import { Loading } from '@components'
 
 export const GlobalMap = () => {
   const { data, loading, error } = useGetProjectsCountsByCountryQuery()
+
   const theme = useMantineTheme()
 
   if (loading)
@@ -17,7 +18,7 @@ export const GlobalMap = () => {
   if (error) return <p>Error: {error.message}</p>
 
   return (
-    <div style={{ height: '600px' }}>
+    <div style={{ height: '600px' }} data-testid='GlobalMap'>
       <MapContainer center={[0, 0]} zoom={2} scrollWheelZoom={true} style={{ height: '100%', width: '100%' }}>
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'

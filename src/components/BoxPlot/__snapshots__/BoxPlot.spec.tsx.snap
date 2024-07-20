@@ -1,0 +1,28 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`BoxPlot > matches snapshot 1`] = `
+<div>
+  <div
+    data-testid="BoxPlot"
+  >
+    <div
+      style="width: 800px; height: 600px;"
+    >
+      <svg>
+        <text>
+          GWP Intensity (kgCO₂eq/m²)
+        </text>
+        <text>
+          name
+          <text>
+            Denmark
+          </text>
+          <text>
+            Germany
+          </text>
+        </text>
+      </svg>
+    </div>
+  </div>
+</div>
+`;
