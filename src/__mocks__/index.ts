@@ -1,4 +1,5 @@
 export { getContributionsMock } from './getContributions.mock'
+export { getGlobalMapMock } from './getGlobalMap.mock'
 export { getUsersMock } from './getUsers.mock'
 export { getOrganizationsMock } from './getOrganizations.mock'
 export { MockSessionProvider } from './MockSessionProvider'

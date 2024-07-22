@@ -42,7 +42,7 @@ export const BoxPlot = (props: BoxPlotProps) => {
     () =>
       props.data.map((v) => {
         return {
-          name: v.name, // Ensure that the name is correctly set here for the y-axis
+          name: v.name,
           min: v.min,
           bottomWhisker: v.pct25 - v.min,
           bottomBox: v.median - v.pct25,
@@ -56,28 +56,30 @@ export const BoxPlot = (props: BoxPlotProps) => {
   )
 
   return (
-    <ResponsiveContainer minHeight={600}>
-      <ComposedChart layout='vertical' data={data} margin={{ left: 100, right: 50, bottom: 50 }}>
-        <CartesianGrid strokeDasharray='3 3' />
-        <XAxis
-          type='number'
-          domain={[0, 100]}
-          tickCount={7}
-          label={{ value: 'GWP Intensity (kgCO₂eq/m²)', position: 'insideBottom', offset: -10 }}
-        />
-        <YAxis type='category' dataKey='name' />
-        <Tooltip />
-        <Bar stackId='a' dataKey='min' fill='none' />
-        <Bar stackId='a' dataKey='bar' shape={<HorizonBar />} />
-        <Bar stackId='a' dataKey='bottomWhisker' shape={<DotBar />} />
-        <Bar stackId='a' dataKey='bottomBox' fill='#444E86' />
-        <Bar stackId='a' dataKey='bar' shape={<HorizonBar />} />
-        <Bar stackId='a' dataKey='topBox' fill='#444E86' />
-        <Bar stackId='a' dataKey='topWhisker' shape={<DotBar />} />
-        <Bar stackId='a' dataKey='bar' shape={<HorizonBar />} />
-        <ZAxis type='number' dataKey='size' range={[0, 250]} />
-        <Scatter dataKey='average' fill='red' stroke='#FFF' />
-      </ComposedChart>
-    </ResponsiveContainer>
+    <div data-testid='BoxPlot'>
+      <ResponsiveContainer minHeight={600}>
+        <ComposedChart layout='vertical' data={data} margin={{ left: 100, right: 50, bottom: 50 }}>
+          <CartesianGrid strokeDasharray='3 3' />
+          <XAxis
+            type='number'
+            domain={[0, 100]}
+            tickCount={7}
+            label={{ value: 'GWP Intensity (kgCO₂eq/m²)', position: 'insideBottom', offset: -10 }}
+          />
+          <YAxis type='category' dataKey='name' />
+          <Tooltip />
+          <Bar stackId='a' dataKey='min' fill='none' />
+          <Bar stackId='a' dataKey='bar' shape={<HorizonBar />} />
+          <Bar stackId='a' dataKey='bottomWhisker' shape={<DotBar />} />
+          <Bar stackId='a' dataKey='bottomBox' fill='#444E86' />
+          <Bar stackId='a' dataKey='bar' shape={<HorizonBar />} />
+          <Bar stackId='a' dataKey='topBox' fill='#444E86' />
+          <Bar stackId='a' dataKey='topWhisker' shape={<DotBar />} />
+          <Bar stackId='a' dataKey='bar' shape={<HorizonBar />} />
+          <ZAxis type='number' dataKey='size' range={[0, 250]} />
+          <Scatter dataKey='average' fill='red' stroke='#FFF' />
+        </ComposedChart>
+      </ResponsiveContainer>
+    </div>
   )
 }
