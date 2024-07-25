@@ -705,15 +705,6 @@ export enum GeneralEnergyClass {
   UNKNOWN = 'unknown',
 }
 
-export type GraphQlInputImpactData = {
-  EPD?: InputMaybe<InputEpd>
-  techFlow?: InputMaybe<InputTechFlow>
-}
-
-export type GraphQlInputProjectInfo = {
-  buildingInfo?: InputMaybe<InputProjectInfo>
-}
-
 export enum ImpactCategoryKey {
   ADPE = 'adpe',
   ADPF = 'adpf',
@@ -777,6 +768,7 @@ export type InputAssembly = {
   products: Array<InputProduct>
   quantity: Scalars['Float']['input']
   results?: InputMaybe<Scalars['JSON']['input']>
+  type: Scalars['String']['input']
   unit: Unit
 }
 
@@ -808,7 +800,7 @@ export type InputConversion = {
   value: Scalars['Float']['input']
 }
 
-export type InputEpd = {
+export type InputImpactData = {
   comment?: InputMaybe<Scalars['String']['input']>
   conversions?: InputMaybe<Array<InputConversion>>
   declaredUnit: Unit
@@ -818,13 +810,14 @@ export type InputEpd = {
   location: Country
   metaData?: InputMaybe<Scalars['JSON']['input']>
   name: Scalars['String']['input']
-  publishedDate: Scalars['Date']['input']
+  publishedDate?: InputMaybe<Scalars['Date']['input']>
   referenceServiceLife?: InputMaybe<Scalars['Int']['input']>
   source?: InputMaybe<InputSource>
-  standard: Standard
-  subtype: SubType
-  validUntil: Scalars['Date']['input']
-  version: Scalars['String']['input']
+  standard?: InputMaybe<Standard>
+  subtype?: InputMaybe<SubType>
+  type: Scalars['String']['input']
+  validUntil?: InputMaybe<Scalars['Date']['input']>
+  version?: InputMaybe<Scalars['String']['input']>
 }
 
 export type InputLocation = {
@@ -844,13 +837,14 @@ export type InputOrganization = {
 export type InputProduct = {
   description?: InputMaybe<Scalars['String']['input']>
   id?: InputMaybe<Scalars['UUID']['input']>
-  impactData: GraphQlInputImpactData
+  impactData: InputImpactData
   metaData?: InputMaybe<Scalars['JSON']['input']>
   name: Scalars['String']['input']
   quantity: Scalars['Float']['input']
   referenceServiceLife: Scalars['Int']['input']
   results?: InputMaybe<Scalars['JSON']['input']>
   transport?: InputMaybe<Scalars['JSON']['input']>
+  type: Scalars['String']['input']
   unit: Unit
 }
 
@@ -868,7 +862,7 @@ export type InputProject = {
   metaData?: InputMaybe<Scalars['JSON']['input']>
   name: Scalars['String']['input']
   owner?: InputMaybe<Scalars['String']['input']>
-  projectInfo?: InputMaybe<GraphQlInputProjectInfo>
+  projectInfo?: InputMaybe<InputProjectInfo>
   projectPhase: ProjectPhase
   referenceStudyPeriod?: InputMaybe<Scalars['Int']['input']>
   results?: InputMaybe<Scalars['JSON']['input']>
@@ -899,6 +893,7 @@ export type InputProjectInfo = {
   heatedFloorArea: InputAreaType
   localEnergyClass?: InputMaybe<Scalars['String']['input']>
   roofType?: InputMaybe<RoofType>
+  type: Scalars['String']['input']
 }
 
 export type InputSoftwareInfo = {
@@ -910,19 +905,6 @@ export type InputSoftwareInfo = {
 export type InputSource = {
   name: Scalars['String']['input']
   url?: InputMaybe<Scalars['String']['input']>
-}
-
-export type InputTechFlow = {
-  comment?: InputMaybe<Scalars['String']['input']>
-  conversions?: InputMaybe<Array<InputConversion>>
-  declaredUnit: Unit
-  formatVersion: Scalars['String']['input']
-  id?: InputMaybe<Scalars['UUID']['input']>
-  impacts: Scalars['JSON']['input']
-  location: Country
-  metaData?: InputMaybe<Scalars['JSON']['input']>
-  name: Scalars['String']['input']
-  source?: InputMaybe<InputSource>
 }
 
 export type InputValueUnit = {
@@ -1201,7 +1183,9 @@ export type TechFlow = {
 
 export enum Unit {
   KG = 'kg',
+  KGM3 = 'kgm3',
   KM = 'km',
+  KWH = 'kwh',
   L = 'l',
   M = 'm',
   M2 = 'm2',
@@ -1357,8 +1341,6 @@ export type ResolversTypes = {
   FilterBy: FilterBy
   FilterOptions: FilterOptions
   GeneralEnergyClass: GeneralEnergyClass
-  GraphQLInputImpactData: GraphQlInputImpactData
-  GraphQLInputProjectInfo: GraphQlInputProjectInfo
   ImpactCategoryKey: ImpactCategoryKey
   InputAggregation: InputAggregation
   InputAreaType: InputAreaType
@@ -1367,7 +1349,7 @@ export type ResolversTypes = {
   InputClassification: InputClassification
   InputContribution: InputContribution
   InputConversion: InputConversion
-  InputEPD: InputEpd
+  InputImpactData: InputImpactData
   InputLocation: InputLocation
   InputOrganization: InputOrganization
   InputProduct: InputProduct
@@ -1375,7 +1357,6 @@ export type ResolversTypes = {
   InputProjectInfo: InputProjectInfo
   InputSoftwareInfo: InputSoftwareInfo
   InputSource: InputSource
-  InputTechFlow: InputTechFlow
   InputValueUnit: InputValueUnit
   JSON: ResolverTypeWrapper<Scalars['JSON']['output']>
   LifeCycleStage: LifeCycleStage
@@ -1428,8 +1409,6 @@ export type ResolversParentTypes = {
   EPDTechFlow: ResolversUnionTypes<ResolversParentTypes>['EPDTechFlow']
   FilterBy: FilterBy
   FilterOptions: FilterOptions
-  GraphQLInputImpactData: GraphQlInputImpactData
-  GraphQLInputProjectInfo: GraphQlInputProjectInfo
   InputAggregation: InputAggregation
   InputAreaType: InputAreaType
   InputAssembly: InputAssembly
@@ -1437,7 +1416,7 @@ export type ResolversParentTypes = {
   InputClassification: InputClassification
   InputContribution: InputContribution
   InputConversion: InputConversion
-  InputEPD: InputEpd
+  InputImpactData: InputImpactData
   InputLocation: InputLocation
   InputOrganization: InputOrganization
   InputProduct: InputProduct
@@ -1445,7 +1424,6 @@ export type ResolversParentTypes = {
   InputProjectInfo: InputProjectInfo
   InputSoftwareInfo: InputSoftwareInfo
   InputSource: InputSource
-  InputTechFlow: InputTechFlow
   InputValueUnit: InputValueUnit
   JSON: Scalars['JSON']['output']
   Location: Location

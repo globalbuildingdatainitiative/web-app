@@ -125,6 +125,7 @@ const parseSLiCEtoContribution = (uint8Array: Uint8Array): InputContribution[] =
 
   return projects.map((project) => {
     const assemblies = Object.values(project.assemblies).map((assembly) => {
+      // @ts-expect-error products is in type
       const products = Object.values(assembly.products) as InputProduct[]
       return { ...assembly, products }
     }) as InputAssembly[]
