@@ -1650,52 +1650,6 @@
         "possibleTypes": null
       },
       {
-        "kind": "INPUT_OBJECT",
-        "name": "GraphQLInputImpactData",
-        "description": null,
-        "fields": null,
-        "inputFields": [
-          {
-            "name": "EPD",
-            "description": null,
-            "type": { "kind": "INPUT_OBJECT", "name": "InputEPD", "ofType": null },
-            "defaultValue": "null",
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "techFlow",
-            "description": null,
-            "type": { "kind": "INPUT_OBJECT", "name": "InputTechFlow", "ofType": null },
-            "defaultValue": "null",
-            "isDeprecated": false,
-            "deprecationReason": null
-          }
-        ],
-        "interfaces": null,
-        "enumValues": null,
-        "possibleTypes": null
-      },
-      {
-        "kind": "INPUT_OBJECT",
-        "name": "GraphQLInputProjectInfo",
-        "description": null,
-        "fields": null,
-        "inputFields": [
-          {
-            "name": "buildingInfo",
-            "description": null,
-            "type": { "kind": "INPUT_OBJECT", "name": "InputProjectInfo", "ofType": null },
-            "defaultValue": "null",
-            "isDeprecated": false,
-            "deprecationReason": null
-          }
-        ],
-        "interfaces": null,
-        "enumValues": null,
-        "possibleTypes": null
-      },
-      {
         "kind": "ENUM",
         "name": "ImpactCategoryKey",
         "description": null,
@@ -1933,6 +1887,18 @@
             "description": null,
             "type": { "kind": "SCALAR", "name": "JSON", "ofType": null },
             "defaultValue": "null",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "type",
+            "description": null,
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": { "kind": "SCALAR", "name": "String", "ofType": null }
+            },
+            "defaultValue": null,
             "isDeprecated": false,
             "deprecationReason": null
           },
@@ -2179,7 +2145,7 @@
       },
       {
         "kind": "INPUT_OBJECT",
-        "name": "InputEPD",
+        "name": "InputImpactData",
         "description": null,
         "fields": null,
         "inputFields": [
@@ -2231,7 +2197,7 @@
             "name": "id",
             "description": null,
             "type": { "kind": "SCALAR", "name": "UUID", "ofType": null },
-            "defaultValue": null,
+            "defaultValue": "null",
             "isDeprecated": false,
             "deprecationReason": null
           },
@@ -2282,12 +2248,8 @@
           {
             "name": "publishedDate",
             "description": null,
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": { "kind": "SCALAR", "name": "Date", "ofType": null }
-            },
-            "defaultValue": null,
+            "type": { "kind": "SCALAR", "name": "Date", "ofType": null },
+            "defaultValue": "null",
             "isDeprecated": false,
             "deprecationReason": null
           },
@@ -2310,22 +2272,26 @@
           {
             "name": "standard",
             "description": null,
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": { "kind": "ENUM", "name": "Standard", "ofType": null }
-            },
-            "defaultValue": null,
+            "type": { "kind": "ENUM", "name": "Standard", "ofType": null },
+            "defaultValue": "null",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "subtype",
             "description": null,
+            "type": { "kind": "ENUM", "name": "SubType", "ofType": null },
+            "defaultValue": "null",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "type",
+            "description": null,
             "type": {
               "kind": "NON_NULL",
               "name": null,
-              "ofType": { "kind": "ENUM", "name": "SubType", "ofType": null }
+              "ofType": { "kind": "SCALAR", "name": "String", "ofType": null }
             },
             "defaultValue": null,
             "isDeprecated": false,
@@ -2334,24 +2300,16 @@
           {
             "name": "validUntil",
             "description": null,
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": { "kind": "SCALAR", "name": "Date", "ofType": null }
-            },
-            "defaultValue": null,
+            "type": { "kind": "SCALAR", "name": "Date", "ofType": null },
+            "defaultValue": "null",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "version",
             "description": null,
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": { "kind": "SCALAR", "name": "String", "ofType": null }
-            },
-            "defaultValue": null,
+            "type": { "kind": "SCALAR", "name": "String", "ofType": null },
+            "defaultValue": "null",
             "isDeprecated": false,
             "deprecationReason": null
           }
@@ -2498,7 +2456,7 @@
             "type": {
               "kind": "NON_NULL",
               "name": null,
-              "ofType": { "kind": "INPUT_OBJECT", "name": "GraphQLInputImpactData", "ofType": null }
+              "ofType": { "kind": "INPUT_OBJECT", "name": "InputImpactData", "ofType": null }
             },
             "defaultValue": null,
             "isDeprecated": false,
@@ -2557,6 +2515,18 @@
             "description": null,
             "type": { "kind": "SCALAR", "name": "JSON", "ofType": null },
             "defaultValue": "null",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "type",
+            "description": null,
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": { "kind": "SCALAR", "name": "String", "ofType": null }
+            },
+            "defaultValue": null,
             "isDeprecated": false,
             "deprecationReason": null
           },
@@ -2734,7 +2704,7 @@
           {
             "name": "projectInfo",
             "description": null,
-            "type": { "kind": "INPUT_OBJECT", "name": "GraphQLInputProjectInfo", "ofType": null },
+            "type": { "kind": "INPUT_OBJECT", "name": "InputProjectInfo", "ofType": null },
             "defaultValue": "null",
             "isDeprecated": false,
             "deprecationReason": null
@@ -2989,6 +2959,18 @@
             "defaultValue": null,
             "isDeprecated": false,
             "deprecationReason": null
+          },
+          {
+            "name": "type",
+            "description": null,
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": { "kind": "SCALAR", "name": "String", "ofType": null }
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
           }
         ],
         "interfaces": null,
@@ -3056,121 +3038,6 @@
             "name": "url",
             "description": null,
             "type": { "kind": "SCALAR", "name": "String", "ofType": null },
-            "defaultValue": "null",
-            "isDeprecated": false,
-            "deprecationReason": null
-          }
-        ],
-        "interfaces": null,
-        "enumValues": null,
-        "possibleTypes": null
-      },
-      {
-        "kind": "INPUT_OBJECT",
-        "name": "InputTechFlow",
-        "description": null,
-        "fields": null,
-        "inputFields": [
-          {
-            "name": "comment",
-            "description": null,
-            "type": { "kind": "SCALAR", "name": "String", "ofType": null },
-            "defaultValue": "null",
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "conversions",
-            "description": null,
-            "type": {
-              "kind": "LIST",
-              "name": null,
-              "ofType": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": { "kind": "INPUT_OBJECT", "name": "InputConversion", "ofType": null }
-              }
-            },
-            "defaultValue": "null",
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "declaredUnit",
-            "description": null,
-            "type": { "kind": "NON_NULL", "name": null, "ofType": { "kind": "ENUM", "name": "Unit", "ofType": null } },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "formatVersion",
-            "description": null,
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": { "kind": "SCALAR", "name": "String", "ofType": null }
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "id",
-            "description": null,
-            "type": { "kind": "SCALAR", "name": "UUID", "ofType": null },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "impacts",
-            "description": null,
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": { "kind": "SCALAR", "name": "JSON", "ofType": null }
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "location",
-            "description": null,
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": { "kind": "ENUM", "name": "Country", "ofType": null }
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "metaData",
-            "description": null,
-            "type": { "kind": "SCALAR", "name": "JSON", "ofType": null },
-            "defaultValue": "null",
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "name",
-            "description": null,
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": { "kind": "SCALAR", "name": "String", "ofType": null }
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "source",
-            "description": null,
-            "type": { "kind": "INPUT_OBJECT", "name": "InputSource", "ofType": null },
             "defaultValue": "null",
             "isDeprecated": false,
             "deprecationReason": null
@@ -4885,7 +4752,9 @@
         "interfaces": null,
         "enumValues": [
           { "name": "kg", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "kgm3", "description": null, "isDeprecated": false, "deprecationReason": null },
           { "name": "km", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "kwh", "description": null, "isDeprecated": false, "deprecationReason": null },
           { "name": "l", "description": null, "isDeprecated": false, "deprecationReason": null },
           { "name": "m", "description": null, "isDeprecated": false, "deprecationReason": null },
           { "name": "m2", "description": null, "isDeprecated": false, "deprecationReason": null },
