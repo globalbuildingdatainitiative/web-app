@@ -251,122 +251,28 @@
         "possibleTypes": null
       },
       {
-        "kind": "OBJECT",
+        "kind": "ENUM",
         "name": "BuildingModelScope",
         "description": null,
-        "fields": [
+        "fields": null,
+        "inputFields": null,
+        "interfaces": null,
+        "enumValues": [
+          { "name": "building_services", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "external_works", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "facilitating_works", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "ff_e", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "finishes", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "substructure", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "superstructure_envelope", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "superstructure_frame", "description": null, "isDeprecated": false, "deprecationReason": null },
           {
-            "name": "buildingServices",
+            "name": "superstructure_internal_elements",
             "description": null,
-            "args": [],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": { "kind": "SCALAR", "name": "Boolean", "ofType": null }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "externalWorks",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": { "kind": "SCALAR", "name": "Boolean", "ofType": null }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "facilitatingWorks",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": { "kind": "SCALAR", "name": "Boolean", "ofType": null }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "ffE",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": { "kind": "SCALAR", "name": "Boolean", "ofType": null }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "finishes",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": { "kind": "SCALAR", "name": "Boolean", "ofType": null }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "substructure",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": { "kind": "SCALAR", "name": "Boolean", "ofType": null }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "superstructureEnvelope",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": { "kind": "SCALAR", "name": "Boolean", "ofType": null }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "superstructureFrame",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": { "kind": "SCALAR", "name": "Boolean", "ofType": null }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "superstructureInternalElements",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": { "kind": "SCALAR", "name": "Boolean", "ofType": null }
-            },
             "isDeprecated": false,
             "deprecationReason": null
           }
         ],
-        "inputFields": null,
-        "interfaces": [],
-        "enumValues": null,
         "possibleTypes": null
       },
       {
@@ -377,8 +283,25 @@
         "inputFields": null,
         "interfaces": null,
         "enumValues": [
-          { "name": "new", "description": null, "isDeprecated": false, "deprecationReason": null },
-          { "name": "renovation", "description": null, "isDeprecated": false, "deprecationReason": null }
+          {
+            "name": "deconstruction_and_new_construction_works",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          { "name": "demolition", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "extension_works", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "fit_out_works", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "new_construction_works", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "operations", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "other", "description": null, "isDeprecated": false, "deprecationReason": null },
+          {
+            "name": "retrofit_and_extension_works",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          { "name": "retrofit_works", "description": null, "isDeprecated": false, "deprecationReason": null }
         ],
         "possibleTypes": null
       },
@@ -394,7 +317,6 @@
           { "name": "commercial", "description": null, "isDeprecated": false, "deprecationReason": null },
           { "name": "industrial", "description": null, "isDeprecated": false, "deprecationReason": null },
           { "name": "infrastructure", "description": null, "isDeprecated": false, "deprecationReason": null },
-          { "name": "mixeduse", "description": null, "isDeprecated": false, "deprecationReason": null },
           { "name": "office", "description": null, "isDeprecated": false, "deprecationReason": null },
           { "name": "other", "description": null, "isDeprecated": false, "deprecationReason": null },
           { "name": "public", "description": null, "isDeprecated": false, "deprecationReason": null },
@@ -1917,125 +1839,6 @@
       },
       {
         "kind": "INPUT_OBJECT",
-        "name": "InputBuildingModelScope",
-        "description": null,
-        "fields": null,
-        "inputFields": [
-          {
-            "name": "buildingServices",
-            "description": null,
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": { "kind": "SCALAR", "name": "Boolean", "ofType": null }
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "externalWorks",
-            "description": null,
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": { "kind": "SCALAR", "name": "Boolean", "ofType": null }
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "facilitatingWorks",
-            "description": null,
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": { "kind": "SCALAR", "name": "Boolean", "ofType": null }
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "ffE",
-            "description": null,
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": { "kind": "SCALAR", "name": "Boolean", "ofType": null }
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "finishes",
-            "description": null,
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": { "kind": "SCALAR", "name": "Boolean", "ofType": null }
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "substructure",
-            "description": null,
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": { "kind": "SCALAR", "name": "Boolean", "ofType": null }
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "superstructureEnvelope",
-            "description": null,
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": { "kind": "SCALAR", "name": "Boolean", "ofType": null }
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "superstructureFrame",
-            "description": null,
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": { "kind": "SCALAR", "name": "Boolean", "ofType": null }
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "superstructureInternalElements",
-            "description": null,
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": { "kind": "SCALAR", "name": "Boolean", "ofType": null }
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          }
-        ],
-        "interfaces": null,
-        "enumValues": null,
-        "possibleTypes": null
-      },
-      {
-        "kind": "INPUT_OBJECT",
         "name": "InputClassification",
         "description": null,
         "fields": null,
@@ -2795,7 +2598,15 @@
           {
             "name": "buildingModelScope",
             "description": null,
-            "type": { "kind": "INPUT_OBJECT", "name": "InputBuildingModelScope", "ofType": null },
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": { "kind": "ENUM", "name": "BuildingModelScope", "ofType": null }
+              }
+            },
             "defaultValue": "null",
             "isDeprecated": false,
             "deprecationReason": null
@@ -2819,7 +2630,15 @@
           {
             "name": "buildingTypology",
             "description": null,
-            "type": { "kind": "ENUM", "name": "BuildingTypology", "ofType": null },
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": { "kind": "ENUM", "name": "BuildingTypology", "ofType": null }
+              }
+            },
             "defaultValue": null,
             "isDeprecated": false,
             "deprecationReason": null
@@ -3106,6 +2925,7 @@
         "inputFields": null,
         "interfaces": null,
         "enumValues": [
+          { "name": "a0", "description": null, "isDeprecated": false, "deprecationReason": null },
           { "name": "a1a3", "description": null, "isDeprecated": false, "deprecationReason": null },
           { "name": "a4", "description": null, "isDeprecated": false, "deprecationReason": null },
           { "name": "a5", "description": null, "isDeprecated": false, "deprecationReason": null },
@@ -3116,6 +2936,7 @@
           { "name": "b5", "description": null, "isDeprecated": false, "deprecationReason": null },
           { "name": "b6", "description": null, "isDeprecated": false, "deprecationReason": null },
           { "name": "b7", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "b8", "description": null, "isDeprecated": false, "deprecationReason": null },
           { "name": "c1", "description": null, "isDeprecated": false, "deprecationReason": null },
           { "name": "c2", "description": null, "isDeprecated": false, "deprecationReason": null },
           { "name": "c3", "description": null, "isDeprecated": false, "deprecationReason": null },
@@ -4151,7 +3972,15 @@
             "name": "buildingModelScope",
             "description": null,
             "args": [],
-            "type": { "kind": "OBJECT", "name": "BuildingModelScope", "ofType": null },
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": { "kind": "ENUM", "name": "BuildingModelScope", "ofType": null }
+              }
+            },
             "isDeprecated": false,
             "deprecationReason": null
           },
@@ -4182,7 +4011,15 @@
             "type": {
               "kind": "NON_NULL",
               "name": null,
-              "ofType": { "kind": "ENUM", "name": "BuildingTypology", "ofType": null }
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": { "kind": "ENUM", "name": "BuildingTypology", "ofType": null }
+                }
+              }
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -4337,10 +4174,13 @@
         "inputFields": null,
         "interfaces": null,
         "enumValues": [
-          { "name": "built", "description": null, "isDeprecated": false, "deprecationReason": null },
-          { "name": "design", "description": null, "isDeprecated": false, "deprecationReason": null },
-          { "name": "ongoing", "description": null, "isDeprecated": false, "deprecationReason": null },
-          { "name": "other", "description": null, "isDeprecated": false, "deprecationReason": null }
+          { "name": "concept_design", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "construction", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "in_use", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "other", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "post_completion", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "strategic_design", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "technical_design", "description": null, "isDeprecated": false, "deprecationReason": null }
         ],
         "possibleTypes": null
       },

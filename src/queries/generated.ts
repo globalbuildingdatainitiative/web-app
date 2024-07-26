@@ -67,22 +67,28 @@ export type Assembly = {
   unit: Unit
 }
 
-export type BuildingModelScope = {
-  __typename?: 'BuildingModelScope'
-  buildingServices: Scalars['Boolean']['output']
-  externalWorks: Scalars['Boolean']['output']
-  facilitatingWorks: Scalars['Boolean']['output']
-  ffE: Scalars['Boolean']['output']
-  finishes: Scalars['Boolean']['output']
-  substructure: Scalars['Boolean']['output']
-  superstructureEnvelope: Scalars['Boolean']['output']
-  superstructureFrame: Scalars['Boolean']['output']
-  superstructureInternalElements: Scalars['Boolean']['output']
+export enum BuildingModelScope {
+  BUILDING_SERVICES = 'building_services',
+  EXTERNAL_WORKS = 'external_works',
+  FACILITATING_WORKS = 'facilitating_works',
+  FF_E = 'ff_e',
+  FINISHES = 'finishes',
+  SUBSTRUCTURE = 'substructure',
+  SUPERSTRUCTURE_ENVELOPE = 'superstructure_envelope',
+  SUPERSTRUCTURE_FRAME = 'superstructure_frame',
+  SUPERSTRUCTURE_INTERNAL_ELEMENTS = 'superstructure_internal_elements',
 }
 
 export enum BuildingType {
-  NEW = 'new',
-  RENOVATION = 'renovation',
+  DECONSTRUCTION_AND_NEW_CONSTRUCTION_WORKS = 'deconstruction_and_new_construction_works',
+  DEMOLITION = 'demolition',
+  EXTENSION_WORKS = 'extension_works',
+  FIT_OUT_WORKS = 'fit_out_works',
+  NEW_CONSTRUCTION_WORKS = 'new_construction_works',
+  OPERATIONS = 'operations',
+  OTHER = 'other',
+  RETROFIT_AND_EXTENSION_WORKS = 'retrofit_and_extension_works',
+  RETROFIT_WORKS = 'retrofit_works',
 }
 
 export enum BuildingTypology {
@@ -90,7 +96,6 @@ export enum BuildingTypology {
   COMMERCIAL = 'commercial',
   INDUSTRIAL = 'industrial',
   INFRASTRUCTURE = 'infrastructure',
-  MIXEDUSE = 'mixeduse',
   OFFICE = 'office',
   OTHER = 'other',
   PUBLIC = 'public',
@@ -772,18 +777,6 @@ export type InputAssembly = {
   unit: Unit
 }
 
-export type InputBuildingModelScope = {
-  buildingServices: Scalars['Boolean']['input']
-  externalWorks: Scalars['Boolean']['input']
-  facilitatingWorks: Scalars['Boolean']['input']
-  ffE: Scalars['Boolean']['input']
-  finishes: Scalars['Boolean']['input']
-  substructure: Scalars['Boolean']['input']
-  superstructureEnvelope: Scalars['Boolean']['input']
-  superstructureFrame: Scalars['Boolean']['input']
-  superstructureInternalElements: Scalars['Boolean']['input']
-}
-
 export type InputClassification = {
   code: Scalars['String']['input']
   name: Scalars['String']['input']
@@ -874,10 +867,10 @@ export type InputProjectInfo = {
   buildingFootprint?: InputMaybe<InputValueUnit>
   buildingHeight?: InputMaybe<InputValueUnit>
   buildingMass?: InputMaybe<InputValueUnit>
-  buildingModelScope?: InputMaybe<InputBuildingModelScope>
+  buildingModelScope?: InputMaybe<Array<BuildingModelScope>>
   buildingPermitYear?: InputMaybe<Scalars['Int']['input']>
   buildingType?: InputMaybe<BuildingType>
-  buildingTypology?: InputMaybe<BuildingTypology>
+  buildingTypology?: InputMaybe<Array<BuildingTypology>>
   buildingUsers?: InputMaybe<Scalars['Int']['input']>
   certifications?: InputMaybe<Array<Scalars['String']['input']>>
   energyDemandElectricity?: InputMaybe<Scalars['Float']['input']>
@@ -913,6 +906,7 @@ export type InputValueUnit = {
 }
 
 export enum LifeCycleStage {
+  A0 = 'a0',
   A1A3 = 'a1a3',
   A4 = 'a4',
   A5 = 'a5',
@@ -923,6 +917,7 @@ export enum LifeCycleStage {
   B5 = 'b5',
   B6 = 'b6',
   B7 = 'b7',
+  B8 = 'b8',
   C1 = 'c1',
   C2 = 'c2',
   C3 = 'c3',
@@ -1074,10 +1069,10 @@ export type ProjectInfo = {
   buildingFootprint?: Maybe<ValueUnit>
   buildingHeight?: Maybe<ValueUnit>
   buildingMass?: Maybe<ValueUnit>
-  buildingModelScope?: Maybe<BuildingModelScope>
+  buildingModelScope?: Maybe<Array<BuildingModelScope>>
   buildingPermitYear?: Maybe<Scalars['Int']['output']>
   buildingType: BuildingType
-  buildingTypology: BuildingTypology
+  buildingTypology: Array<BuildingTypology>
   buildingUsers?: Maybe<Scalars['Int']['output']>
   certifications?: Maybe<Array<Scalars['String']['output']>>
   energyDemandElectricity?: Maybe<Scalars['Float']['output']>
@@ -1096,10 +1091,13 @@ export type ProjectInfo = {
 }
 
 export enum ProjectPhase {
-  BUILT = 'built',
-  DESIGN = 'design',
-  ONGOING = 'ongoing',
+  CONCEPT_DESIGN = 'concept_design',
+  CONSTRUCTION = 'construction',
+  IN_USE = 'in_use',
   OTHER = 'other',
+  POST_COMPLETION = 'post_completion',
+  STRATEGIC_DESIGN = 'strategic_design',
+  TECHNICAL_DESIGN = 'technical_design',
 }
 
 export type Query = {
@@ -1322,8 +1320,7 @@ export type ResolversTypes = {
   Float: ResolverTypeWrapper<Scalars['Float']['output']>
   AreaType: ResolverTypeWrapper<AreaType>
   Assembly: ResolverTypeWrapper<Assembly>
-  BuildingModelScope: ResolverTypeWrapper<BuildingModelScope>
-  Boolean: ResolverTypeWrapper<Scalars['Boolean']['output']>
+  BuildingModelScope: BuildingModelScope
   BuildingType: BuildingType
   BuildingTypology: BuildingTypology
   Classification: ResolverTypeWrapper<Classification>
@@ -1339,13 +1336,13 @@ export type ResolversTypes = {
   EPD: ResolverTypeWrapper<Epd>
   EPDTechFlow: ResolverTypeWrapper<ResolversUnionTypes<ResolversTypes>['EPDTechFlow']>
   FilterBy: FilterBy
+  Boolean: ResolverTypeWrapper<Scalars['Boolean']['output']>
   FilterOptions: FilterOptions
   GeneralEnergyClass: GeneralEnergyClass
   ImpactCategoryKey: ImpactCategoryKey
   InputAggregation: InputAggregation
   InputAreaType: InputAreaType
   InputAssembly: InputAssembly
-  InputBuildingModelScope: InputBuildingModelScope
   InputClassification: InputClassification
   InputContribution: InputContribution
   InputConversion: InputConversion
@@ -1395,8 +1392,6 @@ export type ResolversParentTypes = {
   Float: Scalars['Float']['output']
   AreaType: AreaType
   Assembly: Assembly
-  BuildingModelScope: BuildingModelScope
-  Boolean: Scalars['Boolean']['output']
   Classification: Classification
   Contribution: Contribution
   ContributionGraphQLGroupResponse: ContributionGraphQlGroupResponse
@@ -1408,11 +1403,11 @@ export type ResolversParentTypes = {
   EPD: Epd
   EPDTechFlow: ResolversUnionTypes<ResolversParentTypes>['EPDTechFlow']
   FilterBy: FilterBy
+  Boolean: Scalars['Boolean']['output']
   FilterOptions: FilterOptions
   InputAggregation: InputAggregation
   InputAreaType: InputAreaType
   InputAssembly: InputAssembly
-  InputBuildingModelScope: InputBuildingModelScope
   InputClassification: InputClassification
   InputContribution: InputContribution
   InputConversion: InputConversion
@@ -1494,22 +1489,6 @@ export type AssemblyResolvers<
   quantity?: Resolver<ResolversTypes['Float'], ParentType, ContextType>
   results?: Resolver<ResolversTypes['JSON'], ParentType, ContextType>
   unit?: Resolver<ResolversTypes['Unit'], ParentType, ContextType>
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>
-}
-
-export type BuildingModelScopeResolvers<
-  ContextType = any,
-  ParentType extends ResolversParentTypes['BuildingModelScope'] = ResolversParentTypes['BuildingModelScope'],
-> = {
-  buildingServices?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>
-  externalWorks?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>
-  facilitatingWorks?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>
-  ffE?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>
-  finishes?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>
-  substructure?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>
-  superstructureEnvelope?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>
-  superstructureFrame?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>
-  superstructureInternalElements?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>
 }
 
@@ -1794,10 +1773,10 @@ export type ProjectInfoResolvers<
   buildingFootprint?: Resolver<Maybe<ResolversTypes['ValueUnit']>, ParentType, ContextType>
   buildingHeight?: Resolver<Maybe<ResolversTypes['ValueUnit']>, ParentType, ContextType>
   buildingMass?: Resolver<Maybe<ResolversTypes['ValueUnit']>, ParentType, ContextType>
-  buildingModelScope?: Resolver<Maybe<ResolversTypes['BuildingModelScope']>, ParentType, ContextType>
+  buildingModelScope?: Resolver<Maybe<Array<ResolversTypes['BuildingModelScope']>>, ParentType, ContextType>
   buildingPermitYear?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>
   buildingType?: Resolver<ResolversTypes['BuildingType'], ParentType, ContextType>
-  buildingTypology?: Resolver<ResolversTypes['BuildingTypology'], ParentType, ContextType>
+  buildingTypology?: Resolver<Array<ResolversTypes['BuildingTypology']>, ParentType, ContextType>
   buildingUsers?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>
   certifications?: Resolver<Maybe<Array<ResolversTypes['String']>>, ParentType, ContextType>
   energyDemandElectricity?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>
@@ -1903,7 +1882,6 @@ export type Resolvers<ContextType = any> = {
   AggregationResult?: AggregationResultResolvers<ContextType>
   AreaType?: AreaTypeResolvers<ContextType>
   Assembly?: AssemblyResolvers<ContextType>
-  BuildingModelScope?: BuildingModelScopeResolvers<ContextType>
   Classification?: ClassificationResolvers<ContextType>
   Contribution?: ContributionResolvers<ContextType>
   ContributionGraphQLGroupResponse?: ContributionGraphQlGroupResponseResolvers<ContextType>
