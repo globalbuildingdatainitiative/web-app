@@ -1913,12 +1913,16 @@ export type DirectiveResolvers<ContextType = any> = {
   defer?: DeferDirectiveResolver<any, any, ContextType>
 }
 
-export type GetContributionsQueryVariables = Exact<{ [key: string]: never }>
+export type GetContributionsQueryVariables = Exact<{
+  limit?: InputMaybe<Scalars['Int']['input']>
+  offset?: InputMaybe<Scalars['Int']['input']>
+}>
 
 export type GetContributionsQuery = {
   __typename?: 'Query'
   contributions: {
     __typename?: 'ContributionGraphQLResponse'
+    count: number
     items?: Array<{
       __typename?: 'Contribution'
       id: any
@@ -2056,9 +2060,9 @@ export type GetProjectDataForBoxPlotQuery = {
 }
 
 export const GetContributionsDocument = gql`
-  query getContributions {
+  query getContributions($limit: Int, $offset: Int) {
     contributions {
-      items {
+      items(limit: $limit, offset: $offset) {
         id
         uploadedAt
         project {
@@ -2068,6 +2072,7 @@ export const GetContributionsDocument = gql`
           }
         }
       }
+      count
     }
   }
 `
@@ -2084,6 +2089,8 @@ export const GetContributionsDocument = gql`
  * @example
  * const { data, loading, error } = useGetContributionsQuery({
  *   variables: {
+ *      limit: // value for 'limit'
+ *      offset: // value for 'offset'
  *   },
  * });
  */

@@ -1,6 +1,6 @@
-query getContributions {
+query getContributions($limit: Int, $offset: Int) {
   contributions {
-    items {
+    items(limit: $limit, offset: $offset) {
       id
       uploadedAt
       project {
@@ -10,6 +10,7 @@ query getContributions {
         }
       }
     }
+    count
   }
 }
 

@@ -444,7 +444,6 @@ exports[`ContributionPaper 1`] = `
                   <td
                     class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
                     data-index="0"
-                    data-last-row="true"
                     style="min-width: max(calc(var(--col-id-size) * 1px), 40px); --mrt-cell-align: left;"
                   >
                     e3b986a2-e135-42d7-a5fc-0063fde6e9b1
@@ -452,15 +451,13 @@ exports[`ContributionPaper 1`] = `
                   <td
                     class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
                     data-index="1"
-                    data-last-row="true"
                     style="min-width: max(calc(var(--col-project_name-size) * 1px), 40px); --mrt-cell-align: left;"
                   >
-                    My Project
+                    My Project 1
                   </td>
                   <td
                     class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
                     data-index="2"
-                    data-last-row="true"
                     style="min-width: max(calc(var(--col-uploadedAt-size) * 1px), 40px); --mrt-cell-align: left;"
                   >
                     04/04/2018
@@ -468,9 +465,50 @@ exports[`ContributionPaper 1`] = `
                   <td
                     class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
                     data-index="3"
+                    style="min-width: max(calc(var(--col-project_location_countryName-size) * 1px), 40px); --mrt-cell-align: left;"
+                  >
+                    Country A
+                  </td>
+                </tr>
+                <tr
+                  class="m_4e7aa4fd mantine-Table-tr MRT_TableBodyRow-module_root__2c3D4"
+                  data-hover="true"
+                  data-index="1"
+                  data-with-row-border="true"
+                  style=""
+                >
+                  <td
+                    class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
+                    data-index="0"
+                    data-last-row="true"
+                    style="min-width: max(calc(var(--col-id-size) * 1px), 40px); --mrt-cell-align: left;"
+                  >
+                    b2c5d2f2-76bc-4fdd-90e5-676edb2cde3f
+                  </td>
+                  <td
+                    class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
+                    data-index="1"
+                    data-last-row="true"
+                    style="min-width: max(calc(var(--col-project_name-size) * 1px), 40px); --mrt-cell-align: left;"
+                  >
+                    My Project 2
+                  </td>
+                  <td
+                    class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
+                    data-index="2"
+                    data-last-row="true"
+                    style="min-width: max(calc(var(--col-uploadedAt-size) * 1px), 40px); --mrt-cell-align: left;"
+                  >
+                    05/04/2018
+                  </td>
+                  <td
+                    class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
+                    data-index="3"
                     data-last-row="true"
                     style="min-width: max(calc(var(--col-project_location_countryName-size) * 1px), 40px); --mrt-cell-align: left;"
-                  />
+                  >
+                    Country B
+                  </td>
                 </tr>
               </tbody>
               <tfoot
@@ -520,6 +558,160 @@ exports[`ContributionPaper 1`] = `
             </div>
           </div>
         </div>
+        <div
+          class="m_4081bf90 mantine-Group-root"
+          style="--group-gap: var(--mantine-spacing-md); --group-align: flex-end; --group-justify: flex-start; --group-wrap: wrap; margin-top: var(--mantine-spacing-md);"
+        >
+          <div
+            class="m_4addd315 mantine-Pagination-root"
+            style=""
+          >
+            <div
+              class="m_4081bf90 mantine-Group-root"
+              style="--group-gap: calc(0.5rem * var(--mantine-scale)); --group-align: center; --group-justify: flex-start; --group-wrap: wrap;"
+            >
+              <button
+                class="mantine-focus-auto m_326d024a mantine-Pagination-control m_87cf2631 mantine-UnstyledButton-root"
+                data-disabled="true"
+                disabled=""
+                style=""
+                type="button"
+              >
+                <svg
+                  class="mantine-rotate-rtl"
+                  style=""
+                  viewBox="0 0 16 16"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M7.219 8l3.3 3.3-.943.943L5.333 8l4.243-4.243.943.943-3.3 3.3z"
+                    fill="currentColor"
+                  />
+                </svg>
+              </button>
+              <button
+                aria-current="page"
+                class="mantine-focus-auto mantine-active m_326d024a mantine-Pagination-control m_87cf2631 mantine-UnstyledButton-root"
+                data-active="true"
+                data-with-padding="true"
+                style=""
+                type="button"
+              >
+                1
+              </button>
+              <button
+                class="mantine-focus-auto mantine-active m_326d024a mantine-Pagination-control m_87cf2631 mantine-UnstyledButton-root"
+                data-with-padding="true"
+                style=""
+                type="button"
+              >
+                2
+              </button>
+              <button
+                class="mantine-focus-auto mantine-active m_326d024a mantine-Pagination-control m_87cf2631 mantine-UnstyledButton-root"
+                data-with-padding="true"
+                style=""
+                type="button"
+              >
+                3
+              </button>
+              <button
+                class="mantine-focus-auto mantine-active m_326d024a mantine-Pagination-control m_87cf2631 mantine-UnstyledButton-root"
+                data-with-padding="true"
+                style=""
+                type="button"
+              >
+                4
+              </button>
+              <button
+                class="mantine-focus-auto mantine-active m_326d024a mantine-Pagination-control m_87cf2631 mantine-UnstyledButton-root"
+                data-with-padding="true"
+                style=""
+                type="button"
+              >
+                5
+              </button>
+              <button
+                class="mantine-focus-auto mantine-active m_326d024a mantine-Pagination-control m_87cf2631 mantine-UnstyledButton-root"
+                style=""
+                type="button"
+              >
+                <svg
+                  class="mantine-rotate-rtl"
+                  style=""
+                  viewBox="0 0 16 16"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M8.781 8l-3.3-3.3.943-.943L10.667 8l-4.243 4.243-.943-.943 3.3-3.3z"
+                    fill="currentColor"
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+          <div
+            class="m_46b77525 mantine-InputWrapper-root mantine-Select-root"
+            style=""
+          >
+            <label
+              class="m_8fdc1311 mantine-InputWrapper-label mantine-Select-label"
+              for=""
+              id=""
+              style=""
+            >
+              Rows per page
+            </label>
+            <div
+              class="m_6c018570 mantine-Input-wrapper mantine-Select-wrapper"
+              data-pointer="true"
+              data-variant="default"
+              data-with-right-section="true"
+              style="--input-right-section-pointer-events: none;"
+            >
+              <input
+                aria-controls=""
+                aria-haspopup="listbox"
+                aria-invalid="false"
+                autocomplete="off"
+                class="m_8fb7ebe7 mantine-Input-input mantine-Select-input"
+                data-variant="default"
+                formaction="http://localhost:3000/"
+                formmethod=""
+                id=""
+                readonly=""
+                style=""
+                value="10"
+              />
+              <div
+                class="m_82577fc2 mantine-Input-section mantine-Select-section"
+                data-position="right"
+                style=""
+              >
+                <svg
+                  class="m_2943220b mantine-ComboboxChevron-chevron"
+                  data-combobox-chevron="true"
+                  fill="none"
+                  viewBox="0 0 15 15"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    clip-rule="evenodd"
+                    d="M4.93179 5.43179C4.75605 5.60753 4.75605 5.89245 4.93179 6.06819C5.10753 6.24392 5.39245 6.24392 5.56819 6.06819L7.49999 4.13638L9.43179 6.06819C9.60753 6.24392 9.89245 6.24392 10.0682 6.06819C10.2439 5.89245 10.2439 5.60753 10.0682 5.43179L7.81819 3.18179C7.73379 3.0974 7.61933 3.04999 7.49999 3.04999C7.38064 3.04999 7.26618 3.0974 7.18179 3.18179L4.93179 5.43179ZM10.0682 9.56819C10.2439 9.39245 10.2439 9.10753 10.0682 8.93179C9.89245 8.75606 9.60753 8.75606 9.43179 8.93179L7.49999 10.8636L5.56819 8.93179C5.39245 8.75606 5.10753 8.75606 4.93179 8.93179C4.75605 9.10753 4.75605 9.39245 4.93179 9.56819L7.18179 11.8182C7.35753 11.9939 7.64245 11.9939 7.81819 11.8182L10.0682 9.56819Z"
+                    fill="currentColor"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </div>
+            </div>
+          </div>
+          <input
+            formaction="http://localhost:3000/"
+            formmethod=""
+            type="hidden"
+            value="10"
+          />
+        </div>
       </div>
     </div>
   </div>
@@ -538,5 +730,156 @@ exports[`ContributionPaper 1`] = `
   <div
     data-portal="true"
   />
+  <div
+    data-portal="true"
+  >
+    <div
+      class="m_38a85659 mantine-Popover-dropdown m_88b62a41 mantine-Select-dropdown"
+      data-position="bottom"
+      role="presentation"
+      style="display: none; z-index: 300; top: 8px; left: 0px; width: 0px;"
+    >
+      <div
+        aria-labelledby=""
+        class="m_b2821a6e mantine-Select-options"
+        id=""
+        role="listbox"
+        style=""
+      >
+        <div
+          class=""
+          style="display: flex; overflow: auto; max-height: calc(13.75rem * var(--mantine-scale));"
+        >
+          <div
+            class=""
+            style="display: flex; flex-direction: column; flex-grow: 1; flex-shrink: 1; flex-basis: 0%;"
+          >
+            <div
+              class="m_d57069b5 mantine-ScrollArea-root"
+              style="--scrollarea-scrollbar-size: var(--combobox-padding); --sa-corner-width: 0px; --sa-corner-height: 0px;"
+            >
+              <div
+                class="m_c0783ff9 mantine-ScrollArea-viewport"
+                data-offset-scrollbars="y"
+                data-scrollbars="xy"
+                style="overflow-x: scroll; overflow-y: scroll;"
+              >
+                <div
+                  style="min-width: 100%; display: table;"
+                >
+                  <div
+                    aria-selected="true"
+                    class="m_92253aa5 mantine-Select-option m_390b5f4"
+                    data-checked="true"
+                    data-combobox-active="true"
+                    data-combobox-option="true"
+                    id=":r50:"
+                    role="option"
+                    style=""
+                    value="10"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      class="m_8ee53fc2"
+                      fill="none"
+                      viewBox="0 0 10 7"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        clip-rule="evenodd"
+                        d="M4 4.586L1.707 2.293A1 1 0 1 0 .293 3.707l3 3a.997.997 0 0 0 1.414 0l5-5A1 1 0 1 0 8.293.293L4 4.586z"
+                        fill="currentColor"
+                        fill-rule="evenodd"
+                      />
+                    </svg>
+                    <span>
+                      10
+                    </span>
+                  </div>
+                  <div
+                    aria-selected="false"
+                    class="m_92253aa5 mantine-Select-option m_390b5f4"
+                    data-combobox-option="true"
+                    id=":r52:"
+                    role="option"
+                    style=""
+                    value="20"
+                  >
+                    <span>
+                      20
+                    </span>
+                  </div>
+                  <div
+                    aria-selected="false"
+                    class="m_92253aa5 mantine-Select-option m_390b5f4"
+                    data-combobox-option="true"
+                    id=":r54:"
+                    role="option"
+                    style=""
+                    value="30"
+                  >
+                    <span>
+                      30
+                    </span>
+                  </div>
+                  <div
+                    aria-selected="false"
+                    class="m_92253aa5 mantine-Select-option m_390b5f4"
+                    data-combobox-option="true"
+                    id=":r56:"
+                    role="option"
+                    style=""
+                    value="50"
+                  >
+                    <span>
+                      50
+                    </span>
+                  </div>
+                  <div
+                    aria-selected="false"
+                    class="m_92253aa5 mantine-Select-option m_390b5f4"
+                    data-combobox-option="true"
+                    id=":r58:"
+                    role="option"
+                    style=""
+                    value="100"
+                  >
+                    <span>
+                      100
+                    </span>
+                  </div>
+                  <div
+                    aria-selected="false"
+                    class="m_92253aa5 mantine-Select-option m_390b5f4"
+                    data-combobox-option="true"
+                    id=":r5a:"
+                    role="option"
+                    style=""
+                    value="200"
+                  >
+                    <span>
+                      200
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="m_c44ba933 mantine-ScrollArea-scrollbar"
+                data-orientation="horizontal"
+                data-state="hidden"
+                style="position: absolute; --sa-thumb-width: 18px;"
+              />
+              <div
+                class="m_c44ba933 mantine-ScrollArea-scrollbar"
+                data-orientation="vertical"
+                data-state="hidden"
+                style="position: absolute; --sa-thumb-height: 18px;"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </body>
 `;
