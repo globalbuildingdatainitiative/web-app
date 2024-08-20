@@ -160,6 +160,12 @@ export type ContributionGraphQlResponseItemsArgs = {
   sortBy?: InputMaybe<SortBy>
 }
 
+export type ContributionHeaderData = {
+  __typename?: 'ContributionHeaderData'
+  daysSinceLastContribution: Scalars['Int']['output']
+  totalContributions: Scalars['Int']['output']
+}
+
 export type Conversion = {
   __typename?: 'Conversion'
   metaData: Scalars['String']['output']
@@ -1104,6 +1110,8 @@ export type Query = {
   __typename?: 'Query'
   /** Returns all contributions of a user's organization */
   contributions: ContributionGraphQlResponse
+  /** Fetch contribution header data */
+  getContributionsForHeader: ContributionHeaderData
   /** Returns all Organizations */
   organizations: Array<Organization>
   /** Returns all projects of a user's organization */
@@ -1328,6 +1336,7 @@ export type ResolversTypes = {
   ContributionGraphQLGroupResponse: ResolverTypeWrapper<ContributionGraphQlGroupResponse>
   Int: ResolverTypeWrapper<Scalars['Int']['output']>
   ContributionGraphQLResponse: ResolverTypeWrapper<ContributionGraphQlResponse>
+  ContributionHeaderData: ResolverTypeWrapper<ContributionHeaderData>
   Conversion: ResolverTypeWrapper<Conversion>
   Country: Country
   CountryCodes: CountryCodes
@@ -1397,6 +1406,7 @@ export type ResolversParentTypes = {
   ContributionGraphQLGroupResponse: ContributionGraphQlGroupResponse
   Int: Scalars['Int']['output']
   ContributionGraphQLResponse: ContributionGraphQlResponse
+  ContributionHeaderData: ContributionHeaderData
   Conversion: Conversion
   Date: Scalars['Date']['output']
   DateTime: Scalars['DateTime']['output']
@@ -1560,6 +1570,15 @@ export type ContributionGraphQlResponseResolvers<
     ContextType,
     RequireFields<ContributionGraphQlResponseItemsArgs, 'filterBy' | 'limit' | 'offset' | 'sortBy'>
   >
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>
+}
+
+export type ContributionHeaderDataResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['ContributionHeaderData'] = ResolversParentTypes['ContributionHeaderData'],
+> = {
+  daysSinceLastContribution?: Resolver<ResolversTypes['Int'], ParentType, ContextType>
+  totalContributions?: Resolver<ResolversTypes['Int'], ParentType, ContextType>
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>
 }
 
@@ -1800,6 +1819,7 @@ export type QueryResolvers<
   ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query'],
 > = {
   contributions?: Resolver<ResolversTypes['ContributionGraphQLResponse'], ParentType, ContextType>
+  getContributionsForHeader?: Resolver<ResolversTypes['ContributionHeaderData'], ParentType, ContextType>
   organizations?: Resolver<
     Array<ResolversTypes['Organization']>,
     ParentType,
@@ -1886,6 +1906,7 @@ export type Resolvers<ContextType = any> = {
   Contribution?: ContributionResolvers<ContextType>
   ContributionGraphQLGroupResponse?: ContributionGraphQlGroupResponseResolvers<ContextType>
   ContributionGraphQLResponse?: ContributionGraphQlResponseResolvers<ContextType>
+  ContributionHeaderData?: ContributionHeaderDataResolvers<ContextType>
   Conversion?: ConversionResolvers<ContextType>
   Date?: GraphQLScalarType
   DateTime?: GraphQLScalarType
@@ -1911,6 +1932,17 @@ export type Resolvers<ContextType = any> = {
 
 export type DirectiveResolvers<ContextType = any> = {
   defer?: DeferDirectiveResolver<any, any, ContextType>
+}
+
+export type GetContributionsForHeaderQueryVariables = Exact<{ [key: string]: never }>
+
+export type GetContributionsForHeaderQuery = {
+  __typename?: 'Query'
+  contributions: {
+    __typename?: 'ContributionGraphQLResponse'
+    count: number
+    items?: Array<{ __typename?: 'Contribution'; uploadedAt: any }> | null
+  }
 }
 
 export type GetContributionsQueryVariables = Exact<{
@@ -2059,6 +2091,71 @@ export type GetProjectDataForBoxPlotQuery = {
   }
 }
 
+export const GetContributionsForHeaderDocument = gql`
+  query getContributionsForHeader {
+    contributions {
+      items(sortBy: { dsc: "uploaded_at" }, limit: 1) {
+        uploadedAt
+      }
+      count
+    }
+  }
+`
+
+/**
+ * __useGetContributionsForHeaderQuery__
+ *
+ * To run a query within a React component, call `useGetContributionsForHeaderQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetContributionsForHeaderQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetContributionsForHeaderQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetContributionsForHeaderQuery(
+  baseOptions?: Apollo.QueryHookOptions<GetContributionsForHeaderQuery, GetContributionsForHeaderQueryVariables>,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<GetContributionsForHeaderQuery, GetContributionsForHeaderQueryVariables>(
+    GetContributionsForHeaderDocument,
+    options,
+  )
+}
+export function useGetContributionsForHeaderLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<GetContributionsForHeaderQuery, GetContributionsForHeaderQueryVariables>,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<GetContributionsForHeaderQuery, GetContributionsForHeaderQueryVariables>(
+    GetContributionsForHeaderDocument,
+    options,
+  )
+}
+export function useGetContributionsForHeaderSuspenseQuery(
+  baseOptions?: Apollo.SuspenseQueryHookOptions<
+    GetContributionsForHeaderQuery,
+    GetContributionsForHeaderQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useSuspenseQuery<GetContributionsForHeaderQuery, GetContributionsForHeaderQueryVariables>(
+    GetContributionsForHeaderDocument,
+    options,
+  )
+}
+export type GetContributionsForHeaderQueryHookResult = ReturnType<typeof useGetContributionsForHeaderQuery>
+export type GetContributionsForHeaderLazyQueryHookResult = ReturnType<typeof useGetContributionsForHeaderLazyQuery>
+export type GetContributionsForHeaderSuspenseQueryHookResult = ReturnType<
+  typeof useGetContributionsForHeaderSuspenseQuery
+>
+export type GetContributionsForHeaderQueryResult = Apollo.QueryResult<
+  GetContributionsForHeaderQuery,
+  GetContributionsForHeaderQueryVariables
+>
 export const GetContributionsDocument = gql`
   query getContributions($limit: Int, $offset: Int) {
     contributions {
