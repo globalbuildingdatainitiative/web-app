@@ -1,7 +1,7 @@
 import { ContributionTable } from '@components'
 import { MockedProvider } from '@apollo/client/testing'
 import { getContributionsMock } from '@mocks'
-import { expect, render, screen, suite, test } from '@test'
+import { expect, render, screen, suite, test, fireEvent } from '@test'
 
 suite('ContributionTable', () => {
   test('Snapshot', () => {
@@ -28,6 +28,21 @@ suite('ContributionTable', () => {
         <ContributionTable />
       </MockedProvider>,
     )
-    expect(await screen.findByText('My Project')).toBeTruthy()
+    expect(await screen.findByText('My Project 1')).toBeTruthy()
+  })
+
+  test('Handle Pagination', async () => {
+    render(
+      <MockedProvider mocks={getContributionsMock} addTypename={false}>
+        <ContributionTable />
+      </MockedProvider>,
+    )
+
+    expect(await screen.findByText('My Project 1')).toBeTruthy()
+
+    const nextPageButton = screen.getByRole('button', { name: /2/i })
+    fireEvent.click(nextPageButton)
+
+    expect(await screen.findByText('My Project 11')).toBeTruthy()
   })
 })
