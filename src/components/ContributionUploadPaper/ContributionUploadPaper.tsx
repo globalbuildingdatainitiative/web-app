@@ -5,7 +5,7 @@ import { IconPhoto, IconUpload, IconX } from '@tabler/icons-react'
 import { useState } from 'react'
 import { InputAssembly, InputContribution, InputProduct, InputProject, useAddContributionMutation } from '@queries'
 import { useNavigate } from 'react-router-dom'
-import { convertSLiCE } from 'lcax'
+import { convertSLiCE, Project } from 'lcax'
 
 export const ContributionUploadPaper = () => {
   const [addContributions, { loading, error }] = useAddContributionMutation({ refetchQueries: ['getContributions'] })
@@ -55,7 +55,7 @@ export const ContributionUploadPaper = () => {
       setFileLoading(false)
       return contributions
     } else if (file.name.endsWith('.json')) {
-      return JSON.parse(await file.text()).map((project: InputProject) => ({ project }))
+      return parseLcaxToContribution(JSON.parse(await file.text()))
     }
     return [{ project: { name: file.name } as InputProject }]
   }
@@ -123,7 +123,11 @@ export const ContributionUploadPaper = () => {
 const parseSLiCEtoContribution = (uint8Array: Uint8Array): InputContribution[] => {
   const projects = convertSLiCE(uint8Array)
 
-  return projects.map((project) => {
+  return parseLcaxToContribution(projects)
+}
+
+const parseLcaxToContribution = (projects: Project[]): InputContribution[] =>
+  projects.map((project) => {
     const assemblies = Object.values(project.assemblies).map((assembly) => {
       // @ts-expect-error products is in type
       const products = Object.values(assembly.products) as InputProduct[]
@@ -131,4 +135,3 @@ const parseSLiCEtoContribution = (uint8Array: Uint8Array): InputContribution[] =
     }) as InputAssembly[]
     return { project: { ...project, assemblies } as InputProject }
   })
-}
