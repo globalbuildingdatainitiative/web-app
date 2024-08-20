@@ -36,7 +36,7 @@ export const ContributionHeader = () => {
         </Group>
         <Divider orientation='vertical' />
         <Group>
-          <IconUsers size={32} />
+          <IconUsers color='green' size={32} />
           <div>
             <Title size='sm' order={3}>
               Days Since Last Contribution
