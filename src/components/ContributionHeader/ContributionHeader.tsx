@@ -29,9 +29,6 @@ export const ContributionHeader = () => {
             <Text style={{ textAlign: 'center' }} size='xl'>
               {totalContributions}
             </Text>
-            <Text c='green' size='sm'>
-              10% increase this month
-            </Text>
           </div>
         </Group>
         <Divider orientation='vertical' />
