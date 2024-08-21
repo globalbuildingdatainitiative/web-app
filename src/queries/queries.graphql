@@ -12,6 +12,7 @@ query getContributions($limit: Int, $offset: Int) {
     items(limit: $limit, offset: $offset) {
       id
       uploadedAt
+      userId
       project {
         name
         location {
