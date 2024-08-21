@@ -1,10 +1,10 @@
-import { ProfileHeader, ProfilePaper, EditProfileForm } from '@components'
+import { ContributionHeader, ProfilePaper, EditProfileForm } from '@components'
 import { Grid, Stack } from '@mantine/core'
 
 export const ProfilePage = () => {
   return (
     <Stack>
-      <ProfileHeader />
+      <ContributionHeader />
       <Grid>
         <Grid.Col span={8}>
           <ProfilePaper />
