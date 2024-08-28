@@ -1,10 +1,10 @@
-import { Contribution, useGetContributionsQuery } from '@queries'
+import { useGetContributionsQuery, GetContributionsQuery } from '@queries'
 import { MantineReactTable, MRT_ColumnDef, useMantineReactTable, MRT_PaginationState } from 'mantine-react-table'
-import { useMemo, useState } from 'react'
+import React, { useMemo, useState } from 'react'
 import dayjs from 'dayjs'
-import { Group, Select, Pagination } from '@mantine/core'
+import { Group, Select, Pagination, Text } from '@mantine/core'
 
-export const ContributionTable = () => {
+export const ContributionTable: React.FC = () => {
   const [pagination, setPagination] = useState<MRT_PaginationState>({ pageIndex: 0, pageSize: 10 })
 
   const { loading, error, data } = useGetContributionsQuery({
@@ -14,7 +14,10 @@ export const ContributionTable = () => {
     },
     fetchPolicy: 'network-only',
   })
-  const columns = useMemo<MRT_ColumnDef<Pick<Contribution, 'id'>>[]>(
+
+  type ContributionItems = NonNullable<GetContributionsQuery['contributions']['items']>[number]
+
+  const columns = useMemo<MRT_ColumnDef<ContributionItems>[]>(
     () => [
       {
         accessorKey: 'id',
@@ -29,8 +32,18 @@ export const ContributionTable = () => {
       {
         accessorKey: 'uploadedAt',
         header: 'Date',
-        Cell: ({ cell }) => <>{dayjs(cell.getValue() as string).format('DD/MM/YYYY')}</>,
+        Cell: ({ cell }) => <Text>{dayjs(cell.getValue<string>()).format('DD/MM/YYYY')}</Text>,
         size: 50,
+      },
+      {
+        accessorFn: (row) => `${row.user?.firstName ?? 'N/A'} ${row.user?.lastName ?? 'N/A'}`,
+        header: 'User',
+        size: 150,
+        Cell: ({ row }) => {
+          const firstName = row.original.user?.firstName ?? 'N/A'
+          const lastName = row.original.user?.lastName ?? 'N/A'
+          return <Text>{`${firstName} ${lastName}`}</Text>
+        },
       },
       {
         accessorKey: 'project.location.countryName',
@@ -73,6 +86,7 @@ export const ContributionTable = () => {
       }
     },
   })
+
   return (
     <div data-testid='ContributionTable'>
       <MantineReactTable table={table} />

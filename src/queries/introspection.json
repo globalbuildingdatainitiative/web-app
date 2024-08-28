@@ -425,6 +425,18 @@
             "deprecationReason": null
           },
           {
+            "name": "user",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": { "kind": "OBJECT", "name": "User", "ofType": null }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "userId",
             "description": null,
             "args": [],
@@ -762,7 +774,7 @@
           { "name": "aia", "description": null, "isDeprecated": false, "deprecationReason": null },
           { "name": "ala", "description": null, "isDeprecated": false, "deprecationReason": null },
           { "name": "alb", "description": null, "isDeprecated": false, "deprecationReason": null },
-          { "name": "and_", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "and", "description": null, "isDeprecated": false, "deprecationReason": null },
           { "name": "are", "description": null, "isDeprecated": false, "deprecationReason": null },
           { "name": "arg", "description": null, "isDeprecated": false, "deprecationReason": null },
           { "name": "arm", "description": null, "isDeprecated": false, "deprecationReason": null },

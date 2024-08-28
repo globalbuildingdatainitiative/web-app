@@ -304,7 +304,7 @@ exports[`ContributionPaper 1`] = `
           >
             <table
               class="mrt-table MRT_Table-module_root__ms2uS m_b23fa0ef mantine-Table-table"
-              style="--table-horizontal-spacing: var(--mantine-spacing-md); --table-vertical-spacing: var(--mantine-spacing-md); --header-id-size: 50; --col-id-size: 50; --header-project_name-size: 300; --col-project_name-size: 300; --header-uploadedAt-size: 50; --col-uploadedAt-size: 50; --header-project_location_countryName-size: 100; --col-project_location_countryName-size: 100;"
+              style="--table-horizontal-spacing: var(--mantine-spacing-md); --table-vertical-spacing: var(--mantine-spacing-md); --header-id-size: 50; --col-id-size: 50; --header-project_name-size: 300; --col-project_name-size: 300; --header-uploadedAt-size: 50; --col-uploadedAt-size: 50; --header-User-size: 150; --col-User-size: 150; --header-project_location_countryName-size: 100; --col-project_location_countryName-size: 100;"
             >
               <thead
                 class="m_b242d975 mantine-Table-thead MRT_TableHead-module_root__j9NkO MRT_TableHead-module_root-table-row-group__d9FO4"
@@ -405,7 +405,7 @@ exports[`ContributionPaper 1`] = `
                     class="m_4e7aa4f3 mantine-Table-th MRT_TableHeadCell-module_root__6y50a"
                     colspan="1"
                     data-index="3"
-                    style="min-width: max(calc(var(--header-project_location_countryName-size) * 1px), 40px);"
+                    style="min-width: max(calc(var(--header-User-size) * 1px), 40px);"
                   >
                     <div
                       class="mrt-table-head-cell-content MRT_TableHeadCell-module_content__-pzSK m_8bffd616 mantine-Flex-root __m__-r2d"
@@ -419,11 +419,39 @@ exports[`ContributionPaper 1`] = `
                           class="mrt-table-head-cell-content-wrapper MRT_TableHeadCell-module_content-wrapper__py6aJ MRT_TableHeadCell-module_content-wrapper-hidden-overflow__QY40r MRT_TableHeadCell-module_content-wrapper-nowrap__-4aIg m_8bffd616 mantine-Flex-root __m__-r2h"
                           style=""
                         >
-                          Country
+                          User
                         </div>
                       </div>
                       <div
                         class="mrt-table-head-cell-content-actions MRT_TableHeadCell-module_content-actions__utxbm m_8bffd616 mantine-Flex-root __m__-r2j"
+                        style=""
+                      />
+                    </div>
+                  </th>
+                  <th
+                    align="left"
+                    class="m_4e7aa4f3 mantine-Table-th MRT_TableHeadCell-module_root__6y50a"
+                    colspan="1"
+                    data-index="4"
+                    style="min-width: max(calc(var(--header-project_location_countryName-size) * 1px), 40px);"
+                  >
+                    <div
+                      class="mrt-table-head-cell-content MRT_TableHeadCell-module_content__-pzSK m_8bffd616 mantine-Flex-root __m__-r2m"
+                      style=""
+                    >
+                      <div
+                        class="mrt-table-head-cell-labels MRT_TableHeadCell-module_labels__oiMSr MRT_TableHeadCell-module_labels-data__PvFGO m_8bffd616 mantine-Flex-root __m__-r2o"
+                        style="--mrt-table-head-cell-labels-padding-left: 1.75;"
+                      >
+                        <div
+                          class="mrt-table-head-cell-content-wrapper MRT_TableHeadCell-module_content-wrapper__py6aJ MRT_TableHeadCell-module_content-wrapper-hidden-overflow__QY40r MRT_TableHeadCell-module_content-wrapper-nowrap__-4aIg m_8bffd616 mantine-Flex-root __m__-r2q"
+                          style=""
+                        >
+                          Country
+                        </div>
+                      </div>
+                      <div
+                        class="mrt-table-head-cell-content-actions MRT_TableHeadCell-module_content-actions__utxbm m_8bffd616 mantine-Flex-root __m__-r2s"
                         style=""
                       />
                     </div>
@@ -460,11 +488,28 @@ exports[`ContributionPaper 1`] = `
                     data-index="2"
                     style="min-width: max(calc(var(--col-uploadedAt-size) * 1px), 40px); --mrt-cell-align: left;"
                   >
-                    04/04/2018
+                    <p
+                      class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
+                      style=""
+                    >
+                      04/04/2018
+                    </p>
                   </td>
                   <td
                     class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
                     data-index="3"
+                    style="min-width: max(calc(var(--col-User-size) * 1px), 40px); --mrt-cell-align: left;"
+                  >
+                    <p
+                      class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
+                      style=""
+                    >
+                      John Doe
+                    </p>
+                  </td>
+                  <td
+                    class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
+                    data-index="4"
                     style="min-width: max(calc(var(--col-project_location_countryName-size) * 1px), 40px); --mrt-cell-align: left;"
                   >
                     Country A
@@ -499,11 +544,29 @@ exports[`ContributionPaper 1`] = `
                     data-last-row="true"
                     style="min-width: max(calc(var(--col-uploadedAt-size) * 1px), 40px); --mrt-cell-align: left;"
                   >
-                    05/04/2018
+                    <p
+                      class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
+                      style=""
+                    >
+                      05/04/2018
+                    </p>
                   </td>
                   <td
                     class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
                     data-index="3"
+                    data-last-row="true"
+                    style="min-width: max(calc(var(--col-User-size) * 1px), 40px); --mrt-cell-align: left;"
+                  >
+                    <p
+                      class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
+                      style=""
+                    >
+                      Jane Smith
+                    </p>
+                  </td>
+                  <td
+                    class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
+                    data-index="4"
                     data-last-row="true"
                     style="min-width: max(calc(var(--col-project_location_countryName-size) * 1px), 40px); --mrt-cell-align: left;"
                   >
@@ -773,7 +836,7 @@ exports[`ContributionPaper 1`] = `
                     data-checked="true"
                     data-combobox-active="true"
                     data-combobox-option="true"
-                    id=":r50:"
+                    id=":r67:"
                     role="option"
                     style=""
                     value="10"
@@ -800,7 +863,7 @@ exports[`ContributionPaper 1`] = `
                     aria-selected="false"
                     class="m_92253aa5 mantine-Select-option m_390b5f4"
                     data-combobox-option="true"
-                    id=":r52:"
+                    id=":r69:"
                     role="option"
                     style=""
                     value="20"
@@ -813,7 +876,7 @@ exports[`ContributionPaper 1`] = `
                     aria-selected="false"
                     class="m_92253aa5 mantine-Select-option m_390b5f4"
                     data-combobox-option="true"
-                    id=":r54:"
+                    id=":r6b:"
                     role="option"
                     style=""
                     value="30"
@@ -826,7 +889,7 @@ exports[`ContributionPaper 1`] = `
                     aria-selected="false"
                     class="m_92253aa5 mantine-Select-option m_390b5f4"
                     data-combobox-option="true"
-                    id=":r56:"
+                    id=":r6d:"
                     role="option"
                     style=""
                     value="50"
@@ -839,7 +902,7 @@ exports[`ContributionPaper 1`] = `
                     aria-selected="false"
                     class="m_92253aa5 mantine-Select-option m_390b5f4"
                     data-combobox-option="true"
-                    id=":r58:"
+                    id=":r6f:"
                     role="option"
                     style=""
                     value="100"
@@ -852,7 +915,7 @@ exports[`ContributionPaper 1`] = `
                     aria-selected="false"
                     class="m_92253aa5 mantine-Select-option m_390b5f4"
                     data-combobox-option="true"
-                    id=":r5a:"
+                    id=":r6h:"
                     role="option"
                     style=""
                     value="200"
