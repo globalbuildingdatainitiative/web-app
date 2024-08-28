@@ -504,7 +504,7 @@ exports[`ContributionPaper 1`] = `
                       class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
                       style=""
                     >
-                      N/A
+                      John Doe
                     </p>
                   </td>
                   <td
@@ -561,7 +561,7 @@ exports[`ContributionPaper 1`] = `
                       class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
                       style=""
                     >
-                      N/A
+                      Jane Smith
                     </p>
                   </td>
                   <td
