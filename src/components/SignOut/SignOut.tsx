@@ -23,7 +23,6 @@ export const SignOut = () => {
     <>
       <Button
         variant='outline'
-        color='green'
         c='gray'
         size='lg'
         radius='lg'

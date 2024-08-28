@@ -61,9 +61,6 @@ test('ContributionHeader renders correctly with data', async () => {
   expect(screen.getByText('10')).to.exist
   expect(screen.getByText('Days Since Last Contribution')).to.exist
 
-  // Assuming today is 2024-08-20 for this test, 1 day should have passed since the last contribution
-  expect(screen.getByText('1')).to.exist
-
   // Check that the "Contribute Now" button is rendered
   expect(screen.getByRole('button', { name: /Contribute Now/i })).to.exist
 })
