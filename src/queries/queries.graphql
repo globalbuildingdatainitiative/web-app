@@ -118,3 +118,24 @@ query getProjectDataForBoxPlot {
     }
   }
 }
+
+query getProjectPortfolio($limit: Int, $offset: Int) {
+  projects {
+    items(limit: $limit, offset: $offset) {
+      id
+      name
+      location {
+        countryName
+      }
+      projectInfo {
+        buildingFootprint {
+          value
+        }
+        buildingType
+        buildingTypology
+      }
+      results
+    }
+    count
+  }
+}

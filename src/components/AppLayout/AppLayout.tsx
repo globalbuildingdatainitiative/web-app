@@ -1,4 +1,4 @@
-import { AppShell, rem, useMantineTheme } from '@mantine/core'
+import { AppShell, rem, useMantineTheme, useMatches } from '@mantine/core'
 import { ErrorBoundary, Greeting, SidePanel } from '@components'
 import { Outlet } from 'react-router-dom'
 
@@ -8,11 +8,14 @@ export const AppLayout = () => {
   return (
     <AppShell
       header={{ height: 60, offset: false }}
-      navbar={{ width: 300, breakpoint: 'sm' }}
+      navbar={{ width: { xs: 100, sm: 200, xl: 300 }, breakpoint: 'xs' }}
       padding='xl'
       withBorder={false}
     >
-      <AppShell.Header pl={`calc(300px + var(--mantine-spacing-xl))`} bg={theme.other.backgroundColor}>
+      <AppShell.Header
+        pl={`calc(${useMatches({ xs: 100, sm: 200, xl: 300 })}px + var(--mantine-spacing-xl))`}
+        bg={theme.other.backgroundColor}
+      >
         <ErrorBoundary>
           <Greeting />
         </ErrorBoundary>

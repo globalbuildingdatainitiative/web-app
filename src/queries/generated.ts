@@ -2059,6 +2059,32 @@ export type GetProjectDataForBoxPlotQuery = {
   }
 }
 
+export type GetProjectPortfolioQueryVariables = Exact<{
+  limit?: InputMaybe<Scalars['Int']['input']>
+  offset?: InputMaybe<Scalars['Int']['input']>
+}>
+
+export type GetProjectPortfolioQuery = {
+  __typename?: 'Query'
+  projects: {
+    __typename?: 'ProjectGraphQLResponse'
+    count: number
+    items?: Array<{
+      __typename?: 'Project'
+      id: any
+      name: string
+      results?: any | null
+      location: { __typename?: 'Location'; countryName: string }
+      projectInfo: {
+        __typename?: 'ProjectInfo'
+        buildingType: BuildingType
+        buildingTypology: Array<BuildingTypology>
+        buildingFootprint?: { __typename?: 'ValueUnit'; value: number } | null
+      }
+    }> | null
+  }
+}
+
 export const GetContributionsDocument = gql`
   query getContributions($limit: Int, $offset: Int) {
     contributions {
@@ -2553,4 +2579,78 @@ export type GetProjectDataForBoxPlotSuspenseQueryHookResult = ReturnType<
 export type GetProjectDataForBoxPlotQueryResult = Apollo.QueryResult<
   GetProjectDataForBoxPlotQuery,
   GetProjectDataForBoxPlotQueryVariables
+>
+export const GetProjectPortfolioDocument = gql`
+  query getProjectPortfolio($limit: Int, $offset: Int) {
+    projects {
+      items(limit: $limit, offset: $offset) {
+        id
+        name
+        location {
+          countryName
+        }
+        projectInfo {
+          buildingFootprint {
+            value
+          }
+          buildingType
+          buildingTypology
+        }
+        results
+      }
+      count
+    }
+  }
+`
+
+/**
+ * __useGetProjectPortfolioQuery__
+ *
+ * To run a query within a React component, call `useGetProjectPortfolioQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetProjectPortfolioQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetProjectPortfolioQuery({
+ *   variables: {
+ *      limit: // value for 'limit'
+ *      offset: // value for 'offset'
+ *   },
+ * });
+ */
+export function useGetProjectPortfolioQuery(
+  baseOptions?: Apollo.QueryHookOptions<GetProjectPortfolioQuery, GetProjectPortfolioQueryVariables>,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<GetProjectPortfolioQuery, GetProjectPortfolioQueryVariables>(
+    GetProjectPortfolioDocument,
+    options,
+  )
+}
+export function useGetProjectPortfolioLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<GetProjectPortfolioQuery, GetProjectPortfolioQueryVariables>,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<GetProjectPortfolioQuery, GetProjectPortfolioQueryVariables>(
+    GetProjectPortfolioDocument,
+    options,
+  )
+}
+export function useGetProjectPortfolioSuspenseQuery(
+  baseOptions?: Apollo.SuspenseQueryHookOptions<GetProjectPortfolioQuery, GetProjectPortfolioQueryVariables>,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useSuspenseQuery<GetProjectPortfolioQuery, GetProjectPortfolioQueryVariables>(
+    GetProjectPortfolioDocument,
+    options,
+  )
+}
+export type GetProjectPortfolioQueryHookResult = ReturnType<typeof useGetProjectPortfolioQuery>
+export type GetProjectPortfolioLazyQueryHookResult = ReturnType<typeof useGetProjectPortfolioLazyQuery>
+export type GetProjectPortfolioSuspenseQueryHookResult = ReturnType<typeof useGetProjectPortfolioSuspenseQuery>
+export type GetProjectPortfolioQueryResult = Apollo.QueryResult<
+  GetProjectPortfolioQuery,
+  GetProjectPortfolioQueryVariables
 >
