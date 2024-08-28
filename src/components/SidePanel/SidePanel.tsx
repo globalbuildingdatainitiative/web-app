@@ -21,6 +21,8 @@ export const SidePanel = () => {
   ]
 
   const currentPage = buttons.find(({ link }) => link === location.pathname) || buttons[0]
+  const onCurrentPage = (link: string) =>
+    (location.pathname.startsWith(link) && link !== '/') || location.pathname === link
 
   return (
     <>
@@ -35,8 +37,8 @@ export const SidePanel = () => {
           {buttons.map(({ name, Logo, link }, index) => (
             <Button
               key={index}
-              variant={location.pathname === link ? 'filled' : 'transparent'}
-              color={location.pathname === link ? 'violet' : 'gray'}
+              variant={onCurrentPage(link) ? 'filled' : 'transparent'}
+              color={onCurrentPage(link) ? 'violet' : 'gray'}
               leftSection={<Logo stroke={2} />}
               rightSection={<IconChevronRight size={16} />}
               onClick={() => navigate(link)}

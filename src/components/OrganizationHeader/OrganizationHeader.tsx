@@ -1,11 +1,11 @@
 import { Paper, ActionButton } from '@components'
-import { Divider, Group, Stack, Text } from '@mantine/core'
+import { Center, Divider, Group, Stack, Text, useMantineTheme } from '@mantine/core'
 import { useUserContext } from '@context'
 import { useGetUsersQuery } from '@queries'
 import { IconBuilding, IconUser } from '@tabler/icons-react'
 
 interface OrganizationHeaderProps {
-  context: 'organization' | 'addMembers' | 'createOrganization'
+  context: 'organization' | 'addMembers' | 'createOrganization' | 'portfolio'
 }
 
 export const OrganizationHeader = ({ context }: OrganizationHeaderProps) => {
@@ -22,12 +22,14 @@ export const OrganizationHeader = ({ context }: OrganizationHeaderProps) => {
   })
   const totalMembers = usersData?.users?.length || 0
   const organizationName = user?.organization?.name || 'Unknown'
+  const theme = useMantineTheme()
 
   return (
     <Paper data-testid='OrganizationHeader'>
-      <Group grow align='center'>
+      <Group align='center' justify='space-between'>
+        <Divider orientation='vertical' color='white' />
         <Group align='center'>
-          <IconUser size={48} color='#00A859' />
+          <IconUser size={48} color={theme.primaryColor} />
           <Stack align='center'>
             <Text>Total Members</Text>
             <Text>{totalMembers}</Text>
@@ -36,27 +38,41 @@ export const OrganizationHeader = ({ context }: OrganizationHeaderProps) => {
         <Divider orientation='vertical' />
 
         <Group align='center'>
-          <IconBuilding size={48} color='#00A859' />
+          <IconBuilding size={48} color={theme.primaryColor} />
           <Stack align='center'>
             <Text>Organization Name</Text>
             <Text size='xl'>{organizationName}</Text>
           </Stack>
         </Group>
-        <Group align='center'>
-          {context === 'organization' && organizationName !== 'Unknown' && (
-            <>
-              <Divider orientation='vertical' />
+
+        {organizationName !== 'Unknown' && <Divider orientation='vertical' />}
+
+        {context === 'organization' && organizationName !== 'Unknown' && (
+          <>
+            <Center>
+              <ActionButton buttonName='View Portfolio' navigateTo='/organization/portfolio' />
+            </Center>
+            <Divider orientation='vertical' />
+            <Center>
               <ActionButton buttonName='Add Members' navigateTo='/organization/addmembers' />
-            </>
-          )}
-          {context === 'organization' && organizationName === 'Unknown' && null}
-          {context === 'addMembers' && (
-            <>
-              <Divider orientation='vertical' />
+            </Center>
+          </>
+        )}
+
+        {context === 'portfolio' && (
+          <>
+            <Center>
               <ActionButton buttonName='View Members' navigateTo='/organization' />
-            </>
-          )}
-        </Group>
+            </Center>
+            <Divider orientation='vertical' />
+            <Center>
+              <ActionButton buttonName='Add Members' navigateTo='/organization/addmembers' />
+            </Center>
+          </>
+        )}
+
+        {context === 'addMembers' && <ActionButton buttonName='View Members' navigateTo='/organization' />}
+        <Divider orientation='vertical' color='white' />
       </Group>
     </Paper>
   )

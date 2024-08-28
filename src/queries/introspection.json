@@ -707,33 +707,6 @@
       },
       {
         "kind": "OBJECT",
-        "name": "ContributionHeaderData",
-        "description": null,
-        "fields": [
-          {
-            "name": "daysSinceLastContribution",
-            "description": null,
-            "args": [],
-            "type": { "kind": "NON_NULL", "name": null, "ofType": { "kind": "SCALAR", "name": "Int", "ofType": null } },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "totalContributions",
-            "description": null,
-            "args": [],
-            "type": { "kind": "NON_NULL", "name": null, "ofType": { "kind": "SCALAR", "name": "Int", "ofType": null } },
-            "isDeprecated": false,
-            "deprecationReason": null
-          }
-        ],
-        "inputFields": null,
-        "interfaces": [],
-        "enumValues": null,
-        "possibleTypes": null
-      },
-      {
-        "kind": "OBJECT",
         "name": "Conversion",
         "description": null,
         "fields": [
@@ -789,7 +762,7 @@
           { "name": "aia", "description": null, "isDeprecated": false, "deprecationReason": null },
           { "name": "ala", "description": null, "isDeprecated": false, "deprecationReason": null },
           { "name": "alb", "description": null, "isDeprecated": false, "deprecationReason": null },
-          { "name": "and", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "and_", "description": null, "isDeprecated": false, "deprecationReason": null },
           { "name": "are", "description": null, "isDeprecated": false, "deprecationReason": null },
           { "name": "arg", "description": null, "isDeprecated": false, "deprecationReason": null },
           { "name": "arm", "description": null, "isDeprecated": false, "deprecationReason": null },
@@ -4224,18 +4197,6 @@
               "kind": "NON_NULL",
               "name": null,
               "ofType": { "kind": "OBJECT", "name": "ContributionGraphQLResponse", "ofType": null }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "getContributionsForHeader",
-            "description": "Fetch contribution header data",
-            "args": [],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": { "kind": "OBJECT", "name": "ContributionHeaderData", "ofType": null }
             },
             "isDeprecated": false,
             "deprecationReason": null

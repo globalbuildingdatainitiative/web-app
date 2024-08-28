@@ -1,4 +1,4 @@
-import { createTheme, rem } from '@mantine/core'
+import { createTheme, MantineColorsTuple, rem } from '@mantine/core'
 
 export const theme = createTheme({
   fontFamily: 'Outfit, sans-serif',
@@ -21,7 +21,22 @@ export const theme = createTheme({
     xl: '88em',
     xxl: '120em',
   },
-
+  colors: {
+    green: [
+      '#eefcf8',
+      '#ddf5ef',
+      '#b5edde',
+      '#8ce5cb',
+      '#6addbc',
+      '#57d8b1',
+      '#4bd6ac',
+      '#3dbd97',
+      '#31a985',
+      '#1d9a78',
+    ] as MantineColorsTuple,
+  },
+  primaryColor: 'green',
+  primaryShade: 9,
   other: {
     backgroundColor: '#fafbff',
   },

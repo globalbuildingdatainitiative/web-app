@@ -160,12 +160,6 @@ export type ContributionGraphQlResponseItemsArgs = {
   sortBy?: InputMaybe<SortBy>
 }
 
-export type ContributionHeaderData = {
-  __typename?: 'ContributionHeaderData'
-  daysSinceLastContribution: Scalars['Int']['output']
-  totalContributions: Scalars['Int']['output']
-}
-
 export type Conversion = {
   __typename?: 'Conversion'
   metaData: Scalars['String']['output']
@@ -180,7 +174,7 @@ export enum Country {
   AIA = 'aia',
   ALA = 'ala',
   ALB = 'alb',
-  AND = 'and',
+  AND_ = 'and_',
   ARE = 'are',
   ARG = 'arg',
   ARM = 'arm',
@@ -1110,8 +1104,6 @@ export type Query = {
   __typename?: 'Query'
   /** Returns all contributions of a user's organization */
   contributions: ContributionGraphQlResponse
-  /** Fetch contribution header data */
-  getContributionsForHeader: ContributionHeaderData
   /** Returns all Organizations */
   organizations: Array<Organization>
   /** Returns all projects of a user's organization */
@@ -1336,7 +1328,6 @@ export type ResolversTypes = {
   ContributionGraphQLGroupResponse: ResolverTypeWrapper<ContributionGraphQlGroupResponse>
   Int: ResolverTypeWrapper<Scalars['Int']['output']>
   ContributionGraphQLResponse: ResolverTypeWrapper<ContributionGraphQlResponse>
-  ContributionHeaderData: ResolverTypeWrapper<ContributionHeaderData>
   Conversion: ResolverTypeWrapper<Conversion>
   Country: Country
   CountryCodes: CountryCodes
@@ -1406,7 +1397,6 @@ export type ResolversParentTypes = {
   ContributionGraphQLGroupResponse: ContributionGraphQlGroupResponse
   Int: Scalars['Int']['output']
   ContributionGraphQLResponse: ContributionGraphQlResponse
-  ContributionHeaderData: ContributionHeaderData
   Conversion: Conversion
   Date: Scalars['Date']['output']
   DateTime: Scalars['DateTime']['output']
@@ -1570,15 +1560,6 @@ export type ContributionGraphQlResponseResolvers<
     ContextType,
     RequireFields<ContributionGraphQlResponseItemsArgs, 'filterBy' | 'limit' | 'offset' | 'sortBy'>
   >
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>
-}
-
-export type ContributionHeaderDataResolvers<
-  ContextType = any,
-  ParentType extends ResolversParentTypes['ContributionHeaderData'] = ResolversParentTypes['ContributionHeaderData'],
-> = {
-  daysSinceLastContribution?: Resolver<ResolversTypes['Int'], ParentType, ContextType>
-  totalContributions?: Resolver<ResolversTypes['Int'], ParentType, ContextType>
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>
 }
 
@@ -1819,7 +1800,6 @@ export type QueryResolvers<
   ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query'],
 > = {
   contributions?: Resolver<ResolversTypes['ContributionGraphQLResponse'], ParentType, ContextType>
-  getContributionsForHeader?: Resolver<ResolversTypes['ContributionHeaderData'], ParentType, ContextType>
   organizations?: Resolver<
     Array<ResolversTypes['Organization']>,
     ParentType,
@@ -1906,7 +1886,6 @@ export type Resolvers<ContextType = any> = {
   Contribution?: ContributionResolvers<ContextType>
   ContributionGraphQLGroupResponse?: ContributionGraphQlGroupResponseResolvers<ContextType>
   ContributionGraphQLResponse?: ContributionGraphQlResponseResolvers<ContextType>
-  ContributionHeaderData?: ContributionHeaderDataResolvers<ContextType>
   Conversion?: ConversionResolvers<ContextType>
   Date?: GraphQLScalarType
   DateTime?: GraphQLScalarType
@@ -2088,6 +2067,32 @@ export type GetProjectDataForBoxPlotQuery = {
         value?: number | null
       }>
     }>
+  }
+}
+
+export type GetProjectPortfolioQueryVariables = Exact<{
+  limit?: InputMaybe<Scalars['Int']['input']>
+  offset?: InputMaybe<Scalars['Int']['input']>
+}>
+
+export type GetProjectPortfolioQuery = {
+  __typename?: 'Query'
+  projects: {
+    __typename?: 'ProjectGraphQLResponse'
+    count: number
+    items?: Array<{
+      __typename?: 'Project'
+      id: any
+      name: string
+      results?: any | null
+      location: { __typename?: 'Location'; countryName: string }
+      projectInfo: {
+        __typename?: 'ProjectInfo'
+        buildingType: BuildingType
+        buildingTypology: Array<BuildingTypology>
+        buildingFootprint?: { __typename?: 'ValueUnit'; value: number } | null
+      }
+    }> | null
   }
 }
 
@@ -2650,4 +2655,78 @@ export type GetProjectDataForBoxPlotSuspenseQueryHookResult = ReturnType<
 export type GetProjectDataForBoxPlotQueryResult = Apollo.QueryResult<
   GetProjectDataForBoxPlotQuery,
   GetProjectDataForBoxPlotQueryVariables
+>
+export const GetProjectPortfolioDocument = gql`
+  query getProjectPortfolio($limit: Int, $offset: Int) {
+    projects {
+      items(limit: $limit, offset: $offset) {
+        id
+        name
+        location {
+          countryName
+        }
+        projectInfo {
+          buildingFootprint {
+            value
+          }
+          buildingType
+          buildingTypology
+        }
+        results
+      }
+      count
+    }
+  }
+`
+
+/**
+ * __useGetProjectPortfolioQuery__
+ *
+ * To run a query within a React component, call `useGetProjectPortfolioQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetProjectPortfolioQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetProjectPortfolioQuery({
+ *   variables: {
+ *      limit: // value for 'limit'
+ *      offset: // value for 'offset'
+ *   },
+ * });
+ */
+export function useGetProjectPortfolioQuery(
+  baseOptions?: Apollo.QueryHookOptions<GetProjectPortfolioQuery, GetProjectPortfolioQueryVariables>,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<GetProjectPortfolioQuery, GetProjectPortfolioQueryVariables>(
+    GetProjectPortfolioDocument,
+    options,
+  )
+}
+export function useGetProjectPortfolioLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<GetProjectPortfolioQuery, GetProjectPortfolioQueryVariables>,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<GetProjectPortfolioQuery, GetProjectPortfolioQueryVariables>(
+    GetProjectPortfolioDocument,
+    options,
+  )
+}
+export function useGetProjectPortfolioSuspenseQuery(
+  baseOptions?: Apollo.SuspenseQueryHookOptions<GetProjectPortfolioQuery, GetProjectPortfolioQueryVariables>,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useSuspenseQuery<GetProjectPortfolioQuery, GetProjectPortfolioQueryVariables>(
+    GetProjectPortfolioDocument,
+    options,
+  )
+}
+export type GetProjectPortfolioQueryHookResult = ReturnType<typeof useGetProjectPortfolioQuery>
+export type GetProjectPortfolioLazyQueryHookResult = ReturnType<typeof useGetProjectPortfolioLazyQuery>
+export type GetProjectPortfolioSuspenseQueryHookResult = ReturnType<typeof useGetProjectPortfolioSuspenseQuery>
+export type GetProjectPortfolioQueryResult = Apollo.QueryResult<
+  GetProjectPortfolioQuery,
+  GetProjectPortfolioQueryVariables
 >
