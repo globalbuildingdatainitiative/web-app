@@ -1,3 +1,12 @@
+query getContributionsForHeader {
+  contributions {
+    items(sortBy: { dsc: "uploaded_at" }, limit: 1) {
+      uploadedAt
+    }
+    count
+  }
+}
+
 query getContributions($limit: Int, $offset: Int) {
   contributions {
     items(limit: $limit, offset: $offset) {
