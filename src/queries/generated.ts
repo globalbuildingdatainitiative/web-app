@@ -174,7 +174,7 @@ export enum Country {
   AIA = 'aia',
   ALA = 'ala',
   ALB = 'alb',
-  AND = 'and',
+  AND_ = 'and_',
   ARE = 'are',
   ARG = 'arg',
   ARM = 'arm',
@@ -1913,6 +1913,17 @@ export type DirectiveResolvers<ContextType = any> = {
   defer?: DeferDirectiveResolver<any, any, ContextType>
 }
 
+export type GetContributionsForHeaderQueryVariables = Exact<{ [key: string]: never }>
+
+export type GetContributionsForHeaderQuery = {
+  __typename?: 'Query'
+  contributions: {
+    __typename?: 'ContributionGraphQLResponse'
+    count: number
+    items?: Array<{ __typename?: 'Contribution'; uploadedAt: any }> | null
+  }
+}
+
 export type GetContributionsQueryVariables = Exact<{
   limit?: InputMaybe<Scalars['Int']['input']>
   offset?: InputMaybe<Scalars['Int']['input']>
@@ -2085,6 +2096,71 @@ export type GetProjectPortfolioQuery = {
   }
 }
 
+export const GetContributionsForHeaderDocument = gql`
+  query getContributionsForHeader {
+    contributions {
+      items(sortBy: { dsc: "uploaded_at" }, limit: 1) {
+        uploadedAt
+      }
+      count
+    }
+  }
+`
+
+/**
+ * __useGetContributionsForHeaderQuery__
+ *
+ * To run a query within a React component, call `useGetContributionsForHeaderQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetContributionsForHeaderQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetContributionsForHeaderQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetContributionsForHeaderQuery(
+  baseOptions?: Apollo.QueryHookOptions<GetContributionsForHeaderQuery, GetContributionsForHeaderQueryVariables>,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<GetContributionsForHeaderQuery, GetContributionsForHeaderQueryVariables>(
+    GetContributionsForHeaderDocument,
+    options,
+  )
+}
+export function useGetContributionsForHeaderLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<GetContributionsForHeaderQuery, GetContributionsForHeaderQueryVariables>,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<GetContributionsForHeaderQuery, GetContributionsForHeaderQueryVariables>(
+    GetContributionsForHeaderDocument,
+    options,
+  )
+}
+export function useGetContributionsForHeaderSuspenseQuery(
+  baseOptions?: Apollo.SuspenseQueryHookOptions<
+    GetContributionsForHeaderQuery,
+    GetContributionsForHeaderQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useSuspenseQuery<GetContributionsForHeaderQuery, GetContributionsForHeaderQueryVariables>(
+    GetContributionsForHeaderDocument,
+    options,
+  )
+}
+export type GetContributionsForHeaderQueryHookResult = ReturnType<typeof useGetContributionsForHeaderQuery>
+export type GetContributionsForHeaderLazyQueryHookResult = ReturnType<typeof useGetContributionsForHeaderLazyQuery>
+export type GetContributionsForHeaderSuspenseQueryHookResult = ReturnType<
+  typeof useGetContributionsForHeaderSuspenseQuery
+>
+export type GetContributionsForHeaderQueryResult = Apollo.QueryResult<
+  GetContributionsForHeaderQuery,
+  GetContributionsForHeaderQueryVariables
+>
 export const GetContributionsDocument = gql`
   query getContributions($limit: Int, $offset: Int) {
     contributions {
