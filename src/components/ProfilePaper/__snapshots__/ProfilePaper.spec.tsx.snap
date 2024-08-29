@@ -18,16 +18,23 @@ exports[`ProfilePaper > Snapshot 1`] = `
     data-with-border="true"
     style="--paper-radius: var(--mantine-radius-lg); --paper-shadow: var(--mantine-shadow-sm); --card-padding: var(--mantine-spacing-lg);"
   >
-    <h3
+    <h4
       class="m_8a5d1357 mantine-Title-root"
-      data-order="3"
-      style="--title-fw: var(--mantine-h3-font-weight); --title-lh: var(--mantine-h3-line-height); --title-fz: var(--mantine-h3-font-size); margin-bottom: 8px;"
+      data-order="4"
+      style="--title-fw: var(--mantine-h4-font-weight); --title-lh: var(--mantine-h4-line-height); --title-fz: var(--mantine-h4-font-size); margin-bottom: 8px;"
     >
-      Profile
-    </h3>
-    <p>
-      Here Profile charts will be displayed
-    </p>
+      User Contributions Over Time (Monthly)
+    </h4>
+    <div
+      class="m_a50f3e58 mantine-BarChart-root"
+      dir="ltr"
+      style=""
+    >
+      <div
+        class="recharts-responsive-container m_af9188cb mantine-BarChart-container"
+        style="width: 100%; height: 100%; min-width: 0;"
+      />
+    </div>
   </div>
 </div>
 `;
