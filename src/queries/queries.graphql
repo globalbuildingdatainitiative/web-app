@@ -1,6 +1,6 @@
 query getContributionsPerMonth {
   contributions {
-    items(sortBy: { dsc: "uploaded_at" }) {
+    items(sortBy: { dsc: "uploaded_at" }, limit: null) {
       id
       uploadedAt
     }
@@ -10,7 +10,7 @@ query getContributionsPerMonth {
 
 query getContributionsForHeader {
   contributions {
-    items(sortBy: { dsc: "uploaded_at" }, limit: 1) {
+    items(sortBy: { dsc: "uploaded_at" }, limit: null) {
       uploadedAt
     }
     count

@@ -156,7 +156,7 @@ export type ContributionGraphQlResponseGroupsArgs = {
 
 export type ContributionGraphQlResponseItemsArgs = {
   filterBy?: InputMaybe<FilterBy>
-  limit?: Scalars['Int']['input']
+  limit?: InputMaybe<Scalars['Int']['input']>
   offset?: Scalars['Int']['input']
   sortBy?: InputMaybe<SortBy>
 }
@@ -1059,7 +1059,7 @@ export type ProjectGraphQlResponseGroupsArgs = {
 
 export type ProjectGraphQlResponseItemsArgs = {
   filterBy?: InputMaybe<FilterBy>
-  limit?: Scalars['Int']['input']
+  limit?: InputMaybe<Scalars['Int']['input']>
   offset?: Scalars['Int']['input']
   sortBy?: InputMaybe<SortBy>
 }
@@ -2176,7 +2176,7 @@ export type GetContributionsPerMonthQueryResult = Apollo.QueryResult<
 export const GetContributionsForHeaderDocument = gql`
   query getContributionsForHeader {
     contributions {
-      items(sortBy: { dsc: "uploaded_at" }, limit: 1) {
+      items(sortBy: { dsc: "uploaded_at" }, limit: null) {
         uploadedAt
       }
       count
