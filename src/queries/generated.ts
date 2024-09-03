@@ -156,7 +156,7 @@ export type ContributionGraphQlResponseGroupsArgs = {
 
 export type ContributionGraphQlResponseItemsArgs = {
   filterBy?: InputMaybe<FilterBy>
-  limit?: Scalars['Int']['input']
+  limit?: InputMaybe<Scalars['Int']['input']>
   offset?: Scalars['Int']['input']
   sortBy?: InputMaybe<SortBy>
 }
@@ -175,7 +175,7 @@ export enum Country {
   AIA = 'aia',
   ALA = 'ala',
   ALB = 'alb',
-  AND = 'and',
+  AND_ = 'and_',
   ARE = 'are',
   ARG = 'arg',
   ARM = 'arm',
@@ -1059,7 +1059,7 @@ export type ProjectGraphQlResponseGroupsArgs = {
 
 export type ProjectGraphQlResponseItemsArgs = {
   filterBy?: InputMaybe<FilterBy>
-  limit?: Scalars['Int']['input']
+  limit?: InputMaybe<Scalars['Int']['input']>
   offset?: Scalars['Int']['input']
   sortBy?: InputMaybe<SortBy>
 }
@@ -1915,6 +1915,17 @@ export type DirectiveResolvers<ContextType = any> = {
   defer?: DeferDirectiveResolver<any, any, ContextType>
 }
 
+export type GetContributionsPerMonthQueryVariables = Exact<{ [key: string]: never }>
+
+export type GetContributionsPerMonthQuery = {
+  __typename?: 'Query'
+  contributions: {
+    __typename?: 'ContributionGraphQLResponse'
+    count: number
+    items?: Array<{ __typename?: 'Contribution'; id: any; uploadedAt: any }> | null
+  }
+}
+
 export type GetContributionsForHeaderQueryVariables = Exact<{ [key: string]: never }>
 
 export type GetContributionsForHeaderQuery = {
@@ -2099,10 +2110,73 @@ export type GetProjectPortfolioQuery = {
   }
 }
 
+export const GetContributionsPerMonthDocument = gql`
+  query getContributionsPerMonth {
+    contributions {
+      items(sortBy: { dsc: "uploaded_at" }) {
+        id
+        uploadedAt
+      }
+      count
+    }
+  }
+`
+
+/**
+ * __useGetContributionsPerMonthQuery__
+ *
+ * To run a query within a React component, call `useGetContributionsPerMonthQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetContributionsPerMonthQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetContributionsPerMonthQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetContributionsPerMonthQuery(
+  baseOptions?: Apollo.QueryHookOptions<GetContributionsPerMonthQuery, GetContributionsPerMonthQueryVariables>,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<GetContributionsPerMonthQuery, GetContributionsPerMonthQueryVariables>(
+    GetContributionsPerMonthDocument,
+    options,
+  )
+}
+export function useGetContributionsPerMonthLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<GetContributionsPerMonthQuery, GetContributionsPerMonthQueryVariables>,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<GetContributionsPerMonthQuery, GetContributionsPerMonthQueryVariables>(
+    GetContributionsPerMonthDocument,
+    options,
+  )
+}
+export function useGetContributionsPerMonthSuspenseQuery(
+  baseOptions?: Apollo.SuspenseQueryHookOptions<GetContributionsPerMonthQuery, GetContributionsPerMonthQueryVariables>,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useSuspenseQuery<GetContributionsPerMonthQuery, GetContributionsPerMonthQueryVariables>(
+    GetContributionsPerMonthDocument,
+    options,
+  )
+}
+export type GetContributionsPerMonthQueryHookResult = ReturnType<typeof useGetContributionsPerMonthQuery>
+export type GetContributionsPerMonthLazyQueryHookResult = ReturnType<typeof useGetContributionsPerMonthLazyQuery>
+export type GetContributionsPerMonthSuspenseQueryHookResult = ReturnType<
+  typeof useGetContributionsPerMonthSuspenseQuery
+>
+export type GetContributionsPerMonthQueryResult = Apollo.QueryResult<
+  GetContributionsPerMonthQuery,
+  GetContributionsPerMonthQueryVariables
+>
 export const GetContributionsForHeaderDocument = gql`
   query getContributionsForHeader {
     contributions {
-      items(sortBy: { dsc: "uploaded_at" }, limit: 1) {
+      items(sortBy: { dsc: "uploaded_at" }, limit: null) {
         uploadedAt
       }
       count
