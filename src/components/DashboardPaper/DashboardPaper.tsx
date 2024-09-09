@@ -15,9 +15,9 @@ export const DashboardPaper = () => {
           </ErrorBoundary>
         </Grid.Col>
         <Grid.Col span={gridSize}>
-        <ErrorBoundary>
-          <GlobalBoxPlot />
-        </ErrorBoundary>
+          <ErrorBoundary>
+            <GlobalBoxPlot />
+          </ErrorBoundary>
         </Grid.Col>
       </Grid>
     </Paper>

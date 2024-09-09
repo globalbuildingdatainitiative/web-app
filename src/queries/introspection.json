@@ -13,6 +13,7 @@
         "interfaces": null,
         "enumValues": [
           { "name": "AVG", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "DIV", "description": null, "isDeprecated": false, "deprecationReason": null },
           { "name": "MAX", "description": null, "isDeprecated": false, "deprecationReason": null },
           { "name": "MEDIAN", "description": null, "isDeprecated": false, "deprecationReason": null },
           { "name": "MIN", "description": null, "isDeprecated": false, "deprecationReason": null },
@@ -28,6 +29,47 @@
         "name": "AggregationResult",
         "description": null,
         "fields": [
+          {
+            "name": "aggregation",
+            "description": null,
+            "args": [
+              {
+                "name": "apply",
+                "description": null,
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "LIST",
+                    "name": null,
+                    "ofType": {
+                      "kind": "NON_NULL",
+                      "name": null,
+                      "ofType": { "kind": "INPUT_OBJECT", "name": "InputAggregation", "ofType": null }
+                    }
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": { "kind": "OBJECT", "name": "AggregationResult", "ofType": null }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
           {
             "name": "field",
             "description": null,
@@ -425,6 +467,18 @@
             "deprecationReason": null
           },
           {
+            "name": "user",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": { "kind": "OBJECT", "name": "User", "ofType": null }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "userId",
             "description": null,
             "args": [],
@@ -550,7 +604,7 @@
         "fields": [
           {
             "name": "aggregation",
-            "description": null,
+            "description": "Apply aggregation to the items. The aggregation should be specified in the 'apply' argument, which should be provided in MongoDB aggregation syntax.",
             "args": [
               {
                 "name": "apply",
@@ -558,15 +612,7 @@
                 "type": {
                   "kind": "NON_NULL",
                   "name": null,
-                  "ofType": {
-                    "kind": "LIST",
-                    "name": null,
-                    "ofType": {
-                      "kind": "NON_NULL",
-                      "name": null,
-                      "ofType": { "kind": "INPUT_OBJECT", "name": "InputAggregation", "ofType": null }
-                    }
-                  }
+                  "ofType": { "kind": "SCALAR", "name": "JSON", "ofType": null }
                 },
                 "defaultValue": null,
                 "isDeprecated": false,
@@ -576,15 +622,7 @@
             "type": {
               "kind": "NON_NULL",
               "name": null,
-              "ofType": {
-                "kind": "LIST",
-                "name": null,
-                "ofType": {
-                  "kind": "NON_NULL",
-                  "name": null,
-                  "ofType": { "kind": "OBJECT", "name": "AggregationResult", "ofType": null }
-                }
-              }
+              "ofType": { "kind": "SCALAR", "name": "JSON", "ofType": null }
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -1635,6 +1673,14 @@
               "ofType": { "kind": "SCALAR", "name": "String", "ofType": null }
             },
             "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "field2",
+            "description": null,
+            "type": { "kind": "SCALAR", "name": "String", "ofType": null },
+            "defaultValue": "null",
             "isDeprecated": false,
             "deprecationReason": null
           },
@@ -3776,7 +3822,7 @@
         "fields": [
           {
             "name": "aggregation",
-            "description": null,
+            "description": "Apply aggregation to the items. The aggregation should be specified in the 'apply' argument, which should be provided in MongoDB aggregation syntax.",
             "args": [
               {
                 "name": "apply",
@@ -3784,15 +3830,7 @@
                 "type": {
                   "kind": "NON_NULL",
                   "name": null,
-                  "ofType": {
-                    "kind": "LIST",
-                    "name": null,
-                    "ofType": {
-                      "kind": "NON_NULL",
-                      "name": null,
-                      "ofType": { "kind": "INPUT_OBJECT", "name": "InputAggregation", "ofType": null }
-                    }
-                  }
+                  "ofType": { "kind": "SCALAR", "name": "JSON", "ofType": null }
                 },
                 "defaultValue": null,
                 "isDeprecated": false,
@@ -3802,15 +3840,7 @@
             "type": {
               "kind": "NON_NULL",
               "name": null,
-              "ofType": {
-                "kind": "LIST",
-                "name": null,
-                "ofType": {
-                  "kind": "NON_NULL",
-                  "name": null,
-                  "ofType": { "kind": "OBJECT", "name": "AggregationResult", "ofType": null }
-                }
-              }
+              "ofType": { "kind": "SCALAR", "name": "JSON", "ofType": null }
             },
             "isDeprecated": false,
             "deprecationReason": null

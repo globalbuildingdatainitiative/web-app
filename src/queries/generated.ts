@@ -30,6 +30,7 @@ export type Scalars = {
 
 export enum AggregationMethod {
   AVG = 'AVG',
+  DIV = 'DIV',
   MAX = 'MAX',
   MEDIAN = 'MEDIAN',
   MIN = 'MIN',
@@ -41,9 +42,14 @@ export enum AggregationMethod {
 
 export type AggregationResult = {
   __typename?: 'AggregationResult'
+  aggregation: Array<AggregationResult>
   field: Scalars['String']['output']
   method: AggregationMethod
   value?: Maybe<Scalars['Float']['output']>
+}
+
+export type AggregationResultAggregationArgs = {
+  apply: Array<InputAggregation>
 }
 
 export type AreaType = {
@@ -115,6 +121,7 @@ export type Contribution = {
   organizationId: Scalars['UUID']['output']
   project: Project
   uploadedAt: Scalars['DateTime']['output']
+  user: User
   userId: Scalars['UUID']['output']
 }
 
@@ -136,7 +143,8 @@ export type ContributionGraphQlGroupResponseItemsArgs = {
 
 export type ContributionGraphQlResponse = {
   __typename?: 'ContributionGraphQLResponse'
-  aggregation: Array<AggregationResult>
+  /** Apply aggregation to the items. The aggregation should be specified in the 'apply' argument, which should be provided in MongoDB aggregation syntax. */
+  aggregation: Scalars['JSON']['output']
   /** Total number of items in the filtered dataset. */
   count: Scalars['Int']['output']
   groups: Array<ContributionGraphQlGroupResponse>
@@ -145,7 +153,7 @@ export type ContributionGraphQlResponse = {
 }
 
 export type ContributionGraphQlResponseAggregationArgs = {
-  apply: Array<InputAggregation>
+  apply: Scalars['JSON']['input']
 }
 
 export type ContributionGraphQlResponseGroupsArgs = {
@@ -753,6 +761,7 @@ export enum ImpactCategoryKey {
 
 export type InputAggregation = {
   field: Scalars['String']['input']
+  field2?: InputMaybe<Scalars['String']['input']>
   method: AggregationMethod
 }
 
@@ -1039,7 +1048,8 @@ export type ProjectGraphQlGroupResponseItemsArgs = {
 
 export type ProjectGraphQlResponse = {
   __typename?: 'ProjectGraphQLResponse'
-  aggregation: Array<AggregationResult>
+  /** Apply aggregation to the items. The aggregation should be specified in the 'apply' argument, which should be provided in MongoDB aggregation syntax. */
+  aggregation: Scalars['JSON']['output']
   /** Total number of items in the filtered dataset. */
   count: Scalars['Int']['output']
   groups: Array<ProjectGraphQlGroupResponse>
@@ -1048,7 +1058,7 @@ export type ProjectGraphQlResponse = {
 }
 
 export type ProjectGraphQlResponseAggregationArgs = {
-  apply: Array<InputAggregation>
+  apply: Scalars['JSON']['input']
 }
 
 export type ProjectGraphQlResponseGroupsArgs = {
@@ -1459,6 +1469,12 @@ export type AggregationResultResolvers<
   ContextType = any,
   ParentType extends ResolversParentTypes['AggregationResult'] = ResolversParentTypes['AggregationResult'],
 > = {
+  aggregation?: Resolver<
+    Array<ResolversTypes['AggregationResult']>,
+    ParentType,
+    ContextType,
+    RequireFields<AggregationResultAggregationArgs, 'apply'>
+  >
   field?: Resolver<ResolversTypes['String'], ParentType, ContextType>
   method?: Resolver<ResolversTypes['AggregationMethod'], ParentType, ContextType>
   value?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>
@@ -1510,6 +1526,7 @@ export type ContributionResolvers<
   organizationId?: Resolver<ResolversTypes['UUID'], ParentType, ContextType>
   project?: Resolver<ResolversTypes['Project'], ParentType, ContextType>
   uploadedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>
+  user?: Resolver<ResolversTypes['User'], ParentType, ContextType>
   userId?: Resolver<ResolversTypes['UUID'], ParentType, ContextType>
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>
 }
@@ -1542,7 +1559,7 @@ export type ContributionGraphQlResponseResolvers<
     ResolversParentTypes['ContributionGraphQLResponse'] = ResolversParentTypes['ContributionGraphQLResponse'],
 > = {
   aggregation?: Resolver<
-    Array<ResolversTypes['AggregationResult']>,
+    ResolversTypes['JSON'],
     ParentType,
     ContextType,
     RequireFields<ContributionGraphQlResponseAggregationArgs, 'apply'>
@@ -1744,7 +1761,7 @@ export type ProjectGraphQlResponseResolvers<
   ParentType extends ResolversParentTypes['ProjectGraphQLResponse'] = ResolversParentTypes['ProjectGraphQLResponse'],
 > = {
   aggregation?: Resolver<
-    Array<ResolversTypes['AggregationResult']>,
+    ResolversTypes['JSON'],
     ParentType,
     ContextType,
     RequireFields<ProjectGraphQlResponseAggregationArgs, 'apply'>
@@ -2050,22 +2067,19 @@ export type GetProjectsCountsByCountryQuery = {
   }
 }
 
-export type GetProjectDataForBoxPlotQueryVariables = Exact<{ [key: string]: never }>
+export type GetProjectDataForBoxPlotQueryVariables = Exact<{
+  aggregation: Scalars['JSON']['input']
+}>
 
 export type GetProjectDataForBoxPlotQuery = {
   __typename?: 'Query'
   projects: {
     __typename?: 'ProjectGraphQLResponse'
+    aggregation: any
     groups: Array<{
       __typename?: 'ProjectGraphQLGroupResponse'
       group: string
       items: Array<{ __typename?: 'Project'; id: any; location: { __typename?: 'Location'; countryName: string } }>
-      aggregation: Array<{
-        __typename?: 'AggregationResult'
-        method: AggregationMethod
-        field: string
-        value?: number | null
-      }>
     }>
   }
 }
@@ -2576,31 +2590,18 @@ export type GetProjectsCountsByCountryQueryResult = Apollo.QueryResult<
   GetProjectsCountsByCountryQueryVariables
 >
 export const GetProjectDataForBoxPlotDocument = gql`
-  query getProjectDataForBoxPlot {
+  query getProjectDataForBoxPlot($aggregation: JSON!) {
     projects {
       groups(groupBy: "location.country") {
         group
-        items {
+        items(limit: 1) {
           id
           location {
             countryName
           }
         }
-        aggregation(
-          apply: [
-            { method: AVG, field: "results.gwp.a1a3" }
-            { method: MIN, field: "results.gwp.a1a3" }
-            { method: MAX, field: "results.gwp.a1a3" }
-            { method: MEDIAN, field: "results.gwp.a1a3" }
-            { method: PCT25, field: "results.gwp.a1a3" }
-            { method: PCT75, field: "results.gwp.a1a3" }
-          ]
-        ) {
-          method
-          field
-          value
-        }
       }
+      aggregation(apply: $aggregation)
     }
   }
 `
@@ -2617,11 +2618,13 @@ export const GetProjectDataForBoxPlotDocument = gql`
  * @example
  * const { data, loading, error } = useGetProjectDataForBoxPlotQuery({
  *   variables: {
+ *      aggregation: // value for 'aggregation'
  *   },
  * });
  */
 export function useGetProjectDataForBoxPlotQuery(
-  baseOptions?: Apollo.QueryHookOptions<GetProjectDataForBoxPlotQuery, GetProjectDataForBoxPlotQueryVariables>,
+  baseOptions: Apollo.QueryHookOptions<GetProjectDataForBoxPlotQuery, GetProjectDataForBoxPlotQueryVariables> &
+    ({ variables: GetProjectDataForBoxPlotQueryVariables; skip?: boolean } | { skip: boolean }),
 ) {
   const options = { ...defaultOptions, ...baseOptions }
   return Apollo.useQuery<GetProjectDataForBoxPlotQuery, GetProjectDataForBoxPlotQueryVariables>(

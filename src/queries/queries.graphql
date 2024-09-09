@@ -100,31 +100,18 @@ query getProjectsCountsByCountry {
   }
 }
 
-query getProjectDataForBoxPlot {
+query getProjectDataForBoxPlot($aggregation: JSON!) {
   projects {
     groups(groupBy: "location.country") {
       group
-      items {
+      items(limit: 1) {
         id
         location {
           countryName
         }
       }
-      aggregation(
-        apply: [
-          { method: AVG, field: "results.gwp.a1a3" }
-          { method: MIN, field: "results.gwp.a1a3" }
-          { method: MAX, field: "results.gwp.a1a3" }
-          { method: MEDIAN, field: "results.gwp.a1a3" }
-          { method: PCT25, field: "results.gwp.a1a3" }
-          { method: PCT75, field: "results.gwp.a1a3" }
-        ]
-      ) {
-        method
-        field
-        value
-      }
     }
+    aggregation(apply: $aggregation)
   }
 }
 
