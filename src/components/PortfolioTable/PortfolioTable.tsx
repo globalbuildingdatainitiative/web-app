@@ -11,12 +11,13 @@ import { useMemo, useState } from 'react'
 import { Group, Pagination, Progress, Select, Tooltip } from '@mantine/core'
 
 export const PortfolioTable = () => {
-  const [pagination, setPagination] = useState<MRT_PaginationState>({ pageIndex: 0, pageSize: 10 })
+  const [pagination, setPagination] = useState<MRT_PaginationState>({ pageIndex: 0, pageSize: 20 })
 
   const { loading, error, data } = useGetProjectPortfolioQuery({
     variables: {
       limit: pagination.pageSize,
       offset: pagination.pageIndex * pagination.pageSize,
+      filters: {gt: {"projectInfo.grossFloorArea.value": 0}}
     },
     fetchPolicy: 'network-only',
   })
@@ -39,8 +40,8 @@ export const PortfolioTable = () => {
         size: 50,
       },
       {
-        accessorKey: 'projectInfo.buildingFootprint.value',
-        header: 'Building Footprint (m²)',
+        accessorKey: 'projectInfo.grossFloorArea.value',
+        header: 'Gross Floor Area (m²)',
         size: 50,
       },
       {
@@ -124,7 +125,7 @@ type Result = {
 
 const getGWPIntensity = ({ cell, row }: GWPIntensity) => {
   const results = Number(cell.getValue<Result | null>()?.gwp?.a1a3 || 0)
-  const footprint = row.getValue('projectInfo.buildingFootprint.value') as number
+  const footprint = row.getValue('projectInfo.grossFloorArea.value') as number
 
   return <>{Number(results / footprint).toFixed(2)}</>
 }

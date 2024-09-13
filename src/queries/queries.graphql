@@ -130,16 +130,16 @@ query getProjectDataForBoxPlot($aggregation: JSON!) {
   }
 }
 
-query getProjectPortfolio($limit: Int, $offset: Int) {
+query getProjectPortfolio($limit: Int, $offset: Int, $filters: FilterBy) {
   projects {
-    items(limit: $limit, offset: $offset) {
+    items(limit: $limit, offset: $offset, filterBy: $filters ) {
       id
       name
       location {
         countryName
       }
       projectInfo {
-        buildingFootprint {
+        grossFloorArea {
           value
         }
         buildingType

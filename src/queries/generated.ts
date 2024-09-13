@@ -703,7 +703,11 @@ export type EpdTechFlow = Epd | TechFlow
 
 export type FilterBy = {
   equal?: InputMaybe<Scalars['JSON']['input']>
+  gt?: InputMaybe<Scalars['JSON']['input']>
+  gte?: InputMaybe<Scalars['JSON']['input']>
   isTrue?: InputMaybe<Scalars['Boolean']['input']>
+  lt?: InputMaybe<Scalars['JSON']['input']>
+  lte?: InputMaybe<Scalars['JSON']['input']>
 }
 
 export type FilterOptions = {
@@ -892,7 +896,7 @@ export type InputProjectInfo = {
   frameType?: InputMaybe<Scalars['String']['input']>
   generalEnergyClass?: InputMaybe<GeneralEnergyClass>
   grossFloorArea: InputAreaType
-  heatedFloorArea: InputAreaType
+  heatedFloorArea?: InputMaybe<InputAreaType>
   localEnergyClass?: InputMaybe<Scalars['String']['input']>
   roofType?: InputMaybe<RoofType>
   type: Scalars['String']['input']
@@ -2099,6 +2103,7 @@ export type GetProjectDataForBoxPlotQuery = {
 export type GetProjectPortfolioQueryVariables = Exact<{
   limit?: InputMaybe<Scalars['Int']['input']>
   offset?: InputMaybe<Scalars['Int']['input']>
+  filters?: InputMaybe<FilterBy>
 }>
 
 export type GetProjectPortfolioQuery = {
@@ -2116,7 +2121,7 @@ export type GetProjectPortfolioQuery = {
         __typename?: 'ProjectInfo'
         buildingType: BuildingType
         buildingTypology: Array<BuildingTypology>
-        buildingFootprint?: { __typename?: 'ValueUnit'; value: number } | null
+        grossFloorArea?: { __typename?: 'AreaType'; value: number } | null
       }
     }> | null
   }
@@ -2125,7 +2130,7 @@ export type GetProjectPortfolioQuery = {
 export const GetContributionsPerMonthDocument = gql`
   query getContributionsPerMonth {
     contributions {
-      items(sortBy: { dsc: "uploaded_at" }) {
+      items(sortBy: { dsc: "uploaded_at" }, limit: null) {
         id
         uploadedAt
       }
@@ -2740,16 +2745,16 @@ export type GetProjectDataForBoxPlotQueryResult = Apollo.QueryResult<
   GetProjectDataForBoxPlotQueryVariables
 >
 export const GetProjectPortfolioDocument = gql`
-  query getProjectPortfolio($limit: Int, $offset: Int) {
+  query getProjectPortfolio($limit: Int, $offset: Int, $filters: FilterBy) {
     projects {
-      items(limit: $limit, offset: $offset) {
+      items(limit: $limit, offset: $offset, filterBy: $filters) {
         id
         name
         location {
           countryName
         }
         projectInfo {
-          buildingFootprint {
+          grossFloorArea {
             value
           }
           buildingType
@@ -2776,6 +2781,7 @@ export const GetProjectPortfolioDocument = gql`
  *   variables: {
  *      limit: // value for 'limit'
  *      offset: // value for 'offset'
+ *      filters: // value for 'filters'
  *   },
  * });
  */
