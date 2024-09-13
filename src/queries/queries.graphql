@@ -1,3 +1,24 @@
+mutation acceptInvitation($userId: String!) {
+  acceptInvitation(userId: $userId)
+}
+
+
+mutation rejectInvitation($userId: String!) {
+  rejectInvitation(userId: $userId)
+}
+
+
+mutation inviteUsers($input: InviteUsersInput!) {
+  inviteUsers(input: $input) {
+    results {
+      email
+      status
+      message
+    }
+  }
+}
+
+
 query getContributionsPerMonth {
   contributions {
     items(sortBy: { dsc: "uploaded_at" }, limit: null) {
@@ -71,6 +92,10 @@ query getUsers($filters: UserFilters) {
     lastName
     email
     timeJoined
+    invited
+    inviteStatus
+    inviterName
+    organizationId
   }
 }
 

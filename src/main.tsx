@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { lazy } from 'react'
 import ReactDOM from 'react-dom/client'
 import { App } from '@components'
 import * as reactRouterDom from 'react-router-dom'
@@ -11,6 +11,8 @@ import { GraphQLProvider, UserProvider } from '@context'
 import { getSuperTokensRoutesForReactRouterDom } from 'supertokens-auth-react/ui'
 import { EmailPasswordPreBuiltUI } from 'supertokens-auth-react/recipe/emailpassword/prebuiltui'
 import { Route, Routes } from 'react-router'
+const RejectInvitePage = lazy(() => import('pages/RejectInvitePage'))
+const AcceptInvitePage = lazy(() => import('pages/AcceptInvitePage'))
 
 SuperTokens.init({
   appInfo: {
@@ -54,6 +56,8 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
       <BrowserRouter>
         <GraphQLProvider>
           <Routes>
+            <Route path='/reject-invite' element={<RejectInvitePage />} />
+            <Route path='/accept-invite' element={<AcceptInvitePage />} />
             {getSuperTokensRoutesForReactRouterDom(reactRouterDom, [EmailPasswordPreBuiltUI])}
             <Route
               path='*'
