@@ -4,37 +4,48 @@ import { useGetProjectDataForBoxPlotQuery } from '@queries'
 import { useMemo } from 'react'
 
 export const GlobalBoxPlot = () => {
-  const { data, loading, error } = useGetProjectDataForBoxPlotQuery()
+  const divideAggregation = { $divide: ['$results.gwp.a1a3', '$projectInfo.buildingFootprint.value'] }
+  const aggregation = [
+    {
+      $group: {
+        _id: '$location.country',
+        count: { $sum: 1 },
+        minimum: { $min: divideAggregation },
+        percentiles: { $percentile: { p: [0.25, 0.75], method: 'approximate', input: divideAggregation } },
+        median: { $median: { method: 'approximate', input: divideAggregation } },
+        maximum: { $max: divideAggregation },
+        average: { $avg: divideAggregation },
+      },
+    },
+    {
+      $project: {
+        _id: null,
+        group: '$_id',
+        count: '$count',
+        min: '$minimum',
+        pct: '$percentiles',
+        median: '$median',
+        max: '$maximum',
+        avg: '$average',
+      },
+    },
+  ]
+  const { data, loading, error } = useGetProjectDataForBoxPlotQuery({ variables: { aggregation: aggregation } })
 
   const boxPlotData: BoxPlotData[] = useMemo(() => {
     if (!data) return []
 
-    const _data = data.projects.groups.map((group) => {
-      const countryName = group.items[0]?.location?.countryName || group.group // Fallback to group name if countryName is not available
-      return group.aggregation.reduce(
-        (acc, curr) => {
-          if (curr.method.toLowerCase() === 'min') acc.min = curr.value!
-          if (curr.method.toLowerCase() === 'pct25') acc.pct25 = curr.value!
-          if (curr.method.toLowerCase() === 'median') acc.median = curr.value!
-          if (curr.method.toLowerCase() === 'pct75') acc.pct75 = curr.value!
-          if (curr.method.toLowerCase() === 'max') acc.max = curr.value!
-          if (curr.method.toLowerCase() === 'avg') acc.avg = curr.value!
-          acc.name = countryName
-          return acc
-        },
-        {
-          name: countryName,
-          min: 0,
-          pct25: 0,
-          median: 0,
-          pct75: 0,
-          max: 0,
-          avg: 0,
-        } as BoxPlotData,
-      )
-    })
-
-    return _data
+    return data.projects.aggregation.map(
+      (agg: { min: number; pct: [number, number]; median: number; max: number; avg: number; group: string }) => ({
+        min: agg.min,
+        pct25: agg.pct[0],
+        median: agg.median,
+        pct75: agg.pct[1],
+        max: agg.max,
+        avg: agg.avg,
+        name: data.projects.groups.find((group) => group.group == agg.group)?.items[0].location.countryName,
+      }),
+    )
   }, [data])
 
   if (loading)
