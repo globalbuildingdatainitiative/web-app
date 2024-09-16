@@ -30,7 +30,7 @@ export const InviteesTable: React.FC<InviteesTableProps> = ({ organizationId }) 
 
   useEffect(() => {
     if (inviteesData) {
-      console.log("All users data:", inviteesData.users);
+      //console.log("All users data:", inviteesData.users);
     }
   }, [inviteesData]);
 
@@ -68,10 +68,10 @@ export const InviteesTable: React.FC<InviteesTableProps> = ({ organizationId }) 
   const rowData = useMemo(() => {
     if (!inviteesData) return []
 
-    console.log("Starting to filter users...");
+    //console.log("Starting to filter users...");
     const filteredData = inviteesData.users
       .filter(user => {
-        console.log(`User ${user.email}: invited=${user.invited}, inviteStatus=${user.inviteStatus}`);
+        //console.log(`User ${user.email}: invited=${user.invited}, inviteStatus=${user.inviteStatus}`);
         const status = user.inviteStatus?.toLowerCase();
         return user.invited && (status === 'pending' || status === 'rejected');
       })
@@ -82,7 +82,7 @@ export const InviteesTable: React.FC<InviteesTableProps> = ({ organizationId }) 
         inviteStatus: user.inviteStatus,
       }));
 
-    console.log("Filtered row data:", filteredData);
+    //console.log("Filtered row data:", filteredData);
     return filteredData as Invitee[];
   }, [inviteesData])
 

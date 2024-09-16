@@ -87,6 +87,7 @@ export const MemberTable: React.FC<MemberTableProps> = ({ organizationId }) => {
 }
 */
 
+
 import { useGetUsersQuery } from '@queries'
 import { MantineReactTable, MRT_ColumnDef, useMantineReactTable } from 'mantine-react-table'
 import React, { useMemo } from 'react'

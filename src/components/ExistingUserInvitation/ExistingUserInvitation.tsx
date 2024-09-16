@@ -6,7 +6,7 @@ import { useNavigate, useLocation } from 'react-router-dom'
 import { MantineProvider } from '@mantine/core'
 import { useAcceptInvitationMutation } from '@queries'
 
-export const AcceptInvitePaper = () => {
+export const ExistingUserInvitation = () => {
   const navigate = useNavigate()
   const location = useLocation()
   const searchParams = new URLSearchParams(location.search)
@@ -16,10 +16,14 @@ export const AcceptInvitePaper = () => {
   const [acceptInvitation, { loading, error }] = useAcceptInvitationMutation()
 
   const handleAccept = async () => {
+    console.log("About to accept invitation")
     if (user_id) {
+      console.log("User id = ", user_id)
       try {
         const { data } = await acceptInvitation({ variables: { userId: user_id } })
+        console.log("Data = ", data)
         if (data?.acceptInvitation) {
+          console.log("Accepted Invitation = ", data.acceptInvitation)
           setAccepted(true)
           setTimeout(() => navigate('/'), 3000) // Redirect to home after 3 seconds
         }
@@ -34,7 +38,7 @@ export const AcceptInvitePaper = () => {
 
   return (
     <MantineProvider>
-      <Paper data-testid='AcceptInvitePaper'>
+      <Paper data-testid='ExistingUserInvitation'>
         <Group>
           <img src={logo} alt='Company Logo' style={{ maxWidth: '400px' }} />
           <Stack align='center' gap='xl'>

@@ -11,6 +11,7 @@ interface UserContextProps {
 export const UserContext = createContext({ user: null } as UserContextProps)
 */
 
+
 import { GetCurrentUserQuery } from '@queries'
 import { createContext } from 'react'
 

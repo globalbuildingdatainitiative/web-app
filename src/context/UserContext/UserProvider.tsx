@@ -1,6 +1,6 @@
 /*
 import { ReactNode, useMemo } from 'react'
-import { useGetCurrentUserQuery } from '@queries'
+import { useGetCurrentUserQuery, useGetUsersQuery } from '@queries'
 import { User, UserContext } from './UserContext.tsx'
 
 type UserProviderProps = {
@@ -9,7 +9,7 @@ type UserProviderProps = {
 
 export const UserProvider = ({ children }: UserProviderProps) => {
   const currentUserId = localStorage.getItem('userId')
-
+  //const allUsers = useGetUsersQuery()
   const { data, loading, error } = useGetCurrentUserQuery({
     variables: { id: currentUserId! },
     skip: !currentUserId,
@@ -22,6 +22,8 @@ export const UserProvider = ({ children }: UserProviderProps) => {
     return data.users[0] as User
   }, [loading, error, data])
 
+  //console.log ("Current user from local storage = ", currentUserId)
+  //console.log("All users: ", allUsers.data)
   return (
     <UserContext.Provider
       value={{
@@ -34,8 +36,9 @@ export const UserProvider = ({ children }: UserProviderProps) => {
 }
 */
 
+
 import { ReactNode, useMemo, useCallback } from 'react';
-import { useGetCurrentUserQuery } from '@queries';
+import { useGetCurrentUserQuery, useGetUsersQuery } from '@queries';
 import { UserContext } from './UserContext';
 
 type UserProviderProps = {
@@ -44,12 +47,15 @@ type UserProviderProps = {
 
 export const UserProvider = ({ children }: UserProviderProps) => {
   const currentUserId = localStorage.getItem('userId');
+  const allUsers = useGetUsersQuery()
 
   const { data, loading, error, refetch } = useGetCurrentUserQuery({
     variables: { id: currentUserId! },
     skip: !currentUserId,
     fetchPolicy: 'network-only',
   });
+
+
 
   const refetchUser = useCallback(async () => {
     if (currentUserId) {
@@ -59,28 +65,29 @@ export const UserProvider = ({ children }: UserProviderProps) => {
 
   const user = useMemo(() => {
     if (loading) {
-      console.log("Loading user data...");
+      console.log("In loading statement ")
       return null;
     }
 
     if (error) {
-      console.error("Error fetching user data:", error);
       return null;
     }
 
     if (!data || !data.users || data.users.length === 0) {
-      console.warn("No user data found for ID:", currentUserId);
+      console.log("In if statement ")
       return null;
     }
 
     const currentUser = data.users.find(user => user.id === currentUserId);
-
+    // Current organization is assigned Null when code reaches this point
+    console.log ("Current user from local storage: ", currentUserId, "Current user from query: ", currentUser)
+    console.log ("All users from backend: ", allUsers.data)
     if (!currentUser) {
-      console.warn("User not found in the returned data:", currentUserId);
+      console.log("In not current user statement ")
       return null;
     }
 
-    console.log("Current user and user's organization: ", currentUser, currentUser.organization);
+    console.log("Current user: ", currentUser, "CurrentUserId: ", currentUserId,  "OrganizationId: " , currentUser.organization?.id);
 
     if (!currentUser.organization) {
       console.warn("User has no associated organization");

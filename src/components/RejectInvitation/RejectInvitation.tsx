@@ -7,7 +7,7 @@ import { MantineProvider } from '@mantine/core'
 import { useRejectInvitationMutation } from '@queries'
 
 
-export const RejectInvitePaper = () => {
+export const RejectInvitation = () => {
   const navigate = useNavigate()
   const location = useLocation()
   const searchParams = new URLSearchParams(location.search)
@@ -35,7 +35,7 @@ export const RejectInvitePaper = () => {
 
   return (
     <MantineProvider>
-      <Paper data-testid='RejectInvitePaper'>
+      <Paper data-testid='RejectInvitation'>
         <Group>
           <img src={logo} alt='Company Logo' style={{ maxWidth: '400px' }} />
           <Stack align='center' gap='xl'>
