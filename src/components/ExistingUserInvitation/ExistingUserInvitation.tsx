@@ -16,18 +16,13 @@ export const ExistingUserInvitation = () => {
   const [acceptInvitation, { loading, error }] = useAcceptInvitationMutation()
 
   const handleAccept = async () => {
-    console.log("About to accept invitation")
     if (user_id) {
-      console.log("User id = ", user_id)
       try {
         const { data } = await acceptInvitation({ variables: { userId: user_id } })
-        console.log("Data = ", data)
         if (data?.acceptInvitation) {
-          console.log("Accepted Invitation = ", data.acceptInvitation)
           setAccepted(true)
           setTimeout(() => navigate('/'), 3000) // Redirect to home after 3 seconds
-        }
-        else {
+        } else {
           console.error('Failed to accept invitation')
         }
       } catch (err) {
@@ -45,7 +40,7 @@ export const ExistingUserInvitation = () => {
             {!accepted ? (
               <>
                 <Text>Click the button below to accept the invitation and sign in:</Text>
-                {error && <Text c="red">Error: {error.message}</Text>}
+                {error && <Text c='red'>Error: {error.message}</Text>}
                 <Button
                   color='green'
                   radius='lg'

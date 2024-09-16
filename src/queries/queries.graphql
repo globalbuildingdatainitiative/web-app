@@ -2,22 +2,17 @@ mutation acceptInvitation($userId: String!) {
   acceptInvitation(userId: $userId)
 }
 
-
 mutation rejectInvitation($userId: String!) {
   rejectInvitation(userId: $userId)
 }
 
-
 mutation inviteUsers($input: InviteUsersInput!) {
   inviteUsers(input: $input) {
-    results {
-      email
-      status
-      message
-    }
+    email
+    status
+    message
   }
 }
-
 
 query getContributionsPerMonth {
   contributions {

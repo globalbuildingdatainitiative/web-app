@@ -1,4 +1,3 @@
-
 import { Button, Text } from '@mantine/core'
 import { IconLogout } from '@tabler/icons-react'
 import { useNavigate } from 'react-router-dom'

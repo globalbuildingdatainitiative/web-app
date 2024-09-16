@@ -3086,38 +3086,6 @@
         "possibleTypes": null
       },
       {
-        "kind": "OBJECT",
-        "name": "InviteUsersResponse",
-        "description": null,
-        "isOneOf": null,
-        "fields": [
-          {
-            "name": "results",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "LIST",
-                "name": null,
-                "ofType": {
-                  "kind": "NON_NULL",
-                  "name": null,
-                  "ofType": { "kind": "OBJECT", "name": "InviteResult", "ofType": null }
-                }
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          }
-        ],
-        "inputFields": null,
-        "interfaces": [],
-        "enumValues": null,
-        "possibleTypes": null
-      },
-      {
         "kind": "SCALAR",
         "name": "JSON",
         "description": "The `JSON` scalar type represents JSON values as specified by [ECMA-404](https://ecma-international.org/wp-content/uploads/ECMA-404_2nd_edition_december_2017.pdf).",
@@ -3407,7 +3375,15 @@
             "type": {
               "kind": "NON_NULL",
               "name": null,
-              "ofType": { "kind": "OBJECT", "name": "InviteUsersResponse", "ofType": null }
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": { "kind": "OBJECT", "name": "InviteResult", "ofType": null }
+                }
+              }
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -4975,6 +4951,14 @@
             "name": "newPassword",
             "description": null,
             "type": { "kind": "SCALAR", "name": "String", "ofType": null },
+            "defaultValue": "null",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "organizationId",
+            "description": null,
+            "type": { "kind": "SCALAR", "name": "UUID", "ofType": null },
             "defaultValue": "null",
             "isDeprecated": false,
             "deprecationReason": null

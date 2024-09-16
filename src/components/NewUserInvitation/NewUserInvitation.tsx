@@ -7,7 +7,6 @@ import { useNavigate, useLocation } from 'react-router-dom'
 import { MantineProvider } from '@mantine/core'
 import { useAcceptInvitationMutation, useUpdateUserMutation } from '@queries'
 
-
 export const NewUserInvitation = () => {
   const navigate = useNavigate()
   const location = useLocation()
@@ -17,7 +16,7 @@ export const NewUserInvitation = () => {
 
   const [acceptInvitation] = useAcceptInvitationMutation()
   const [updateUser] = useUpdateUserMutation()
-  const currentPassword = "asokdA87fnf30efjoiOI**cwjkn"
+  const currentPassword = 'asokdA87fnf30efjoiOI**cwjkn'
 
   const form = useForm({
     initialValues: {
@@ -36,7 +35,6 @@ export const NewUserInvitation = () => {
   const handleAccept = async (values: typeof form.values) => {
     if (user_id) {
       try {
-        // Update user information
         await updateUser({
           variables: {
             userInput: {
@@ -55,8 +53,6 @@ export const NewUserInvitation = () => {
         if (data?.acceptInvitation) {
           setAccepted(true)
           setTimeout(() => navigate('/'), 3000) // Redirect to home after 3 seconds
-        } else {
-          console.error('Failed to accept invitation')
         }
       } catch (err) {
         console.error('Error accepting invitation:', err)
@@ -73,27 +69,23 @@ export const NewUserInvitation = () => {
             {!accepted ? (
               <form onSubmit={form.onSubmit(handleAccept)}>
                 <TextInput
-                  label="First Name"
-                  placeholder="Enter your first name"
+                  label='First Name'
+                  placeholder='Enter your first name'
                   {...form.getInputProps('firstName')}
                 />
-                <TextInput
-                  label="Last Name"
-                  placeholder="Enter your last name"
-                  {...form.getInputProps('lastName')}
-                />
+                <TextInput label='Last Name' placeholder='Enter your last name' {...form.getInputProps('lastName')} />
                 <PasswordInput
-                  label="New Password"
-                  placeholder="Enter your new password"
+                  label='New Password'
+                  placeholder='Enter your new password'
                   {...form.getInputProps('newPassword')}
                 />
                 <PasswordInput
-                  label="Confirm New Password"
-                  placeholder="Confirm your new password"
+                  label='Confirm New Password'
+                  placeholder='Confirm your new password'
                   {...form.getInputProps('confirmPassword')}
                 />
                 <Button
-                  type="submit"
+                  type='submit'
                   color='green'
                   radius='lg'
                   px={16}

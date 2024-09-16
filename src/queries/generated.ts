@@ -932,11 +932,6 @@ export type InviteUsersInput = {
   emails: Array<Scalars['String']['input']>
 }
 
-export type InviteUsersResponse = {
-  __typename?: 'InviteUsersResponse'
-  results: Array<InviteResult>
-}
-
 export enum LifeCycleStage {
   A0 = 'a0',
   A1A3 = 'a1a3',
@@ -978,7 +973,7 @@ export type Mutation = {
   /** Deletes a list of Organizations by their IDs and returns a list of deleted IDs */
   deleteOrganizations: Array<Scalars['UUID']['output']>
   /** Invite users to the organization */
-  inviteUsers: InviteUsersResponse
+  inviteUsers: Array<InviteResult>
   /** Reject an invitation */
   rejectInvitation: Scalars['Boolean']['output']
   /** Updates an existing Organization */
@@ -1256,6 +1251,7 @@ export type UpdateUserInput = {
   inviterName?: InputMaybe<Scalars['String']['input']>
   lastName?: InputMaybe<Scalars['String']['input']>
   newPassword?: InputMaybe<Scalars['String']['input']>
+  organizationId?: InputMaybe<Scalars['UUID']['input']>
 }
 
 export type User = {
@@ -1428,7 +1424,6 @@ export type ResolversTypes = {
   InviteResult: ResolverTypeWrapper<InviteResult>
   InviteStatus: InviteStatus
   InviteUsersInput: InviteUsersInput
-  InviteUsersResponse: ResolverTypeWrapper<InviteUsersResponse>
   JSON: ResolverTypeWrapper<Scalars['JSON']['output']>
   LifeCycleStage: LifeCycleStage
   Location: ResolverTypeWrapper<Location>
@@ -1508,7 +1503,6 @@ export type ResolversParentTypes = {
   InputValueUnit: InputValueUnit
   InviteResult: InviteResult
   InviteUsersInput: InviteUsersInput
-  InviteUsersResponse: InviteUsersResponse
   JSON: Scalars['JSON']['output']
   Location: Location
   Mutation: {}
@@ -1722,14 +1716,6 @@ export type InviteResultResolvers<
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>
 }
 
-export type InviteUsersResponseResolvers<
-  ContextType = any,
-  ParentType extends ResolversParentTypes['InviteUsersResponse'] = ResolversParentTypes['InviteUsersResponse'],
-> = {
-  results?: Resolver<Array<ResolversTypes['InviteResult']>, ParentType, ContextType>
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>
-}
-
 export interface JsonScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['JSON'], any> {
   name: 'JSON'
 }
@@ -1776,7 +1762,7 @@ export type MutationResolvers<
     RequireFields<MutationDeleteOrganizationsArgs, 'ids'>
   >
   inviteUsers?: Resolver<
-    ResolversTypes['InviteUsersResponse'],
+    Array<ResolversTypes['InviteResult']>,
     ParentType,
     ContextType,
     RequireFields<MutationInviteUsersArgs, 'input'>
@@ -2032,7 +2018,6 @@ export type Resolvers<ContextType = any> = {
   EPD?: EpdResolvers<ContextType>
   EPDTechFlow?: EpdTechFlowResolvers<ContextType>
   InviteResult?: InviteResultResolvers<ContextType>
-  InviteUsersResponse?: InviteUsersResponseResolvers<ContextType>
   JSON?: GraphQLScalarType
   Location?: LocationResolvers<ContextType>
   Mutation?: MutationResolvers<ContextType>
@@ -2073,10 +2058,7 @@ export type InviteUsersMutationVariables = Exact<{
 
 export type InviteUsersMutation = {
   __typename?: 'Mutation'
-  inviteUsers: {
-    __typename?: 'InviteUsersResponse'
-    results: Array<{ __typename?: 'InviteResult'; email: string; status: string; message: string }>
-  }
+  inviteUsers: Array<{ __typename?: 'InviteResult'; email: string; status: string; message: string }>
 }
 
 export type GetContributionsPerMonthQueryVariables = Exact<{ [key: string]: never }>
@@ -2176,6 +2158,7 @@ export type GetUsersQuery = {
     invited: boolean
     inviteStatus: InviteStatus
     inviterName?: string | null
+    organizationId?: any | null
   }>
 }
 
@@ -2361,11 +2344,9 @@ export type RejectInvitationMutationOptions = Apollo.BaseMutationOptions<
 export const InviteUsersDocument = gql`
   mutation inviteUsers($input: InviteUsersInput!) {
     inviteUsers(input: $input) {
-      results {
-        email
-        status
-        message
-      }
+      email
+      status
+      message
     }
   }
 `
@@ -2747,6 +2728,7 @@ export const GetUsersDocument = gql`
       invited
       inviteStatus
       inviterName
+      organizationId
     }
   }
 `

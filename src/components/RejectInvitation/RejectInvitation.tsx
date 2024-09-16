@@ -6,7 +6,6 @@ import { useNavigate, useLocation } from 'react-router-dom'
 import { MantineProvider } from '@mantine/core'
 import { useRejectInvitationMutation } from '@queries'
 
-
 export const RejectInvitation = () => {
   const navigate = useNavigate()
   const location = useLocation()
@@ -16,16 +15,13 @@ export const RejectInvitation = () => {
 
   const [rejectInvitation, { loading, error }] = useRejectInvitationMutation()
 
-    const handleReject = async () => {
+  const handleReject = async () => {
     if (user_id) {
       try {
         const { data } = await rejectInvitation({ variables: { userId: user_id } })
         if (data?.rejectInvitation) {
           setRejected(true)
-          setTimeout(() => navigate('/'), 3000) // Redirect to home after 3 seconds
-        }
-        else {
-          console.error('Failed to reject invitation')
+          setTimeout(() => navigate('/'), 3000)
         }
       } catch (err) {
         console.error('Error rejecting invitation:', err)
@@ -42,7 +38,7 @@ export const RejectInvitation = () => {
             {!rejected ? (
               <>
                 <Text>Are you sure you want to reject this invitation?</Text>
-                {error && <Text c="red">Error: {error.message}</Text>}
+                {error && <Text c='red'>Error: {error.message}</Text>}
                 <Button
                   color='red'
                   radius='lg'

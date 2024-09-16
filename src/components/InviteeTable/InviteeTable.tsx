@@ -1,4 +1,4 @@
-import React, { useMemo, useEffect } from 'react'
+import React, { useMemo } from 'react'
 import { useGetUsersQuery } from '@queries'
 import { MantineReactTable, MRT_ColumnDef, useMantineReactTable } from 'mantine-react-table'
 
@@ -28,12 +28,6 @@ export const InviteesTable: React.FC<InviteesTableProps> = ({ organizationId }) 
     },
   })
 
-  useEffect(() => {
-    if (inviteesData) {
-      //console.log("All users data:", inviteesData.users);
-    }
-  }, [inviteesData]);
-
   const columns = useMemo<MRT_ColumnDef<Invitee>[]>(
     () => [
       {
@@ -51,8 +45,8 @@ export const InviteesTable: React.FC<InviteesTableProps> = ({ organizationId }) 
         accessorKey: 'inviterName',
         header: "Inviter's Name",
         Cell: ({ cell }) => {
-          const value = cell.getValue<string>();
-          return value && value.trim() !== "" ? value : 'N/A';
+          const value = cell.getValue<string>()
+          return value && value.trim() !== '' ? value : 'N/A'
         },
         size: 150,
       },
@@ -62,28 +56,25 @@ export const InviteesTable: React.FC<InviteesTableProps> = ({ organizationId }) 
         size: 150,
       },
     ],
-    []
+    [],
   )
 
   const rowData = useMemo(() => {
     if (!inviteesData) return []
 
-    //console.log("Starting to filter users...");
     const filteredData = inviteesData.users
-      .filter(user => {
-        //console.log(`User ${user.email}: invited=${user.invited}, inviteStatus=${user.inviteStatus}`);
-        const status = user.inviteStatus?.toLowerCase();
-        return user.invited && (status === 'pending' || status === 'rejected');
+      .filter((user) => {
+        const status = user.inviteStatus?.toLowerCase()
+        return user.invited && (status === 'pending' || status === 'rejected')
       })
-      .map(user => ({
+      .map((user) => ({
         email: user.email,
         timeJoined: user.timeJoined,
         inviterName: user.inviterName || 'N/A',
         inviteStatus: user.inviteStatus,
-      }));
+      }))
 
-    //console.log("Filtered row data:", filteredData);
-    return filteredData as Invitee[];
+    return filteredData as Invitee[]
   }, [inviteesData])
 
   const table = useMantineReactTable({
