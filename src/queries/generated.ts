@@ -156,6 +156,10 @@ export type ContributionGraphQlResponseAggregationArgs = {
   apply: Scalars['JSON']['input']
 }
 
+export type ContributionGraphQlResponseCountArgs = {
+  filterBy?: InputMaybe<FilterBy>
+}
+
 export type ContributionGraphQlResponseGroupsArgs = {
   groupBy: Scalars['String']['input']
   limit?: Scalars['Int']['input']
@@ -703,7 +707,12 @@ export type EpdTechFlow = Epd | TechFlow
 
 export type FilterBy = {
   equal?: InputMaybe<Scalars['JSON']['input']>
+  gt?: InputMaybe<Scalars['JSON']['input']>
+  gte?: InputMaybe<Scalars['JSON']['input']>
   isTrue?: InputMaybe<Scalars['Boolean']['input']>
+  lt?: InputMaybe<Scalars['JSON']['input']>
+  lte?: InputMaybe<Scalars['JSON']['input']>
+  notEqual?: InputMaybe<Scalars['JSON']['input']>
 }
 
 export type FilterOptions = {
@@ -892,7 +901,7 @@ export type InputProjectInfo = {
   frameType?: InputMaybe<Scalars['String']['input']>
   generalEnergyClass?: InputMaybe<GeneralEnergyClass>
   grossFloorArea: InputAreaType
-  heatedFloorArea: InputAreaType
+  heatedFloorArea?: InputMaybe<InputAreaType>
   localEnergyClass?: InputMaybe<Scalars['String']['input']>
   roofType?: InputMaybe<RoofType>
   type: Scalars['String']['input']
@@ -1095,6 +1104,10 @@ export type ProjectGraphQlResponse = {
 
 export type ProjectGraphQlResponseAggregationArgs = {
   apply: Scalars['JSON']['input']
+}
+
+export type ProjectGraphQlResponseCountArgs = {
+  filterBy?: InputMaybe<FilterBy>
 }
 
 export type ProjectGraphQlResponseGroupsArgs = {
@@ -1642,7 +1655,12 @@ export type ContributionGraphQlResponseResolvers<
     ContextType,
     RequireFields<ContributionGraphQlResponseAggregationArgs, 'apply'>
   >
-  count?: Resolver<ResolversTypes['Int'], ParentType, ContextType>
+  count?: Resolver<
+    ResolversTypes['Int'],
+    ParentType,
+    ContextType,
+    RequireFields<ContributionGraphQlResponseCountArgs, 'filterBy'>
+  >
   groups?: Resolver<
     Array<ResolversTypes['ContributionGraphQLGroupResponse']>,
     ParentType,
@@ -1653,7 +1671,7 @@ export type ContributionGraphQlResponseResolvers<
     Maybe<Array<ResolversTypes['Contribution']>>,
     ParentType,
     ContextType,
-    RequireFields<ContributionGraphQlResponseItemsArgs, 'filterBy' | 'limit' | 'offset' | 'sortBy'>
+    RequireFields<ContributionGraphQlResponseItemsArgs, 'filterBy' | 'offset' | 'sortBy'>
   >
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>
 }
@@ -1872,7 +1890,12 @@ export type ProjectGraphQlResponseResolvers<
     ContextType,
     RequireFields<ProjectGraphQlResponseAggregationArgs, 'apply'>
   >
-  count?: Resolver<ResolversTypes['Int'], ParentType, ContextType>
+  count?: Resolver<
+    ResolversTypes['Int'],
+    ParentType,
+    ContextType,
+    RequireFields<ProjectGraphQlResponseCountArgs, 'filterBy'>
+  >
   groups?: Resolver<
     Array<ResolversTypes['ProjectGraphQLGroupResponse']>,
     ParentType,
@@ -1883,7 +1906,7 @@ export type ProjectGraphQlResponseResolvers<
     Maybe<Array<ResolversTypes['Project']>>,
     ParentType,
     ContextType,
-    RequireFields<ProjectGraphQlResponseItemsArgs, 'filterBy' | 'limit' | 'offset' | 'sortBy'>
+    RequireFields<ProjectGraphQlResponseItemsArgs, 'filterBy' | 'offset' | 'sortBy'>
   >
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>
 }
@@ -2234,6 +2257,7 @@ export type GetProjectDataForBoxPlotQuery = {
 export type GetProjectPortfolioQueryVariables = Exact<{
   limit?: InputMaybe<Scalars['Int']['input']>
   offset?: InputMaybe<Scalars['Int']['input']>
+  filters?: InputMaybe<FilterBy>
 }>
 
 export type GetProjectPortfolioQuery = {
@@ -2251,7 +2275,7 @@ export type GetProjectPortfolioQuery = {
         __typename?: 'ProjectInfo'
         buildingType: BuildingType
         buildingTypology: Array<BuildingTypology>
-        buildingFootprint?: { __typename?: 'ValueUnit'; value: number } | null
+        grossFloorArea?: { __typename?: 'AreaType'; value: number } | null
       }
     }> | null
   }
@@ -3006,16 +3030,16 @@ export type GetProjectDataForBoxPlotQueryResult = Apollo.QueryResult<
   GetProjectDataForBoxPlotQueryVariables
 >
 export const GetProjectPortfolioDocument = gql`
-  query getProjectPortfolio($limit: Int, $offset: Int) {
+  query getProjectPortfolio($limit: Int, $offset: Int, $filters: FilterBy) {
     projects {
-      items(limit: $limit, offset: $offset) {
+      items(limit: $limit, offset: $offset, filterBy: $filters) {
         id
         name
         location {
           countryName
         }
         projectInfo {
-          buildingFootprint {
+          grossFloorArea {
             value
           }
           buildingType
@@ -3023,7 +3047,7 @@ export const GetProjectPortfolioDocument = gql`
         }
         results
       }
-      count
+      count(filterBy: $filters)
     }
   }
 `
@@ -3042,6 +3066,7 @@ export const GetProjectPortfolioDocument = gql`
  *   variables: {
  *      limit: // value for 'limit'
  *      offset: // value for 'offset'
+ *      filters: // value for 'filters'
  *   },
  * });
  */

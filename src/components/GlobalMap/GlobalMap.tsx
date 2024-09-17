@@ -3,10 +3,11 @@ import { useGetProjectsCountsByCountryQuery } from '@queries'
 import 'leaflet/dist/leaflet.css'
 import { Center, useMantineTheme, Text } from '@mantine/core'
 import { Loading } from '@components'
+import { useViewportSize } from '@mantine/hooks'
 
 export const GlobalMap = () => {
   const { data, loading, error } = useGetProjectsCountsByCountryQuery()
-
+  const { height } = useViewportSize()
   const theme = useMantineTheme()
 
   if (loading)
@@ -18,7 +19,7 @@ export const GlobalMap = () => {
   if (error) return <p>Error: {error.message}</p>
 
   return (
-    <div style={{ height: '600px' }} data-testid='GlobalMap'>
+    <div style={{ height: height * 0.9 }} data-testid='GlobalMap'>
       <MapContainer center={[0, 0]} zoom={2} scrollWheelZoom={true} style={{ height: '100%', width: '100%' }}>
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'

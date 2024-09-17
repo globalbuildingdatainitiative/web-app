@@ -12,6 +12,7 @@ import {
 } from 'recharts'
 import { useMemo } from 'react'
 import { BoxPlotData } from './types.ts'
+import { useViewportSize } from '@mantine/hooks'
 
 const HorizonBar = (props: RectangleProps) => {
   const { x, y, width, height } = props
@@ -38,6 +39,8 @@ interface BoxPlotProps {
 }
 
 export const BoxPlot = (props: BoxPlotProps) => {
+  const { height } = useViewportSize()
+
   const data = useMemo(
     () =>
       props.data.map((v) => {
@@ -57,12 +60,12 @@ export const BoxPlot = (props: BoxPlotProps) => {
 
   return (
     <div data-testid='BoxPlot'>
-      <ResponsiveContainer minHeight={600}>
+      <ResponsiveContainer minHeight={height * 0.9}>
         <ComposedChart layout='vertical' data={data} margin={{ left: 100, right: 50, bottom: 50 }}>
           <CartesianGrid strokeDasharray='3 3' />
           <XAxis
             type='number'
-            domain={[0, 100]}
+            domain={[0, 10]}
             tickCount={7}
             label={{ value: 'GWP Intensity (kgCO₂eq/m²)', position: 'insideBottom', offset: -10 }}
           />
