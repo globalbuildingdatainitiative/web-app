@@ -20,25 +20,12 @@ export const ContributionTable: React.FC = () => {
   const columns = useMemo<MRT_ColumnDef<ContributionItems>[]>(
     () => [
       {
-        accessorKey: 'id',
-        header: 'ID',
-        size: 50,
-      },
-      {
         accessorKey: 'project.name',
         header: 'Project',
-        size: 300,
-      },
-      {
-        accessorKey: 'uploadedAt',
-        header: 'Date',
-        Cell: ({ cell }) => <Text>{dayjs(cell.getValue<string>()).format('DD/MM/YYYY')}</Text>,
-        size: 50,
       },
       {
         accessorFn: (row) => `${row.user?.firstName ?? 'N/A'} ${row.user?.lastName ?? 'N/A'}`,
         header: 'User',
-        size: 150,
         Cell: ({ row }) => {
           const firstName = row.original.user?.firstName ?? 'N/A'
           const lastName = row.original.user?.lastName ?? 'N/A'
@@ -46,14 +33,17 @@ export const ContributionTable: React.FC = () => {
         },
       },
       {
+        accessorKey: 'uploadedAt',
+        header: 'Date',
+        Cell: ({ cell }) => <Text>{dayjs(cell.getValue<string>()).format('DD/MM/YYYY')}</Text>,
+      },
+      {
         accessorKey: 'project.location.countryName',
         header: 'Country',
-        size: 100,
       },
     ],
     [],
   )
-
   const rowData = useMemo(() => data?.contributions.items || [], [data])
   const totalRowCount = useMemo(() => data?.contributions.count || 0, [data])
 
