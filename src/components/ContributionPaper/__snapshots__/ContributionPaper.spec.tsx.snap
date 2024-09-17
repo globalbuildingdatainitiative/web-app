@@ -928,12 +928,14 @@ exports[`ContributionPaper 1`] = `
               </div>
               <div
                 class="m_c44ba933 mantine-ScrollArea-scrollbar"
+                data-mantine-scrollbar="true"
                 data-orientation="horizontal"
                 data-state="hidden"
                 style="position: absolute; --sa-thumb-width: 18px;"
               />
               <div
                 class="m_c44ba933 mantine-ScrollArea-scrollbar"
+                data-mantine-scrollbar="true"
                 data-orientation="vertical"
                 data-state="hidden"
                 style="position: absolute; --sa-thumb-height: 18px;"

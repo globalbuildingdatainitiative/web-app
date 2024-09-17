@@ -54,7 +54,10 @@ export const MemberTable: React.FC<MemberTableProps> = ({ organizationId }) => {
   const rowData = useMemo(() => {
     if (!usersData) return []
 
-    return usersData.users as Row[]
+    return usersData.users.filter((user) => {
+      const status = user.inviteStatus?.toLowerCase()
+      return !user.invited || status === 'accepted'
+    }) as Row[]
   }, [usersData])
 
   const table = useMantineReactTable({

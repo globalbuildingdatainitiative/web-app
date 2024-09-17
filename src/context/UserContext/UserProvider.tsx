@@ -8,7 +8,6 @@ type UserProviderProps = {
 
 export const UserProvider = ({ children }: UserProviderProps) => {
   const currentUserId = localStorage.getItem('userId')
-
   const { data, loading, error } = useGetCurrentUserQuery({
     variables: { id: currentUserId! },
     skip: !currentUserId,

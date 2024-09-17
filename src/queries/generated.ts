@@ -914,6 +914,24 @@ export type InputValueUnit = {
   value: Scalars['Float']['input']
 }
 
+export type InviteResult = {
+  __typename?: 'InviteResult'
+  email: Scalars['String']['output']
+  message: Scalars['String']['output']
+  status: Scalars['String']['output']
+}
+
+export enum InviteStatus {
+  ACCEPTED = 'ACCEPTED',
+  NONE = 'NONE',
+  PENDING = 'PENDING',
+  REJECTED = 'REJECTED',
+}
+
+export type InviteUsersInput = {
+  emails: Array<Scalars['String']['input']>
+}
+
 export enum LifeCycleStage {
   A0 = 'a0',
   A1A3 = 'a1a3',
@@ -946,16 +964,26 @@ export type Location = {
 
 export type Mutation = {
   __typename?: 'Mutation'
+  /** Accept an invitation */
+  acceptInvitation: Scalars['Boolean']['output']
   /** Creates new Contributions */
   addContributions: Array<Contribution>
   /** Creates multiple organizations and associates them with the current user */
   createOrganizations: Array<Organization>
   /** Deletes a list of Organizations by their IDs and returns a list of deleted IDs */
   deleteOrganizations: Array<Scalars['UUID']['output']>
+  /** Invite users to the organization */
+  inviteUsers: Array<InviteResult>
+  /** Reject an invitation */
+  rejectInvitation: Scalars['Boolean']['output']
   /** Updates an existing Organization */
   updateOrganizations: Array<Organization>
   /** Update user details */
   updateUser: User
+}
+
+export type MutationAcceptInvitationArgs = {
+  userId: Scalars['String']['input']
 }
 
 export type MutationAddContributionsArgs = {
@@ -968,6 +996,14 @@ export type MutationCreateOrganizationsArgs = {
 
 export type MutationDeleteOrganizationsArgs = {
   ids: Array<Scalars['UUID']['input']>
+}
+
+export type MutationInviteUsersArgs = {
+  input: InviteUsersInput
+}
+
+export type MutationRejectInvitationArgs = {
+  userId: Scalars['String']['input']
 }
 
 export type MutationUpdateOrganizationsArgs = {
@@ -1210,8 +1246,12 @@ export type UpdateUserInput = {
   email?: InputMaybe<Scalars['String']['input']>
   firstName?: InputMaybe<Scalars['String']['input']>
   id: Scalars['UUID']['input']
+  inviteStatus?: InputMaybe<InviteStatus>
+  invited?: InputMaybe<Scalars['Boolean']['input']>
+  inviterName?: InputMaybe<Scalars['String']['input']>
   lastName?: InputMaybe<Scalars['String']['input']>
   newPassword?: InputMaybe<Scalars['String']['input']>
+  organizationId?: InputMaybe<Scalars['UUID']['input']>
 }
 
 export type User = {
@@ -1219,6 +1259,9 @@ export type User = {
   email: Scalars['String']['output']
   firstName?: Maybe<Scalars['String']['output']>
   id: Scalars['UUID']['output']
+  inviteStatus: InviteStatus
+  invited: Scalars['Boolean']['output']
+  inviterName?: Maybe<Scalars['String']['output']>
   lastName?: Maybe<Scalars['String']['output']>
   organization?: Maybe<Organization>
   organizationId?: Maybe<Scalars['UUID']['output']>
@@ -1229,6 +1272,9 @@ export type UserFilters = {
   email?: InputMaybe<FilterOptions>
   firstName?: InputMaybe<FilterOptions>
   id?: InputMaybe<FilterOptions>
+  inviteStatus?: InputMaybe<FilterOptions>
+  invited?: InputMaybe<FilterOptions>
+  inviterName?: InputMaybe<FilterOptions>
   lastName?: InputMaybe<FilterOptions>
   organizationId?: InputMaybe<FilterOptions>
 }
@@ -1236,6 +1282,9 @@ export type UserFilters = {
 export type UserSort = {
   firstName?: InputMaybe<SortOptions>
   id?: InputMaybe<SortOptions>
+  inviteStatus?: InputMaybe<SortOptions>
+  invited?: InputMaybe<SortOptions>
+  inviterName?: InputMaybe<SortOptions>
   lastName?: InputMaybe<SortOptions>
   name?: InputMaybe<SortOptions>
   organizationId?: InputMaybe<SortOptions>
@@ -1318,7 +1367,7 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 ) => TResult | Promise<TResult>
 
 /** Mapping of union types */
-export type ResolversUnionTypes<RefType extends Record<string, unknown>> = {
+export type ResolversUnionTypes<_RefType extends Record<string, unknown>> = {
   EPDTechFlow: Epd | TechFlow
 }
 
@@ -1329,15 +1378,22 @@ export type ResolversTypes = {
   String: ResolverTypeWrapper<Scalars['String']['output']>
   Float: ResolverTypeWrapper<Scalars['Float']['output']>
   AreaType: ResolverTypeWrapper<AreaType>
-  Assembly: ResolverTypeWrapper<Assembly>
+  Assembly: ResolverTypeWrapper<Omit<Assembly, 'products'> & { products: Array<ResolversTypes['Product']> }>
   BuildingModelScope: BuildingModelScope
   BuildingType: BuildingType
   BuildingTypology: BuildingTypology
   Classification: ResolverTypeWrapper<Classification>
-  Contribution: ResolverTypeWrapper<Contribution>
-  ContributionGraphQLGroupResponse: ResolverTypeWrapper<ContributionGraphQlGroupResponse>
+  Contribution: ResolverTypeWrapper<Omit<Contribution, 'project'> & { project: ResolversTypes['Project'] }>
+  ContributionGraphQLGroupResponse: ResolverTypeWrapper<
+    Omit<ContributionGraphQlGroupResponse, 'items'> & { items: Array<ResolversTypes['Contribution']> }
+  >
   Int: ResolverTypeWrapper<Scalars['Int']['output']>
-  ContributionGraphQLResponse: ResolverTypeWrapper<ContributionGraphQlResponse>
+  ContributionGraphQLResponse: ResolverTypeWrapper<
+    Omit<ContributionGraphQlResponse, 'groups' | 'items'> & {
+      groups: Array<ResolversTypes['ContributionGraphQLGroupResponse']>
+      items?: Maybe<Array<ResolversTypes['Contribution']>>
+    }
+  >
   Conversion: ResolverTypeWrapper<Conversion>
   Country: Country
   CountryCodes: CountryCodes
@@ -1365,6 +1421,9 @@ export type ResolversTypes = {
   InputSoftwareInfo: InputSoftwareInfo
   InputSource: InputSource
   InputValueUnit: InputValueUnit
+  InviteResult: ResolverTypeWrapper<InviteResult>
+  InviteStatus: InviteStatus
+  InviteUsersInput: InviteUsersInput
   JSON: ResolverTypeWrapper<Scalars['JSON']['output']>
   LifeCycleStage: LifeCycleStage
   Location: ResolverTypeWrapper<Location>
@@ -1372,9 +1431,16 @@ export type ResolversTypes = {
   Organization: ResolverTypeWrapper<Organization>
   OrganizationFilter: OrganizationFilter
   Product: ResolverTypeWrapper<Omit<Product, 'impactData'> & { impactData: ResolversTypes['EPDTechFlow'] }>
-  Project: ResolverTypeWrapper<Project>
-  ProjectGraphQLGroupResponse: ResolverTypeWrapper<ProjectGraphQlGroupResponse>
-  ProjectGraphQLResponse: ResolverTypeWrapper<ProjectGraphQlResponse>
+  Project: ResolverTypeWrapper<Omit<Project, 'assemblies'> & { assemblies: Array<ResolversTypes['Assembly']> }>
+  ProjectGraphQLGroupResponse: ResolverTypeWrapper<
+    Omit<ProjectGraphQlGroupResponse, 'items'> & { items: Array<ResolversTypes['Project']> }
+  >
+  ProjectGraphQLResponse: ResolverTypeWrapper<
+    Omit<ProjectGraphQlResponse, 'groups' | 'items'> & {
+      groups: Array<ResolversTypes['ProjectGraphQLGroupResponse']>
+      items?: Maybe<Array<ResolversTypes['Project']>>
+    }
+  >
   ProjectInfo: ResolverTypeWrapper<ProjectInfo>
   ProjectPhase: ProjectPhase
   Query: ResolverTypeWrapper<{}>
@@ -1401,12 +1467,17 @@ export type ResolversParentTypes = {
   String: Scalars['String']['output']
   Float: Scalars['Float']['output']
   AreaType: AreaType
-  Assembly: Assembly
+  Assembly: Omit<Assembly, 'products'> & { products: Array<ResolversParentTypes['Product']> }
   Classification: Classification
-  Contribution: Contribution
-  ContributionGraphQLGroupResponse: ContributionGraphQlGroupResponse
+  Contribution: Omit<Contribution, 'project'> & { project: ResolversParentTypes['Project'] }
+  ContributionGraphQLGroupResponse: Omit<ContributionGraphQlGroupResponse, 'items'> & {
+    items: Array<ResolversParentTypes['Contribution']>
+  }
   Int: Scalars['Int']['output']
-  ContributionGraphQLResponse: ContributionGraphQlResponse
+  ContributionGraphQLResponse: Omit<ContributionGraphQlResponse, 'groups' | 'items'> & {
+    groups: Array<ResolversParentTypes['ContributionGraphQLGroupResponse']>
+    items?: Maybe<Array<ResolversParentTypes['Contribution']>>
+  }
   Conversion: Conversion
   Date: Scalars['Date']['output']
   DateTime: Scalars['DateTime']['output']
@@ -1430,15 +1501,22 @@ export type ResolversParentTypes = {
   InputSoftwareInfo: InputSoftwareInfo
   InputSource: InputSource
   InputValueUnit: InputValueUnit
+  InviteResult: InviteResult
+  InviteUsersInput: InviteUsersInput
   JSON: Scalars['JSON']['output']
   Location: Location
   Mutation: {}
   Organization: Organization
   OrganizationFilter: OrganizationFilter
   Product: Omit<Product, 'impactData'> & { impactData: ResolversParentTypes['EPDTechFlow'] }
-  Project: Project
-  ProjectGraphQLGroupResponse: ProjectGraphQlGroupResponse
-  ProjectGraphQLResponse: ProjectGraphQlResponse
+  Project: Omit<Project, 'assemblies'> & { assemblies: Array<ResolversParentTypes['Assembly']> }
+  ProjectGraphQLGroupResponse: Omit<ProjectGraphQlGroupResponse, 'items'> & {
+    items: Array<ResolversParentTypes['Project']>
+  }
+  ProjectGraphQLResponse: Omit<ProjectGraphQlResponse, 'groups' | 'items'> & {
+    groups: Array<ResolversParentTypes['ProjectGraphQLGroupResponse']>
+    items?: Maybe<Array<ResolversParentTypes['Project']>>
+  }
   ProjectInfo: ProjectInfo
   Query: {}
   SoftwareInfo: SoftwareInfo
@@ -1628,6 +1706,16 @@ export type EpdTechFlowResolvers<
   __resolveType: TypeResolveFn<'EPD' | 'TechFlow', ParentType, ContextType>
 }
 
+export type InviteResultResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['InviteResult'] = ResolversParentTypes['InviteResult'],
+> = {
+  email?: Resolver<ResolversTypes['String'], ParentType, ContextType>
+  message?: Resolver<ResolversTypes['String'], ParentType, ContextType>
+  status?: Resolver<ResolversTypes['String'], ParentType, ContextType>
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>
+}
+
 export interface JsonScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['JSON'], any> {
   name: 'JSON'
 }
@@ -1649,6 +1737,12 @@ export type MutationResolvers<
   ContextType = any,
   ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation'],
 > = {
+  acceptInvitation?: Resolver<
+    ResolversTypes['Boolean'],
+    ParentType,
+    ContextType,
+    RequireFields<MutationAcceptInvitationArgs, 'userId'>
+  >
   addContributions?: Resolver<
     Array<ResolversTypes['Contribution']>,
     ParentType,
@@ -1666,6 +1760,18 @@ export type MutationResolvers<
     ParentType,
     ContextType,
     RequireFields<MutationDeleteOrganizationsArgs, 'ids'>
+  >
+  inviteUsers?: Resolver<
+    Array<ResolversTypes['InviteResult']>,
+    ParentType,
+    ContextType,
+    RequireFields<MutationInviteUsersArgs, 'input'>
+  >
+  rejectInvitation?: Resolver<
+    ResolversTypes['Boolean'],
+    ParentType,
+    ContextType,
+    RequireFields<MutationRejectInvitationArgs, 'userId'>
   >
   updateOrganizations?: Resolver<
     Array<ResolversTypes['Organization']>,
@@ -1879,6 +1985,9 @@ export type UserResolvers<
   email?: Resolver<ResolversTypes['String'], ParentType, ContextType>
   firstName?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
   id?: Resolver<ResolversTypes['UUID'], ParentType, ContextType>
+  inviteStatus?: Resolver<ResolversTypes['InviteStatus'], ParentType, ContextType>
+  invited?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>
+  inviterName?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
   lastName?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
   organization?: Resolver<Maybe<ResolversTypes['Organization']>, ParentType, ContextType>
   organizationId?: Resolver<Maybe<ResolversTypes['UUID']>, ParentType, ContextType>
@@ -1908,6 +2017,7 @@ export type Resolvers<ContextType = any> = {
   DateTime?: GraphQLScalarType
   EPD?: EpdResolvers<ContextType>
   EPDTechFlow?: EpdTechFlowResolvers<ContextType>
+  InviteResult?: InviteResultResolvers<ContextType>
   JSON?: GraphQLScalarType
   Location?: LocationResolvers<ContextType>
   Mutation?: MutationResolvers<ContextType>
@@ -1928,6 +2038,27 @@ export type Resolvers<ContextType = any> = {
 
 export type DirectiveResolvers<ContextType = any> = {
   defer?: DeferDirectiveResolver<any, any, ContextType>
+}
+
+export type AcceptInvitationMutationVariables = Exact<{
+  userId: Scalars['String']['input']
+}>
+
+export type AcceptInvitationMutation = { __typename?: 'Mutation'; acceptInvitation: boolean }
+
+export type RejectInvitationMutationVariables = Exact<{
+  userId: Scalars['String']['input']
+}>
+
+export type RejectInvitationMutation = { __typename?: 'Mutation'; rejectInvitation: boolean }
+
+export type InviteUsersMutationVariables = Exact<{
+  input: InviteUsersInput
+}>
+
+export type InviteUsersMutation = {
+  __typename?: 'Mutation'
+  inviteUsers: Array<{ __typename?: 'InviteResult'; email: string; status: string; message: string }>
 }
 
 export type GetContributionsPerMonthQueryVariables = Exact<{ [key: string]: never }>
@@ -2024,6 +2155,10 @@ export type GetUsersQuery = {
     lastName?: string | null
     email: string
     timeJoined: any
+    invited: boolean
+    inviteStatus: InviteStatus
+    inviterName?: string | null
+    organizationId?: any | null
   }>
 }
 
@@ -2122,10 +2257,131 @@ export type GetProjectPortfolioQuery = {
   }
 }
 
+export const AcceptInvitationDocument = gql`
+  mutation acceptInvitation($userId: String!) {
+    acceptInvitation(userId: $userId)
+  }
+`
+export type AcceptInvitationMutationFn = Apollo.MutationFunction<
+  AcceptInvitationMutation,
+  AcceptInvitationMutationVariables
+>
+
+/**
+ * __useAcceptInvitationMutation__
+ *
+ * To run a mutation, you first call `useAcceptInvitationMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useAcceptInvitationMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [acceptInvitationMutation, { data, loading, error }] = useAcceptInvitationMutation({
+ *   variables: {
+ *      userId: // value for 'userId'
+ *   },
+ * });
+ */
+export function useAcceptInvitationMutation(
+  baseOptions?: Apollo.MutationHookOptions<AcceptInvitationMutation, AcceptInvitationMutationVariables>,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<AcceptInvitationMutation, AcceptInvitationMutationVariables>(
+    AcceptInvitationDocument,
+    options,
+  )
+}
+export type AcceptInvitationMutationHookResult = ReturnType<typeof useAcceptInvitationMutation>
+export type AcceptInvitationMutationResult = Apollo.MutationResult<AcceptInvitationMutation>
+export type AcceptInvitationMutationOptions = Apollo.BaseMutationOptions<
+  AcceptInvitationMutation,
+  AcceptInvitationMutationVariables
+>
+export const RejectInvitationDocument = gql`
+  mutation rejectInvitation($userId: String!) {
+    rejectInvitation(userId: $userId)
+  }
+`
+export type RejectInvitationMutationFn = Apollo.MutationFunction<
+  RejectInvitationMutation,
+  RejectInvitationMutationVariables
+>
+
+/**
+ * __useRejectInvitationMutation__
+ *
+ * To run a mutation, you first call `useRejectInvitationMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useRejectInvitationMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [rejectInvitationMutation, { data, loading, error }] = useRejectInvitationMutation({
+ *   variables: {
+ *      userId: // value for 'userId'
+ *   },
+ * });
+ */
+export function useRejectInvitationMutation(
+  baseOptions?: Apollo.MutationHookOptions<RejectInvitationMutation, RejectInvitationMutationVariables>,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<RejectInvitationMutation, RejectInvitationMutationVariables>(
+    RejectInvitationDocument,
+    options,
+  )
+}
+export type RejectInvitationMutationHookResult = ReturnType<typeof useRejectInvitationMutation>
+export type RejectInvitationMutationResult = Apollo.MutationResult<RejectInvitationMutation>
+export type RejectInvitationMutationOptions = Apollo.BaseMutationOptions<
+  RejectInvitationMutation,
+  RejectInvitationMutationVariables
+>
+export const InviteUsersDocument = gql`
+  mutation inviteUsers($input: InviteUsersInput!) {
+    inviteUsers(input: $input) {
+      email
+      status
+      message
+    }
+  }
+`
+export type InviteUsersMutationFn = Apollo.MutationFunction<InviteUsersMutation, InviteUsersMutationVariables>
+
+/**
+ * __useInviteUsersMutation__
+ *
+ * To run a mutation, you first call `useInviteUsersMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useInviteUsersMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [inviteUsersMutation, { data, loading, error }] = useInviteUsersMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useInviteUsersMutation(
+  baseOptions?: Apollo.MutationHookOptions<InviteUsersMutation, InviteUsersMutationVariables>,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<InviteUsersMutation, InviteUsersMutationVariables>(InviteUsersDocument, options)
+}
+export type InviteUsersMutationHookResult = ReturnType<typeof useInviteUsersMutation>
+export type InviteUsersMutationResult = Apollo.MutationResult<InviteUsersMutation>
+export type InviteUsersMutationOptions = Apollo.BaseMutationOptions<InviteUsersMutation, InviteUsersMutationVariables>
 export const GetContributionsPerMonthDocument = gql`
   query getContributionsPerMonth {
     contributions {
-      items(sortBy: { dsc: "uploaded_at" }) {
+      items(sortBy: { dsc: "uploaded_at" }, limit: null) {
         id
         uploadedAt
       }
@@ -2168,9 +2424,11 @@ export function useGetContributionsPerMonthLazyQuery(
   )
 }
 export function useGetContributionsPerMonthSuspenseQuery(
-  baseOptions?: Apollo.SuspenseQueryHookOptions<GetContributionsPerMonthQuery, GetContributionsPerMonthQueryVariables>,
+  baseOptions?:
+    | Apollo.SkipToken
+    | Apollo.SuspenseQueryHookOptions<GetContributionsPerMonthQuery, GetContributionsPerMonthQueryVariables>,
 ) {
-  const options = { ...defaultOptions, ...baseOptions }
+  const options = baseOptions === Apollo.skipToken ? baseOptions : { ...defaultOptions, ...baseOptions }
   return Apollo.useSuspenseQuery<GetContributionsPerMonthQuery, GetContributionsPerMonthQueryVariables>(
     GetContributionsPerMonthDocument,
     options,
@@ -2230,12 +2488,11 @@ export function useGetContributionsForHeaderLazyQuery(
   )
 }
 export function useGetContributionsForHeaderSuspenseQuery(
-  baseOptions?: Apollo.SuspenseQueryHookOptions<
-    GetContributionsForHeaderQuery,
-    GetContributionsForHeaderQueryVariables
-  >,
+  baseOptions?:
+    | Apollo.SkipToken
+    | Apollo.SuspenseQueryHookOptions<GetContributionsForHeaderQuery, GetContributionsForHeaderQueryVariables>,
 ) {
-  const options = { ...defaultOptions, ...baseOptions }
+  const options = baseOptions === Apollo.skipToken ? baseOptions : { ...defaultOptions, ...baseOptions }
   return Apollo.useSuspenseQuery<GetContributionsForHeaderQuery, GetContributionsForHeaderQueryVariables>(
     GetContributionsForHeaderDocument,
     options,
@@ -2303,9 +2560,11 @@ export function useGetContributionsLazyQuery(
   return Apollo.useLazyQuery<GetContributionsQuery, GetContributionsQueryVariables>(GetContributionsDocument, options)
 }
 export function useGetContributionsSuspenseQuery(
-  baseOptions?: Apollo.SuspenseQueryHookOptions<GetContributionsQuery, GetContributionsQueryVariables>,
+  baseOptions?:
+    | Apollo.SkipToken
+    | Apollo.SuspenseQueryHookOptions<GetContributionsQuery, GetContributionsQueryVariables>,
 ) {
-  const options = { ...defaultOptions, ...baseOptions }
+  const options = baseOptions === Apollo.skipToken ? baseOptions : { ...defaultOptions, ...baseOptions }
   return Apollo.useSuspenseQuery<GetContributionsQuery, GetContributionsQueryVariables>(
     GetContributionsDocument,
     options,
@@ -2396,9 +2655,11 @@ export function useGetOrganizationsLazyQuery(
   return Apollo.useLazyQuery<GetOrganizationsQuery, GetOrganizationsQueryVariables>(GetOrganizationsDocument, options)
 }
 export function useGetOrganizationsSuspenseQuery(
-  baseOptions?: Apollo.SuspenseQueryHookOptions<GetOrganizationsQuery, GetOrganizationsQueryVariables>,
+  baseOptions?:
+    | Apollo.SkipToken
+    | Apollo.SuspenseQueryHookOptions<GetOrganizationsQuery, GetOrganizationsQueryVariables>,
 ) {
-  const options = { ...defaultOptions, ...baseOptions }
+  const options = baseOptions === Apollo.skipToken ? baseOptions : { ...defaultOptions, ...baseOptions }
   return Apollo.useSuspenseQuery<GetOrganizationsQuery, GetOrganizationsQueryVariables>(
     GetOrganizationsDocument,
     options,
@@ -2464,6 +2725,10 @@ export const GetUsersDocument = gql`
       lastName
       email
       timeJoined
+      invited
+      inviteStatus
+      inviterName
+      organizationId
     }
   }
 `
@@ -2493,9 +2758,9 @@ export function useGetUsersLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<G
   return Apollo.useLazyQuery<GetUsersQuery, GetUsersQueryVariables>(GetUsersDocument, options)
 }
 export function useGetUsersSuspenseQuery(
-  baseOptions?: Apollo.SuspenseQueryHookOptions<GetUsersQuery, GetUsersQueryVariables>,
+  baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetUsersQuery, GetUsersQueryVariables>,
 ) {
-  const options = { ...defaultOptions, ...baseOptions }
+  const options = baseOptions === Apollo.skipToken ? baseOptions : { ...defaultOptions, ...baseOptions }
   return Apollo.useSuspenseQuery<GetUsersQuery, GetUsersQueryVariables>(GetUsersDocument, options)
 }
 export type GetUsersQueryHookResult = ReturnType<typeof useGetUsersQuery>
@@ -2548,9 +2813,9 @@ export function useGetCurrentUserLazyQuery(
   return Apollo.useLazyQuery<GetCurrentUserQuery, GetCurrentUserQueryVariables>(GetCurrentUserDocument, options)
 }
 export function useGetCurrentUserSuspenseQuery(
-  baseOptions?: Apollo.SuspenseQueryHookOptions<GetCurrentUserQuery, GetCurrentUserQueryVariables>,
+  baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetCurrentUserQuery, GetCurrentUserQueryVariables>,
 ) {
-  const options = { ...defaultOptions, ...baseOptions }
+  const options = baseOptions === Apollo.skipToken ? baseOptions : { ...defaultOptions, ...baseOptions }
   return Apollo.useSuspenseQuery<GetCurrentUserQuery, GetCurrentUserQueryVariables>(GetCurrentUserDocument, options)
 }
 export type GetCurrentUserQueryHookResult = ReturnType<typeof useGetCurrentUserQuery>
@@ -2649,12 +2914,11 @@ export function useGetProjectsCountsByCountryLazyQuery(
   )
 }
 export function useGetProjectsCountsByCountrySuspenseQuery(
-  baseOptions?: Apollo.SuspenseQueryHookOptions<
-    GetProjectsCountsByCountryQuery,
-    GetProjectsCountsByCountryQueryVariables
-  >,
+  baseOptions?:
+    | Apollo.SkipToken
+    | Apollo.SuspenseQueryHookOptions<GetProjectsCountsByCountryQuery, GetProjectsCountsByCountryQueryVariables>,
 ) {
-  const options = { ...defaultOptions, ...baseOptions }
+  const options = baseOptions === Apollo.skipToken ? baseOptions : { ...defaultOptions, ...baseOptions }
   return Apollo.useSuspenseQuery<GetProjectsCountsByCountryQuery, GetProjectsCountsByCountryQueryVariables>(
     GetProjectsCountsByCountryDocument,
     options,
@@ -2722,9 +2986,11 @@ export function useGetProjectDataForBoxPlotLazyQuery(
   )
 }
 export function useGetProjectDataForBoxPlotSuspenseQuery(
-  baseOptions?: Apollo.SuspenseQueryHookOptions<GetProjectDataForBoxPlotQuery, GetProjectDataForBoxPlotQueryVariables>,
+  baseOptions?:
+    | Apollo.SkipToken
+    | Apollo.SuspenseQueryHookOptions<GetProjectDataForBoxPlotQuery, GetProjectDataForBoxPlotQueryVariables>,
 ) {
-  const options = { ...defaultOptions, ...baseOptions }
+  const options = baseOptions === Apollo.skipToken ? baseOptions : { ...defaultOptions, ...baseOptions }
   return Apollo.useSuspenseQuery<GetProjectDataForBoxPlotQuery, GetProjectDataForBoxPlotQueryVariables>(
     GetProjectDataForBoxPlotDocument,
     options,
@@ -2798,9 +3064,11 @@ export function useGetProjectPortfolioLazyQuery(
   )
 }
 export function useGetProjectPortfolioSuspenseQuery(
-  baseOptions?: Apollo.SuspenseQueryHookOptions<GetProjectPortfolioQuery, GetProjectPortfolioQueryVariables>,
+  baseOptions?:
+    | Apollo.SkipToken
+    | Apollo.SuspenseQueryHookOptions<GetProjectPortfolioQuery, GetProjectPortfolioQueryVariables>,
 ) {
-  const options = { ...defaultOptions, ...baseOptions }
+  const options = baseOptions === Apollo.skipToken ? baseOptions : { ...defaultOptions, ...baseOptions }
   return Apollo.useSuspenseQuery<GetProjectPortfolioQuery, GetProjectPortfolioQueryVariables>(
     GetProjectPortfolioDocument,
     options,

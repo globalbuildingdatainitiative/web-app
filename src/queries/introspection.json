@@ -8,6 +8,7 @@
         "kind": "ENUM",
         "name": "AggregationMethod",
         "description": null,
+        "isOneOf": null,
         "fields": null,
         "inputFields": null,
         "interfaces": null,
@@ -28,6 +29,7 @@
         "kind": "OBJECT",
         "name": "AggregationResult",
         "description": null,
+        "isOneOf": null,
         "fields": [
           {
             "name": "aggregation",
@@ -112,6 +114,7 @@
         "kind": "OBJECT",
         "name": "AreaType",
         "description": null,
+        "isOneOf": null,
         "fields": [
           {
             "name": "definition",
@@ -155,6 +158,7 @@
         "kind": "OBJECT",
         "name": "Assembly",
         "description": null,
+        "isOneOf": null,
         "fields": [
           {
             "name": "classification",
@@ -286,6 +290,7 @@
         "kind": "SCALAR",
         "name": "Boolean",
         "description": "The `Boolean` scalar type represents `true` or `false`.",
+        "isOneOf": null,
         "fields": null,
         "inputFields": null,
         "interfaces": null,
@@ -296,6 +301,7 @@
         "kind": "ENUM",
         "name": "BuildingModelScope",
         "description": null,
+        "isOneOf": null,
         "fields": null,
         "inputFields": null,
         "interfaces": null,
@@ -321,6 +327,7 @@
         "kind": "ENUM",
         "name": "BuildingType",
         "description": null,
+        "isOneOf": null,
         "fields": null,
         "inputFields": null,
         "interfaces": null,
@@ -351,6 +358,7 @@
         "kind": "ENUM",
         "name": "BuildingTypology",
         "description": null,
+        "isOneOf": null,
         "fields": null,
         "inputFields": null,
         "interfaces": null,
@@ -370,6 +378,7 @@
         "kind": "OBJECT",
         "name": "Classification",
         "description": null,
+        "isOneOf": null,
         "fields": [
           {
             "name": "code",
@@ -417,6 +426,7 @@
         "kind": "OBJECT",
         "name": "Contribution",
         "description": null,
+        "isOneOf": null,
         "fields": [
           {
             "name": "id",
@@ -500,6 +510,7 @@
         "kind": "OBJECT",
         "name": "ContributionGraphQLGroupResponse",
         "description": null,
+        "isOneOf": null,
         "fields": [
           {
             "name": "aggregation",
@@ -601,6 +612,7 @@
         "kind": "OBJECT",
         "name": "ContributionGraphQLResponse",
         "description": null,
+        "isOneOf": null,
         "fields": [
           {
             "name": "aggregation",
@@ -743,6 +755,7 @@
         "kind": "OBJECT",
         "name": "Conversion",
         "description": null,
+        "isOneOf": null,
         "fields": [
           {
             "name": "metaData",
@@ -786,6 +799,7 @@
         "kind": "ENUM",
         "name": "Country",
         "description": null,
+        "isOneOf": null,
         "fields": null,
         "inputFields": null,
         "interfaces": null,
@@ -1047,6 +1061,7 @@
         "kind": "ENUM",
         "name": "CountryCodes",
         "description": null,
+        "isOneOf": null,
         "fields": null,
         "inputFields": null,
         "interfaces": null,
@@ -1306,6 +1321,7 @@
         "kind": "SCALAR",
         "name": "Date",
         "description": "Date (isoformat)",
+        "isOneOf": null,
         "fields": null,
         "inputFields": null,
         "interfaces": null,
@@ -1316,6 +1332,7 @@
         "kind": "SCALAR",
         "name": "DateTime",
         "description": "Date with time (isoformat)",
+        "isOneOf": null,
         "fields": null,
         "inputFields": null,
         "interfaces": null,
@@ -1326,6 +1343,7 @@
         "kind": "OBJECT",
         "name": "EPD",
         "description": null,
+        "isOneOf": null,
         "fields": [
           {
             "name": "comment",
@@ -1517,6 +1535,7 @@
         "kind": "UNION",
         "name": "EPDTechFlow",
         "description": null,
+        "isOneOf": null,
         "fields": null,
         "inputFields": null,
         "interfaces": null,
@@ -1530,6 +1549,7 @@
         "kind": "INPUT_OBJECT",
         "name": "FilterBy",
         "description": null,
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -1557,6 +1577,7 @@
         "kind": "INPUT_OBJECT",
         "name": "FilterOptions",
         "description": null,
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -1584,6 +1605,7 @@
         "kind": "SCALAR",
         "name": "Float",
         "description": "The `Float` scalar type represents signed double-precision fractional values as specified by [IEEE 754](https://en.wikipedia.org/wiki/IEEE_floating_point).",
+        "isOneOf": null,
         "fields": null,
         "inputFields": null,
         "interfaces": null,
@@ -1594,6 +1616,7 @@
         "kind": "ENUM",
         "name": "GeneralEnergyClass",
         "description": null,
+        "isOneOf": null,
         "fields": null,
         "inputFields": null,
         "interfaces": null,
@@ -1609,6 +1632,7 @@
         "kind": "ENUM",
         "name": "ImpactCategoryKey",
         "description": null,
+        "isOneOf": null,
         "fields": null,
         "inputFields": null,
         "interfaces": null,
@@ -1658,6 +1682,7 @@
         "kind": "INPUT_OBJECT",
         "name": "InputAggregation",
         "description": null,
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -1701,6 +1726,7 @@
         "kind": "INPUT_OBJECT",
         "name": "InputAreaType",
         "description": null,
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -1744,6 +1770,7 @@
         "kind": "INPUT_OBJECT",
         "name": "InputAssembly",
         "description": null,
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -1883,6 +1910,7 @@
         "kind": "INPUT_OBJECT",
         "name": "InputClassification",
         "description": null,
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -1930,6 +1958,7 @@
         "kind": "INPUT_OBJECT",
         "name": "InputContribution",
         "description": null,
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -1953,6 +1982,7 @@
         "kind": "INPUT_OBJECT",
         "name": "InputConversion",
         "description": null,
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -1992,6 +2022,7 @@
         "kind": "INPUT_OBJECT",
         "name": "InputImpactData",
         "description": null,
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -2167,6 +2198,7 @@
         "kind": "INPUT_OBJECT",
         "name": "InputLocation",
         "description": null,
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -2206,6 +2238,7 @@
         "kind": "INPUT_OBJECT",
         "name": "InputOrganization",
         "description": null,
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -2277,6 +2310,7 @@
         "kind": "INPUT_OBJECT",
         "name": "InputProduct",
         "description": null,
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -2392,6 +2426,7 @@
         "kind": "INPUT_OBJECT",
         "name": "InputProject",
         "description": null,
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -2603,6 +2638,7 @@
         "kind": "INPUT_OBJECT",
         "name": "InputProjectInfo",
         "description": null,
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -2842,6 +2878,7 @@
         "kind": "INPUT_OBJECT",
         "name": "InputSoftwareInfo",
         "description": null,
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -2881,6 +2918,7 @@
         "kind": "INPUT_OBJECT",
         "name": "InputSource",
         "description": null,
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -2912,6 +2950,7 @@
         "kind": "INPUT_OBJECT",
         "name": "InputValueUnit",
         "description": null,
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -2943,8 +2982,105 @@
         "kind": "SCALAR",
         "name": "Int",
         "description": "The `Int` scalar type represents non-fractional signed whole numeric values. Int can represent values between -(2^31) and 2^31 - 1.",
+        "isOneOf": null,
         "fields": null,
         "inputFields": null,
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "InviteResult",
+        "description": null,
+        "isOneOf": null,
+        "fields": [
+          {
+            "name": "email",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": { "kind": "SCALAR", "name": "String", "ofType": null }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "message",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": { "kind": "SCALAR", "name": "String", "ofType": null }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "status",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": { "kind": "SCALAR", "name": "String", "ofType": null }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "ENUM",
+        "name": "InviteStatus",
+        "description": null,
+        "isOneOf": null,
+        "fields": null,
+        "inputFields": null,
+        "interfaces": null,
+        "enumValues": [
+          { "name": "ACCEPTED", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "NONE", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "PENDING", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "REJECTED", "description": null, "isDeprecated": false, "deprecationReason": null }
+        ],
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "InviteUsersInput",
+        "description": null,
+        "isOneOf": false,
+        "fields": null,
+        "inputFields": [
+          {
+            "name": "emails",
+            "description": null,
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": { "kind": "SCALAR", "name": "String", "ofType": null }
+                }
+              }
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
         "interfaces": null,
         "enumValues": null,
         "possibleTypes": null
@@ -2953,6 +3089,7 @@
         "kind": "SCALAR",
         "name": "JSON",
         "description": "The `JSON` scalar type represents JSON values as specified by [ECMA-404](https://ecma-international.org/wp-content/uploads/ECMA-404_2nd_edition_december_2017.pdf).",
+        "isOneOf": null,
         "fields": null,
         "inputFields": null,
         "interfaces": null,
@@ -2963,6 +3100,7 @@
         "kind": "ENUM",
         "name": "LifeCycleStage",
         "description": null,
+        "isOneOf": null,
         "fields": null,
         "inputFields": null,
         "interfaces": null,
@@ -2991,6 +3129,7 @@
         "kind": "OBJECT",
         "name": "Location",
         "description": null,
+        "isOneOf": null,
         "fields": [
           {
             "name": "address",
@@ -3066,7 +3205,33 @@
         "kind": "OBJECT",
         "name": "Mutation",
         "description": null,
+        "isOneOf": null,
         "fields": [
+          {
+            "name": "acceptInvitation",
+            "description": "Accept an invitation",
+            "args": [
+              {
+                "name": "userId",
+                "description": null,
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": { "kind": "SCALAR", "name": "String", "ofType": null }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": { "kind": "SCALAR", "name": "Boolean", "ofType": null }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
           {
             "name": "addContributions",
             "description": "Creates new Contributions",
@@ -3191,6 +3356,64 @@
             "deprecationReason": null
           },
           {
+            "name": "inviteUsers",
+            "description": "Invite users to the organization",
+            "args": [
+              {
+                "name": "input",
+                "description": null,
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": { "kind": "INPUT_OBJECT", "name": "InviteUsersInput", "ofType": null }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": { "kind": "OBJECT", "name": "InviteResult", "ofType": null }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "rejectInvitation",
+            "description": "Reject an invitation",
+            "args": [
+              {
+                "name": "userId",
+                "description": null,
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": { "kind": "SCALAR", "name": "String", "ofType": null }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": { "kind": "SCALAR", "name": "Boolean", "ofType": null }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "updateOrganizations",
             "description": "Updates an existing Organization",
             "args": [
@@ -3266,6 +3489,7 @@
         "kind": "OBJECT",
         "name": "Organization",
         "description": null,
+        "isOneOf": null,
         "fields": [
           {
             "name": "address",
@@ -3337,6 +3561,7 @@
         "kind": "INPUT_OBJECT",
         "name": "OrganizationFilter",
         "description": null,
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -3388,6 +3613,7 @@
         "kind": "OBJECT",
         "name": "Product",
         "description": null,
+        "isOneOf": null,
         "fields": [
           {
             "name": "description",
@@ -3495,6 +3721,7 @@
         "kind": "OBJECT",
         "name": "Project",
         "description": null,
+        "isOneOf": null,
         "fields": [
           {
             "name": "assemblies",
@@ -3714,6 +3941,7 @@
         "kind": "OBJECT",
         "name": "ProjectGraphQLGroupResponse",
         "description": null,
+        "isOneOf": null,
         "fields": [
           {
             "name": "aggregation",
@@ -3815,6 +4043,7 @@
         "kind": "OBJECT",
         "name": "ProjectGraphQLResponse",
         "description": null,
+        "isOneOf": null,
         "fields": [
           {
             "name": "aggregation",
@@ -3957,6 +4186,7 @@
         "kind": "OBJECT",
         "name": "ProjectInfo",
         "description": null,
+        "isOneOf": null,
         "fields": [
           {
             "name": "buildingCompletionYear",
@@ -4192,6 +4422,7 @@
         "kind": "ENUM",
         "name": "ProjectPhase",
         "description": null,
+        "isOneOf": null,
         "fields": null,
         "inputFields": null,
         "interfaces": null,
@@ -4210,6 +4441,7 @@
         "kind": "OBJECT",
         "name": "Query",
         "description": null,
+        "isOneOf": null,
         "fields": [
           {
             "name": "contributions",
@@ -4311,6 +4543,7 @@
         "kind": "ENUM",
         "name": "RoofType",
         "description": null,
+        "isOneOf": null,
         "fields": null,
         "inputFields": null,
         "interfaces": null,
@@ -4327,6 +4560,7 @@
         "kind": "OBJECT",
         "name": "SoftwareInfo",
         "description": null,
+        "isOneOf": null,
         "fields": [
           {
             "name": "calculationType",
@@ -4366,6 +4600,7 @@
         "kind": "INPUT_OBJECT",
         "name": "SortBy",
         "description": null,
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -4393,6 +4628,7 @@
         "kind": "ENUM",
         "name": "SortOptions",
         "description": null,
+        "isOneOf": null,
         "fields": null,
         "inputFields": null,
         "interfaces": null,
@@ -4406,6 +4642,7 @@
         "kind": "OBJECT",
         "name": "Source",
         "description": null,
+        "isOneOf": null,
         "fields": [
           {
             "name": "name",
@@ -4437,6 +4674,7 @@
         "kind": "ENUM",
         "name": "Standard",
         "description": null,
+        "isOneOf": null,
         "fields": null,
         "inputFields": null,
         "interfaces": null,
@@ -4451,6 +4689,7 @@
         "kind": "SCALAR",
         "name": "String",
         "description": "The `String` scalar type represents textual data, represented as UTF-8 character sequences. The String type is most often used by GraphQL to represent free-form human-readable text.",
+        "isOneOf": null,
         "fields": null,
         "inputFields": null,
         "interfaces": null,
@@ -4461,6 +4700,7 @@
         "kind": "ENUM",
         "name": "SubType",
         "description": null,
+        "isOneOf": null,
         "fields": null,
         "inputFields": null,
         "interfaces": null,
@@ -4476,6 +4716,7 @@
         "kind": "OBJECT",
         "name": "TechFlow",
         "description": null,
+        "isOneOf": null,
         "fields": [
           {
             "name": "comment",
@@ -4599,6 +4840,7 @@
         "kind": "SCALAR",
         "name": "UUID",
         "description": null,
+        "isOneOf": null,
         "fields": null,
         "inputFields": null,
         "interfaces": null,
@@ -4609,6 +4851,7 @@
         "kind": "ENUM",
         "name": "Unit",
         "description": null,
+        "isOneOf": null,
         "fields": null,
         "inputFields": null,
         "interfaces": null,
@@ -4633,6 +4876,7 @@
         "kind": "INPUT_OBJECT",
         "name": "UpdateUserInput",
         "description": null,
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -4672,6 +4916,30 @@
             "deprecationReason": null
           },
           {
+            "name": "inviteStatus",
+            "description": null,
+            "type": { "kind": "ENUM", "name": "InviteStatus", "ofType": null },
+            "defaultValue": "null",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "invited",
+            "description": null,
+            "type": { "kind": "SCALAR", "name": "Boolean", "ofType": null },
+            "defaultValue": "null",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "inviterName",
+            "description": null,
+            "type": { "kind": "SCALAR", "name": "String", "ofType": null },
+            "defaultValue": "null",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "lastName",
             "description": null,
             "type": { "kind": "SCALAR", "name": "String", "ofType": null },
@@ -4686,6 +4954,14 @@
             "defaultValue": "null",
             "isDeprecated": false,
             "deprecationReason": null
+          },
+          {
+            "name": "organizationId",
+            "description": null,
+            "type": { "kind": "SCALAR", "name": "UUID", "ofType": null },
+            "defaultValue": "null",
+            "isDeprecated": false,
+            "deprecationReason": null
           }
         ],
         "interfaces": null,
@@ -4696,6 +4972,7 @@
         "kind": "OBJECT",
         "name": "User",
         "description": null,
+        "isOneOf": null,
         "fields": [
           {
             "name": "email",
@@ -4726,6 +5003,38 @@
               "name": null,
               "ofType": { "kind": "SCALAR", "name": "UUID", "ofType": null }
             },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "inviteStatus",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": { "kind": "ENUM", "name": "InviteStatus", "ofType": null }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "invited",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": { "kind": "SCALAR", "name": "Boolean", "ofType": null }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "inviterName",
+            "description": null,
+            "args": [],
+            "type": { "kind": "SCALAR", "name": "String", "ofType": null },
             "isDeprecated": false,
             "deprecationReason": null
           },
@@ -4775,6 +5084,7 @@
         "kind": "INPUT_OBJECT",
         "name": "UserFilters",
         "description": null,
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -4795,6 +5105,30 @@
           },
           {
             "name": "id",
+            "description": null,
+            "type": { "kind": "INPUT_OBJECT", "name": "FilterOptions", "ofType": null },
+            "defaultValue": "null",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "inviteStatus",
+            "description": null,
+            "type": { "kind": "INPUT_OBJECT", "name": "FilterOptions", "ofType": null },
+            "defaultValue": "null",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "invited",
+            "description": null,
+            "type": { "kind": "INPUT_OBJECT", "name": "FilterOptions", "ofType": null },
+            "defaultValue": "null",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "inviterName",
             "description": null,
             "type": { "kind": "INPUT_OBJECT", "name": "FilterOptions", "ofType": null },
             "defaultValue": "null",
@@ -4826,6 +5160,7 @@
         "kind": "INPUT_OBJECT",
         "name": "UserSort",
         "description": null,
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -4838,6 +5173,30 @@
           },
           {
             "name": "id",
+            "description": null,
+            "type": { "kind": "ENUM", "name": "SortOptions", "ofType": null },
+            "defaultValue": "null",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "inviteStatus",
+            "description": null,
+            "type": { "kind": "ENUM", "name": "SortOptions", "ofType": null },
+            "defaultValue": "null",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "invited",
+            "description": null,
+            "type": { "kind": "ENUM", "name": "SortOptions", "ofType": null },
+            "defaultValue": "null",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "inviterName",
             "description": null,
             "type": { "kind": "ENUM", "name": "SortOptions", "ofType": null },
             "defaultValue": "null",
@@ -4877,6 +5236,7 @@
         "kind": "OBJECT",
         "name": "ValueUnit",
         "description": null,
+        "isOneOf": null,
         "fields": [
           {
             "name": "unit",
@@ -4908,6 +5268,7 @@
         "kind": "OBJECT",
         "name": "__Directive",
         "description": "A Directive provides a way to describe alternate runtime execution and type validation behavior in a GraphQL document.\n\nIn some cases, you need to provide options to alter GraphQL's execution behavior in ways field arguments will not suffice, such as conditionally including or skipping a field. Directives provide this by describing additional information to the executor.",
+        "isOneOf": null,
         "fields": [
           {
             "name": "name",
@@ -5000,6 +5361,7 @@
         "kind": "ENUM",
         "name": "__DirectiveLocation",
         "description": "A Directive can be adjacent to many parts of the GraphQL language, a __DirectiveLocation describes one such possible adjacencies.",
+        "isOneOf": null,
         "fields": null,
         "inputFields": null,
         "interfaces": null,
@@ -5125,6 +5487,7 @@
         "kind": "OBJECT",
         "name": "__EnumValue",
         "description": "One possible value for a given Enum. Enum values are unique values, not a placeholder for a string or numeric value. However an Enum value is returned in a JSON response as a string.",
+        "isOneOf": null,
         "fields": [
           {
             "name": "name",
@@ -5176,6 +5539,7 @@
         "kind": "OBJECT",
         "name": "__Field",
         "description": "Object and Interface types are described by a list of Fields, each of which has a name, potentially a list of arguments, and a return type.",
+        "isOneOf": null,
         "fields": [
           {
             "name": "name",
@@ -5268,6 +5632,7 @@
         "kind": "OBJECT",
         "name": "__InputValue",
         "description": "Arguments provided to Fields or Directives and the input fields of an InputObject are represented as Input Values which describe their type and optionally a default value.",
+        "isOneOf": null,
         "fields": [
           {
             "name": "name",
@@ -5339,6 +5704,7 @@
         "kind": "OBJECT",
         "name": "__Schema",
         "description": "A GraphQL Schema defines the capabilities of a GraphQL server. It exposes all available types and directives on the server, as well as the entry points for query, mutation, and subscription operations.",
+        "isOneOf": null,
         "fields": [
           {
             "name": "description",
@@ -5426,6 +5792,7 @@
         "kind": "OBJECT",
         "name": "__Type",
         "description": "The fundamental unit of any GraphQL Schema is the type. There are many kinds of types in GraphQL as represented by the `__TypeKind` enum.\n\nDepending on the kind of a type, certain fields describe information about that type. Scalar types provide no information beyond a name, description and optional `specifiedByURL`, while Enum types provide their values. Object and Interface types provide the fields they describe. Abstract types, Union and Interface, provide the Object types possible at runtime. List and NonNull types compose other types.",
+        "isOneOf": null,
         "fields": [
           {
             "name": "kind",
@@ -5577,6 +5944,14 @@
             "type": { "kind": "OBJECT", "name": "__Type", "ofType": null },
             "isDeprecated": false,
             "deprecationReason": null
+          },
+          {
+            "name": "isOneOf",
+            "description": null,
+            "args": [],
+            "type": { "kind": "SCALAR", "name": "Boolean", "ofType": null },
+            "isDeprecated": false,
+            "deprecationReason": null
           }
         ],
         "inputFields": null,
@@ -5588,6 +5963,7 @@
         "kind": "ENUM",
         "name": "__TypeKind",
         "description": "An enum describing what kind of type a given `__Type` is.",
+        "isOneOf": null,
         "fields": null,
         "inputFields": null,
         "interfaces": null,

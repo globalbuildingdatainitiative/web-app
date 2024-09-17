@@ -39,7 +39,7 @@ suite('MemberTable', () => {
     await waitFor(() => expect(screen.getByTestId('MemberTable')).toBeTruthy())
   })
 
-  test('Render Rows', async () => {
+  test('Render Rows for Non-invited and Accepted Users', async () => {
     render(
       <MockedProvider mocks={[...getUsersMock, ...getOrganizationsMock]} addTypename={false}>
         <MockSessionProvider sessionContext={mockSessionContext}>
@@ -49,6 +49,27 @@ suite('MemberTable', () => {
         </MockSessionProvider>
       </MockedProvider>,
     )
-    await waitFor(() => expect(screen.getByText('Hassan Shahzad')).toBeTruthy())
+    await waitFor(() => {
+      expect(screen.getByText('Hassan Shahzad')).toBeTruthy()
+      expect(screen.getByText('Martin Rock')).toBeTruthy()
+      expect(screen.queryByText('Jane Doe')).toBeNull()
+    })
+  })
+
+  test('Render Correct Number of Rows', async () => {
+    render(
+      <MockedProvider mocks={[...getUsersMock, ...getOrganizationsMock]} addTypename={false}>
+        <MockSessionProvider sessionContext={mockSessionContext}>
+          <MemoryRouter>
+            <MemberTable organizationId='1' />
+          </MemoryRouter>
+        </MockSessionProvider>
+      </MockedProvider>,
+    )
+    await waitFor(() => {
+      const rows = screen.getAllByRole('row')
+      // 2 users + 1 header row
+      expect(rows.length).toBe(3)
+    })
   })
 })
