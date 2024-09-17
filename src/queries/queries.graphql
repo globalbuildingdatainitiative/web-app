@@ -132,7 +132,7 @@ query getProjectDataForBoxPlot($aggregation: JSON!) {
 
 query getProjectPortfolio($limit: Int, $offset: Int, $filters: FilterBy) {
   projects {
-    items(limit: $limit, offset: $offset, filterBy: $filters ) {
+    items(limit: $limit, offset: $offset, filterBy: $filters) {
       id
       name
       location {
@@ -147,6 +147,6 @@ query getProjectPortfolio($limit: Int, $offset: Int, $filters: FilterBy) {
       }
       results
     }
-    count
+    count(filterBy: $filters)
   }
 }

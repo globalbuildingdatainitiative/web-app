@@ -17,7 +17,7 @@ export const PortfolioTable = () => {
     variables: {
       limit: pagination.pageSize,
       offset: pagination.pageIndex * pagination.pageSize,
-      filters: {gt: {"projectInfo.grossFloorArea.value": 0}}
+      filters: { gt: { 'projectInfo.grossFloorArea.value': 0 }, notEqual: { results: null } },
     },
     fetchPolicy: 'network-only',
   })

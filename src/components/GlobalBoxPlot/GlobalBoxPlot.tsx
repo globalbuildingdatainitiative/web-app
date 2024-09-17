@@ -6,7 +6,7 @@ import { useMemo } from 'react'
 export const GlobalBoxPlot = () => {
   const divideAggregation = { $divide: ['$results.gwp.a1a3', '$projectInfo.grossFloorArea.value'] }
   const aggregation = [
-    { $match: { $and: [{'results.gwp.a1a3': { '$gt': 0}}, {'projectInfo.grossFloorArea.value': { '$gt': 0}}]}},
+    { $match: { $and: [{ 'results.gwp.a1a3': { $gt: 0 } }, { 'projectInfo.grossFloorArea.value': { $gt: 0 } }] } },
     {
       $group: {
         _id: '$location.country',

@@ -156,6 +156,10 @@ export type ContributionGraphQlResponseAggregationArgs = {
   apply: Scalars['JSON']['input']
 }
 
+export type ContributionGraphQlResponseCountArgs = {
+  filterBy?: InputMaybe<FilterBy>
+}
+
 export type ContributionGraphQlResponseGroupsArgs = {
   groupBy: Scalars['String']['input']
   limit?: Scalars['Int']['input']
@@ -708,6 +712,7 @@ export type FilterBy = {
   isTrue?: InputMaybe<Scalars['Boolean']['input']>
   lt?: InputMaybe<Scalars['JSON']['input']>
   lte?: InputMaybe<Scalars['JSON']['input']>
+  notEqual?: InputMaybe<Scalars['JSON']['input']>
 }
 
 export type FilterOptions = {
@@ -1065,6 +1070,10 @@ export type ProjectGraphQlResponseAggregationArgs = {
   apply: Scalars['JSON']['input']
 }
 
+export type ProjectGraphQlResponseCountArgs = {
+  filterBy?: InputMaybe<FilterBy>
+}
+
 export type ProjectGraphQlResponseGroupsArgs = {
   groupBy: Scalars['String']['input']
   limit?: Scalars['Int']['input']
@@ -1322,7 +1331,7 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 ) => TResult | Promise<TResult>
 
 /** Mapping of union types */
-export type ResolversUnionTypes<RefType extends Record<string, unknown>> = {
+export type ResolversUnionTypes<_RefType extends Record<string, unknown>> = {
   EPDTechFlow: Epd | TechFlow
 }
 
@@ -1333,15 +1342,22 @@ export type ResolversTypes = {
   String: ResolverTypeWrapper<Scalars['String']['output']>
   Float: ResolverTypeWrapper<Scalars['Float']['output']>
   AreaType: ResolverTypeWrapper<AreaType>
-  Assembly: ResolverTypeWrapper<Assembly>
+  Assembly: ResolverTypeWrapper<Omit<Assembly, 'products'> & { products: Array<ResolversTypes['Product']> }>
   BuildingModelScope: BuildingModelScope
   BuildingType: BuildingType
   BuildingTypology: BuildingTypology
   Classification: ResolverTypeWrapper<Classification>
-  Contribution: ResolverTypeWrapper<Contribution>
-  ContributionGraphQLGroupResponse: ResolverTypeWrapper<ContributionGraphQlGroupResponse>
+  Contribution: ResolverTypeWrapper<Omit<Contribution, 'project'> & { project: ResolversTypes['Project'] }>
+  ContributionGraphQLGroupResponse: ResolverTypeWrapper<
+    Omit<ContributionGraphQlGroupResponse, 'items'> & { items: Array<ResolversTypes['Contribution']> }
+  >
   Int: ResolverTypeWrapper<Scalars['Int']['output']>
-  ContributionGraphQLResponse: ResolverTypeWrapper<ContributionGraphQlResponse>
+  ContributionGraphQLResponse: ResolverTypeWrapper<
+    Omit<ContributionGraphQlResponse, 'groups' | 'items'> & {
+      groups: Array<ResolversTypes['ContributionGraphQLGroupResponse']>
+      items?: Maybe<Array<ResolversTypes['Contribution']>>
+    }
+  >
   Conversion: ResolverTypeWrapper<Conversion>
   Country: Country
   CountryCodes: CountryCodes
@@ -1376,9 +1392,16 @@ export type ResolversTypes = {
   Organization: ResolverTypeWrapper<Organization>
   OrganizationFilter: OrganizationFilter
   Product: ResolverTypeWrapper<Omit<Product, 'impactData'> & { impactData: ResolversTypes['EPDTechFlow'] }>
-  Project: ResolverTypeWrapper<Project>
-  ProjectGraphQLGroupResponse: ResolverTypeWrapper<ProjectGraphQlGroupResponse>
-  ProjectGraphQLResponse: ResolverTypeWrapper<ProjectGraphQlResponse>
+  Project: ResolverTypeWrapper<Omit<Project, 'assemblies'> & { assemblies: Array<ResolversTypes['Assembly']> }>
+  ProjectGraphQLGroupResponse: ResolverTypeWrapper<
+    Omit<ProjectGraphQlGroupResponse, 'items'> & { items: Array<ResolversTypes['Project']> }
+  >
+  ProjectGraphQLResponse: ResolverTypeWrapper<
+    Omit<ProjectGraphQlResponse, 'groups' | 'items'> & {
+      groups: Array<ResolversTypes['ProjectGraphQLGroupResponse']>
+      items?: Maybe<Array<ResolversTypes['Project']>>
+    }
+  >
   ProjectInfo: ResolverTypeWrapper<ProjectInfo>
   ProjectPhase: ProjectPhase
   Query: ResolverTypeWrapper<{}>
@@ -1405,12 +1428,17 @@ export type ResolversParentTypes = {
   String: Scalars['String']['output']
   Float: Scalars['Float']['output']
   AreaType: AreaType
-  Assembly: Assembly
+  Assembly: Omit<Assembly, 'products'> & { products: Array<ResolversParentTypes['Product']> }
   Classification: Classification
-  Contribution: Contribution
-  ContributionGraphQLGroupResponse: ContributionGraphQlGroupResponse
+  Contribution: Omit<Contribution, 'project'> & { project: ResolversParentTypes['Project'] }
+  ContributionGraphQLGroupResponse: Omit<ContributionGraphQlGroupResponse, 'items'> & {
+    items: Array<ResolversParentTypes['Contribution']>
+  }
   Int: Scalars['Int']['output']
-  ContributionGraphQLResponse: ContributionGraphQlResponse
+  ContributionGraphQLResponse: Omit<ContributionGraphQlResponse, 'groups' | 'items'> & {
+    groups: Array<ResolversParentTypes['ContributionGraphQLGroupResponse']>
+    items?: Maybe<Array<ResolversParentTypes['Contribution']>>
+  }
   Conversion: Conversion
   Date: Scalars['Date']['output']
   DateTime: Scalars['DateTime']['output']
@@ -1440,9 +1468,14 @@ export type ResolversParentTypes = {
   Organization: Organization
   OrganizationFilter: OrganizationFilter
   Product: Omit<Product, 'impactData'> & { impactData: ResolversParentTypes['EPDTechFlow'] }
-  Project: Project
-  ProjectGraphQLGroupResponse: ProjectGraphQlGroupResponse
-  ProjectGraphQLResponse: ProjectGraphQlResponse
+  Project: Omit<Project, 'assemblies'> & { assemblies: Array<ResolversParentTypes['Assembly']> }
+  ProjectGraphQLGroupResponse: Omit<ProjectGraphQlGroupResponse, 'items'> & {
+    items: Array<ResolversParentTypes['Project']>
+  }
+  ProjectGraphQLResponse: Omit<ProjectGraphQlResponse, 'groups' | 'items'> & {
+    groups: Array<ResolversParentTypes['ProjectGraphQLGroupResponse']>
+    items?: Maybe<Array<ResolversParentTypes['Project']>>
+  }
   ProjectInfo: ProjectInfo
   Query: {}
   SoftwareInfo: SoftwareInfo
@@ -1568,7 +1601,12 @@ export type ContributionGraphQlResponseResolvers<
     ContextType,
     RequireFields<ContributionGraphQlResponseAggregationArgs, 'apply'>
   >
-  count?: Resolver<ResolversTypes['Int'], ParentType, ContextType>
+  count?: Resolver<
+    ResolversTypes['Int'],
+    ParentType,
+    ContextType,
+    RequireFields<ContributionGraphQlResponseCountArgs, 'filterBy'>
+  >
   groups?: Resolver<
     Array<ResolversTypes['ContributionGraphQLGroupResponse']>,
     ParentType,
@@ -1579,7 +1617,7 @@ export type ContributionGraphQlResponseResolvers<
     Maybe<Array<ResolversTypes['Contribution']>>,
     ParentType,
     ContextType,
-    RequireFields<ContributionGraphQlResponseItemsArgs, 'filterBy' | 'limit' | 'offset' | 'sortBy'>
+    RequireFields<ContributionGraphQlResponseItemsArgs, 'filterBy' | 'offset' | 'sortBy'>
   >
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>
 }
@@ -1770,7 +1808,12 @@ export type ProjectGraphQlResponseResolvers<
     ContextType,
     RequireFields<ProjectGraphQlResponseAggregationArgs, 'apply'>
   >
-  count?: Resolver<ResolversTypes['Int'], ParentType, ContextType>
+  count?: Resolver<
+    ResolversTypes['Int'],
+    ParentType,
+    ContextType,
+    RequireFields<ProjectGraphQlResponseCountArgs, 'filterBy'>
+  >
   groups?: Resolver<
     Array<ResolversTypes['ProjectGraphQLGroupResponse']>,
     ParentType,
@@ -1781,7 +1824,7 @@ export type ProjectGraphQlResponseResolvers<
     Maybe<Array<ResolversTypes['Project']>>,
     ParentType,
     ContextType,
-    RequireFields<ProjectGraphQlResponseItemsArgs, 'filterBy' | 'limit' | 'offset' | 'sortBy'>
+    RequireFields<ProjectGraphQlResponseItemsArgs, 'filterBy' | 'offset' | 'sortBy'>
   >
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>
 }
@@ -2173,9 +2216,11 @@ export function useGetContributionsPerMonthLazyQuery(
   )
 }
 export function useGetContributionsPerMonthSuspenseQuery(
-  baseOptions?: Apollo.SuspenseQueryHookOptions<GetContributionsPerMonthQuery, GetContributionsPerMonthQueryVariables>,
+  baseOptions?:
+    | Apollo.SkipToken
+    | Apollo.SuspenseQueryHookOptions<GetContributionsPerMonthQuery, GetContributionsPerMonthQueryVariables>,
 ) {
-  const options = { ...defaultOptions, ...baseOptions }
+  const options = baseOptions === Apollo.skipToken ? baseOptions : { ...defaultOptions, ...baseOptions }
   return Apollo.useSuspenseQuery<GetContributionsPerMonthQuery, GetContributionsPerMonthQueryVariables>(
     GetContributionsPerMonthDocument,
     options,
@@ -2235,12 +2280,11 @@ export function useGetContributionsForHeaderLazyQuery(
   )
 }
 export function useGetContributionsForHeaderSuspenseQuery(
-  baseOptions?: Apollo.SuspenseQueryHookOptions<
-    GetContributionsForHeaderQuery,
-    GetContributionsForHeaderQueryVariables
-  >,
+  baseOptions?:
+    | Apollo.SkipToken
+    | Apollo.SuspenseQueryHookOptions<GetContributionsForHeaderQuery, GetContributionsForHeaderQueryVariables>,
 ) {
-  const options = { ...defaultOptions, ...baseOptions }
+  const options = baseOptions === Apollo.skipToken ? baseOptions : { ...defaultOptions, ...baseOptions }
   return Apollo.useSuspenseQuery<GetContributionsForHeaderQuery, GetContributionsForHeaderQueryVariables>(
     GetContributionsForHeaderDocument,
     options,
@@ -2308,9 +2352,11 @@ export function useGetContributionsLazyQuery(
   return Apollo.useLazyQuery<GetContributionsQuery, GetContributionsQueryVariables>(GetContributionsDocument, options)
 }
 export function useGetContributionsSuspenseQuery(
-  baseOptions?: Apollo.SuspenseQueryHookOptions<GetContributionsQuery, GetContributionsQueryVariables>,
+  baseOptions?:
+    | Apollo.SkipToken
+    | Apollo.SuspenseQueryHookOptions<GetContributionsQuery, GetContributionsQueryVariables>,
 ) {
-  const options = { ...defaultOptions, ...baseOptions }
+  const options = baseOptions === Apollo.skipToken ? baseOptions : { ...defaultOptions, ...baseOptions }
   return Apollo.useSuspenseQuery<GetContributionsQuery, GetContributionsQueryVariables>(
     GetContributionsDocument,
     options,
@@ -2401,9 +2447,11 @@ export function useGetOrganizationsLazyQuery(
   return Apollo.useLazyQuery<GetOrganizationsQuery, GetOrganizationsQueryVariables>(GetOrganizationsDocument, options)
 }
 export function useGetOrganizationsSuspenseQuery(
-  baseOptions?: Apollo.SuspenseQueryHookOptions<GetOrganizationsQuery, GetOrganizationsQueryVariables>,
+  baseOptions?:
+    | Apollo.SkipToken
+    | Apollo.SuspenseQueryHookOptions<GetOrganizationsQuery, GetOrganizationsQueryVariables>,
 ) {
-  const options = { ...defaultOptions, ...baseOptions }
+  const options = baseOptions === Apollo.skipToken ? baseOptions : { ...defaultOptions, ...baseOptions }
   return Apollo.useSuspenseQuery<GetOrganizationsQuery, GetOrganizationsQueryVariables>(
     GetOrganizationsDocument,
     options,
@@ -2498,9 +2546,9 @@ export function useGetUsersLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<G
   return Apollo.useLazyQuery<GetUsersQuery, GetUsersQueryVariables>(GetUsersDocument, options)
 }
 export function useGetUsersSuspenseQuery(
-  baseOptions?: Apollo.SuspenseQueryHookOptions<GetUsersQuery, GetUsersQueryVariables>,
+  baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetUsersQuery, GetUsersQueryVariables>,
 ) {
-  const options = { ...defaultOptions, ...baseOptions }
+  const options = baseOptions === Apollo.skipToken ? baseOptions : { ...defaultOptions, ...baseOptions }
   return Apollo.useSuspenseQuery<GetUsersQuery, GetUsersQueryVariables>(GetUsersDocument, options)
 }
 export type GetUsersQueryHookResult = ReturnType<typeof useGetUsersQuery>
@@ -2553,9 +2601,9 @@ export function useGetCurrentUserLazyQuery(
   return Apollo.useLazyQuery<GetCurrentUserQuery, GetCurrentUserQueryVariables>(GetCurrentUserDocument, options)
 }
 export function useGetCurrentUserSuspenseQuery(
-  baseOptions?: Apollo.SuspenseQueryHookOptions<GetCurrentUserQuery, GetCurrentUserQueryVariables>,
+  baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetCurrentUserQuery, GetCurrentUserQueryVariables>,
 ) {
-  const options = { ...defaultOptions, ...baseOptions }
+  const options = baseOptions === Apollo.skipToken ? baseOptions : { ...defaultOptions, ...baseOptions }
   return Apollo.useSuspenseQuery<GetCurrentUserQuery, GetCurrentUserQueryVariables>(GetCurrentUserDocument, options)
 }
 export type GetCurrentUserQueryHookResult = ReturnType<typeof useGetCurrentUserQuery>
@@ -2654,12 +2702,11 @@ export function useGetProjectsCountsByCountryLazyQuery(
   )
 }
 export function useGetProjectsCountsByCountrySuspenseQuery(
-  baseOptions?: Apollo.SuspenseQueryHookOptions<
-    GetProjectsCountsByCountryQuery,
-    GetProjectsCountsByCountryQueryVariables
-  >,
+  baseOptions?:
+    | Apollo.SkipToken
+    | Apollo.SuspenseQueryHookOptions<GetProjectsCountsByCountryQuery, GetProjectsCountsByCountryQueryVariables>,
 ) {
-  const options = { ...defaultOptions, ...baseOptions }
+  const options = baseOptions === Apollo.skipToken ? baseOptions : { ...defaultOptions, ...baseOptions }
   return Apollo.useSuspenseQuery<GetProjectsCountsByCountryQuery, GetProjectsCountsByCountryQueryVariables>(
     GetProjectsCountsByCountryDocument,
     options,
@@ -2727,9 +2774,11 @@ export function useGetProjectDataForBoxPlotLazyQuery(
   )
 }
 export function useGetProjectDataForBoxPlotSuspenseQuery(
-  baseOptions?: Apollo.SuspenseQueryHookOptions<GetProjectDataForBoxPlotQuery, GetProjectDataForBoxPlotQueryVariables>,
+  baseOptions?:
+    | Apollo.SkipToken
+    | Apollo.SuspenseQueryHookOptions<GetProjectDataForBoxPlotQuery, GetProjectDataForBoxPlotQueryVariables>,
 ) {
-  const options = { ...defaultOptions, ...baseOptions }
+  const options = baseOptions === Apollo.skipToken ? baseOptions : { ...defaultOptions, ...baseOptions }
   return Apollo.useSuspenseQuery<GetProjectDataForBoxPlotQuery, GetProjectDataForBoxPlotQueryVariables>(
     GetProjectDataForBoxPlotDocument,
     options,
@@ -2762,7 +2811,7 @@ export const GetProjectPortfolioDocument = gql`
         }
         results
       }
-      count
+      count(filterBy: $filters)
     }
   }
 `
@@ -2804,9 +2853,11 @@ export function useGetProjectPortfolioLazyQuery(
   )
 }
 export function useGetProjectPortfolioSuspenseQuery(
-  baseOptions?: Apollo.SuspenseQueryHookOptions<GetProjectPortfolioQuery, GetProjectPortfolioQueryVariables>,
+  baseOptions?:
+    | Apollo.SkipToken
+    | Apollo.SuspenseQueryHookOptions<GetProjectPortfolioQuery, GetProjectPortfolioQueryVariables>,
 ) {
-  const options = { ...defaultOptions, ...baseOptions }
+  const options = baseOptions === Apollo.skipToken ? baseOptions : { ...defaultOptions, ...baseOptions }
   return Apollo.useSuspenseQuery<GetProjectPortfolioQuery, GetProjectPortfolioQueryVariables>(
     GetProjectPortfolioDocument,
     options,

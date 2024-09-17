@@ -39,7 +39,7 @@ interface BoxPlotProps {
 }
 
 export const BoxPlot = (props: BoxPlotProps) => {
-  const { height } = useViewportSize();
+  const { height } = useViewportSize()
 
   const data = useMemo(
     () =>
