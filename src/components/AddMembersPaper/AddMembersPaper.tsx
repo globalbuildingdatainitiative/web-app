@@ -60,15 +60,7 @@ export const AddMembersPaper = () => {
               minRows={3}
               maxRows={5}
             />
-            <Button
-              color='green'
-              radius='lg'
-              px={16}
-              size='md'
-              style={{ width: '500px' }}
-              type='submit'
-              loading={loading}
-            >
+            <Button radius='lg' px={16} size='md' style={{ width: '500px' }} type='submit' loading={loading}>
               Send Invitations
             </Button>
           </Stack>

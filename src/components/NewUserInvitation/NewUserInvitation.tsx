@@ -84,14 +84,7 @@ export const NewUserInvitation = () => {
                   placeholder='Confirm your new password'
                   {...form.getInputProps('confirmPassword')}
                 />
-                <Button
-                  type='submit'
-                  color='green'
-                  radius='lg'
-                  px={16}
-                  size='md'
-                  style={{ width: '500px', marginTop: '20px' }}
-                >
+                <Button type='submit' radius='lg' px={16} size='md' style={{ width: '500px', marginTop: '20px' }}>
                   Accept Invitation and Sign Up
                 </Button>
               </form>

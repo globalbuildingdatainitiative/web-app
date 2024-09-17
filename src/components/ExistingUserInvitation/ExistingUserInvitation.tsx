@@ -42,7 +42,6 @@ export const ExistingUserInvitation = () => {
                 <Text>Click the button below to accept the invitation and sign in:</Text>
                 {error && <Text c='red'>Error: {error.message}</Text>}
                 <Button
-                  color='green'
                   radius='lg'
                   px={16}
                   size='md'
