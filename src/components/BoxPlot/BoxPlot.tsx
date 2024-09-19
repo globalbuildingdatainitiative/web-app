@@ -125,7 +125,7 @@ export const BoxPlot = (props: BoxPlotProps) => {
     return theme.colors?.[colorName]?.[shade] || fallback
   }
 
-  const bottomBoxColor = getColor('blue', 4, '#6da4b0')
+  const bottomBoxColor = getColor('light_green', 3, '#6da4b0')
   const topBoxColor = getColor('green', 9, '#bfd7dc')
   const lineColor = getColor('blue', 6, '#31a985')
   const medianColor = getColor('orange', 9, '#ec701b')
