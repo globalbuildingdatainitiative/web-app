@@ -1,4 +1,4 @@
-import { Center, MultiSelect, Select, Stack } from '@mantine/core'
+import { Center, Grid, MultiSelect, Select, Stack } from '@mantine/core'
 import { BoxPlot, BoxPlotData, Loading } from '@components'
 import { useGetProjectDataForBoxPlotQuery, LifeCycleStage, BuildingTypology } from '@queries'
 import { useState, useMemo } from 'react'
@@ -87,22 +87,28 @@ export const GlobalBoxPlot = () => {
 
   return (
     <Stack>
-      <MultiSelect
-        data={Object.values(BuildingTypology)}
-        value={selectedTypologies}
-        onChange={(value: string[]) => setSelectedTypologies(value)}
-        label='Building Typology'
-        placeholder='Select building typologies'
-      />
-      <Select
-        data={Object.values(LifeCycleStage)}
-        value={selectedLifeCycleStage}
-        onChange={(value: string | null) => {
-          if (value) setSelectedLifeCycleStage(value as LifeCycleStage)
-        }}
-        label='Life Cycle Stage'
-        placeholder='Select life cycle stage'
-      />
+      <Grid>
+        <Grid.Col span={6}>
+          <MultiSelect
+            data={Object.values(BuildingTypology)}
+            value={selectedTypologies}
+            onChange={(value: string[]) => setSelectedTypologies(value)}
+            label='Building Typology'
+            placeholder='Select building typologies'
+          />
+          </Grid.Col>
+        <Grid.Col span={6}>
+          <Select
+            data={Object.values(LifeCycleStage)}
+            value={selectedLifeCycleStage}
+            onChange={(value: string | null) => {
+              if (value) setSelectedLifeCycleStage(value as LifeCycleStage)
+            }}
+            label='Life Cycle Stage'
+            placeholder='Select life cycle stage'
+          />
+        </Grid.Col>
+      </Grid>
       <BoxPlot data={boxPlotData} />
     </Stack>
   )
