@@ -1,37 +1,56 @@
-import { Center } from '@mantine/core'
+import { Center, MultiSelect, Select, Stack } from '@mantine/core'
 import { BoxPlot, BoxPlotData, Loading } from '@components'
-import { useGetProjectDataForBoxPlotQuery } from '@queries'
-import { useMemo } from 'react'
+import { useGetProjectDataForBoxPlotQuery, LifeCycleStage, BuildingTypology } from '@queries'
+import { useState, useMemo } from 'react'
 
 export const GlobalBoxPlot = () => {
-  const divideAggregation = { $divide: ['$results.gwp.a1a3', '$projectInfo.grossFloorArea.value'] }
-  const aggregation = [
-    { $match: { $and: [{ 'results.gwp.a1a3': { $gt: 0 } }, { 'projectInfo.grossFloorArea.value': { $gt: 0 } }] } },
-    {
-      $group: {
-        _id: '$location.country',
-        count: { $sum: 1 },
-        minimum: { $min: divideAggregation },
-        percentiles: { $percentile: { p: [0.25, 0.75], method: 'approximate', input: divideAggregation } },
-        median: { $median: { method: 'approximate', input: divideAggregation } },
-        maximum: { $max: divideAggregation },
-        average: { $avg: divideAggregation },
+  const [selectedTypologies, setSelectedTypologies] = useState<string[]>([])
+  const [selectedLifeCycleStage, setSelectedLifeCycleStage] = useState<string>(LifeCycleStage.A1A3)
+
+  const aggregation = useMemo(() => {
+    const divideAggregation = {
+      $divide: [`$results.gwp.${selectedLifeCycleStage}`, '$projectInfo.grossFloorArea.value'],
+    }
+    const typologyFilter =
+      selectedTypologies.length > 0 ? { 'projectInfo.buildingTypology': { $in: selectedTypologies } } : {}
+
+    return [
+      {
+        $match: {
+          $and: [
+            { [`results.gwp.${selectedLifeCycleStage}`]: { $gt: 0 } },
+            { 'projectInfo.grossFloorArea.value': { $gt: 0 } },
+            typologyFilter,
+          ],
+        },
       },
-    },
-    {
-      $project: {
-        _id: null,
-        group: '$_id',
-        count: '$count',
-        min: '$minimum',
-        pct: '$percentiles',
-        median: '$median',
-        max: '$maximum',
-        avg: '$average',
+      {
+        $group: {
+          _id: '$location.country',
+          count: { $sum: 1 },
+          minimum: { $min: divideAggregation },
+          percentiles: { $percentile: { p: [0.25, 0.75], method: 'approximate', input: divideAggregation } },
+          median: { $median: { method: 'approximate', input: divideAggregation } },
+          maximum: { $max: divideAggregation },
+          average: { $avg: divideAggregation },
+        },
       },
-    },
-  ]
-  const { data, loading, error } = useGetProjectDataForBoxPlotQuery({ variables: { aggregation: aggregation } })
+      {
+        $project: {
+          _id: null,
+          group: '$_id',
+          count: '$count',
+          min: '$minimum',
+          pct: '$percentiles',
+          median: '$median',
+          max: '$maximum',
+          avg: '$average',
+        },
+      },
+    ]
+  }, [selectedTypologies, selectedLifeCycleStage])
+
+  const { data, loading, error } = useGetProjectDataForBoxPlotQuery({ variables: { aggregation } })
 
   const boxPlotData: BoxPlotData[] = useMemo(() => {
     if (!data) return []
@@ -66,5 +85,25 @@ export const GlobalBoxPlot = () => {
     )
   if (error) return <p>Error: {error.message}</p>
 
-  return <BoxPlot data={boxPlotData} />
+  return (
+    <Stack>
+      <MultiSelect
+        data={Object.values(BuildingTypology)}
+        value={selectedTypologies}
+        onChange={(value: string[]) => setSelectedTypologies(value)}
+        label='Building Typology'
+        placeholder='Select building typologies'
+      />
+      <Select
+        data={Object.values(LifeCycleStage)}
+        value={selectedLifeCycleStage}
+        onChange={(value: string | null) => {
+          if (value) setSelectedLifeCycleStage(value as LifeCycleStage)
+        }}
+        label='Life Cycle Stage'
+        placeholder='Select life cycle stage'
+      />
+      <BoxPlot data={boxPlotData} />
+    </Stack>
+  )
 }
