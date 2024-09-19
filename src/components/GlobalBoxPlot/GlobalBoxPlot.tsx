@@ -37,7 +37,15 @@ export const GlobalBoxPlot = () => {
     if (!data) return []
 
     return data.projects.aggregation.map(
-      (agg: { min: number; pct: [number, number]; median: number; max: number; avg: number; group: string }) => ({
+      (agg: {
+        min: number
+        pct: [number, number]
+        median: number
+        max: number
+        avg: number
+        group: string
+        count: number
+      }) => ({
         min: agg.min,
         pct25: agg.pct[0],
         median: agg.median,
@@ -45,6 +53,7 @@ export const GlobalBoxPlot = () => {
         max: agg.max,
         avg: agg.avg,
         name: data.projects.groups.find((group) => group.group == agg.group)?.items[0].location.countryName,
+        count: agg.count,
       }),
     )
   }, [data])
