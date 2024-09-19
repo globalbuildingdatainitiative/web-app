@@ -96,7 +96,7 @@ export const GlobalBoxPlot = () => {
             label='Building Typology'
             placeholder='Select building typologies'
           />
-          </Grid.Col>
+        </Grid.Col>
         <Grid.Col span={6}>
           <Select
             data={Object.values(LifeCycleStage)}
