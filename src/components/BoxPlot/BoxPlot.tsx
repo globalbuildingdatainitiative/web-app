@@ -97,16 +97,18 @@ const HorizonBar = ({ x, y, width, color }: RectangleProps & { color: string }) 
 const CustomTooltip = ({ active, payload, label }: TooltipProps<number, string>) => {
   if (active && payload && payload.length) {
     const data = payload[0].payload
+    // Limiting the number of decimal places
+    const formatNumber = (num: number) => Number(num.toFixed(2)).toString()
     return (
       <div style={{ backgroundColor: '#fff', padding: '5px', border: '1px solid #ccc' }}>
         <p>{label}</p>
-        <p>min: {data.min}</p>
-        <p>bottomWhisker: {data.bottomWhisker}</p>
-        <p>bottomBox: {data.bottomBox}</p>
-        <p>topBox: {data.topBox}</p>
-        <p>topWhisker: {data.topWhisker}</p>
-        <p>average: {data.average}</p>
-        <p>count: {data.size}</p> {/* Displaying count */}
+        <p>min: {formatNumber(data.min)}</p>
+        <p>bottomWhisker: {formatNumber(data.bottomWhisker)}</p>
+        <p>bottomBox: {formatNumber(data.bottomBox)}</p>
+        <p>topBox: {formatNumber(data.topBox)}</p>
+        <p>topWhisker: {formatNumber(data.topWhisker)}</p>
+        <p>average: {formatNumber(data.average)}</p>
+        <p>count: {data.size}</p>
       </div>
     )
   }
