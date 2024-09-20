@@ -15,6 +15,7 @@ const mockData: BoxPlotData[] = [
     pct75: 102.5,
     max: 105,
     avg: 100,
+    count: 10,
   },
   {
     name: 'Germany',
@@ -24,6 +25,7 @@ const mockData: BoxPlotData[] = [
     pct75: 12.5,
     max: 15,
     avg: 10,
+    count: 100,
   },
 ]
 
