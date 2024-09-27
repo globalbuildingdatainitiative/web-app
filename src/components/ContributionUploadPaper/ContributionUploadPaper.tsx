@@ -1,6 +1,6 @@
 import { Paper } from '@components'
 import { Button, Group, rem, Stack, Text, Title } from '@mantine/core'
-import { Dropzone } from '@mantine/dropzone'
+import { Dropzone, FileRejection } from '@mantine/dropzone'
 import { IconPhoto, IconUpload, IconX } from '@tabler/icons-react'
 import { useState } from 'react'
 import { InputAssembly, InputContribution, InputProduct, InputProject, useAddContributionMutation } from '@queries'
@@ -11,6 +11,7 @@ export const ContributionUploadPaper = () => {
   const [addContributions, { loading, error }] = useAddContributionMutation({ refetchQueries: ['getContributions'] })
   const [contributionData, setContributionData] = useState<InputContribution[] | null>(null)
   const [fileName, setFileName] = useState('')
+  const [fileErrors, setFileErrors] = useState<FileRejection[] | null>(null)
   const [fileLoading, setFileLoading] = useState(false)
   const navigate = useNavigate()
 
@@ -75,8 +76,8 @@ export const ContributionUploadPaper = () => {
         disabled={!!contributionData}
         loading={fileLoading}
         onDrop={async (files) => setContributionData(await processUploadedFile(files))}
-        onReject={(files) => console.error('rejected files', files)}
-        maxSize={50 * 1024 ** 2}
+        onReject={(files) => setFileErrors(files)}
+        maxSize={75 * 1024 ** 2}
         validator={fileValidator}
         inputProps={{
           // @ts-expect-error data-testid is valid
@@ -107,6 +108,11 @@ export const ContributionUploadPaper = () => {
           </div>
         </Group>
       </Dropzone>
+      {fileErrors?.map((_error, index) => (
+        <Text key={index} c='red'>
+          {_error.file.name}: {_error.errors[0].message}
+        </Text>
+      ))}
       {contributionData ? (
         <Group justify='flex-end' style={{ marginTop: 16 }}>
           {error ? <Text c='red'>{error.message}</Text> : null}

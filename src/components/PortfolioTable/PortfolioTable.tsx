@@ -124,10 +124,11 @@ type Result = {
 }
 
 const getGWPIntensity = ({ cell, row }: GWPIntensity) => {
-  const results = Number(cell.getValue<Result | null>()?.gwp?.a1a3 || 0)
+  const results = cell.getValue<Result | null>()?.gwp || ({} as Result)
   const footprint = row.getValue('projectInfo.grossFloorArea.value') as number
+  const sumOfResults = Object.values(results).reduce((prev: number, next: number) => prev + next, 0)
 
-  return <>{Number(results / footprint).toFixed(2)}</>
+  return <>{Number(sumOfResults / footprint).toFixed(2)}</>
 }
 
 const getGWPBreakdown = ({ row }: GWPIntensity) => {
