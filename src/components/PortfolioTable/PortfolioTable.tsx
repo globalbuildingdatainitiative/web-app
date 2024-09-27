@@ -124,7 +124,7 @@ type Result = {
 }
 
 const getGWPIntensity = ({ cell, row }: GWPIntensity) => {
-  const results = cell.getValue<Result | null>()?.gwp || {} as Result
+  const results = cell.getValue<Result | null>()?.gwp || ({} as Result)
   const footprint = row.getValue('projectInfo.grossFloorArea.value') as number
   const sumOfResults = Object.values(results).reduce((prev: number, next: number) => prev + next, 0)
 
