@@ -23,6 +23,8 @@ export const ContributionUploadPaper = () => {
     if (!contributionData) {
       return
     }
+    console.log('Contribution data:', contributionData)
+
     const chunkSize = 10
     if (contributionData.length > chunkSize) {
       console.warn(
@@ -60,7 +62,10 @@ export const ContributionUploadPaper = () => {
       setFileLoading(false)
       return contributions
     } else if (file.name.endsWith('.json')) {
-      return parseLcaxToContribution(JSON.parse(await file.text()))
+      setFileLoading(true)
+      const contributions = parseLcaxToContribution(JSON.parse(await file.text()))
+      setFileLoading(false)
+      return contributions
     } else if (file.name.endsWith('.xlsx')) {
       setFileLoading(true)
       const json = await parseXlsxToContribution(file)
