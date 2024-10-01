@@ -1,9 +1,8 @@
-import React, { lazy, useEffect } from 'react'
+import React, { lazy } from 'react'
 import ReactDOM from 'react-dom/client'
 import { App } from '@components'
 import * as reactRouterDom from 'react-router-dom'
-import { BrowserRouter, useNavigate } from 'react-router-dom'
-import { useMediaQuery } from '@mantine/hooks'
+import { BrowserRouter } from 'react-router-dom'
 import { MantineProvider } from '@mantine/core'
 
 import SuperTokens, { SuperTokensWrapper } from 'supertokens-auth-react'
@@ -13,11 +12,11 @@ import { GraphQLProvider, UserProvider } from '@context'
 import { getSuperTokensRoutesForReactRouterDom } from 'supertokens-auth-react/ui'
 import { EmailPasswordPreBuiltUI } from 'supertokens-auth-react/recipe/emailpassword/prebuiltui'
 import { Route, Routes } from 'react-router'
+import { MobileRedirect } from '@components'
 
 const RejectInvitationPage = lazy(() => import('pages/RejectInvitationPage'))
 const ExistingUserInvitationPage = lazy(() => import('pages/ExistingUserInvitationPage'))
 const NewUserInvitationPage = lazy(() => import('pages/NewUserInvitationPage'))
-const MobileUsersPage = lazy(() => import('pages/MobileUsersPage'))
 
 SuperTokens.init({
   appInfo: {
@@ -55,31 +54,17 @@ SuperTokens.init({
   ],
 })
 
-const MobileRedirect: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const isMobile = useMediaQuery('(max-width: 768px)')
-  const navigate = useNavigate()
-
-  useEffect(() => {
-    if (isMobile) {
-      navigate('/mobile')
-    }
-  }, [isMobile, navigate])
-
-  return <>{children}</>
-}
-
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <MantineProvider>
-      <SuperTokensWrapper>
-        <BrowserRouter>
-          <GraphQLProvider>
-            <MobileRedirect>
+      <MobileRedirect>
+        <SuperTokensWrapper>
+          <BrowserRouter>
+            <GraphQLProvider>
               <Routes>
                 <Route path='/reject-invite' element={<RejectInvitationPage />} />
                 <Route path='/accept-invite' element={<ExistingUserInvitationPage />} />
                 <Route path='/accept-invite-new' element={<NewUserInvitationPage />} />
-                <Route path='/mobile' element={<MobileUsersPage />} />
                 {getSuperTokensRoutesForReactRouterDom(reactRouterDom, [EmailPasswordPreBuiltUI])}
                 <Route
                   path='*'
@@ -92,10 +77,10 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
                   }
                 />
               </Routes>
-            </MobileRedirect>
-          </GraphQLProvider>
-        </BrowserRouter>
-      </SuperTokensWrapper>
+            </GraphQLProvider>
+          </BrowserRouter>
+        </SuperTokensWrapper>
+      </MobileRedirect>
     </MantineProvider>
   </React.StrictMode>,
 )
