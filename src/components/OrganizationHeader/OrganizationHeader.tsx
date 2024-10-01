@@ -20,7 +20,11 @@ export const OrganizationHeader = ({ context }: OrganizationHeaderProps) => {
       },
     },
   })
-  const totalMembers = usersData?.users?.length || 0
+  const totalMembers =
+    usersData?.users?.filter((user) => {
+      const status = user.inviteStatus?.toLowerCase()
+      return status === 'accepted' || status === 'none'
+    }).length || 0
   const organizationName = user?.organization?.name || 'Unknown'
   const theme = useMantineTheme()
 
