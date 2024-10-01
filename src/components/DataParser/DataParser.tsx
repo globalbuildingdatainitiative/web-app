@@ -1106,22 +1106,10 @@ export const mapJsonToInputContribution = (json: never): InputContribution[] => 
     {} as { [key: string]: { [key: string]: InputAssembly } },
   )
 
-  console.log('assemblies', _assemblies)
-
   let project = { ...inputProject, assemblies: _assemblies } // expects assemblies and products to be objects with key=id, value=object
   project = calculateProject(project)
 
-  console.log('project', project)
   return parseLcaxToContribution([project])
-
-  // // Return the final InputContribution array with the mapped data
-  // const inputContribution: InputContribution = {
-  //   project: {
-  //     ...inputProject,
-  //     assemblies: assemblies,
-  //   },
-  // }
-  // return [inputContribution]
 }
 
 export const parseSLiCEtoContribution = (uint8Array: Uint8Array): InputContribution[] => {

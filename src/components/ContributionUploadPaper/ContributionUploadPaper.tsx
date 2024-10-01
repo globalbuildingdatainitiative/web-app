@@ -23,7 +23,6 @@ export const ContributionUploadPaper = () => {
     if (!contributionData) {
       return
     }
-    console.log('Contribution data:', contributionData)
 
     const chunkSize = 10
     if (contributionData.length > chunkSize) {
