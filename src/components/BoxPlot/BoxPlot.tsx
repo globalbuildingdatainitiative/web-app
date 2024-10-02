@@ -165,7 +165,7 @@ export const BoxPlot = (props: BoxPlotProps) => {
           <CartesianGrid strokeDasharray='3 3' horizontal={false} />
           <XAxis
             type='number'
-            domain={['dataMin - 1', 'dataMax + 1']}
+            domain={['dataMin', 'dataMax + 1']}
             tickCount={7}
             label={{ value: 'GWP Intensity (kgCO₂eq/m²)', position: 'insideBottom', offset: -10 }}
           />
