@@ -6,7 +6,11 @@ import { useUserContext } from '@context'
 import { useState } from 'react'
 import { useApolloClient } from '@apollo/client'
 
-export const SignOut = () => {
+interface SignOutProps {
+  collapsed: boolean
+}
+
+export const SignOut = ({ collapsed }: SignOutProps) => {
   const navigate = useNavigate()
   const { user } = useUserContext()
   const client = useApolloClient()
@@ -30,7 +34,9 @@ export const SignOut = () => {
         onMouseLeave={() => setIsHovered(false)}
         onClick={onLogout}
       >
-        {isHovered ? (
+        {collapsed ? (
+          <IconLogout size={16} />
+        ) : isHovered ? (
           <>
             <IconLogout size={16} />
             <Text style={{ marginLeft: 8 }}>Sign Out</Text>

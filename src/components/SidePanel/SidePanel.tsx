@@ -1,5 +1,5 @@
 import { AppShell, Button, Group, Stack, Title } from '@mantine/core'
-import { IconAffiliate, IconChevronRight, IconDashboard, IconUpload, IconUser } from '@tabler/icons-react'
+import { IconAffiliate, IconChevronRight, IconDashboard, IconMenu2, IconUpload, IconUser } from '@tabler/icons-react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { SignOut } from '../SignOut'
 
@@ -9,7 +9,12 @@ interface ButtonProps {
   link: string
 }
 
-export const SidePanel = () => {
+interface SidePanelProps {
+  collapsed: boolean
+  toggleCollapsed: () => void
+}
+
+export const SidePanel = ({ collapsed, toggleCollapsed }: SidePanelProps) => {
   const location = useLocation()
   const navigate = useNavigate()
 
@@ -25,33 +30,56 @@ export const SidePanel = () => {
     (location.pathname.startsWith(link) && link !== '/') || location.pathname === link
 
   return (
-    <>
+    <div
+      style={{
+        width: collapsed ? '80px' : '250px',
+        transition: 'width 0.3s ease',
+        display: 'flex',
+        flexDirection: 'column',
+        height: '100vh',
+        backgroundColor: '#fff',
+      }}
+    >
       <AppShell.Section>
-        <Group>
+        <Group style={{ justifyContent: collapsed ? 'flex-start' : 'center', paddingLeft: collapsed ? '15px' : '0' }}>
           <currentPage.Logo stroke={2} size={38} />
-          <Title order={2}>{currentPage.name}</Title>
+          {!collapsed && <Title order={2}>{currentPage.name}</Title>}
         </Group>
       </AppShell.Section>
+
       <AppShell.Section grow mt={30}>
         <Stack style={{ marginTop: 5 }}>
+          <Button onClick={toggleCollapsed} variant='transparent' style={{ alignSelf: 'flex-start' }}>
+            <IconMenu2 size={24} />
+          </Button>
           {buttons.map(({ name, Logo, link }, index) => (
             <Button
               key={index}
               variant={onCurrentPage(link) ? 'filled' : 'transparent'}
               color={onCurrentPage(link) ? 'violet' : 'gray'}
-              leftSection={<Logo stroke={2} />}
-              rightSection={<IconChevronRight size={16} />}
+              leftSection={<Logo stroke={2} size={collapsed ? 28 : 24} />}
+              rightSection={!collapsed && <IconChevronRight size={16} />}
               onClick={() => navigate(link)}
-              justify='space-between'
+              justify={collapsed ? 'center' : 'space-between'}
+              style={{ paddingLeft: collapsed ? '15px' : '20px' }}
             >
-              {name}
+              {!collapsed && name}
             </Button>
           ))}
         </Stack>
       </AppShell.Section>
-      <AppShell.Section style={{ display: 'inline-flex', justifyContent: 'center', alignItems: 'center' }}>
-        <SignOut />
+
+      <AppShell.Section
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          marginTop: 'auto',
+          marginBottom: '20px',
+        }}
+      >
+        <SignOut collapsed={collapsed} />
       </AppShell.Section>
-    </>
+    </div>
   )
 }
