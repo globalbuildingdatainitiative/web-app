@@ -10,6 +10,8 @@ import {
 import { uuidv4 } from '@graphql-tools/mock/utils'
 import { calculateProject, convertSLiCE, Project } from 'lcax'
 
+type RequiredInputProject = Omit<InputProject, 'id'> & { id: string }
+
 // Function to group assemblies and map them to JSON
 export const mapAssembliesToJson = (sheetData: (string | number)[][]) => {
   const headers = sheetData[0]
@@ -919,7 +921,9 @@ export const mapJsonToInputContribution = (json: never): InputContribution[] => 
     return usedStages.size > 0 ? Array.from(usedStages) : ['none' as LifeCycleStage]
   }
 
-  const inputProject: InputProject = {
+  // Create a new type that extends the InputProject and make id required
+
+  const inputProject: RequiredInputProject = {
     id: uuidv4(),
     name: projectData['name'] || 'Unknown Project',
     description: projectData['description'] || '',
@@ -1107,6 +1111,7 @@ export const mapJsonToInputContribution = (json: never): InputContribution[] => 
   )
 
   let project = { ...inputProject, assemblies: _assemblies } // expects assemblies and products to be objects with key=id, value=object
+  // @ts-expect-error Ignoring type mismatch for calculateProject
   project = calculateProject(project)
 
   return parseLcaxToContribution([project])
