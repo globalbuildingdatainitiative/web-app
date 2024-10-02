@@ -97,18 +97,25 @@ const HorizonBar = ({ x, y, width, color }: RectangleProps & { color: string }) 
 const CustomTooltip = ({ active, payload, label }: TooltipProps<number, string>) => {
   if (active && payload && payload.length) {
     const data = payload[0].payload
-    // Limiting the number of decimal places
     const formatNumber = (num: number) => Number(num.toFixed(2)).toString()
+
     return (
-      <div style={{ backgroundColor: '#fff', padding: '5px', border: '1px solid #ccc' }}>
-        <p>{label}</p>
-        <p>min: {formatNumber(data.min)}</p>
-        <p>bottomWhisker: {formatNumber(data.bottomWhisker)}</p>
-        <p>bottomBox: {formatNumber(data.bottomBox)}</p>
-        <p>topBox: {formatNumber(data.topBox)}</p>
-        <p>topWhisker: {formatNumber(data.topWhisker)}</p>
-        <p>average: {formatNumber(data.average)}</p>
-        <p>count: {data.size}</p>
+      <div
+        style={{
+          backgroundColor: '#fff',
+          padding: '10px',
+          border: '1px solid #ccc',
+          borderRadius: '4px',
+        }}
+      >
+        <p style={{ fontWeight: 'bold' }}>{label}</p>
+        <p>Minimum: {formatNumber(data.min)}</p>
+        <p>25th Percentile: {formatNumber(data.pct25)}</p>
+        <p>Median: {formatNumber(data.median)}</p>
+        <p>75th Percentile: {formatNumber(data.pct75)}</p>
+        <p>Maximum: {formatNumber(data.max)}</p>
+        <p>Average: {formatNumber(data.avg)}</p>
+        <p>Count: {data.count}</p>
       </div>
     )
   }
@@ -132,47 +139,56 @@ export const BoxPlot = (props: BoxPlotProps) => {
   const lineColor = getColor('blue', 6, '#31a985')
   const medianColor = getColor('orange', 9, '#ec701b')
 
-  const data = useMemo(
+  const chartData = useMemo(
     () =>
-      props.data.map((v) => {
-        return {
-          name: v.name,
-          min: v.min,
-          bottomWhisker: v.pct25 - v.min,
-          bottomBox: v.median - v.pct25,
-          topBox: v.pct75 - v.median,
-          topWhisker: v.max - v.pct75,
-          average: v.avg,
-          median: v.median,
-          size: v.count,
-        }
-      }),
+      props.data.map((v) => ({
+        name: v.name,
+        min: v.min,
+        pct25: v.pct25,
+        median: v.median,
+        pct75: v.pct75,
+        max: v.max,
+        avg: v.avg,
+        count: v.count,
+        bottomWhisker: v.pct25 - v.min,
+        bottomBox: v.median - v.pct25,
+        topBox: v.pct75 - v.median,
+        topWhisker: v.max - v.pct75,
+      })),
     [props.data],
   )
 
   return (
     <div data-testid='BoxPlot'>
-      <ResponsiveContainer minHeight={height * 0.9}>
-        <ComposedChart layout='vertical' data={data} margin={{ left: 100, right: 50, bottom: 50 }}>
+      <ResponsiveContainer width='100%' height={height * 0.9}>
+        <ComposedChart layout='vertical' data={chartData} margin={{ left: 100, right: 50, bottom: 50 }}>
           <CartesianGrid strokeDasharray='3 3' horizontal={false} />
           <XAxis
             type='number'
-            domain={[0, 10]}
+            domain={['dataMin', 'dataMax + 1']}
             tickCount={7}
             label={{ value: 'GWP Intensity (kgCO₂eq/m²)', position: 'insideBottom', offset: -10 }}
           />
           <YAxis type='category' dataKey='name' />
           <Tooltip content={CustomTooltip} />
+          {/* Invisible Bar for stacking */}
           <Bar stackId='a' dataKey='min' fill='none' />
+          {/* Horizon Bar */}
           <Bar stackId='a' dataKey='bar' shape={<HorizonBar color={lineColor} />} />
+          {/* Bottom Whisker */}
           <Bar stackId='a' dataKey='bottomWhisker' shape={<Whisker color={lineColor} />} />
+          {/* Bottom Box */}
           <Bar stackId='a' dataKey='bottomBox' fill={bottomBoxColor} />
+          {/* Median Bar */}
           <Bar stackId='a' dataKey='bar' shape={<MedianBar color={medianColor} />} />
+          {/* Top Box */}
           <Bar stackId='a' dataKey='topBox' fill={topBoxColor} />
+          {/* Top Whisker */}
           <Bar stackId='a' dataKey='topWhisker' shape={<Whisker color={lineColor} />} />
+          {/* Horizon Bar */}
           <Bar stackId='a' dataKey='bar' shape={<HorizonBar color={lineColor} />} />
-          <ZAxis type='number' dataKey='size' range={[0, 250]} />
-          <Scatter dataKey='average' shape={<CustomDot />} />
+          <ZAxis type='number' dataKey='count' range={[0, 250]} />
+          <Scatter dataKey='avg' shape={<CustomDot />} />
         </ComposedChart>
       </ResponsiveContainer>
     </div>
