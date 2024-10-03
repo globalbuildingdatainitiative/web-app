@@ -48,6 +48,8 @@ query getContributions($limit: Int, $offset: Int) {
         location {
           countryName
         }
+        lifeCycleStages
+        impactCategories
       }
     }
     count

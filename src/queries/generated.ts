@@ -95,21 +95,17 @@ export enum BuildingType {
   OTHER = 'other',
   RETROFIT_AND_EXTENSION_WORKS = 'retrofit_and_extension_works',
   RETROFIT_WORKS = 'retrofit_works',
-  UNKNOWN = 'unknown',
 }
 
 export enum BuildingTypology {
   AGRICULTURAL = 'agricultural',
   COMMERCIAL = 'commercial',
-  EDUCATIONAL = 'educational',
-  HEALTH = 'health',
   INDUSTRIAL = 'industrial',
   INFRASTRUCTURE = 'infrastructure',
   OFFICE = 'office',
   OTHER = 'other',
   PUBLIC = 'public',
   RESIDENTIAL = 'residential',
-  UNKNOWN = 'unknown',
 }
 
 export type Classification = {
@@ -1190,7 +1186,6 @@ export enum RoofType {
   PITCHED = 'pitched',
   PYRAMID = 'pyramid',
   SADDLE = 'saddle',
-  UNKNOWN = 'unknown',
 }
 
 export type SoftwareInfo = {
@@ -2126,7 +2121,13 @@ export type GetContributionsQuery = {
       id: any
       uploadedAt: any
       user: { __typename?: 'User'; id: any; firstName?: string | null; lastName?: string | null }
-      project: { __typename?: 'Project'; name: string; location: { __typename?: 'Location'; countryName: string } }
+      project: {
+        __typename?: 'Project'
+        name: string
+        lifeCycleStages: Array<LifeCycleStage>
+        impactCategories: Array<ImpactCategoryKey>
+        location: { __typename?: 'Location'; countryName: string }
+      }
     }> | null
   }
 }
@@ -2552,6 +2553,8 @@ export const GetContributionsDocument = gql`
           location {
             countryName
           }
+          lifeCycleStages
+          impactCategories
         }
       }
       count

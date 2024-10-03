@@ -51,7 +51,7 @@ export const SidePanel = ({ collapsed, toggleCollapsed }: SidePanelProps) => {
       <AppShell.Section>
         {!collapsed ? (
           <Group style={{ justifyContent: 'center' }}>
-            <currentPage.Logo stroke={2} size={38} />
+            <currentPage.Logo stroke={2} size={30} />
             <Title order={2}>{currentPage.name}</Title>
             <ActionIcon onClick={toggleCollapsed} variant='transparent' color='gray'>
               <IconLayoutSidebarLeftCollapse size={29} />

@@ -2,7 +2,42 @@ import { useGetContributionsQuery, GetContributionsQuery } from '@queries'
 import { MantineReactTable, MRT_ColumnDef, useMantineReactTable, MRT_PaginationState } from 'mantine-react-table'
 import React, { useMemo, useState } from 'react'
 import dayjs from 'dayjs'
-import { Group, Select, Pagination, Text } from '@mantine/core'
+import { Group, Select, Pagination, Text, Tooltip } from '@mantine/core'
+
+interface TruncatedTextWithTooltipProps {
+  text: string
+  maxLength?: number
+}
+
+export const TruncatedTextWithTooltip: React.FC<TruncatedTextWithTooltipProps> = ({ text, maxLength = 25 }) => {
+  const isTruncated = text.length > maxLength
+  const truncatedText = isTruncated ? `${text.substring(0, maxLength)}...` : text
+
+  if (!text) {
+    return <Text>N/A</Text>
+  }
+
+  return isTruncated ? (
+    <Tooltip
+      label={text}
+      position='top'
+      withArrow
+      styles={{
+        tooltip: {
+          backgroundColor: '#fff',
+          color: '#333',
+          border: '1px solid #ccc',
+          borderRadius: '10px',
+          padding: '10px',
+        },
+      }}
+    >
+      <Text style={{ cursor: 'pointer' }}>{truncatedText}</Text>
+    </Tooltip>
+  ) : (
+    <Text>{text}</Text>
+  )
+}
 
 export const ContributionTable: React.FC = () => {
   const [pagination, setPagination] = useState<MRT_PaginationState>({ pageIndex: 0, pageSize: 10 })
@@ -40,6 +75,24 @@ export const ContributionTable: React.FC = () => {
       {
         accessorKey: 'project.location.countryName',
         header: 'Country',
+      },
+      {
+        accessorKey: 'project.lifeCycleStages',
+        header: 'Life Cycle Stages',
+        Cell: ({ cell }) => {
+          const stages = cell.getValue<string[]>() || []
+          const displayText = stages.length > 0 ? stages.join(', ') : 'N/A'
+          return <TruncatedTextWithTooltip text={displayText.toUpperCase()} />
+        },
+      },
+      {
+        accessorKey: 'project.impactCategories',
+        header: 'Impact Categories',
+        Cell: ({ cell }) => {
+          const categories = cell.getValue<string[]>() || []
+          const displayText = categories.length > 0 ? categories.join(', ') : 'N/A'
+          return <TruncatedTextWithTooltip text={displayText.toUpperCase()} />
+        },
       },
     ],
     [],
