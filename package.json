@@ -29,7 +29,7 @@
     "@tabler/icons-react": "^3.2.0",
     "clsx": "^2.1.1",
     "dayjs": "^1.11.10",
-    "lcax": "^2.5.0",
+    "lcax": "^2.6.0",
     "leaflet": "^1.9.4",
     "mantine-react-table": "^2.0.0-beta.5",
     "react": "^18.3.1",
@@ -37,7 +37,8 @@
     "react-leaflet": "^4.2.1",
     "react-router-dom": "^6.22.3",
     "recharts": "2.12.7",
-    "supertokens-auth-react": "^0.40.1"
+    "supertokens-auth-react": "^0.40.1",
+    "xlsx": "^0.18.5"
   },
   "devDependencies": {
     "@apollo/client": "^3.10.1",

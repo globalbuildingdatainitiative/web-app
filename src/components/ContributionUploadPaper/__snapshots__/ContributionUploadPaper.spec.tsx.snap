@@ -40,18 +40,24 @@ exports[`ContributionUploadPaper > Snapshot 1`] = `
         style=""
       >
         1. Download the data template file here:
+        <a
+          download=""
+          href="/GBDI_Data_Template_v0.2.0.xlsx"
+        >
+          Download file
+        </a>
       </p>
       <p
         class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
         style=""
       >
-        2. Paste your data as per template's format
+        2. Fill your data as per template's format
       </p>
       <p
         class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
         style=""
       >
-        3. Export the file as .xlsx
+        3. Save as .xlsx
       </p>
       <p
         class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
