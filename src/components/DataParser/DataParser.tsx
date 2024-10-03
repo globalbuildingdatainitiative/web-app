@@ -1114,6 +1114,7 @@ export const mapJsonToInputContribution = (json: never): InputContribution[] => 
   // @ts-expect-error Ignoring type mismatch for calculateProject
   project = calculateProject(project)
 
+  // @ts-expect-error Ignoring type mismatch for calculateProject
   return parseLcaxToContribution([project])
 }
 
