@@ -18,7 +18,7 @@ export const AppLayout = () => {
       withBorder={false}
     >
       <AppShell.Header
-        pl={`calc(${useMatches({ xs: 100, sm: 200, xl: 300 })}px + var(--mantine-spacing-xl))`}
+        pl={`calc(${useMatches({ xs: collapsed ? 30 : 100, sm: collapsed ? 180 : 200, xl: collapsed ? 130 : 300 })}px + var(--mantine-spacing-xl))`}
         bg={theme.other.backgroundColor}
       >
         <ErrorBoundary>
