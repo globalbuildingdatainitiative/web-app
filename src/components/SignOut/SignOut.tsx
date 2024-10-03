@@ -35,7 +35,7 @@ export const SignOut = ({ collapsed }: SignOutProps) => {
         onClick={onLogout}
       >
         {collapsed ? (
-          <IconLogout size={16} />
+          <IconLogout size={20} />
         ) : isHovered ? (
           <>
             <IconLogout size={16} />
