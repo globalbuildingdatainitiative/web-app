@@ -1,11 +1,16 @@
-import { Paper } from '@components'
+import {
+  Paper,
+  parseXlsxToContribution,
+  mapJsonToInputContribution,
+  parseLcaxToContribution,
+  parseSLiCEtoContribution,
+} from '@components'
 import { Button, Group, rem, Stack, Text, Title } from '@mantine/core'
 import { Dropzone, FileRejection } from '@mantine/dropzone'
 import { IconPhoto, IconUpload, IconX } from '@tabler/icons-react'
 import { useState } from 'react'
-import { InputAssembly, InputContribution, InputProduct, InputProject, useAddContributionMutation } from '@queries'
+import { InputContribution, InputProject, useAddContributionMutation } from '@queries'
 import { useNavigate } from 'react-router-dom'
-import { convertSLiCE, Project } from 'lcax'
 
 export const ContributionUploadPaper = () => {
   const [addContributions, { loading, error }] = useAddContributionMutation({ refetchQueries: ['getContributions'] })
@@ -19,6 +24,7 @@ export const ContributionUploadPaper = () => {
     if (!contributionData) {
       return
     }
+
     const chunkSize = 10
     if (contributionData.length > chunkSize) {
       console.warn(
@@ -36,7 +42,7 @@ export const ContributionUploadPaper = () => {
   }
 
   const fileValidator = (file: File) => {
-    const validExtension = file.name.endsWith('.parquet') || file.name.endsWith('.json')
+    const validExtension = file.name.endsWith('.parquet') || file.name.endsWith('.json') || file.name.endsWith('.xlsx')
     if (!validExtension) {
       return {
         code: 'file-invalid-type',
@@ -56,7 +62,16 @@ export const ContributionUploadPaper = () => {
       setFileLoading(false)
       return contributions
     } else if (file.name.endsWith('.json')) {
-      return parseLcaxToContribution(JSON.parse(await file.text()))
+      setFileLoading(true)
+      const contributions = parseLcaxToContribution(JSON.parse(await file.text()))
+      setFileLoading(false)
+      return contributions
+    } else if (file.name.endsWith('.xlsx')) {
+      setFileLoading(true)
+      const json = await parseXlsxToContribution(file)
+      const contributions = mapJsonToInputContribution(json as never)
+      setFileLoading(false)
+      return contributions
     }
     return [{ project: { name: file.name } as InputProject }]
   }
@@ -66,9 +81,14 @@ export const ContributionUploadPaper = () => {
       <Title order={3}>Contribute Now</Title>
       <Text>In order to process the data correctly, please follow the steps below:</Text>
       <Stack pl='md' py='md' gap={0}>
-        <Text>1. Download the data template file here:</Text>
-        <Text>2. Paste your data as per template's format</Text>
-        <Text>3. Export the file as .xlsx</Text>
+        <Text>
+          1. Download the data template file here:
+          <a href='/GBDI_Data_Template_v0.2.0.xlsx' download>
+            Download file
+          </a>
+        </Text>
+        <Text>2. Fill your data as per template's format</Text>
+        <Text>3. Save as .xlsx</Text>
         <Text>4. Upload the file below</Text>
       </Stack>
       <Dropzone
@@ -125,19 +145,3 @@ export const ContributionUploadPaper = () => {
     </Paper>
   )
 }
-
-const parseSLiCEtoContribution = (uint8Array: Uint8Array): InputContribution[] => {
-  const projects = convertSLiCE(uint8Array)
-
-  return parseLcaxToContribution(projects)
-}
-
-const parseLcaxToContribution = (projects: Project[]): InputContribution[] =>
-  projects.map((project) => {
-    const assemblies = Object.values(project.assemblies).map((assembly) => {
-      // @ts-expect-error products is in type
-      const products = Object.values(assembly.products) as InputProduct[]
-      return { ...assembly, products }
-    }) as InputAssembly[]
-    return { project: { ...project, assemblies } as InputProject }
-  })
