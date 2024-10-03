@@ -1,5 +1,13 @@
 import { AppShell, Button, Group, Stack, Title } from '@mantine/core'
-import { IconAffiliate, IconChevronRight, IconDashboard, IconMenu2, IconUpload, IconUser } from '@tabler/icons-react'
+import {
+  IconAffiliate,
+  IconChevronRight,
+  IconDashboard,
+  IconUpload,
+  IconUser,
+  IconLayoutSidebarLeftExpand,
+  IconLayoutSidebarLeftCollapse,
+} from '@tabler/icons-react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { SignOut } from '../SignOut'
 
@@ -49,8 +57,8 @@ export const SidePanel = ({ collapsed, toggleCollapsed }: SidePanelProps) => {
 
       <AppShell.Section grow mt={30}>
         <Stack style={{ marginTop: 5 }}>
-          <Button onClick={toggleCollapsed} variant='transparent' style={{ alignSelf: 'flex-start' }}>
-            <IconMenu2 size={24} />
+          <Button onClick={toggleCollapsed} variant='transparent' color='gray' style={{ alignSelf: 'flex-start' }}>
+            {collapsed ? <IconLayoutSidebarLeftExpand size={29} /> : <IconLayoutSidebarLeftCollapse size={29} />}
           </Button>
           {buttons.map(({ name, Logo, link }, index) => (
             <Button
