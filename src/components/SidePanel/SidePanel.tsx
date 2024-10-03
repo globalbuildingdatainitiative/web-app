@@ -1,4 +1,4 @@
-import { AppShell, Button, Group, Stack, Title } from '@mantine/core'
+import { ActionIcon, AppShell, Button, Group, Stack, Title } from '@mantine/core'
 import {
   IconAffiliate,
   IconChevronRight,
@@ -49,17 +49,23 @@ export const SidePanel = ({ collapsed, toggleCollapsed }: SidePanelProps) => {
       }}
     >
       <AppShell.Section>
-        <Group style={{ justifyContent: collapsed ? 'flex-start' : 'center', paddingLeft: collapsed ? '15px' : '0' }}>
-          <currentPage.Logo stroke={2} size={38} />
-          {!collapsed && <Title order={2}>{currentPage.name}</Title>}
-        </Group>
+        {!collapsed ? (
+          <Group style={{ justifyContent: 'center' }}>
+            <currentPage.Logo stroke={2} size={38} />
+            <Title order={2}>{currentPage.name}</Title>
+            <ActionIcon onClick={toggleCollapsed} variant='transparent' color='gray'>
+              <IconLayoutSidebarLeftCollapse size={29} />
+            </ActionIcon>
+          </Group>
+        ) : (
+          <Button onClick={toggleCollapsed} variant='transparent' color='gray' style={{ alignSelf: 'flex-start' }}>
+            <IconLayoutSidebarLeftExpand size={29} />
+          </Button>
+        )}
       </AppShell.Section>
 
       <AppShell.Section grow mt={30}>
         <Stack style={{ marginTop: 5 }}>
-          <Button onClick={toggleCollapsed} variant='transparent' color='gray' style={{ alignSelf: 'flex-start' }}>
-            {collapsed ? <IconLayoutSidebarLeftExpand size={29} /> : <IconLayoutSidebarLeftCollapse size={29} />}
-          </Button>
           {buttons.map(({ name, Logo, link }, index) => (
             <Button
               key={index}
