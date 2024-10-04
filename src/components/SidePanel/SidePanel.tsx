@@ -7,6 +7,7 @@ import {
   IconUser,
   IconLayoutSidebarLeftExpand,
   IconLayoutSidebarLeftCollapse,
+  IconChartHistogram,
 } from '@tabler/icons-react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { SignOut } from '../SignOut'
@@ -30,6 +31,7 @@ export const SidePanel = ({ collapsed, toggleCollapsed }: SidePanelProps) => {
     { name: 'Dashboard', Logo: IconDashboard, link: '/' },
     { name: 'Contributions', Logo: IconUpload, link: '/contributions' },
     { name: 'Organization', Logo: IconAffiliate, link: '/organization' },
+    { name: 'Portfolio', Logo: IconChartHistogram, link: '/portfolio' },
     { name: 'Profile', Logo: IconUser, link: '/profile' },
   ]
 
