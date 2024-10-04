@@ -50,6 +50,9 @@ query getContributions($limit: Int, $offset: Int) {
         }
         lifeCycleStages
         impactCategories
+        projectInfo {
+          buildingType
+        }
       }
     }
     count

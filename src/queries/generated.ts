@@ -2127,6 +2127,7 @@ export type GetContributionsQuery = {
         lifeCycleStages: Array<LifeCycleStage>
         impactCategories: Array<ImpactCategoryKey>
         location: { __typename?: 'Location'; countryName: string }
+        projectInfo: { __typename?: 'ProjectInfo'; buildingType: BuildingType }
       }
     }> | null
   }
@@ -2555,6 +2556,9 @@ export const GetContributionsDocument = gql`
           }
           lifeCycleStages
           impactCategories
+          projectInfo {
+            buildingType
+          }
         }
       }
       count
