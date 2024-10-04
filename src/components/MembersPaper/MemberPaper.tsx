@@ -29,7 +29,7 @@ const Wrapper = ({ user }: { user: User | null }) => {
           Members
         </Tabs.Tab>
         <Tabs.Tab value='invitees' leftSection={<IconUserPlus style={iconStyle} />}>
-          Invitees
+          Invited
         </Tabs.Tab>
       </Tabs.List>
 
