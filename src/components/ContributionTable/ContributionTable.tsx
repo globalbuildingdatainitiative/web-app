@@ -56,7 +56,28 @@ export const ContributionTable: React.FC = () => {
     () => [
       {
         accessorKey: 'project.name',
-        header: 'Project',
+        header: 'Project Name',
+        Cell: ({ cell }) => {
+          const project_name = cell.getValue<string>() || 'N/A'
+          return <TruncatedTextWithTooltip text={project_name} />
+        },
+      },
+      {
+        accessorKey: 'project.location.countryName',
+        header: 'Country',
+        Cell: ({ cell }) => {
+          const country = cell.getValue<string>() || 'N/A'
+          return <TruncatedTextWithTooltip text={country} />
+        },
+      },
+      {
+        accessorKey: 'project.projectInfo.buildingType',
+        header: 'Building Type',
+        Cell: ({ cell }) => {
+          const rawValue = cell.getValue<string>() || 'N/A'
+          const formattedValue = rawValue.replace(/_/g, ' ').replace(/\b\w/g, (char) => char.toUpperCase())
+          return <Text>{formattedValue}</Text>
+        },
       },
       {
         accessorFn: (row) => `${row.user?.firstName ?? 'N/A'} ${row.user?.lastName ?? 'N/A'}`,
@@ -64,17 +85,13 @@ export const ContributionTable: React.FC = () => {
         Cell: ({ row }) => {
           const firstName = row.original.user?.firstName ?? 'N/A'
           const lastName = row.original.user?.lastName ?? 'N/A'
-          return <Text>{`${firstName} ${lastName}`}</Text>
+          return <TruncatedTextWithTooltip text={`${firstName} ${lastName}`} />
         },
       },
       {
         accessorKey: 'uploadedAt',
         header: 'Date',
         Cell: ({ cell }) => <Text>{dayjs(cell.getValue<string>()).format('DD/MM/YYYY')}</Text>,
-      },
-      {
-        accessorKey: 'project.location.countryName',
-        header: 'Country',
       },
       {
         accessorKey: 'project.lifeCycleStages',
