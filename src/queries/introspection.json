@@ -350,8 +350,7 @@
             "isDeprecated": false,
             "deprecationReason": null
           },
-          { "name": "retrofit_works", "description": null, "isDeprecated": false, "deprecationReason": null },
-          { "name": "unknown", "description": null, "isDeprecated": false, "deprecationReason": null }
+          { "name": "retrofit_works", "description": null, "isDeprecated": false, "deprecationReason": null }
         ],
         "possibleTypes": null
       },
@@ -366,15 +365,12 @@
         "enumValues": [
           { "name": "agricultural", "description": null, "isDeprecated": false, "deprecationReason": null },
           { "name": "commercial", "description": null, "isDeprecated": false, "deprecationReason": null },
-          { "name": "educational", "description": null, "isDeprecated": false, "deprecationReason": null },
-          { "name": "health", "description": null, "isDeprecated": false, "deprecationReason": null },
           { "name": "industrial", "description": null, "isDeprecated": false, "deprecationReason": null },
           { "name": "infrastructure", "description": null, "isDeprecated": false, "deprecationReason": null },
           { "name": "office", "description": null, "isDeprecated": false, "deprecationReason": null },
           { "name": "other", "description": null, "isDeprecated": false, "deprecationReason": null },
           { "name": "public", "description": null, "isDeprecated": false, "deprecationReason": null },
-          { "name": "residential", "description": null, "isDeprecated": false, "deprecationReason": null },
-          { "name": "unknown", "description": null, "isDeprecated": false, "deprecationReason": null }
+          { "name": "residential", "description": null, "isDeprecated": false, "deprecationReason": null }
         ],
         "possibleTypes": null
       },
@@ -4610,8 +4606,7 @@
           { "name": "other", "description": null, "isDeprecated": false, "deprecationReason": null },
           { "name": "pitched", "description": null, "isDeprecated": false, "deprecationReason": null },
           { "name": "pyramid", "description": null, "isDeprecated": false, "deprecationReason": null },
-          { "name": "saddle", "description": null, "isDeprecated": false, "deprecationReason": null },
-          { "name": "unknown", "description": null, "isDeprecated": false, "deprecationReason": null }
+          { "name": "saddle", "description": null, "isDeprecated": false, "deprecationReason": null }
         ],
         "possibleTypes": null
       },

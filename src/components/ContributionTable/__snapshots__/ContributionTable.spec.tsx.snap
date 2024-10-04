@@ -307,7 +307,7 @@ exports[`ContributionTable > Snapshot 1`] = `
         </div>
         <table
           class="mrt-table MRT_Table-module_root__ms2uS m_b23fa0ef mantine-Table-table"
-          style="--table-horizontal-spacing: var(--mantine-spacing-md); --table-vertical-spacing: var(--mantine-spacing-md); --header-project_name-size: 180; --col-project_name-size: 180; --header-User-size: 180; --col-User-size: 180; --header-uploadedAt-size: 180; --col-uploadedAt-size: 180; --header-project_location_countryName-size: 180; --col-project_location_countryName-size: 180;"
+          style="--table-horizontal-spacing: var(--mantine-spacing-md); --table-vertical-spacing: var(--mantine-spacing-md); --header-project_name-size: 180; --col-project_name-size: 180; --header-User-size: 180; --col-User-size: 180; --header-uploadedAt-size: 180; --col-uploadedAt-size: 180; --header-project_location_countryName-size: 180; --col-project_location_countryName-size: 180; --header-project_lifeCycleStages-size: 180; --col-project_lifeCycleStages-size: 180; --header-project_impactCategories-size: 180; --col-project_impactCategories-size: 180;"
         >
           <thead
             class="m_b242d975 mantine-Table-thead MRT_TableHead-module_root__j9NkO MRT_TableHead-module_root-table-row-group__d9FO4"
@@ -431,6 +431,62 @@ exports[`ContributionTable > Snapshot 1`] = `
                   />
                 </div>
               </th>
+              <th
+                align="left"
+                class="m_4e7aa4f3 mantine-Table-th MRT_TableHeadCell-module_root__6y50a"
+                colspan="1"
+                data-index="4"
+                style="min-width: max(calc(var(--header-project_lifeCycleStages-size) * 1px), 40px);"
+              >
+                <div
+                  class="mrt-table-head-cell-content MRT_TableHeadCell-module_content__-pzSK m_8bffd616 mantine-Flex-root __m__-r2k"
+                  style=""
+                >
+                  <div
+                    class="mrt-table-head-cell-labels MRT_TableHeadCell-module_labels__oiMSr MRT_TableHeadCell-module_labels-data__PvFGO m_8bffd616 mantine-Flex-root __m__-r2m"
+                    style="--mrt-table-head-cell-labels-padding-left: 1.75;"
+                  >
+                    <div
+                      class="mrt-table-head-cell-content-wrapper MRT_TableHeadCell-module_content-wrapper__py6aJ MRT_TableHeadCell-module_content-wrapper-hidden-overflow__QY40r MRT_TableHeadCell-module_content-wrapper-nowrap__-4aIg m_8bffd616 mantine-Flex-root __m__-r2o"
+                      style=""
+                    >
+                      Life Cycle Stages
+                    </div>
+                  </div>
+                  <div
+                    class="mrt-table-head-cell-content-actions MRT_TableHeadCell-module_content-actions__utxbm m_8bffd616 mantine-Flex-root __m__-r2q"
+                    style=""
+                  />
+                </div>
+              </th>
+              <th
+                align="left"
+                class="m_4e7aa4f3 mantine-Table-th MRT_TableHeadCell-module_root__6y50a"
+                colspan="1"
+                data-index="5"
+                style="min-width: max(calc(var(--header-project_impactCategories-size) * 1px), 40px);"
+              >
+                <div
+                  class="mrt-table-head-cell-content MRT_TableHeadCell-module_content__-pzSK m_8bffd616 mantine-Flex-root __m__-r2t"
+                  style=""
+                >
+                  <div
+                    class="mrt-table-head-cell-labels MRT_TableHeadCell-module_labels__oiMSr MRT_TableHeadCell-module_labels-data__PvFGO m_8bffd616 mantine-Flex-root __m__-r2v"
+                    style="--mrt-table-head-cell-labels-padding-left: 1.75;"
+                  >
+                    <div
+                      class="mrt-table-head-cell-content-wrapper MRT_TableHeadCell-module_content-wrapper__py6aJ MRT_TableHeadCell-module_content-wrapper-hidden-overflow__QY40r MRT_TableHeadCell-module_content-wrapper-nowrap__-4aIg m_8bffd616 mantine-Flex-root __m__-r31"
+                      style=""
+                    >
+                      Impact Categories
+                    </div>
+                  </div>
+                  <div
+                    class="mrt-table-head-cell-content-actions MRT_TableHeadCell-module_content-actions__utxbm m_8bffd616 mantine-Flex-root __m__-r33"
+                    style=""
+                  />
+                </div>
+              </th>
             </tr>
           </thead>
           <tbody
@@ -478,6 +534,30 @@ exports[`ContributionTable > Snapshot 1`] = `
                 data-index="3"
                 style="min-width: max(calc(var(--col-project_location_countryName-size) * 1px), 40px); --mrt-cell-align: left;"
               />
+              <td
+                class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
+                data-index="4"
+                style="min-width: max(calc(var(--col-project_lifeCycleStages-size) * 1px), 40px); --mrt-cell-align: left;"
+              >
+                <p
+                  class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
+                  style=""
+                >
+                  N/A
+                </p>
+              </td>
+              <td
+                class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
+                data-index="5"
+                style="min-width: max(calc(var(--col-project_impactCategories-size) * 1px), 40px); --mrt-cell-align: left;"
+              >
+                <p
+                  class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
+                  style=""
+                >
+                  N/A
+                </p>
+              </td>
             </tr>
             <tr
               class="m_4e7aa4fd mantine-Table-tr MRT_TableBodyRow-module_root__2c3D4"
@@ -520,6 +600,30 @@ exports[`ContributionTable > Snapshot 1`] = `
                 data-index="3"
                 style="min-width: max(calc(var(--col-project_location_countryName-size) * 1px), 40px); --mrt-cell-align: left;"
               />
+              <td
+                class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
+                data-index="4"
+                style="min-width: max(calc(var(--col-project_lifeCycleStages-size) * 1px), 40px); --mrt-cell-align: left;"
+              >
+                <p
+                  class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
+                  style=""
+                >
+                  N/A
+                </p>
+              </td>
+              <td
+                class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
+                data-index="5"
+                style="min-width: max(calc(var(--col-project_impactCategories-size) * 1px), 40px); --mrt-cell-align: left;"
+              >
+                <p
+                  class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
+                  style=""
+                >
+                  N/A
+                </p>
+              </td>
             </tr>
             <tr
               class="m_4e7aa4fd mantine-Table-tr MRT_TableBodyRow-module_root__2c3D4"
@@ -562,6 +666,30 @@ exports[`ContributionTable > Snapshot 1`] = `
                 data-index="3"
                 style="min-width: max(calc(var(--col-project_location_countryName-size) * 1px), 40px); --mrt-cell-align: left;"
               />
+              <td
+                class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
+                data-index="4"
+                style="min-width: max(calc(var(--col-project_lifeCycleStages-size) * 1px), 40px); --mrt-cell-align: left;"
+              >
+                <p
+                  class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
+                  style=""
+                >
+                  N/A
+                </p>
+              </td>
+              <td
+                class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
+                data-index="5"
+                style="min-width: max(calc(var(--col-project_impactCategories-size) * 1px), 40px); --mrt-cell-align: left;"
+              >
+                <p
+                  class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
+                  style=""
+                >
+                  N/A
+                </p>
+              </td>
             </tr>
             <tr
               class="m_4e7aa4fd mantine-Table-tr MRT_TableBodyRow-module_root__2c3D4"
@@ -604,6 +732,30 @@ exports[`ContributionTable > Snapshot 1`] = `
                 data-index="3"
                 style="min-width: max(calc(var(--col-project_location_countryName-size) * 1px), 40px); --mrt-cell-align: left;"
               />
+              <td
+                class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
+                data-index="4"
+                style="min-width: max(calc(var(--col-project_lifeCycleStages-size) * 1px), 40px); --mrt-cell-align: left;"
+              >
+                <p
+                  class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
+                  style=""
+                >
+                  N/A
+                </p>
+              </td>
+              <td
+                class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
+                data-index="5"
+                style="min-width: max(calc(var(--col-project_impactCategories-size) * 1px), 40px); --mrt-cell-align: left;"
+              >
+                <p
+                  class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
+                  style=""
+                >
+                  N/A
+                </p>
+              </td>
             </tr>
             <tr
               class="m_4e7aa4fd mantine-Table-tr MRT_TableBodyRow-module_root__2c3D4"
@@ -646,6 +798,30 @@ exports[`ContributionTable > Snapshot 1`] = `
                 data-index="3"
                 style="min-width: max(calc(var(--col-project_location_countryName-size) * 1px), 40px); --mrt-cell-align: left;"
               />
+              <td
+                class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
+                data-index="4"
+                style="min-width: max(calc(var(--col-project_lifeCycleStages-size) * 1px), 40px); --mrt-cell-align: left;"
+              >
+                <p
+                  class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
+                  style=""
+                >
+                  N/A
+                </p>
+              </td>
+              <td
+                class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
+                data-index="5"
+                style="min-width: max(calc(var(--col-project_impactCategories-size) * 1px), 40px); --mrt-cell-align: left;"
+              >
+                <p
+                  class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
+                  style=""
+                >
+                  N/A
+                </p>
+              </td>
             </tr>
             <tr
               class="m_4e7aa4fd mantine-Table-tr MRT_TableBodyRow-module_root__2c3D4"
@@ -688,6 +864,30 @@ exports[`ContributionTable > Snapshot 1`] = `
                 data-index="3"
                 style="min-width: max(calc(var(--col-project_location_countryName-size) * 1px), 40px); --mrt-cell-align: left;"
               />
+              <td
+                class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
+                data-index="4"
+                style="min-width: max(calc(var(--col-project_lifeCycleStages-size) * 1px), 40px); --mrt-cell-align: left;"
+              >
+                <p
+                  class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
+                  style=""
+                >
+                  N/A
+                </p>
+              </td>
+              <td
+                class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
+                data-index="5"
+                style="min-width: max(calc(var(--col-project_impactCategories-size) * 1px), 40px); --mrt-cell-align: left;"
+              >
+                <p
+                  class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
+                  style=""
+                >
+                  N/A
+                </p>
+              </td>
             </tr>
             <tr
               class="m_4e7aa4fd mantine-Table-tr MRT_TableBodyRow-module_root__2c3D4"
@@ -730,6 +930,30 @@ exports[`ContributionTable > Snapshot 1`] = `
                 data-index="3"
                 style="min-width: max(calc(var(--col-project_location_countryName-size) * 1px), 40px); --mrt-cell-align: left;"
               />
+              <td
+                class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
+                data-index="4"
+                style="min-width: max(calc(var(--col-project_lifeCycleStages-size) * 1px), 40px); --mrt-cell-align: left;"
+              >
+                <p
+                  class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
+                  style=""
+                >
+                  N/A
+                </p>
+              </td>
+              <td
+                class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
+                data-index="5"
+                style="min-width: max(calc(var(--col-project_impactCategories-size) * 1px), 40px); --mrt-cell-align: left;"
+              >
+                <p
+                  class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
+                  style=""
+                >
+                  N/A
+                </p>
+              </td>
             </tr>
             <tr
               class="m_4e7aa4fd mantine-Table-tr MRT_TableBodyRow-module_root__2c3D4"
@@ -772,6 +996,30 @@ exports[`ContributionTable > Snapshot 1`] = `
                 data-index="3"
                 style="min-width: max(calc(var(--col-project_location_countryName-size) * 1px), 40px); --mrt-cell-align: left;"
               />
+              <td
+                class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
+                data-index="4"
+                style="min-width: max(calc(var(--col-project_lifeCycleStages-size) * 1px), 40px); --mrt-cell-align: left;"
+              >
+                <p
+                  class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
+                  style=""
+                >
+                  N/A
+                </p>
+              </td>
+              <td
+                class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
+                data-index="5"
+                style="min-width: max(calc(var(--col-project_impactCategories-size) * 1px), 40px); --mrt-cell-align: left;"
+              >
+                <p
+                  class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
+                  style=""
+                >
+                  N/A
+                </p>
+              </td>
             </tr>
             <tr
               class="m_4e7aa4fd mantine-Table-tr MRT_TableBodyRow-module_root__2c3D4"
@@ -814,6 +1062,30 @@ exports[`ContributionTable > Snapshot 1`] = `
                 data-index="3"
                 style="min-width: max(calc(var(--col-project_location_countryName-size) * 1px), 40px); --mrt-cell-align: left;"
               />
+              <td
+                class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
+                data-index="4"
+                style="min-width: max(calc(var(--col-project_lifeCycleStages-size) * 1px), 40px); --mrt-cell-align: left;"
+              >
+                <p
+                  class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
+                  style=""
+                >
+                  N/A
+                </p>
+              </td>
+              <td
+                class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
+                data-index="5"
+                style="min-width: max(calc(var(--col-project_impactCategories-size) * 1px), 40px); --mrt-cell-align: left;"
+              >
+                <p
+                  class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
+                  style=""
+                >
+                  N/A
+                </p>
+              </td>
             </tr>
             <tr
               class="m_4e7aa4fd mantine-Table-tr MRT_TableBodyRow-module_root__2c3D4"
@@ -860,6 +1132,32 @@ exports[`ContributionTable > Snapshot 1`] = `
                 data-last-row="true"
                 style="min-width: max(calc(var(--col-project_location_countryName-size) * 1px), 40px); --mrt-cell-align: left;"
               />
+              <td
+                class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
+                data-index="4"
+                data-last-row="true"
+                style="min-width: max(calc(var(--col-project_lifeCycleStages-size) * 1px), 40px); --mrt-cell-align: left;"
+              >
+                <p
+                  class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
+                  style=""
+                >
+                  N/A
+                </p>
+              </td>
+              <td
+                class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
+                data-index="5"
+                data-last-row="true"
+                style="min-width: max(calc(var(--col-project_impactCategories-size) * 1px), 40px); --mrt-cell-align: left;"
+              >
+                <p
+                  class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
+                  style=""
+                >
+                  N/A
+                </p>
+              </td>
             </tr>
           </tbody>
           <tfoot
