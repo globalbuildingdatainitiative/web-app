@@ -843,6 +843,7 @@ export type InputOrganization = {
   country: CountryCodes
   id?: Scalars['UUID']['input']
   name: Scalars['String']['input']
+  stakeholders?: Array<Scalars['String']['input']>
 }
 
 export type InputProduct = {
@@ -1030,6 +1031,7 @@ export type Organization = {
   country: CountryCodes
   id: Scalars['UUID']['output']
   name: Scalars['String']['output']
+  stakeholders: Array<Scalars['String']['output']>
 }
 
 export type OrganizationFilter = {
@@ -1038,6 +1040,7 @@ export type OrganizationFilter = {
   country?: InputMaybe<FilterOptions>
   id?: InputMaybe<FilterOptions>
   name?: InputMaybe<FilterOptions>
+  stakeholders?: InputMaybe<FilterOptions>
 }
 
 export type Product = {
@@ -1814,6 +1817,7 @@ export type OrganizationResolvers<
   country?: Resolver<ResolversTypes['CountryCodes'], ParentType, ContextType>
   id?: Resolver<ResolversTypes['UUID'], ParentType, ContextType>
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>
+  stakeholders?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>
 }
 
@@ -2169,6 +2173,7 @@ export type CreateOrganizationsMutation = {
     address: string
     city: string
     country: CountryCodes
+    stakeholders: Array<string>
   }>
 }
 
@@ -2713,6 +2718,7 @@ export const CreateOrganizationsDocument = gql`
       address
       city
       country
+      stakeholders
     }
   }
 `

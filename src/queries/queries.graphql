@@ -82,6 +82,7 @@ mutation createOrganizations($organizations: [InputOrganization!]!) {
     address
     city
     country
+    stakeholders
   }
 }
 
