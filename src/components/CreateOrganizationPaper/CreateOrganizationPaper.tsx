@@ -1,12 +1,11 @@
 import { Paper } from '@components'
-import { Button, Group, Stack, Text, TextInput, Title, Autocomplete, MultiSelect } from '@mantine/core'
+import { Button, Group, Stack, Text, TextInput, Title, Autocomplete } from '@mantine/core'
 import { useForm } from '@mantine/form'
 import { GetCurrentUserDocument, useCreateOrganizationsMutation, CountryCodes } from '@queries'
 import logo from 'assets/logo.png'
 import { useNavigate } from 'react-router-dom'
 import { useUserContext } from '@context'
 import { countryNameToAlpha3 } from './countryCodesMapping'
-import { stakeholderList } from './StakeholderList'
 
 export const CreateOrganizationPaper = () => {
   const navigate = useNavigate()
@@ -19,8 +18,7 @@ export const CreateOrganizationPaper = () => {
       name: '',
       address: '',
       city: '',
-      country: '' as keyof typeof countryNameToAlpha3,
-      stakeholders: [] as string[],
+      country: '' as keyof typeof countryNameToAlpha3, // Ensure this is typed correctly
     },
   })
 
@@ -30,7 +28,6 @@ export const CreateOrganizationPaper = () => {
       console.error('Invalid country name:', values.country)
       return
     }
-    //console.log('Selected Stakeholders:', values.stakeholders)
 
     await createOrganization({ variables: { organizations: [{ ...values, country: alpha3Code as CountryCodes }] } })
     navigate('/organization')
@@ -82,20 +79,6 @@ export const CreateOrganizationPaper = () => {
               {...form.getInputProps('country')}
               required
               aria-label='Country' // Add this line for better accessibility in tests
-            />
-            <MultiSelect
-              size='md'
-              radius='md'
-              label='Stakeholders'
-              placeholder='Select Stakeholders'
-              style={{ width: '500px' }}
-              data={stakeholderList}
-              {...form.getInputProps('stakeholders')}
-              searchable
-              nothingFoundMessage='No stakeholders found'
-              clearable
-              required
-              aria-label='Stakeholders'
             />
             {error && <Text c='red'>{error.message}</Text>}
             <Button
