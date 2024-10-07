@@ -11,6 +11,9 @@ export default defineConfig({
   define:{
     'process.env.LCAX_VERSION': JSON.stringify(packageJson.dependencies.lcax || 'unknown'),
   },
+  optimizeDeps: {
+    exclude: ['node_modules/.cache'],
+  },
   esbuild: {
     supported: {
       'top-level-await': true, //browsers can handle top-level-await features
