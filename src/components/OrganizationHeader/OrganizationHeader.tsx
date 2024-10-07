@@ -59,18 +59,6 @@ export const OrganizationHeader = ({ context }: OrganizationHeaderProps) => {
           </>
         )}
 
-        {context === 'portfolio' && (
-          <>
-            <Center>
-              <ActionButton buttonName='View Members' navigateTo='/organization' />
-            </Center>
-            <Divider orientation='vertical' />
-            <Center>
-              <ActionButton buttonName='Add Members' navigateTo='/organization/addmembers' />
-            </Center>
-          </>
-        )}
-
         {context === 'addMembers' && <ActionButton buttonName='View Members' navigateTo='/organization' />}
         <Divider orientation='vertical' color='white' />
       </Group>
