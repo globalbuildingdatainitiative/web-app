@@ -10,7 +10,7 @@ const ContributeNowPage = lazy(() => import('../../pages/ContributeNowPage'))
 const DashboardPage = lazy(() => import('../../pages/DashboardPage'))
 const OrganizationPage = lazy(() => import('../../pages/OrganizationPage'))
 const CreateOrganizationPage = lazy(() => import('../../pages/CreateOrganizationPage'))
-const OrganizationPortfolioPage = lazy(() => import('../../pages/OrganizationPortfolioPage'))
+const OrganizationPortfolioPage = lazy(() => import('../../pages/PortfolioPage'))
 const ProfilePage = lazy(() => import('../../pages/ProfilePage'))
 const Page404 = lazy(() => import('../../pages/404Page'))
 
@@ -38,7 +38,7 @@ export const AppRouter = () => {
           <Route path='/' element={<DashboardPage />} />
           <Route path='/organization' element={<OrganizationPage />} />
           <Route path='/organization/new' element={<CreateOrganizationPage />} />
-          <Route path='/organization/portfolio' element={<OrganizationPortfolioPage />} />
+          <Route path='/portfolio' element={<OrganizationPortfolioPage />} />
           <Route path='/organization/addmembers' element={<AddMembersPage />} />
           <Route path='/contributions' element={<ContributionPage />} />
           <Route path='/contributions/new' element={<ContributeNowPage />} />

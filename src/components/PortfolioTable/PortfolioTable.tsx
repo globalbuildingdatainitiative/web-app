@@ -8,7 +8,8 @@ import {
   useMantineReactTable,
 } from 'mantine-react-table'
 import { useMemo, useState } from 'react'
-import { Group, Pagination, Progress, Select, Tooltip } from '@mantine/core'
+import { Group, Pagination, Progress, Select, Text, Tooltip } from '@mantine/core'
+import { TruncatedTextWithTooltip } from '@components'
 
 export const PortfolioTable = () => {
   const [pagination, setPagination] = useState<MRT_PaginationState>({ pageIndex: 0, pageSize: 20 })
@@ -25,18 +26,30 @@ export const PortfolioTable = () => {
     () => [
       {
         accessorKey: 'name',
-        header: 'Project',
+        header: 'Project Name',
+        Cell: ({ cell }) => {
+          const project_name = cell.getValue<string>() || 'N/A'
+          return <TruncatedTextWithTooltip text={project_name} />
+        },
         size: 100,
       },
       {
         accessorKey: 'location.countryName',
         header: 'Country',
+        Cell: ({ cell }) => {
+          const country = cell.getValue<string>() || 'N/A'
+          return <TruncatedTextWithTooltip text={country} />
+        },
         size: 150,
       },
       {
         accessorKey: 'projectInfo.buildingType',
         header: 'Building Type',
-        Cell: ({ cell }) => <>{cell.getValue<string | null>()?.replaceAll('_', ' ')}</>,
+        Cell: ({ cell }) => {
+          const rawValue = cell.getValue<string>() || 'N/A'
+          const formattedValue = rawValue.replace(/_/g, ' ').replace(/\b\w/g, (char) => char.toUpperCase())
+          return <Text>{formattedValue}</Text>
+        },
         size: 50,
       },
       {
