@@ -842,7 +842,12 @@ export type InputOrganization = {
   city: Scalars['String']['input']
   country: CountryCodes
   id?: Scalars['UUID']['input']
+  metaData?: InputOrganizationMetaData
   name: Scalars['String']['input']
+}
+
+export type InputOrganizationMetaData = {
+  stakeholders?: Array<StakeholderEnum>
 }
 
 export type InputProduct = {
@@ -1029,6 +1034,7 @@ export type Organization = {
   city: Scalars['String']['output']
   country: CountryCodes
   id: Scalars['UUID']['output']
+  metaData: OrganizationMetaData
   name: Scalars['String']['output']
 }
 
@@ -1037,7 +1043,17 @@ export type OrganizationFilter = {
   city?: InputMaybe<FilterOptions>
   country?: InputMaybe<FilterOptions>
   id?: InputMaybe<FilterOptions>
+  metaData?: InputMaybe<OrganizationMetaDataFilter>
   name?: InputMaybe<FilterOptions>
+}
+
+export type OrganizationMetaData = {
+  __typename?: 'OrganizationMetaData'
+  stakeholders: Array<StakeholderEnum>
+}
+
+export type OrganizationMetaDataFilter = {
+  stakeholders?: InputMaybe<FilterOptions>
 }
 
 export type Product = {
@@ -1209,6 +1225,31 @@ export type Source = {
   __typename?: 'Source'
   name: Scalars['String']['output']
   url?: Maybe<Scalars['String']['output']>
+}
+
+export enum StakeholderEnum {
+  BUILDING_DATA_OWNERS = 'BUILDING_DATA_OWNERS',
+  BUILDING_USERS = 'BUILDING_USERS',
+  CIVIL_SOCIETY = 'CIVIL_SOCIETY',
+  CLIENTS_INVESTORS_OWNERS = 'CLIENTS_INVESTORS_OWNERS',
+  CONSTRUCTION_COMPANIES = 'CONSTRUCTION_COMPANIES',
+  CONSTRUCTION_PRODUCT_MANUFACTURERS = 'CONSTRUCTION_PRODUCT_MANUFACTURERS',
+  DESIGN_PROFESSIONALS = 'DESIGN_PROFESSIONALS',
+  ESG_CONSULTANTS = 'ESG_CONSULTANTS',
+  FACILITY_MANAGERS = 'FACILITY_MANAGERS',
+  FINANCIAL_SERVICE_PROVIDERS = 'FINANCIAL_SERVICE_PROVIDERS',
+  FUNDING_SYSTEM_DEVELOPERS = 'FUNDING_SYSTEM_DEVELOPERS',
+  LCA_CONSULTANTS = 'LCA_CONSULTANTS',
+  LCA_TOOL_DEVELOPERS = 'LCA_TOOL_DEVELOPERS',
+  MEDIA_REPRESENTATIVES = 'MEDIA_REPRESENTATIVES',
+  POLICY_LAW_MAKERS = 'POLICY_LAW_MAKERS',
+  PRODUCT_LCA_DATABASE_DEVELOPERS = 'PRODUCT_LCA_DATABASE_DEVELOPERS',
+  PRODUCT_LCA_EPD_DATA_DEVELOPERS = 'PRODUCT_LCA_EPD_DATA_DEVELOPERS',
+  RESEARCHERS = 'RESEARCHERS',
+  STANDARDIZATION_BODIES = 'STANDARDIZATION_BODIES',
+  SURVEYORS_VALUATION_PROFESSIONALS = 'SURVEYORS_VALUATION_PROFESSIONALS',
+  SUSTAINABILITY_ASSESSMENT_SYSTEM_DEVELOPERS = 'SUSTAINABILITY_ASSESSMENT_SYSTEM_DEVELOPERS',
+  SUSTAINABILITY_AUDITORS = 'SUSTAINABILITY_AUDITORS',
 }
 
 export enum Standard {
@@ -1428,6 +1469,7 @@ export type ResolversTypes = {
   InputImpactData: InputImpactData
   InputLocation: InputLocation
   InputOrganization: InputOrganization
+  InputOrganizationMetaData: InputOrganizationMetaData
   InputProduct: InputProduct
   InputProject: InputProject
   InputProjectInfo: InputProjectInfo
@@ -1443,6 +1485,8 @@ export type ResolversTypes = {
   Mutation: ResolverTypeWrapper<{}>
   Organization: ResolverTypeWrapper<Organization>
   OrganizationFilter: OrganizationFilter
+  OrganizationMetaData: ResolverTypeWrapper<OrganizationMetaData>
+  OrganizationMetaDataFilter: OrganizationMetaDataFilter
   Product: ResolverTypeWrapper<Omit<Product, 'impactData'> & { impactData: ResolversTypes['EPDTechFlow'] }>
   Project: ResolverTypeWrapper<Omit<Project, 'assemblies'> & { assemblies: Array<ResolversTypes['Assembly']> }>
   ProjectGraphQLGroupResponse: ResolverTypeWrapper<
@@ -1462,6 +1506,7 @@ export type ResolversTypes = {
   SortBy: SortBy
   SortOptions: SortOptions
   Source: ResolverTypeWrapper<Source>
+  StakeholderEnum: StakeholderEnum
   Standard: Standard
   SubType: SubType
   TechFlow: ResolverTypeWrapper<TechFlow>
@@ -1508,6 +1553,7 @@ export type ResolversParentTypes = {
   InputImpactData: InputImpactData
   InputLocation: InputLocation
   InputOrganization: InputOrganization
+  InputOrganizationMetaData: InputOrganizationMetaData
   InputProduct: InputProduct
   InputProject: InputProject
   InputProjectInfo: InputProjectInfo
@@ -1521,6 +1567,8 @@ export type ResolversParentTypes = {
   Mutation: {}
   Organization: Organization
   OrganizationFilter: OrganizationFilter
+  OrganizationMetaData: OrganizationMetaData
+  OrganizationMetaDataFilter: OrganizationMetaDataFilter
   Product: Omit<Product, 'impactData'> & { impactData: ResolversParentTypes['EPDTechFlow'] }
   Project: Omit<Project, 'assemblies'> & { assemblies: Array<ResolversParentTypes['Assembly']> }
   ProjectGraphQLGroupResponse: Omit<ProjectGraphQlGroupResponse, 'items'> & {
@@ -1813,7 +1861,16 @@ export type OrganizationResolvers<
   city?: Resolver<ResolversTypes['String'], ParentType, ContextType>
   country?: Resolver<ResolversTypes['CountryCodes'], ParentType, ContextType>
   id?: Resolver<ResolversTypes['UUID'], ParentType, ContextType>
+  metaData?: Resolver<ResolversTypes['OrganizationMetaData'], ParentType, ContextType>
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>
+}
+
+export type OrganizationMetaDataResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['OrganizationMetaData'] = ResolversParentTypes['OrganizationMetaData'],
+> = {
+  stakeholders?: Resolver<Array<ResolversTypes['StakeholderEnum']>, ParentType, ContextType>
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>
 }
 
@@ -2045,6 +2102,7 @@ export type Resolvers<ContextType = any> = {
   Location?: LocationResolvers<ContextType>
   Mutation?: MutationResolvers<ContextType>
   Organization?: OrganizationResolvers<ContextType>
+  OrganizationMetaData?: OrganizationMetaDataResolvers<ContextType>
   Product?: ProductResolvers<ContextType>
   Project?: ProjectResolvers<ContextType>
   ProjectGraphQLGroupResponse?: ProjectGraphQlGroupResponseResolvers<ContextType>
@@ -2153,6 +2211,7 @@ export type GetOrganizationsQuery = {
     address: string
     city: string
     country: CountryCodes
+    metaData: { __typename?: 'OrganizationMetaData'; stakeholders: Array<StakeholderEnum> }
   }>
 }
 
@@ -2169,6 +2228,7 @@ export type CreateOrganizationsMutation = {
     address: string
     city: string
     country: CountryCodes
+    metaData: { __typename?: 'OrganizationMetaData'; stakeholders: Array<StakeholderEnum> }
   }>
 }
 
@@ -2659,6 +2719,9 @@ export const GetOrganizationsDocument = gql`
       address
       city
       country
+      metaData {
+        stakeholders
+      }
     }
   }
 `
@@ -2713,6 +2776,9 @@ export const CreateOrganizationsDocument = gql`
       address
       city
       country
+      metaData {
+        stakeholders
+      }
     }
   }
 `

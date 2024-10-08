@@ -1,7 +1,7 @@
 import { Paper } from '@components'
-import { Button, Group, Stack, Text, TextInput, Title, Autocomplete } from '@mantine/core'
+import { Button, Group, Stack, Text, TextInput, Title, Autocomplete, MultiSelect } from '@mantine/core'
 import { useForm } from '@mantine/form'
-import { GetCurrentUserDocument, useCreateOrganizationsMutation, CountryCodes } from '@queries'
+import { GetCurrentUserDocument, useCreateOrganizationsMutation, CountryCodes, StakeholderEnum } from '@queries'
 import logo from 'assets/logo.png'
 import { useNavigate } from 'react-router-dom'
 import { useUserContext } from '@context'
@@ -18,7 +18,10 @@ export const CreateOrganizationPaper = () => {
       name: '',
       address: '',
       city: '',
-      country: '' as keyof typeof countryNameToAlpha3, // Ensure this is typed correctly
+      country: '' as keyof typeof countryNameToAlpha3,
+      metaData: {
+        stakeholders: [] as StakeholderEnum[],
+      },
     },
   })
 
@@ -29,11 +32,24 @@ export const CreateOrganizationPaper = () => {
       return
     }
 
-    await createOrganization({ variables: { organizations: [{ ...values, country: alpha3Code as CountryCodes }] } })
+    await createOrganization({
+      variables: {
+        organizations: [
+          {
+            ...values,
+            country: alpha3Code as CountryCodes,
+            metaData: {
+              stakeholders: values.metaData.stakeholders,
+            },
+          },
+        ],
+      },
+    })
     navigate('/organization')
   }
 
   const countryNames = Object.keys(countryNameToAlpha3)
+  const stakeholderOptions = Object.values(StakeholderEnum)
 
   return (
     <Paper data-testid='CreateOrganizationPaper'>
@@ -78,7 +94,21 @@ export const CreateOrganizationPaper = () => {
               data={countryNames}
               {...form.getInputProps('country')}
               required
-              aria-label='Country' // Add this line for better accessibility in tests
+              aria-label='Country'
+            />
+            <MultiSelect
+              size='md'
+              radius='md'
+              label='Stakeholders'
+              placeholder='Select Stakeholders'
+              style={{ width: '500px' }}
+              data={stakeholderOptions}
+              {...form.getInputProps('metaData.stakeholders')}
+              searchable
+              nothingFoundMessage='No stakeholders found'
+              clearable
+              required
+              aria-label='Stakeholders'
             />
             {error && <Text c='red'>{error.message}</Text>}
             <Button
