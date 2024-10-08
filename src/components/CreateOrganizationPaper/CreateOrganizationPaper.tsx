@@ -1,12 +1,11 @@
 import { Paper } from '@components'
 import { Button, Group, Stack, Text, TextInput, Title, Autocomplete, MultiSelect } from '@mantine/core'
 import { useForm } from '@mantine/form'
-import { GetCurrentUserDocument, useCreateOrganizationsMutation, CountryCodes } from '@queries'
+import { GetCurrentUserDocument, useCreateOrganizationsMutation, CountryCodes, StakeholderEnum } from '@queries'
 import logo from 'assets/logo.png'
 import { useNavigate } from 'react-router-dom'
 import { useUserContext } from '@context'
 import { countryNameToAlpha3 } from './countryCodesMapping'
-import { stakeholderList } from './StakeholderList'
 
 export const CreateOrganizationPaper = () => {
   const navigate = useNavigate()
@@ -20,7 +19,9 @@ export const CreateOrganizationPaper = () => {
       address: '',
       city: '',
       country: '' as keyof typeof countryNameToAlpha3,
-      stakeholders: [] as string[],
+      metaData: {
+        stakeholders: [] as StakeholderEnum[],
+      },
     },
   })
 
@@ -30,13 +31,25 @@ export const CreateOrganizationPaper = () => {
       console.error('Invalid country name:', values.country)
       return
     }
-    //console.log('Selected Stakeholders:', values.stakeholders)
 
-    await createOrganization({ variables: { organizations: [{ ...values, country: alpha3Code as CountryCodes }] } })
+    await createOrganization({
+      variables: {
+        organizations: [
+          {
+            ...values,
+            country: alpha3Code as CountryCodes,
+            metaData: {
+              stakeholders: values.metaData.stakeholders,
+            },
+          },
+        ],
+      },
+    })
     navigate('/organization')
   }
 
   const countryNames = Object.keys(countryNameToAlpha3)
+  const stakeholderOptions = Object.values(StakeholderEnum)
 
   return (
     <Paper data-testid='CreateOrganizationPaper'>
@@ -89,8 +102,8 @@ export const CreateOrganizationPaper = () => {
               label='Stakeholders'
               placeholder='Select Stakeholders'
               style={{ width: '500px' }}
-              data={stakeholderList}
-              {...form.getInputProps('stakeholders')}
+              data={stakeholderOptions}
+              {...form.getInputProps('metaData.stakeholders')}
               searchable
               nothingFoundMessage='No stakeholders found'
               clearable

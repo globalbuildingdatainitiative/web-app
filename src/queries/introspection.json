@@ -2339,6 +2339,18 @@
             "deprecationReason": null
           },
           {
+            "name": "metaData",
+            "description": null,
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": { "kind": "INPUT_OBJECT", "name": "InputOrganizationMetaData", "ofType": null }
+            },
+            "defaultValue": "{stakeholders: []}",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "name",
             "description": null,
             "type": {
@@ -2349,7 +2361,19 @@
             "defaultValue": null,
             "isDeprecated": false,
             "deprecationReason": null
-          },
+          }
+        ],
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "InputOrganizationMetaData",
+        "description": null,
+        "isOneOf": false,
+        "fields": null,
+        "inputFields": [
           {
             "name": "stakeholders",
             "description": null,
@@ -2362,11 +2386,11 @@
                 "ofType": {
                   "kind": "NON_NULL",
                   "name": null,
-                  "ofType": { "kind": "SCALAR", "name": "String", "ofType": null }
+                  "ofType": { "kind": "ENUM", "name": "StakeholderEnum", "ofType": null }
                 }
               }
             },
-            "defaultValue": "[\"annotation=NoneType required=False default_factory=list\"]",
+            "defaultValue": "[]",
             "isDeprecated": false,
             "deprecationReason": null
           }
@@ -3605,6 +3629,18 @@
             "deprecationReason": null
           },
           {
+            "name": "metaData",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": { "kind": "OBJECT", "name": "OrganizationMetaData", "ofType": null }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "name",
             "description": null,
             "args": [],
@@ -3612,26 +3648,6 @@
               "kind": "NON_NULL",
               "name": null,
               "ofType": { "kind": "SCALAR", "name": "String", "ofType": null }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "stakeholders",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "LIST",
-                "name": null,
-                "ofType": {
-                  "kind": "NON_NULL",
-                  "name": null,
-                  "ofType": { "kind": "SCALAR", "name": "String", "ofType": null }
-                }
-              }
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -3682,13 +3698,65 @@
             "deprecationReason": null
           },
           {
+            "name": "metaData",
+            "description": null,
+            "type": { "kind": "INPUT_OBJECT", "name": "OrganizationMetaDataFilter", "ofType": null },
+            "defaultValue": "null",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "name",
             "description": null,
             "type": { "kind": "INPUT_OBJECT", "name": "FilterOptions", "ofType": null },
             "defaultValue": "null",
             "isDeprecated": false,
             "deprecationReason": null
-          },
+          }
+        ],
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "OrganizationMetaData",
+        "description": null,
+        "isOneOf": null,
+        "fields": [
+          {
+            "name": "stakeholders",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": { "kind": "ENUM", "name": "StakeholderEnum", "ofType": null }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "OrganizationMetaDataFilter",
+        "description": null,
+        "isOneOf": false,
+        "fields": null,
+        "inputFields": [
           {
             "name": "stakeholders",
             "description": null,
@@ -4770,6 +4838,75 @@
         "inputFields": null,
         "interfaces": [],
         "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "ENUM",
+        "name": "StakeholderEnum",
+        "description": null,
+        "isOneOf": null,
+        "fields": null,
+        "inputFields": null,
+        "interfaces": null,
+        "enumValues": [
+          { "name": "BUILDING_DATA_OWNERS", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "BUILDING_USERS", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "CIVIL_SOCIETY", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "CLIENTS_INVESTORS_OWNERS", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "CONSTRUCTION_COMPANIES", "description": null, "isDeprecated": false, "deprecationReason": null },
+          {
+            "name": "CONSTRUCTION_PRODUCT_MANUFACTURERS",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          { "name": "DESIGN_PROFESSIONALS", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "ESG_CONSULTANTS", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "FACILITY_MANAGERS", "description": null, "isDeprecated": false, "deprecationReason": null },
+          {
+            "name": "FINANCIAL_SERVICE_PROVIDERS",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "FUNDING_SYSTEM_DEVELOPERS",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          { "name": "LCA_CONSULTANTS", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "LCA_TOOL_DEVELOPERS", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "MEDIA_REPRESENTATIVES", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "POLICY_LAW_MAKERS", "description": null, "isDeprecated": false, "deprecationReason": null },
+          {
+            "name": "PRODUCT_LCA_DATABASE_DEVELOPERS",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "PRODUCT_LCA_EPD_DATA_DEVELOPERS",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          { "name": "RESEARCHERS", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "STANDARDIZATION_BODIES", "description": null, "isDeprecated": false, "deprecationReason": null },
+          {
+            "name": "SURVEYORS_VALUATION_PROFESSIONALS",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "SUSTAINABILITY_ASSESSMENT_SYSTEM_DEVELOPERS",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          { "name": "SUSTAINABILITY_AUDITORS", "description": null, "isDeprecated": false, "deprecationReason": null }
+        ],
         "possibleTypes": null
       },
       {

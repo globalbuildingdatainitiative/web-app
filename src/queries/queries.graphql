@@ -72,6 +72,9 @@ query getOrganizations {
     address
     city
     country
+    metaData {
+      stakeholders
+    }
   }
 }
 
@@ -82,7 +85,9 @@ mutation createOrganizations($organizations: [InputOrganization!]!) {
     address
     city
     country
-    stakeholders
+    metaData {
+      stakeholders
+    }
   }
 }
 
