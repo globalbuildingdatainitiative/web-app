@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react'
+import React, { useMemo, useState, useCallback } from 'react'
 import { useGetUsersQuery, useResendInvitationMutation } from '@queries'
 import { MantineReactTable, MRT_ColumnDef, useMantineReactTable } from 'mantine-react-table'
 import { Button, Stack, Title, Text } from '@mantine/core'
@@ -41,23 +41,26 @@ export const InviteesTable: React.FC<InviteesTableProps> = ({ organizationId }) 
 
   const [resendInvitation, { loading: resendLoading }] = useResendInvitationMutation()
 
-  const handleResendInvitation = async (userId: string, email: string) => {
-    try {
-      const { data } = await resendInvitation({ variables: { userId } })
-      if (data?.resendInvitation) {
-        setInviteResults([data.resendInvitation])
-        refetch()
+  const handleResendInvitation = useCallback(
+    async (userId: string, email: string) => {
+      try {
+        const { data } = await resendInvitation({ variables: { userId } })
+        if (data?.resendInvitation) {
+          setInviteResults([data.resendInvitation])
+          refetch()
+        }
+      } catch (error) {
+        setInviteResults([
+          {
+            email,
+            status: 'error',
+            message: error instanceof Error ? error.message : 'An error occurred while resending the invitation',
+          },
+        ])
       }
-    } catch (error) {
-      setInviteResults([
-        {
-          email,
-          status: 'error',
-          message: error instanceof Error ? error.message : 'An error occurred while resending the invitation',
-        },
-      ])
-    }
-  }
+    },
+    [resendInvitation, refetch],
+  )
 
   const columns = useMemo<MRT_ColumnDef<Invitee>[]>(
     () => [
