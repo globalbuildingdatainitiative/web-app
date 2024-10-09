@@ -57,6 +57,11 @@ export const MemberTable: React.FC<MemberTableProps> = ({ organizationId }) => {
     [],
   )
 
+  const formatRole = (role: string | null | undefined): string => {
+    if (!role) return 'N/A'
+    return role.charAt(0).toUpperCase() + role.slice(1).toLowerCase()
+  }
+
   const rowData = useMemo(() => {
     if (!usersData) return []
 
@@ -70,7 +75,7 @@ export const MemberTable: React.FC<MemberTableProps> = ({ organizationId }) => {
         lastName: user.lastName,
         email: user.email,
         timeJoined: user.timeJoined,
-        role: user.role,
+        role: formatRole(user.role),
       })) as Row[]
   }, [usersData])
 
