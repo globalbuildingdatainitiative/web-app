@@ -10,6 +10,7 @@ export default {
         timeJoined: '2022-01-01T00:00:00.000Z',
         invited: false,
         inviteStatus: null,
+        role: 'OWNER',
       },
       {
         id: '2',
@@ -20,6 +21,8 @@ export default {
         timeJoined: '2022-02-01T00:00:00.000Z',
         invited: true,
         inviteStatus: 'ACCEPTED',
+        role: 'MEMBER',
+
       },
       {
         id: '3',
@@ -30,6 +33,8 @@ export default {
         timeJoined: '2022-03-01T00:00:00.000Z',
         invited: true,
         inviteStatus: 'PENDING',
+        role: 'MEMBER',
+
       },
       {
         id: '4',
@@ -40,6 +45,8 @@ export default {
         timeJoined: '2022-04-01T00:00:00.000Z',
         invited: true,
         inviteStatus: 'PENDING',
+        role: 'MEMBER',
+
       },
     ],
   },
