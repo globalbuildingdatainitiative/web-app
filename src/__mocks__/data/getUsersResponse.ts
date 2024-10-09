@@ -22,7 +22,6 @@ export default {
         invited: true,
         inviteStatus: 'ACCEPTED',
         role: 'MEMBER',
-
       },
       {
         id: '3',
@@ -34,7 +33,6 @@ export default {
         invited: true,
         inviteStatus: 'PENDING',
         role: 'MEMBER',
-
       },
       {
         id: '4',
@@ -46,7 +44,6 @@ export default {
         invited: true,
         inviteStatus: 'PENDING',
         role: 'MEMBER',
-
       },
     ],
   },
