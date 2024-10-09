@@ -1202,6 +1202,11 @@ export type QueryUsersArgs = {
   sortBy?: InputMaybe<UserSort>
 }
 
+export enum Role {
+  MEMBER = 'MEMBER',
+  OWNER = 'OWNER',
+}
+
 export enum RoofType {
   FLAT = 'flat',
   OTHER = 'other',
@@ -1312,6 +1317,7 @@ export type UpdateUserInput = {
   lastName?: InputMaybe<Scalars['String']['input']>
   newPassword?: InputMaybe<Scalars['String']['input']>
   organizationId?: InputMaybe<Scalars['UUID']['input']>
+  role?: InputMaybe<Role>
 }
 
 export type User = {
@@ -1325,6 +1331,7 @@ export type User = {
   lastName?: Maybe<Scalars['String']['output']>
   organization?: Maybe<Organization>
   organizationId?: Maybe<Scalars['UUID']['output']>
+  role?: Maybe<Role>
   timeJoined: Scalars['DateTime']['output']
 }
 
@@ -1337,6 +1344,7 @@ export type UserFilters = {
   inviterName?: InputMaybe<FilterOptions>
   lastName?: InputMaybe<FilterOptions>
   organizationId?: InputMaybe<FilterOptions>
+  role?: InputMaybe<FilterOptions>
 }
 
 export type UserSort = {
@@ -1348,6 +1356,7 @@ export type UserSort = {
   lastName?: InputMaybe<SortOptions>
   name?: InputMaybe<SortOptions>
   organizationId?: InputMaybe<SortOptions>
+  role?: InputMaybe<SortOptions>
 }
 
 export type ValueUnit = {
@@ -1507,6 +1516,7 @@ export type ResolversTypes = {
   ProjectInfo: ResolverTypeWrapper<ProjectInfo>
   ProjectPhase: ProjectPhase
   Query: ResolverTypeWrapper<{}>
+  Role: Role
   RoofType: RoofType
   SoftwareInfo: ResolverTypeWrapper<SoftwareInfo>
   SortBy: SortBy
@@ -2083,6 +2093,7 @@ export type UserResolvers<
   lastName?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
   organization?: Resolver<Maybe<ResolversTypes['Organization']>, ParentType, ContextType>
   organizationId?: Resolver<Maybe<ResolversTypes['UUID']>, ParentType, ContextType>
+  role?: Resolver<Maybe<ResolversTypes['Role']>, ParentType, ContextType>
   timeJoined?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>
 }
@@ -2270,6 +2281,7 @@ export type GetUsersQuery = {
     inviteStatus: InviteStatus
     inviterName?: string | null
     organizationId?: any | null
+    role?: Role | null
   }>
 }
 
@@ -2285,6 +2297,7 @@ export type GetCurrentUserQuery = {
     firstName?: string | null
     lastName?: string | null
     email: string
+    role?: Role | null
     timeJoined: any
     organization?: { __typename?: 'Organization'; id: any; name: string } | null
   }>
@@ -2898,6 +2911,7 @@ export const GetUsersDocument = gql`
       inviteStatus
       inviterName
       organizationId
+      role
     }
   }
 `
@@ -2943,6 +2957,7 @@ export const GetCurrentUserDocument = gql`
       firstName
       lastName
       email
+      role
       organization {
         id
         name

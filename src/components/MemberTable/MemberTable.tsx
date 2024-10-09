@@ -11,6 +11,7 @@ interface Row {
   lastName: string
   email: string
   timeJoined: string
+  role: string
 }
 
 export const MemberTable: React.FC<MemberTableProps> = ({ organizationId }) => {
@@ -47,17 +48,35 @@ export const MemberTable: React.FC<MemberTableProps> = ({ organizationId }) => {
         Cell: ({ cell }) => new Date(cell.getValue<string>()).toLocaleDateString(),
         size: 100,
       },
+      {
+        accessorKey: 'role',
+        header: 'Role',
+        size: 100,
+      },
     ],
     [],
   )
 
+  const formatRole = (role: string | null | undefined): string => {
+    if (!role) return 'N/A'
+    return role.charAt(0).toUpperCase() + role.slice(1).toLowerCase()
+  }
+
   const rowData = useMemo(() => {
     if (!usersData) return []
 
-    return usersData.users.filter((user) => {
-      const status = user.inviteStatus?.toLowerCase()
-      return !user.invited || status === 'accepted'
-    }) as Row[]
+    return usersData.users
+      .filter((user) => {
+        const status = user.inviteStatus?.toLowerCase()
+        return !user.invited || status === 'accepted'
+      })
+      .map((user) => ({
+        firstName: user.firstName,
+        lastName: user.lastName,
+        email: user.email,
+        timeJoined: user.timeJoined,
+        role: formatRole(user.role),
+      })) as Row[]
   }, [usersData])
 
   const table = useMantineReactTable({
