@@ -110,6 +110,7 @@ query getUsers($filters: UserFilters) {
     inviteStatus
     inviterName
     organizationId
+    role
   }
 }
 
@@ -119,6 +120,7 @@ query getCurrentUser($id: String!) {
     firstName
     lastName
     email
+    role
     organization {
       id
       name
