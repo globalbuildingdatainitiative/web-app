@@ -990,6 +990,8 @@ export type Mutation = {
   inviteUsers: Array<InviteResult>
   /** Reject an invitation */
   rejectInvitation: Scalars['Boolean']['output']
+  /** Resend an invitation */
+  resendInvitation: InviteResult
   /** Updates an existing Organization */
   updateOrganizations: Array<Organization>
   /** Update user details */
@@ -1017,6 +1019,10 @@ export type MutationInviteUsersArgs = {
 }
 
 export type MutationRejectInvitationArgs = {
+  userId: Scalars['String']['input']
+}
+
+export type MutationResendInvitationArgs = {
   userId: Scalars['String']['input']
 }
 
@@ -1839,6 +1845,12 @@ export type MutationResolvers<
     ContextType,
     RequireFields<MutationRejectInvitationArgs, 'userId'>
   >
+  resendInvitation?: Resolver<
+    ResolversTypes['InviteResult'],
+    ParentType,
+    ContextType,
+    RequireFields<MutationResendInvitationArgs, 'userId'>
+  >
   updateOrganizations?: Resolver<
     Array<ResolversTypes['Organization']>,
     ParentType,
@@ -2140,6 +2152,15 @@ export type InviteUsersMutationVariables = Exact<{
 export type InviteUsersMutation = {
   __typename?: 'Mutation'
   inviteUsers: Array<{ __typename?: 'InviteResult'; email: string; status: string; message: string }>
+}
+
+export type ResendInvitationMutationVariables = Exact<{
+  userId: Scalars['String']['input']
+}>
+
+export type ResendInvitationMutation = {
+  __typename?: 'Mutation'
+  resendInvitation: { __typename?: 'InviteResult'; email: string; status: string; message: string }
 }
 
 export type GetContributionsPerMonthQueryVariables = Exact<{ [key: string]: never }>
@@ -2469,6 +2490,52 @@ export function useInviteUsersMutation(
 export type InviteUsersMutationHookResult = ReturnType<typeof useInviteUsersMutation>
 export type InviteUsersMutationResult = Apollo.MutationResult<InviteUsersMutation>
 export type InviteUsersMutationOptions = Apollo.BaseMutationOptions<InviteUsersMutation, InviteUsersMutationVariables>
+export const ResendInvitationDocument = gql`
+  mutation resendInvitation($userId: String!) {
+    resendInvitation(userId: $userId) {
+      email
+      status
+      message
+    }
+  }
+`
+export type ResendInvitationMutationFn = Apollo.MutationFunction<
+  ResendInvitationMutation,
+  ResendInvitationMutationVariables
+>
+
+/**
+ * __useResendInvitationMutation__
+ *
+ * To run a mutation, you first call `useResendInvitationMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useResendInvitationMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [resendInvitationMutation, { data, loading, error }] = useResendInvitationMutation({
+ *   variables: {
+ *      userId: // value for 'userId'
+ *   },
+ * });
+ */
+export function useResendInvitationMutation(
+  baseOptions?: Apollo.MutationHookOptions<ResendInvitationMutation, ResendInvitationMutationVariables>,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<ResendInvitationMutation, ResendInvitationMutationVariables>(
+    ResendInvitationDocument,
+    options,
+  )
+}
+export type ResendInvitationMutationHookResult = ReturnType<typeof useResendInvitationMutation>
+export type ResendInvitationMutationResult = Apollo.MutationResult<ResendInvitationMutation>
+export type ResendInvitationMutationOptions = Apollo.BaseMutationOptions<
+  ResendInvitationMutation,
+  ResendInvitationMutationVariables
+>
 export const GetContributionsPerMonthDocument = gql`
   query getContributionsPerMonth {
     contributions {
