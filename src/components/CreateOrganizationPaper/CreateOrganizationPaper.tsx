@@ -6,8 +6,10 @@ import logo from 'assets/logo.png'
 import { useNavigate } from 'react-router-dom'
 import { useUserContext } from '@context'
 import { countryNameToAlpha3 } from './countryCodesMapping'
+import { useApolloClient } from '@apollo/client'
 
 export const CreateOrganizationPaper = () => {
+  const client = useApolloClient()
   const navigate = useNavigate()
   const { user } = useUserContext()
   const [createOrganization, { loading, error }] = useCreateOrganizationsMutation({
@@ -32,7 +34,7 @@ export const CreateOrganizationPaper = () => {
       return
     }
 
-    await createOrganization({
+    const result = await createOrganization({
       variables: {
         organizations: [
           {
@@ -45,6 +47,15 @@ export const CreateOrganizationPaper = () => {
         ],
       },
     })
+
+    if (result.data) {
+      await Promise.all([
+        client.refetchQueries({
+          include: ['getOrganizations', 'getCurrentUser'],
+        }),
+      ])
+    }
+
     navigate('/organization')
   }
 
