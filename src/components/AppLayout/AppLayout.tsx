@@ -1,4 +1,4 @@
-import { AppShell, rem, useMantineTheme } from '@mantine/core'
+import { AppShell, rem, useMantineTheme, useMatches } from '@mantine/core'
 import { useMediaQuery } from '@mantine/hooks'
 import { ErrorBoundary, Greeting, SidePanel } from '@components'
 import { Outlet } from 'react-router-dom'
@@ -7,12 +7,6 @@ import { useState, useEffect } from 'react'
 export const AppLayout = () => {
   const theme = useMantineTheme()
   const [collapsed, setCollapsed] = useState(false)
-
-  const isXs = useMediaQuery(`(max-width: ${theme.breakpoints.xs}px)`) // Typically 480px
-  const isSm = useMediaQuery(`(max-width: ${theme.breakpoints.sm}px)`) // Typically 768px
-  const isLg = useMediaQuery(`(max-width: ${theme.breakpoints.lg}px)`) // Typically 1200px
-  const isXl = useMediaQuery(`(max-width: ${theme.breakpoints.xl}px)`)
-
   const sidepanelBreakpoint = useMediaQuery('(max-width: 1410px)')
 
   useEffect(() => {
@@ -23,21 +17,13 @@ export const AppLayout = () => {
     }
   }, [sidepanelBreakpoint])
 
-  const getNavbarWidth = () => {
-    if (isXs) {
-      return collapsed ? 30 : 100
-    } else if (isSm) {
-      return collapsed ? 180 : 200
-    } else if (isLg) {
-      return collapsed ? 130 : 300
-    } else if (isXl) {
-      return collapsed ? 130 : 300
-    } else {
-      return collapsed ? 80 : 250
-    }
-  }
-
-  const navbarWidth = getNavbarWidth()
+  const navbarWidth = useMatches({
+    xs: collapsed ? 30 : 100,
+    sm: collapsed ? 180 : 200,
+    md: collapsed ? 130 : 300,
+    lg: collapsed ? 130 : 300,
+    xl: collapsed ? 80 : 250,
+  })
 
   return (
     <AppShell
