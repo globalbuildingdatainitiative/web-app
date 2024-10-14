@@ -43,7 +43,6 @@ export const SidePanel = ({ collapsed, toggleCollapsed }: SidePanelProps) => {
     <div
       style={{
         width: collapsed ? '80px' : '250px',
-        transition: 'width 0.3s ease',
         display: 'flex',
         flexDirection: 'column',
         height: '100vh',

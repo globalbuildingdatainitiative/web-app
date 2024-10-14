@@ -1,26 +1,41 @@
 import { AppShell, rem, useMantineTheme, useMatches } from '@mantine/core'
+import { useMediaQuery } from '@mantine/hooks'
 import { ErrorBoundary, Greeting, SidePanel } from '@components'
 import { Outlet } from 'react-router-dom'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 export const AppLayout = () => {
   const theme = useMantineTheme()
   const [collapsed, setCollapsed] = useState(false)
+  const sidepanelBreakpoint = useMediaQuery('(max-width: 1410px)')
+
+  useEffect(() => {
+    if (sidepanelBreakpoint) {
+      setCollapsed(true)
+    } else {
+      setCollapsed(false)
+    }
+  }, [sidepanelBreakpoint])
+
+  const navbarWidth = useMatches({
+    xs: collapsed ? 30 : 100,
+    sm: collapsed ? 180 : 200,
+    md: collapsed ? 130 : 300,
+    lg: collapsed ? 130 : 300,
+    xl: collapsed ? 80 : 250,
+  })
 
   return (
     <AppShell
       header={{ height: 60, offset: false }}
       navbar={{
-        width: { xs: collapsed ? 30 : 100, sm: collapsed ? 180 : 200, xl: collapsed ? 130 : 300 },
+        width: navbarWidth,
         breakpoint: 'xs',
       }}
       padding='xl'
       withBorder={false}
     >
-      <AppShell.Header
-        pl={`calc(${useMatches({ xs: collapsed ? 30 : 100, sm: collapsed ? 180 : 200, xl: collapsed ? 130 : 300 })}px + var(--mantine-spacing-xl))`}
-        bg={theme.other.backgroundColor}
-      >
+      <AppShell.Header pl={`calc(${navbarWidth}px + var(--mantine-spacing-xl))`} bg={theme.other.backgroundColor}>
         <ErrorBoundary>
           <Greeting />
         </ErrorBoundary>

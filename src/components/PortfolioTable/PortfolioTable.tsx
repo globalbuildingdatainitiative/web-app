@@ -147,17 +147,21 @@ const getGWPIntensity = ({ cell, row }: GWPIntensity) => {
 const getGWPBreakdown = ({ row }: GWPIntensity) => {
   const gwp = row.getValue<Result | null>('results')?.gwp
   if (!gwp) return null
-  const total = Object.values(gwp).reduce((prevValue, newValue) => prevValue + newValue, 0)
+  const total = Object.values(gwp)
+    .filter((value) => value && Number(value))
+    .reduce((prevValue, newValue) => prevValue + newValue, 0)
 
   return (
     <Progress.Root size={40}>
-      {Object.entries(gwp).map(([key, value]) => (
-        <Tooltip label={`${key.toUpperCase()}: ${Number((value / total) * 100).toFixed(2)}%`}>
-          <Progress.Section value={(value / total) * 100} color={lifeCycleStageMap[key]}>
-            <Progress.Label>{key.toUpperCase()}</Progress.Label>
-          </Progress.Section>
-        </Tooltip>
-      ))}
+      {Object.entries(gwp)
+        .filter(([key, value]) => value && key !== '__typename')
+        .map(([key, value]) => (
+          <Tooltip label={`${key.toUpperCase()}: ${Number((value / total) * 100).toFixed(2)}%`}>
+            <Progress.Section value={(value / total) * 100} color={lifeCycleStageMap[key]}>
+              <Progress.Label>{key.toUpperCase()}</Progress.Label>
+            </Progress.Section>
+          </Tooltip>
+        ))}
     </Progress.Root>
   )
 }
