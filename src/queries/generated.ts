@@ -18,6 +18,8 @@ export type Scalars = {
   Boolean: { input: boolean; output: boolean }
   Int: { input: number; output: number }
   Float: { input: number; output: number }
+  /** Represents binary data as Base64-encoded strings, using the standard alphabet. */
+  Base64: { input: any; output: any }
   /** Date (isoformat) */
   Date: { input: any; output: any }
   /** Date with time (isoformat) */
@@ -65,12 +67,71 @@ export type Assembly = {
   comment?: Maybe<Scalars['String']['output']>
   description?: Maybe<Scalars['String']['output']>
   id: Scalars['UUID']['output']
-  metaData: Scalars['JSON']['output']
+  metaData?: Maybe<AssemblyMetaData>
   name: Scalars['String']['output']
   products: Array<Product>
   quantity: Scalars['Float']['output']
-  results: Scalars['JSON']['output']
+  results?: Maybe<Results>
   unit: Unit
+}
+
+export type AssemblyMetaData = {
+  __typename?: 'AssemblyMetaData'
+  volume?: Maybe<ValueUnit>
+}
+
+export type AssessmentMetaData = {
+  __typename?: 'AssessmentMetaData'
+  additionalLcaReportName?: Maybe<Scalars['String']['output']>
+  ashrae240pCompliance?: Maybe<Scalars['Boolean']['output']>
+  assessmentMethodologyDescription?: Maybe<Scalars['String']['output']>
+  assessor?: Maybe<Assessor>
+  bioSustainabilityCertification?: Maybe<Scalars['String']['output']>
+  biogenicCarbonAccountingMethod?: Maybe<Scalars['String']['output']>
+  biogenicCarbonDescription?: Maybe<Scalars['String']['output']>
+  biogenicCarbonIncluded?: Maybe<Scalars['Boolean']['output']>
+  cutoffMethod?: Maybe<Scalars['String']['output']>
+  date?: Maybe<Scalars['Date']['output']>
+  en15978Compliance?: Maybe<Scalars['Boolean']['output']>
+  equipmentScope?: Maybe<Scalars['String']['output']>
+  furnishingsScope?: Maybe<Scalars['String']['output']>
+  interiorConstructionScope?: Maybe<Scalars['String']['output']>
+  interiorFinishesScope?: Maybe<Scalars['String']['output']>
+  iso21931Compliance?: Maybe<Scalars['Boolean']['output']>
+  lcaRequirements?: Maybe<Scalars['String']['output']>
+  operationalEnergyIncluded?: Maybe<Scalars['Boolean']['output']>
+  projectPhaseAtReporting?: Maybe<Scalars['String']['output']>
+  projectPhaseAtTimeOfAssessment?: Maybe<Scalars['String']['output']>
+  projectRefrigerants?: Maybe<Scalars['String']['output']>
+  purpose?: Maybe<Scalars['String']['output']>
+  quantitySource?: Maybe<Scalars['String']['output']>
+  quantitySourceDetail?: Maybe<Scalars['String']['output']>
+  refrigerantTypeIncluded?: Maybe<Scalars['String']['output']>
+  reportName?: Maybe<Scalars['String']['output']>
+  resultsValidationDescription?: Maybe<Scalars['String']['output']>
+  rics2017Compliance?: Maybe<Scalars['Boolean']['output']>
+  rics2023Compliance?: Maybe<Scalars['Boolean']['output']>
+  seiPrestandardCompliance?: Maybe<Scalars['Boolean']['output']>
+  servicesElectricalScope?: Maybe<Scalars['String']['output']>
+  servicesMechanicalScope?: Maybe<Scalars['String']['output']>
+  servicesPlumbingScope?: Maybe<Scalars['String']['output']>
+  shellExteriorEnclosureScope?: Maybe<Scalars['String']['output']>
+  shellSuperstructureScope?: Maybe<Scalars['String']['output']>
+  siteworkScope?: Maybe<Scalars['String']['output']>
+  substructureScope?: Maybe<Scalars['String']['output']>
+  toolReportUpload?: Maybe<Scalars['Base64']['output']>
+  uncertainty?: Maybe<Scalars['Float']['output']>
+  validityPeriod?: Maybe<Scalars['String']['output']>
+  verified?: Maybe<Scalars['Boolean']['output']>
+  verifiedInfo?: Maybe<Scalars['String']['output']>
+  year?: Maybe<Scalars['Int']['output']>
+}
+
+export type Assessor = {
+  __typename?: 'Assessor'
+  email?: Maybe<Scalars['String']['output']>
+  name?: Maybe<Scalars['String']['output']>
+  organization?: Maybe<Scalars['String']['output']>
 }
 
 export enum BuildingModelScope {
@@ -95,17 +156,21 @@ export enum BuildingType {
   OTHER = 'other',
   RETROFIT_AND_EXTENSION_WORKS = 'retrofit_and_extension_works',
   RETROFIT_WORKS = 'retrofit_works',
+  UNKNOWN = 'unknown',
 }
 
 export enum BuildingTypology {
   AGRICULTURAL = 'agricultural',
   COMMERCIAL = 'commercial',
+  EDUCATIONAL = 'educational',
+  HEALTH = 'health',
   INDUSTRIAL = 'industrial',
   INFRASTRUCTURE = 'infrastructure',
   OFFICE = 'office',
   OTHER = 'other',
   PUBLIC = 'public',
   RESIDENTIAL = 'residential',
+  UNKNOWN = 'unknown',
 }
 
 export type Classification = {
@@ -177,6 +242,17 @@ export type Conversion = {
   metaData: Scalars['String']['output']
   to: Unit
   value: Scalars['Float']['output']
+}
+
+export type Cost = {
+  __typename?: 'Cost'
+  costSource?: Maybe<Scalars['String']['output']>
+  currency?: Maybe<Scalars['String']['output']>
+  hardCost?: Maybe<Scalars['Float']['output']>
+  notes?: Maybe<Scalars['String']['output']>
+  siteworksCost?: Maybe<Scalars['Float']['output']>
+  softCost?: Maybe<Scalars['Float']['output']>
+  totalCost?: Maybe<Scalars['Float']['output']>
 }
 
 export enum Country {
@@ -690,7 +766,7 @@ export type Epd = {
   declaredUnit: Unit
   formatVersion: Scalars['String']['output']
   id: Scalars['UUID']['output']
-  impacts: Scalars['JSON']['output']
+  impacts: Results
   location: Country
   metaData: Scalars['JSON']['output']
   name: Scalars['String']['output']
@@ -704,6 +780,19 @@ export type Epd = {
 }
 
 export type EpdTechFlow = Epd | TechFlow
+
+export type Energy = {
+  __typename?: 'Energy'
+  electricityCarbonFactor?: Maybe<Scalars['Float']['output']>
+  electricityCarbonFactorSource?: Maybe<Scalars['String']['output']>
+  electricityProvider?: Maybe<Scalars['String']['output']>
+  electricitySource?: Maybe<Scalars['String']['output']>
+  eneryModelMethodologyReference?: Maybe<Scalars['String']['output']>
+  gwpEnergySourcesYear?: Maybe<Scalars['Float']['output']>
+  siteLocationWeatherData?: Maybe<Scalars['String']['output']>
+  toolEnergyModeling?: Maybe<Scalars['String']['output']>
+  toolEnergyModelingVersion?: Maybe<Scalars['String']['output']>
+}
 
 export type FilterBy = {
   equal?: InputMaybe<Scalars['JSON']['input']>
@@ -766,6 +855,28 @@ export enum ImpactCategoryKey {
   SM = 'sm',
   SQP = 'sqp',
   WDP = 'wdp',
+}
+
+export type ImpactCategoryResults = {
+  __typename?: 'ImpactCategoryResults'
+  a0?: Maybe<Scalars['Float']['output']>
+  a1a3?: Maybe<Scalars['Float']['output']>
+  a4?: Maybe<Scalars['Float']['output']>
+  a5?: Maybe<Scalars['Float']['output']>
+  b1?: Maybe<Scalars['Float']['output']>
+  b2?: Maybe<Scalars['Float']['output']>
+  b3?: Maybe<Scalars['Float']['output']>
+  b4?: Maybe<Scalars['Float']['output']>
+  b5?: Maybe<Scalars['Float']['output']>
+  b6?: Maybe<Scalars['Float']['output']>
+  b7?: Maybe<Scalars['Float']['output']>
+  b8?: Maybe<Scalars['Float']['output']>
+  c1?: Maybe<Scalars['Float']['output']>
+  c2?: Maybe<Scalars['Float']['output']>
+  c3?: Maybe<Scalars['Float']['output']>
+  c4?: Maybe<Scalars['Float']['output']>
+  d?: Maybe<Scalars['Float']['output']>
+  total?: Maybe<Scalars['Float']['output']>
 }
 
 export type InputAggregation = {
@@ -1062,17 +1173,40 @@ export type OrganizationMetaDataFilter = {
   stakeholders?: InputMaybe<FilterOptions>
 }
 
+export type Owner = {
+  __typename?: 'Owner'
+  contact?: Maybe<Scalars['String']['output']>
+  country?: Maybe<Scalars['String']['output']>
+  email?: Maybe<Scalars['String']['output']>
+  representative?: Maybe<Scalars['String']['output']>
+  type?: Maybe<Scalars['String']['output']>
+  web?: Maybe<Scalars['String']['output']>
+}
+
 export type Product = {
   __typename?: 'Product'
   description?: Maybe<Scalars['String']['output']>
   id: Scalars['UUID']['output']
   impactData: EpdTechFlow
-  metaData: Scalars['JSON']['output']
+  metaData?: Maybe<ProductMetaData>
   name: Scalars['String']['output']
   quantity: Scalars['Float']['output']
   referenceServiceLife: Scalars['Int']['output']
-  results: Scalars['JSON']['output']
+  results?: Maybe<Results>
   unit: Unit
+}
+
+export type ProductMetaData = {
+  __typename?: 'ProductMetaData'
+  brickGroutIncluded?: Maybe<Scalars['Boolean']['output']>
+  brickType?: Maybe<Scalars['String']['output']>
+  concretePrecast?: Maybe<Scalars['String']['output']>
+  density?: Maybe<ValueUnit>
+  exposureClasses?: Maybe<Scalars['String']['output']>
+  groutType?: Maybe<Scalars['String']['output']>
+  productClass?: Maybe<Scalars['String']['output']>
+  strength?: Maybe<ValueUnit>
+  timberType?: Maybe<Scalars['String']['output']>
 }
 
 export type Project = {
@@ -1087,13 +1221,13 @@ export type Project = {
   lciaMethod?: Maybe<Scalars['String']['output']>
   lifeCycleStages: Array<LifeCycleStage>
   location: Location
-  metaData?: Maybe<Scalars['JSON']['output']>
+  metaData?: Maybe<ProjectMetaData>
   name: Scalars['String']['output']
   owner?: Maybe<Scalars['String']['output']>
   projectInfo: ProjectInfo
   projectPhase: ProjectPhase
   referenceStudyPeriod?: Maybe<Scalars['Int']['output']>
-  results?: Maybe<Scalars['JSON']['output']>
+  results?: Maybe<Results>
   softwareInfo: SoftwareInfo
 }
 
@@ -1171,6 +1305,75 @@ export type ProjectInfo = {
   roofType: RoofType
 }
 
+export type ProjectMetaData = {
+  __typename?: 'ProjectMetaData'
+  architectOfRecord?: Maybe<Scalars['String']['output']>
+  assessment?: Maybe<AssessmentMetaData>
+  assessmentCostCutoff?: Maybe<Scalars['String']['output']>
+  assessmentCutoff?: Maybe<Scalars['String']['output']>
+  assessmentCutoffType?: Maybe<Scalars['String']['output']>
+  bedroomCount?: Maybe<Scalars['Int']['output']>
+  buildingOccupancyStart?: Maybe<Scalars['Date']['output']>
+  buildingProjectConstructionType2?: Maybe<Scalars['String']['output']>
+  buildingUseType?: Maybe<Scalars['String']['output']>
+  builtFloorArea?: Maybe<ValueUnit>
+  civilEngineer?: Maybe<Scalars['String']['output']>
+  climateZone?: Maybe<Scalars['String']['output']>
+  conditionedFloorArea?: Maybe<ValueUnit>
+  constructionStart?: Maybe<Scalars['Date']['output']>
+  constructionYearExistingBuilding?: Maybe<Scalars['Int']['output']>
+  cost?: Maybe<Cost>
+  demolishedArea?: Maybe<ValueUnit>
+  detachedParkingArea?: Maybe<ValueUnit>
+  detachedParkingStructureArea?: Maybe<ValueUnit>
+  enclosedParkingArea?: Maybe<ValueUnit>
+  energy?: Maybe<Energy>
+  existingArea?: Maybe<ValueUnit>
+  fullTimeEquivalent?: Maybe<Scalars['Float']['output']>
+  generalContractor?: Maybe<Scalars['String']['output']>
+  heritageStatus?: Maybe<Scalars['String']['output']>
+  ibcConstructionType?: Maybe<Scalars['String']['output']>
+  image?: Maybe<Scalars['Base64']['output']>
+  infrastructureProjectConstructionType?: Maybe<Scalars['String']['output']>
+  infrastructureSectorType?: Maybe<Scalars['String']['output']>
+  infrastructureUseType?: Maybe<Scalars['String']['output']>
+  interiorDesigner?: Maybe<Scalars['String']['output']>
+  interstitialFloors?: Maybe<Scalars['String']['output']>
+  landscapeConsultant?: Maybe<Scalars['String']['output']>
+  lcaDatabase?: Maybe<Scalars['String']['output']>
+  lcaDatabaseOther?: Maybe<Scalars['String']['output']>
+  lcaDatabaseVersion?: Maybe<Scalars['String']['output']>
+  lcaModelType?: Maybe<Scalars['String']['output']>
+  lcaSoftwareVersion?: Maybe<Scalars['String']['output']>
+  meanRoofHeight?: Maybe<ValueUnit>
+  mepEngineer?: Maybe<Scalars['String']['output']>
+  newlyBuiltArea?: Maybe<ValueUnit>
+  occupantLoad?: Maybe<Scalars['Float']['output']>
+  omniclassConstructionEntity?: Maybe<Scalars['String']['output']>
+  otherProjectTeam?: Maybe<Scalars['String']['output']>
+  owner?: Maybe<Owner>
+  productClassificationSystem?: Maybe<Scalars['String']['output']>
+  projectExpectedLife?: Maybe<Scalars['Int']['output']>
+  projectHistoric?: Maybe<Scalars['Boolean']['output']>
+  projectSiteArea?: Maybe<ValueUnit>
+  projectSurroundings?: Maybe<Scalars['String']['output']>
+  projectUserStudio?: Maybe<Scalars['String']['output']>
+  projectWorkArea?: Maybe<ValueUnit>
+  publication?: Maybe<Publication>
+  residentialUnits?: Maybe<Scalars['Int']['output']>
+  resultsValidatedAsBuilt?: Maybe<Scalars['Boolean']['output']>
+  resultsValidatedAsBuiltDescription?: Maybe<Scalars['String']['output']>
+  retrofittedArea?: Maybe<ValueUnit>
+  structural?: Maybe<Structural>
+  structuralEngineer?: Maybe<Scalars['String']['output']>
+  surfaceParkingArea?: Maybe<ValueUnit>
+  sustainabilityConsultant?: Maybe<Scalars['String']['output']>
+  thermalEnvelopeArea?: Maybe<ValueUnit>
+  unconditionedFloorArea?: Maybe<ValueUnit>
+  windowWallRatio?: Maybe<Scalars['Float']['output']>
+  workCompletionYear?: Maybe<Scalars['Int']['output']>
+}
+
 export enum ProjectPhase {
   CONCEPT_DESIGN = 'concept_design',
   CONSTRUCTION = 'construction',
@@ -1179,6 +1382,15 @@ export enum ProjectPhase {
   POST_COMPLETION = 'post_completion',
   STRATEGIC_DESIGN = 'strategic_design',
   TECHNICAL_DESIGN = 'technical_design',
+}
+
+export type Publication = {
+  __typename?: 'Publication'
+  authors?: Maybe<Scalars['String']['output']>
+  doi?: Maybe<Scalars['String']['output']>
+  publisher?: Maybe<Scalars['String']['output']>
+  title?: Maybe<Scalars['String']['output']>
+  year?: Maybe<Scalars['Int']['output']>
 }
 
 export type Query = {
@@ -1202,6 +1414,48 @@ export type QueryUsersArgs = {
   sortBy?: InputMaybe<UserSort>
 }
 
+export type Results = {
+  __typename?: 'Results'
+  adpe?: Maybe<ImpactCategoryResults>
+  adpf?: Maybe<ImpactCategoryResults>
+  ap?: Maybe<ImpactCategoryResults>
+  cru?: Maybe<ImpactCategoryResults>
+  eee?: Maybe<ImpactCategoryResults>
+  eet?: Maybe<ImpactCategoryResults>
+  ep?: Maybe<ImpactCategoryResults>
+  epFw?: Maybe<ImpactCategoryResults>
+  epMar?: Maybe<ImpactCategoryResults>
+  epTer?: Maybe<ImpactCategoryResults>
+  etpFw?: Maybe<ImpactCategoryResults>
+  fw?: Maybe<ImpactCategoryResults>
+  gwp?: Maybe<ImpactCategoryResults>
+  gwpBio?: Maybe<ImpactCategoryResults>
+  gwpFos?: Maybe<ImpactCategoryResults>
+  gwpLul?: Maybe<ImpactCategoryResults>
+  htpC?: Maybe<ImpactCategoryResults>
+  htpNc?: Maybe<ImpactCategoryResults>
+  hwd?: Maybe<ImpactCategoryResults>
+  irp?: Maybe<ImpactCategoryResults>
+  mer?: Maybe<ImpactCategoryResults>
+  mrf?: Maybe<ImpactCategoryResults>
+  nhwd?: Maybe<ImpactCategoryResults>
+  nrsf?: Maybe<ImpactCategoryResults>
+  odp?: Maybe<ImpactCategoryResults>
+  penre?: Maybe<ImpactCategoryResults>
+  penrm?: Maybe<ImpactCategoryResults>
+  penrt?: Maybe<ImpactCategoryResults>
+  pere?: Maybe<ImpactCategoryResults>
+  perm?: Maybe<ImpactCategoryResults>
+  pert?: Maybe<ImpactCategoryResults>
+  pm?: Maybe<ImpactCategoryResults>
+  pocp?: Maybe<ImpactCategoryResults>
+  rsf?: Maybe<ImpactCategoryResults>
+  rwd?: Maybe<ImpactCategoryResults>
+  sm?: Maybe<ImpactCategoryResults>
+  sqp?: Maybe<ImpactCategoryResults>
+  wdp?: Maybe<ImpactCategoryResults>
+}
+
 export enum Role {
   MEMBER = 'MEMBER',
   OWNER = 'OWNER',
@@ -1213,6 +1467,7 @@ export enum RoofType {
   PITCHED = 'pitched',
   PYRAMID = 'pyramid',
   SADDLE = 'saddle',
+  UNKNOWN = 'unknown',
 }
 
 export type SoftwareInfo = {
@@ -1269,6 +1524,25 @@ export enum Standard {
   UNKNOWN = 'unknown',
 }
 
+export type Structural = {
+  __typename?: 'Structural'
+  allowableSoilBearingPressure?: Maybe<ValueUnit>
+  columnGridLong?: Maybe<ValueUnit>
+  earthquakeImportanceFactor?: Maybe<Scalars['Float']['output']>
+  foundationType?: Maybe<Scalars['String']['output']>
+  horizontalGravitySystem?: Maybe<Scalars['String']['output']>
+  lateralSystem?: Maybe<Scalars['String']['output']>
+  liveLoad?: Maybe<ValueUnit>
+  podium?: Maybe<Scalars['String']['output']>
+  riskCategory?: Maybe<Scalars['String']['output']>
+  secondaryHorizontalGravitySystem?: Maybe<Scalars['String']['output']>
+  secondaryVerticalGravitySystem?: Maybe<Scalars['String']['output']>
+  seismicDesignCategory?: Maybe<Scalars['String']['output']>
+  snowLoad?: Maybe<ValueUnit>
+  verticalGravitySystem?: Maybe<Scalars['String']['output']>
+  windSpeed?: Maybe<ValueUnit>
+}
+
 export enum SubType {
   GENERIC = 'generic',
   INDUSTRY = 'industry',
@@ -1283,7 +1557,7 @@ export type TechFlow = {
   declaredUnit: Unit
   formatVersion: Scalars['String']['output']
   id: Scalars['UUID']['output']
-  impacts: Scalars['JSON']['output']
+  impacts: Results
   location: Country
   metaData: Scalars['JSON']['output']
   name: Scalars['String']['output']
@@ -1448,6 +1722,12 @@ export type ResolversTypes = {
   Float: ResolverTypeWrapper<Scalars['Float']['output']>
   AreaType: ResolverTypeWrapper<AreaType>
   Assembly: ResolverTypeWrapper<Omit<Assembly, 'products'> & { products: Array<ResolversTypes['Product']> }>
+  AssemblyMetaData: ResolverTypeWrapper<AssemblyMetaData>
+  AssessmentMetaData: ResolverTypeWrapper<AssessmentMetaData>
+  Boolean: ResolverTypeWrapper<Scalars['Boolean']['output']>
+  Int: ResolverTypeWrapper<Scalars['Int']['output']>
+  Assessor: ResolverTypeWrapper<Assessor>
+  Base64: ResolverTypeWrapper<Scalars['Base64']['output']>
   BuildingModelScope: BuildingModelScope
   BuildingType: BuildingType
   BuildingTypology: BuildingTypology
@@ -1456,7 +1736,6 @@ export type ResolversTypes = {
   ContributionGraphQLGroupResponse: ResolverTypeWrapper<
     Omit<ContributionGraphQlGroupResponse, 'items'> & { items: Array<ResolversTypes['Contribution']> }
   >
-  Int: ResolverTypeWrapper<Scalars['Int']['output']>
   ContributionGraphQLResponse: ResolverTypeWrapper<
     Omit<ContributionGraphQlResponse, 'groups' | 'items'> & {
       groups: Array<ResolversTypes['ContributionGraphQLGroupResponse']>
@@ -1464,17 +1743,19 @@ export type ResolversTypes = {
     }
   >
   Conversion: ResolverTypeWrapper<Conversion>
+  Cost: ResolverTypeWrapper<Cost>
   Country: Country
   CountryCodes: CountryCodes
   Date: ResolverTypeWrapper<Scalars['Date']['output']>
   DateTime: ResolverTypeWrapper<Scalars['DateTime']['output']>
   EPD: ResolverTypeWrapper<Epd>
   EPDTechFlow: ResolverTypeWrapper<ResolversUnionTypes<ResolversTypes>['EPDTechFlow']>
+  Energy: ResolverTypeWrapper<Energy>
   FilterBy: FilterBy
-  Boolean: ResolverTypeWrapper<Scalars['Boolean']['output']>
   FilterOptions: FilterOptions
   GeneralEnergyClass: GeneralEnergyClass
   ImpactCategoryKey: ImpactCategoryKey
+  ImpactCategoryResults: ResolverTypeWrapper<ImpactCategoryResults>
   InputAggregation: InputAggregation
   InputAreaType: InputAreaType
   InputAssembly: InputAssembly
@@ -1502,7 +1783,9 @@ export type ResolversTypes = {
   OrganizationFilter: OrganizationFilter
   OrganizationMetaData: ResolverTypeWrapper<OrganizationMetaData>
   OrganizationMetaDataFilter: OrganizationMetaDataFilter
+  Owner: ResolverTypeWrapper<Owner>
   Product: ResolverTypeWrapper<Omit<Product, 'impactData'> & { impactData: ResolversTypes['EPDTechFlow'] }>
+  ProductMetaData: ResolverTypeWrapper<ProductMetaData>
   Project: ResolverTypeWrapper<Omit<Project, 'assemblies'> & { assemblies: Array<ResolversTypes['Assembly']> }>
   ProjectGraphQLGroupResponse: ResolverTypeWrapper<
     Omit<ProjectGraphQlGroupResponse, 'items'> & { items: Array<ResolversTypes['Project']> }
@@ -1514,8 +1797,11 @@ export type ResolversTypes = {
     }
   >
   ProjectInfo: ResolverTypeWrapper<ProjectInfo>
+  ProjectMetaData: ResolverTypeWrapper<ProjectMetaData>
   ProjectPhase: ProjectPhase
+  Publication: ResolverTypeWrapper<Publication>
   Query: ResolverTypeWrapper<{}>
+  Results: ResolverTypeWrapper<Results>
   Role: Role
   RoofType: RoofType
   SoftwareInfo: ResolverTypeWrapper<SoftwareInfo>
@@ -1524,6 +1810,7 @@ export type ResolversTypes = {
   Source: ResolverTypeWrapper<Source>
   StakeholderEnum: StakeholderEnum
   Standard: Standard
+  Structural: ResolverTypeWrapper<Structural>
   SubType: SubType
   TechFlow: ResolverTypeWrapper<TechFlow>
   UUID: ResolverTypeWrapper<Scalars['UUID']['output']>
@@ -1542,24 +1829,31 @@ export type ResolversParentTypes = {
   Float: Scalars['Float']['output']
   AreaType: AreaType
   Assembly: Omit<Assembly, 'products'> & { products: Array<ResolversParentTypes['Product']> }
+  AssemblyMetaData: AssemblyMetaData
+  AssessmentMetaData: AssessmentMetaData
+  Boolean: Scalars['Boolean']['output']
+  Int: Scalars['Int']['output']
+  Assessor: Assessor
+  Base64: Scalars['Base64']['output']
   Classification: Classification
   Contribution: Omit<Contribution, 'project'> & { project: ResolversParentTypes['Project'] }
   ContributionGraphQLGroupResponse: Omit<ContributionGraphQlGroupResponse, 'items'> & {
     items: Array<ResolversParentTypes['Contribution']>
   }
-  Int: Scalars['Int']['output']
   ContributionGraphQLResponse: Omit<ContributionGraphQlResponse, 'groups' | 'items'> & {
     groups: Array<ResolversParentTypes['ContributionGraphQLGroupResponse']>
     items?: Maybe<Array<ResolversParentTypes['Contribution']>>
   }
   Conversion: Conversion
+  Cost: Cost
   Date: Scalars['Date']['output']
   DateTime: Scalars['DateTime']['output']
   EPD: Epd
   EPDTechFlow: ResolversUnionTypes<ResolversParentTypes>['EPDTechFlow']
+  Energy: Energy
   FilterBy: FilterBy
-  Boolean: Scalars['Boolean']['output']
   FilterOptions: FilterOptions
+  ImpactCategoryResults: ImpactCategoryResults
   InputAggregation: InputAggregation
   InputAreaType: InputAreaType
   InputAssembly: InputAssembly
@@ -1585,7 +1879,9 @@ export type ResolversParentTypes = {
   OrganizationFilter: OrganizationFilter
   OrganizationMetaData: OrganizationMetaData
   OrganizationMetaDataFilter: OrganizationMetaDataFilter
+  Owner: Owner
   Product: Omit<Product, 'impactData'> & { impactData: ResolversParentTypes['EPDTechFlow'] }
+  ProductMetaData: ProductMetaData
   Project: Omit<Project, 'assemblies'> & { assemblies: Array<ResolversParentTypes['Assembly']> }
   ProjectGraphQLGroupResponse: Omit<ProjectGraphQlGroupResponse, 'items'> & {
     items: Array<ResolversParentTypes['Project']>
@@ -1595,10 +1891,14 @@ export type ResolversParentTypes = {
     items?: Maybe<Array<ResolversParentTypes['Project']>>
   }
   ProjectInfo: ProjectInfo
+  ProjectMetaData: ProjectMetaData
+  Publication: Publication
   Query: {}
+  Results: Results
   SoftwareInfo: SoftwareInfo
   SortBy: SortBy
   Source: Source
+  Structural: Structural
   TechFlow: TechFlow
   UUID: Scalars['UUID']['output']
   UpdateUserInput: UpdateUserInput
@@ -1654,13 +1954,85 @@ export type AssemblyResolvers<
   comment?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
   description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
   id?: Resolver<ResolversTypes['UUID'], ParentType, ContextType>
-  metaData?: Resolver<ResolversTypes['JSON'], ParentType, ContextType>
+  metaData?: Resolver<Maybe<ResolversTypes['AssemblyMetaData']>, ParentType, ContextType>
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>
   products?: Resolver<Array<ResolversTypes['Product']>, ParentType, ContextType>
   quantity?: Resolver<ResolversTypes['Float'], ParentType, ContextType>
-  results?: Resolver<ResolversTypes['JSON'], ParentType, ContextType>
+  results?: Resolver<Maybe<ResolversTypes['Results']>, ParentType, ContextType>
   unit?: Resolver<ResolversTypes['Unit'], ParentType, ContextType>
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>
+}
+
+export type AssemblyMetaDataResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['AssemblyMetaData'] = ResolversParentTypes['AssemblyMetaData'],
+> = {
+  volume?: Resolver<Maybe<ResolversTypes['ValueUnit']>, ParentType, ContextType>
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>
+}
+
+export type AssessmentMetaDataResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['AssessmentMetaData'] = ResolversParentTypes['AssessmentMetaData'],
+> = {
+  additionalLcaReportName?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
+  ashrae240pCompliance?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>
+  assessmentMethodologyDescription?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
+  assessor?: Resolver<Maybe<ResolversTypes['Assessor']>, ParentType, ContextType>
+  bioSustainabilityCertification?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
+  biogenicCarbonAccountingMethod?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
+  biogenicCarbonDescription?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
+  biogenicCarbonIncluded?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>
+  cutoffMethod?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
+  date?: Resolver<Maybe<ResolversTypes['Date']>, ParentType, ContextType>
+  en15978Compliance?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>
+  equipmentScope?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
+  furnishingsScope?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
+  interiorConstructionScope?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
+  interiorFinishesScope?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
+  iso21931Compliance?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>
+  lcaRequirements?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
+  operationalEnergyIncluded?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>
+  projectPhaseAtReporting?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
+  projectPhaseAtTimeOfAssessment?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
+  projectRefrigerants?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
+  purpose?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
+  quantitySource?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
+  quantitySourceDetail?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
+  refrigerantTypeIncluded?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
+  reportName?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
+  resultsValidationDescription?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
+  rics2017Compliance?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>
+  rics2023Compliance?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>
+  seiPrestandardCompliance?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>
+  servicesElectricalScope?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
+  servicesMechanicalScope?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
+  servicesPlumbingScope?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
+  shellExteriorEnclosureScope?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
+  shellSuperstructureScope?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
+  siteworkScope?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
+  substructureScope?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
+  toolReportUpload?: Resolver<Maybe<ResolversTypes['Base64']>, ParentType, ContextType>
+  uncertainty?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>
+  validityPeriod?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
+  verified?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>
+  verifiedInfo?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
+  year?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>
+}
+
+export type AssessorResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['Assessor'] = ResolversParentTypes['Assessor'],
+> = {
+  email?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
+  name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
+  organization?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>
+}
+
+export interface Base64ScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['Base64'], any> {
+  name: 'Base64'
 }
 
 export type ClassificationResolvers<
@@ -1750,6 +2122,20 @@ export type ConversionResolvers<
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>
 }
 
+export type CostResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['Cost'] = ResolversParentTypes['Cost'],
+> = {
+  costSource?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
+  currency?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
+  hardCost?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>
+  notes?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
+  siteworksCost?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>
+  softCost?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>
+  totalCost?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>
+}
+
 export interface DateScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['Date'], any> {
   name: 'Date'
 }
@@ -1767,7 +2153,7 @@ export type EpdResolvers<
   declaredUnit?: Resolver<ResolversTypes['Unit'], ParentType, ContextType>
   formatVersion?: Resolver<ResolversTypes['String'], ParentType, ContextType>
   id?: Resolver<ResolversTypes['UUID'], ParentType, ContextType>
-  impacts?: Resolver<ResolversTypes['JSON'], ParentType, ContextType>
+  impacts?: Resolver<ResolversTypes['Results'], ParentType, ContextType>
   location?: Resolver<ResolversTypes['Country'], ParentType, ContextType>
   metaData?: Resolver<ResolversTypes['JSON'], ParentType, ContextType>
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>
@@ -1786,6 +2172,47 @@ export type EpdTechFlowResolvers<
   ParentType extends ResolversParentTypes['EPDTechFlow'] = ResolversParentTypes['EPDTechFlow'],
 > = {
   __resolveType: TypeResolveFn<'EPD' | 'TechFlow', ParentType, ContextType>
+}
+
+export type EnergyResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['Energy'] = ResolversParentTypes['Energy'],
+> = {
+  electricityCarbonFactor?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>
+  electricityCarbonFactorSource?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
+  electricityProvider?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
+  electricitySource?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
+  eneryModelMethodologyReference?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
+  gwpEnergySourcesYear?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>
+  siteLocationWeatherData?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
+  toolEnergyModeling?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
+  toolEnergyModelingVersion?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>
+}
+
+export type ImpactCategoryResultsResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['ImpactCategoryResults'] = ResolversParentTypes['ImpactCategoryResults'],
+> = {
+  a0?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>
+  a1a3?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>
+  a4?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>
+  a5?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>
+  b1?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>
+  b2?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>
+  b3?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>
+  b4?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>
+  b5?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>
+  b6?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>
+  b7?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>
+  b8?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>
+  c1?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>
+  c2?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>
+  c3?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>
+  c4?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>
+  d?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>
+  total?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>
 }
 
 export type InviteResultResolvers<
@@ -1896,6 +2323,19 @@ export type OrganizationMetaDataResolvers<
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>
 }
 
+export type OwnerResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['Owner'] = ResolversParentTypes['Owner'],
+> = {
+  contact?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
+  country?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
+  email?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
+  representative?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
+  type?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
+  web?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>
+}
+
 export type ProductResolvers<
   ContextType = any,
   ParentType extends ResolversParentTypes['Product'] = ResolversParentTypes['Product'],
@@ -1903,12 +2343,28 @@ export type ProductResolvers<
   description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
   id?: Resolver<ResolversTypes['UUID'], ParentType, ContextType>
   impactData?: Resolver<ResolversTypes['EPDTechFlow'], ParentType, ContextType>
-  metaData?: Resolver<ResolversTypes['JSON'], ParentType, ContextType>
+  metaData?: Resolver<Maybe<ResolversTypes['ProductMetaData']>, ParentType, ContextType>
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>
   quantity?: Resolver<ResolversTypes['Float'], ParentType, ContextType>
   referenceServiceLife?: Resolver<ResolversTypes['Int'], ParentType, ContextType>
-  results?: Resolver<ResolversTypes['JSON'], ParentType, ContextType>
+  results?: Resolver<Maybe<ResolversTypes['Results']>, ParentType, ContextType>
   unit?: Resolver<ResolversTypes['Unit'], ParentType, ContextType>
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>
+}
+
+export type ProductMetaDataResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['ProductMetaData'] = ResolversParentTypes['ProductMetaData'],
+> = {
+  brickGroutIncluded?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>
+  brickType?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
+  concretePrecast?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
+  density?: Resolver<Maybe<ResolversTypes['ValueUnit']>, ParentType, ContextType>
+  exposureClasses?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
+  groutType?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
+  productClass?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
+  strength?: Resolver<Maybe<ResolversTypes['ValueUnit']>, ParentType, ContextType>
+  timberType?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>
 }
 
@@ -1926,13 +2382,13 @@ export type ProjectResolvers<
   lciaMethod?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
   lifeCycleStages?: Resolver<Array<ResolversTypes['LifeCycleStage']>, ParentType, ContextType>
   location?: Resolver<ResolversTypes['Location'], ParentType, ContextType>
-  metaData?: Resolver<Maybe<ResolversTypes['JSON']>, ParentType, ContextType>
+  metaData?: Resolver<Maybe<ResolversTypes['ProjectMetaData']>, ParentType, ContextType>
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>
   owner?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
   projectInfo?: Resolver<ResolversTypes['ProjectInfo'], ParentType, ContextType>
   projectPhase?: Resolver<ResolversTypes['ProjectPhase'], ParentType, ContextType>
   referenceStudyPeriod?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>
-  results?: Resolver<Maybe<ResolversTypes['JSON']>, ParentType, ContextType>
+  results?: Resolver<Maybe<ResolversTypes['Results']>, ParentType, ContextType>
   softwareInfo?: Resolver<ResolversTypes['SoftwareInfo'], ParentType, ContextType>
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>
 }
@@ -2020,6 +2476,90 @@ export type ProjectInfoResolvers<
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>
 }
 
+export type ProjectMetaDataResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['ProjectMetaData'] = ResolversParentTypes['ProjectMetaData'],
+> = {
+  architectOfRecord?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
+  assessment?: Resolver<Maybe<ResolversTypes['AssessmentMetaData']>, ParentType, ContextType>
+  assessmentCostCutoff?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
+  assessmentCutoff?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
+  assessmentCutoffType?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
+  bedroomCount?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>
+  buildingOccupancyStart?: Resolver<Maybe<ResolversTypes['Date']>, ParentType, ContextType>
+  buildingProjectConstructionType2?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
+  buildingUseType?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
+  builtFloorArea?: Resolver<Maybe<ResolversTypes['ValueUnit']>, ParentType, ContextType>
+  civilEngineer?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
+  climateZone?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
+  conditionedFloorArea?: Resolver<Maybe<ResolversTypes['ValueUnit']>, ParentType, ContextType>
+  constructionStart?: Resolver<Maybe<ResolversTypes['Date']>, ParentType, ContextType>
+  constructionYearExistingBuilding?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>
+  cost?: Resolver<Maybe<ResolversTypes['Cost']>, ParentType, ContextType>
+  demolishedArea?: Resolver<Maybe<ResolversTypes['ValueUnit']>, ParentType, ContextType>
+  detachedParkingArea?: Resolver<Maybe<ResolversTypes['ValueUnit']>, ParentType, ContextType>
+  detachedParkingStructureArea?: Resolver<Maybe<ResolversTypes['ValueUnit']>, ParentType, ContextType>
+  enclosedParkingArea?: Resolver<Maybe<ResolversTypes['ValueUnit']>, ParentType, ContextType>
+  energy?: Resolver<Maybe<ResolversTypes['Energy']>, ParentType, ContextType>
+  existingArea?: Resolver<Maybe<ResolversTypes['ValueUnit']>, ParentType, ContextType>
+  fullTimeEquivalent?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>
+  generalContractor?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
+  heritageStatus?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
+  ibcConstructionType?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
+  image?: Resolver<Maybe<ResolversTypes['Base64']>, ParentType, ContextType>
+  infrastructureProjectConstructionType?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
+  infrastructureSectorType?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
+  infrastructureUseType?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
+  interiorDesigner?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
+  interstitialFloors?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
+  landscapeConsultant?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
+  lcaDatabase?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
+  lcaDatabaseOther?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
+  lcaDatabaseVersion?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
+  lcaModelType?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
+  lcaSoftwareVersion?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
+  meanRoofHeight?: Resolver<Maybe<ResolversTypes['ValueUnit']>, ParentType, ContextType>
+  mepEngineer?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
+  newlyBuiltArea?: Resolver<Maybe<ResolversTypes['ValueUnit']>, ParentType, ContextType>
+  occupantLoad?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>
+  omniclassConstructionEntity?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
+  otherProjectTeam?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
+  owner?: Resolver<Maybe<ResolversTypes['Owner']>, ParentType, ContextType>
+  productClassificationSystem?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
+  projectExpectedLife?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>
+  projectHistoric?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>
+  projectSiteArea?: Resolver<Maybe<ResolversTypes['ValueUnit']>, ParentType, ContextType>
+  projectSurroundings?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
+  projectUserStudio?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
+  projectWorkArea?: Resolver<Maybe<ResolversTypes['ValueUnit']>, ParentType, ContextType>
+  publication?: Resolver<Maybe<ResolversTypes['Publication']>, ParentType, ContextType>
+  residentialUnits?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>
+  resultsValidatedAsBuilt?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>
+  resultsValidatedAsBuiltDescription?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
+  retrofittedArea?: Resolver<Maybe<ResolversTypes['ValueUnit']>, ParentType, ContextType>
+  structural?: Resolver<Maybe<ResolversTypes['Structural']>, ParentType, ContextType>
+  structuralEngineer?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
+  surfaceParkingArea?: Resolver<Maybe<ResolversTypes['ValueUnit']>, ParentType, ContextType>
+  sustainabilityConsultant?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
+  thermalEnvelopeArea?: Resolver<Maybe<ResolversTypes['ValueUnit']>, ParentType, ContextType>
+  unconditionedFloorArea?: Resolver<Maybe<ResolversTypes['ValueUnit']>, ParentType, ContextType>
+  windowWallRatio?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>
+  workCompletionYear?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>
+}
+
+export type PublicationResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['Publication'] = ResolversParentTypes['Publication'],
+> = {
+  authors?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
+  doi?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
+  publisher?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
+  title?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
+  year?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>
+}
+
 export type QueryResolvers<
   ContextType = any,
   ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query'],
@@ -2038,6 +2578,51 @@ export type QueryResolvers<
     ContextType,
     RequireFields<QueryUsersArgs, 'filters' | 'sortBy'>
   >
+}
+
+export type ResultsResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['Results'] = ResolversParentTypes['Results'],
+> = {
+  adpe?: Resolver<Maybe<ResolversTypes['ImpactCategoryResults']>, ParentType, ContextType>
+  adpf?: Resolver<Maybe<ResolversTypes['ImpactCategoryResults']>, ParentType, ContextType>
+  ap?: Resolver<Maybe<ResolversTypes['ImpactCategoryResults']>, ParentType, ContextType>
+  cru?: Resolver<Maybe<ResolversTypes['ImpactCategoryResults']>, ParentType, ContextType>
+  eee?: Resolver<Maybe<ResolversTypes['ImpactCategoryResults']>, ParentType, ContextType>
+  eet?: Resolver<Maybe<ResolversTypes['ImpactCategoryResults']>, ParentType, ContextType>
+  ep?: Resolver<Maybe<ResolversTypes['ImpactCategoryResults']>, ParentType, ContextType>
+  epFw?: Resolver<Maybe<ResolversTypes['ImpactCategoryResults']>, ParentType, ContextType>
+  epMar?: Resolver<Maybe<ResolversTypes['ImpactCategoryResults']>, ParentType, ContextType>
+  epTer?: Resolver<Maybe<ResolversTypes['ImpactCategoryResults']>, ParentType, ContextType>
+  etpFw?: Resolver<Maybe<ResolversTypes['ImpactCategoryResults']>, ParentType, ContextType>
+  fw?: Resolver<Maybe<ResolversTypes['ImpactCategoryResults']>, ParentType, ContextType>
+  gwp?: Resolver<Maybe<ResolversTypes['ImpactCategoryResults']>, ParentType, ContextType>
+  gwpBio?: Resolver<Maybe<ResolversTypes['ImpactCategoryResults']>, ParentType, ContextType>
+  gwpFos?: Resolver<Maybe<ResolversTypes['ImpactCategoryResults']>, ParentType, ContextType>
+  gwpLul?: Resolver<Maybe<ResolversTypes['ImpactCategoryResults']>, ParentType, ContextType>
+  htpC?: Resolver<Maybe<ResolversTypes['ImpactCategoryResults']>, ParentType, ContextType>
+  htpNc?: Resolver<Maybe<ResolversTypes['ImpactCategoryResults']>, ParentType, ContextType>
+  hwd?: Resolver<Maybe<ResolversTypes['ImpactCategoryResults']>, ParentType, ContextType>
+  irp?: Resolver<Maybe<ResolversTypes['ImpactCategoryResults']>, ParentType, ContextType>
+  mer?: Resolver<Maybe<ResolversTypes['ImpactCategoryResults']>, ParentType, ContextType>
+  mrf?: Resolver<Maybe<ResolversTypes['ImpactCategoryResults']>, ParentType, ContextType>
+  nhwd?: Resolver<Maybe<ResolversTypes['ImpactCategoryResults']>, ParentType, ContextType>
+  nrsf?: Resolver<Maybe<ResolversTypes['ImpactCategoryResults']>, ParentType, ContextType>
+  odp?: Resolver<Maybe<ResolversTypes['ImpactCategoryResults']>, ParentType, ContextType>
+  penre?: Resolver<Maybe<ResolversTypes['ImpactCategoryResults']>, ParentType, ContextType>
+  penrm?: Resolver<Maybe<ResolversTypes['ImpactCategoryResults']>, ParentType, ContextType>
+  penrt?: Resolver<Maybe<ResolversTypes['ImpactCategoryResults']>, ParentType, ContextType>
+  pere?: Resolver<Maybe<ResolversTypes['ImpactCategoryResults']>, ParentType, ContextType>
+  perm?: Resolver<Maybe<ResolversTypes['ImpactCategoryResults']>, ParentType, ContextType>
+  pert?: Resolver<Maybe<ResolversTypes['ImpactCategoryResults']>, ParentType, ContextType>
+  pm?: Resolver<Maybe<ResolversTypes['ImpactCategoryResults']>, ParentType, ContextType>
+  pocp?: Resolver<Maybe<ResolversTypes['ImpactCategoryResults']>, ParentType, ContextType>
+  rsf?: Resolver<Maybe<ResolversTypes['ImpactCategoryResults']>, ParentType, ContextType>
+  rwd?: Resolver<Maybe<ResolversTypes['ImpactCategoryResults']>, ParentType, ContextType>
+  sm?: Resolver<Maybe<ResolversTypes['ImpactCategoryResults']>, ParentType, ContextType>
+  sqp?: Resolver<Maybe<ResolversTypes['ImpactCategoryResults']>, ParentType, ContextType>
+  wdp?: Resolver<Maybe<ResolversTypes['ImpactCategoryResults']>, ParentType, ContextType>
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>
 }
 
 export type SoftwareInfoResolvers<
@@ -2059,6 +2644,28 @@ export type SourceResolvers<
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>
 }
 
+export type StructuralResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['Structural'] = ResolversParentTypes['Structural'],
+> = {
+  allowableSoilBearingPressure?: Resolver<Maybe<ResolversTypes['ValueUnit']>, ParentType, ContextType>
+  columnGridLong?: Resolver<Maybe<ResolversTypes['ValueUnit']>, ParentType, ContextType>
+  earthquakeImportanceFactor?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>
+  foundationType?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
+  horizontalGravitySystem?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
+  lateralSystem?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
+  liveLoad?: Resolver<Maybe<ResolversTypes['ValueUnit']>, ParentType, ContextType>
+  podium?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
+  riskCategory?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
+  secondaryHorizontalGravitySystem?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
+  secondaryVerticalGravitySystem?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
+  seismicDesignCategory?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
+  snowLoad?: Resolver<Maybe<ResolversTypes['ValueUnit']>, ParentType, ContextType>
+  verticalGravitySystem?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
+  windSpeed?: Resolver<Maybe<ResolversTypes['ValueUnit']>, ParentType, ContextType>
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>
+}
+
 export type TechFlowResolvers<
   ContextType = any,
   ParentType extends ResolversParentTypes['TechFlow'] = ResolversParentTypes['TechFlow'],
@@ -2068,7 +2675,7 @@ export type TechFlowResolvers<
   declaredUnit?: Resolver<ResolversTypes['Unit'], ParentType, ContextType>
   formatVersion?: Resolver<ResolversTypes['String'], ParentType, ContextType>
   id?: Resolver<ResolversTypes['UUID'], ParentType, ContextType>
-  impacts?: Resolver<ResolversTypes['JSON'], ParentType, ContextType>
+  impacts?: Resolver<ResolversTypes['Results'], ParentType, ContextType>
   location?: Resolver<ResolversTypes['Country'], ParentType, ContextType>
   metaData?: Resolver<ResolversTypes['JSON'], ParentType, ContextType>
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>
@@ -2111,29 +2718,42 @@ export type Resolvers<ContextType = any> = {
   AggregationResult?: AggregationResultResolvers<ContextType>
   AreaType?: AreaTypeResolvers<ContextType>
   Assembly?: AssemblyResolvers<ContextType>
+  AssemblyMetaData?: AssemblyMetaDataResolvers<ContextType>
+  AssessmentMetaData?: AssessmentMetaDataResolvers<ContextType>
+  Assessor?: AssessorResolvers<ContextType>
+  Base64?: GraphQLScalarType
   Classification?: ClassificationResolvers<ContextType>
   Contribution?: ContributionResolvers<ContextType>
   ContributionGraphQLGroupResponse?: ContributionGraphQlGroupResponseResolvers<ContextType>
   ContributionGraphQLResponse?: ContributionGraphQlResponseResolvers<ContextType>
   Conversion?: ConversionResolvers<ContextType>
+  Cost?: CostResolvers<ContextType>
   Date?: GraphQLScalarType
   DateTime?: GraphQLScalarType
   EPD?: EpdResolvers<ContextType>
   EPDTechFlow?: EpdTechFlowResolvers<ContextType>
+  Energy?: EnergyResolvers<ContextType>
+  ImpactCategoryResults?: ImpactCategoryResultsResolvers<ContextType>
   InviteResult?: InviteResultResolvers<ContextType>
   JSON?: GraphQLScalarType
   Location?: LocationResolvers<ContextType>
   Mutation?: MutationResolvers<ContextType>
   Organization?: OrganizationResolvers<ContextType>
   OrganizationMetaData?: OrganizationMetaDataResolvers<ContextType>
+  Owner?: OwnerResolvers<ContextType>
   Product?: ProductResolvers<ContextType>
+  ProductMetaData?: ProductMetaDataResolvers<ContextType>
   Project?: ProjectResolvers<ContextType>
   ProjectGraphQLGroupResponse?: ProjectGraphQlGroupResponseResolvers<ContextType>
   ProjectGraphQLResponse?: ProjectGraphQlResponseResolvers<ContextType>
   ProjectInfo?: ProjectInfoResolvers<ContextType>
+  ProjectMetaData?: ProjectMetaDataResolvers<ContextType>
+  Publication?: PublicationResolvers<ContextType>
   Query?: QueryResolvers<ContextType>
+  Results?: ResultsResolvers<ContextType>
   SoftwareInfo?: SoftwareInfoResolvers<ContextType>
   Source?: SourceResolvers<ContextType>
+  Structural?: StructuralResolvers<ContextType>
   TechFlow?: TechFlowResolvers<ContextType>
   UUID?: GraphQLScalarType
   User?: UserResolvers<ContextType>
@@ -2370,7 +2990,6 @@ export type GetProjectPortfolioQuery = {
       __typename?: 'Project'
       id: any
       name: string
-      results?: any | null
       location: { __typename?: 'Location'; countryName: string }
       projectInfo: {
         __typename?: 'ProjectInfo'
@@ -2378,6 +2997,29 @@ export type GetProjectPortfolioQuery = {
         buildingTypology: Array<BuildingTypology>
         grossFloorArea?: { __typename?: 'AreaType'; value: number } | null
       }
+      results?: {
+        __typename?: 'Results'
+        gwp?: {
+          __typename?: 'ImpactCategoryResults'
+          a0?: number | null
+          a1a3?: number | null
+          a4?: number | null
+          a5?: number | null
+          b1?: number | null
+          b2?: number | null
+          b3?: number | null
+          b4?: number | null
+          b5?: number | null
+          b6?: number | null
+          b7?: number | null
+          b8?: number | null
+          c1?: number | null
+          c2?: number | null
+          c3?: number | null
+          c4?: number | null
+          d?: number | null
+        } | null
+      } | null
     }> | null
   }
 }
@@ -3205,7 +3847,27 @@ export const GetProjectPortfolioDocument = gql`
           buildingType
           buildingTypology
         }
-        results
+        results {
+          gwp {
+            a0
+            a1a3
+            a4
+            a5
+            b1
+            b2
+            b3
+            b4
+            b5
+            b6
+            b7
+            b8
+            c1
+            c2
+            c3
+            c4
+            d
+          }
+        }
       }
       count(filterBy: $filters)
     }
