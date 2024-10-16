@@ -136,6 +136,8 @@ mutation updateUser($userInput: UpdateUserInput!) {
     lastName
     email
     timeJoined
+    role
+    organizationId
   }
 }
 
