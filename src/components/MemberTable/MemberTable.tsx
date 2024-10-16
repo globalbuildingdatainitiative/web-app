@@ -124,7 +124,7 @@ export const MemberTable: React.FC<MemberTableProps> = ({ organizationId }) => {
           <Button
             onClick={() => handleRemoveFromOrganization(row.original.id)}
             disabled={currentUserRole !== 'Owner' && row.original.id !== currentUserId}
-            color={row.original.id === currentUserId ? theme?.colors?.green?.[9] : theme?.colors?.red?.[7]}
+            color={theme?.colors?.red?.[6]}
           >
             {row.original.id === currentUserId ? 'Leave Organization' : 'Remove from Organization'}
           </Button>
