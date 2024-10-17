@@ -46,28 +46,6 @@ export const MemberTable: React.FC<MemberTableProps> = ({ organizationId }) => {
     return user ? user.role : 'Member'
   }
 
-  const handleRemoveFromOrganization = async (userId: string) => {
-    try {
-      await updateUser({
-        variables: {
-          userInput: {
-            id: userId,
-            organizationId: null,
-            role: null,
-          },
-        },
-      })
-      if (userId === currentUserId) {
-        navigate('/organization/new')
-      } else {
-        refetchUsers()
-        navigate('/organization')
-      }
-    } catch (error) {
-      console.error('Error removing user from organization:', error)
-    }
-  }
-
   const formatRole = (role: string | null | undefined): string => {
     if (!role) return 'N/A'
     return role.charAt(0).toUpperCase() + role.slice(1).toLowerCase()
@@ -93,8 +71,29 @@ export const MemberTable: React.FC<MemberTableProps> = ({ organizationId }) => {
 
   const currentUserRole = getUserRole(currentUserId)
 
-  const columns = useMemo<MRT_ColumnDef<Row>[]>(
-    () => [
+  const columns = useMemo<MRT_ColumnDef<Row>[]>(() => {
+    const handleRemoveFromOrganization = async (userId: string) => {
+      try {
+        await updateUser({
+          variables: {
+            userInput: {
+              id: userId,
+              organizationId: null,
+            },
+          },
+        })
+        if (userId === currentUserId) {
+          navigate('/organization/new')
+        } else {
+          refetchUsers()
+          navigate('/organization')
+        }
+      } catch (error) {
+        console.error('Error removing user from organization:', error)
+      }
+    }
+
+    return [
       {
         accessorKey: 'name',
         header: 'Name',
@@ -131,9 +130,8 @@ export const MemberTable: React.FC<MemberTableProps> = ({ organizationId }) => {
         ),
         size: 200,
       },
-    ],
-    [currentUserId, currentUserRole],
-  )
+    ]
+  }, [currentUserId, currentUserRole, updateUser, navigate, refetchUsers])
 
   const table = useMantineReactTable({
     columns,
