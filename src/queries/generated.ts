@@ -2936,6 +2936,8 @@ export type UpdateUserMutation = {
     lastName?: string | null
     email: string
     timeJoined: any
+    role?: Role | null
+    organizationId?: any | null
   }
 }
 
@@ -3656,6 +3658,8 @@ export const UpdateUserDocument = gql`
       lastName
       email
       timeJoined
+      role
+      organizationId
     }
   }
 `

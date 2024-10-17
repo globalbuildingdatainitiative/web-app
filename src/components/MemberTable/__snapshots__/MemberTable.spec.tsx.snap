@@ -307,7 +307,7 @@ exports[`MemberTable > Snapshot 1`] = `
         </div>
         <table
           class="mrt-table MRT_Table-module_root__ms2uS m_b23fa0ef mantine-Table-table"
-          style="--table-horizontal-spacing: var(--mantine-spacing-md); --table-vertical-spacing: var(--mantine-spacing-md); --header-name-size: 150; --col-name-size: 150; --header-email-size: 200; --col-email-size: 200; --header-timeJoined-size: 100; --col-timeJoined-size: 100; --header-role-size: 100; --col-role-size: 100;"
+          style="--table-horizontal-spacing: var(--mantine-spacing-md); --table-vertical-spacing: var(--mantine-spacing-md); --header-name-size: 150; --col-name-size: 150; --header-email-size: 200; --col-email-size: 200; --header-timeJoined-size: 100; --col-timeJoined-size: 100; --header-role-size: 100; --col-role-size: 100; --header-action-size: 200; --col-action-size: 200;"
         >
           <thead
             class="m_b242d975 mantine-Table-thead MRT_TableHead-module_root__j9NkO MRT_TableHead-module_root-table-row-group__d9FO4"
@@ -431,6 +431,32 @@ exports[`MemberTable > Snapshot 1`] = `
                   />
                 </div>
               </th>
+              <th
+                align="left"
+                class="m_4e7aa4f3 mantine-Table-th MRT_TableHeadCell-module_root__6y50a"
+                colspan="1"
+                data-index="4"
+                style="min-width: max(calc(var(--header-action-size) * 1px), 40px);"
+              >
+                <div
+                  class="mrt-table-head-cell-content MRT_TableHeadCell-module_content__-pzSK m_8bffd616 mantine-Flex-root __m__-r2k"
+                  style=""
+                >
+                  <div
+                    class="mrt-table-head-cell-labels MRT_TableHeadCell-module_labels__oiMSr MRT_TableHeadCell-module_labels-data__PvFGO m_8bffd616 mantine-Flex-root __m__-r2m"
+                    style="--mrt-table-head-cell-labels-padding-left: 1.75;"
+                  >
+                    <div
+                      class="mrt-table-head-cell-content-wrapper MRT_TableHeadCell-module_content-wrapper__py6aJ MRT_TableHeadCell-module_content-wrapper-hidden-overflow__QY40r MRT_TableHeadCell-module_content-wrapper-nowrap__-4aIg m_8bffd616 mantine-Flex-root __m__-r2o"
+                      style=""
+                    />
+                  </div>
+                  <div
+                    class="mrt-table-head-cell-content-actions MRT_TableHeadCell-module_content-actions__utxbm m_8bffd616 mantine-Flex-root __m__-r2q"
+                    style=""
+                  />
+                </div>
+              </th>
             </tr>
           </thead>
           <tbody
@@ -468,6 +494,29 @@ exports[`MemberTable > Snapshot 1`] = `
                 data-index="3"
                 style="min-width: max(calc(var(--col-role-size) * 1px), 40px); --mrt-cell-align: left;"
               />
+              <td
+                class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
+                data-index="4"
+                style="min-width: max(calc(var(--col-action-size) * 1px), 40px); --mrt-cell-align: left;"
+              >
+                <button
+                  class="mantine-focus-auto mantine-active m_77c9d27d mantine-Button-root m_87cf2631 mantine-UnstyledButton-root"
+                  style="--button-bg: #d84c30; --button-hover: rgba(194, 68, 43, 1); --button-color: var(--mantine-color-white); --button-bd: calc(0.0625rem * var(--mantine-scale)) solid transparent;"
+                  type="button"
+                >
+                  <span
+                    class="m_80f1301b mantine-Button-inner"
+                    style=""
+                  >
+                    <span
+                      class="m_811560b9 mantine-Button-label"
+                      style=""
+                    >
+                      Leave Organization
+                    </span>
+                  </span>
+                </button>
+              </td>
             </tr>
             <tr
               class="m_4e7aa4fd mantine-Table-tr MRT_TableBodyRow-module_root__2c3D4"
@@ -500,6 +549,29 @@ exports[`MemberTable > Snapshot 1`] = `
                 data-index="3"
                 style="min-width: max(calc(var(--col-role-size) * 1px), 40px); --mrt-cell-align: left;"
               />
+              <td
+                class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
+                data-index="4"
+                style="min-width: max(calc(var(--col-action-size) * 1px), 40px); --mrt-cell-align: left;"
+              >
+                <button
+                  class="mantine-focus-auto mantine-active m_77c9d27d mantine-Button-root m_87cf2631 mantine-UnstyledButton-root"
+                  style="--button-bg: #d84c30; --button-hover: rgba(194, 68, 43, 1); --button-color: var(--mantine-color-white); --button-bd: calc(0.0625rem * var(--mantine-scale)) solid transparent;"
+                  type="button"
+                >
+                  <span
+                    class="m_80f1301b mantine-Button-inner"
+                    style=""
+                  >
+                    <span
+                      class="m_811560b9 mantine-Button-label"
+                      style=""
+                    >
+                      Leave Organization
+                    </span>
+                  </span>
+                </button>
+              </td>
             </tr>
             <tr
               class="m_4e7aa4fd mantine-Table-tr MRT_TableBodyRow-module_root__2c3D4"
@@ -532,6 +604,29 @@ exports[`MemberTable > Snapshot 1`] = `
                 data-index="3"
                 style="min-width: max(calc(var(--col-role-size) * 1px), 40px); --mrt-cell-align: left;"
               />
+              <td
+                class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
+                data-index="4"
+                style="min-width: max(calc(var(--col-action-size) * 1px), 40px); --mrt-cell-align: left;"
+              >
+                <button
+                  class="mantine-focus-auto mantine-active m_77c9d27d mantine-Button-root m_87cf2631 mantine-UnstyledButton-root"
+                  style="--button-bg: #d84c30; --button-hover: rgba(194, 68, 43, 1); --button-color: var(--mantine-color-white); --button-bd: calc(0.0625rem * var(--mantine-scale)) solid transparent;"
+                  type="button"
+                >
+                  <span
+                    class="m_80f1301b mantine-Button-inner"
+                    style=""
+                  >
+                    <span
+                      class="m_811560b9 mantine-Button-label"
+                      style=""
+                    >
+                      Leave Organization
+                    </span>
+                  </span>
+                </button>
+              </td>
             </tr>
             <tr
               class="m_4e7aa4fd mantine-Table-tr MRT_TableBodyRow-module_root__2c3D4"
@@ -564,6 +659,29 @@ exports[`MemberTable > Snapshot 1`] = `
                 data-index="3"
                 style="min-width: max(calc(var(--col-role-size) * 1px), 40px); --mrt-cell-align: left;"
               />
+              <td
+                class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
+                data-index="4"
+                style="min-width: max(calc(var(--col-action-size) * 1px), 40px); --mrt-cell-align: left;"
+              >
+                <button
+                  class="mantine-focus-auto mantine-active m_77c9d27d mantine-Button-root m_87cf2631 mantine-UnstyledButton-root"
+                  style="--button-bg: #d84c30; --button-hover: rgba(194, 68, 43, 1); --button-color: var(--mantine-color-white); --button-bd: calc(0.0625rem * var(--mantine-scale)) solid transparent;"
+                  type="button"
+                >
+                  <span
+                    class="m_80f1301b mantine-Button-inner"
+                    style=""
+                  >
+                    <span
+                      class="m_811560b9 mantine-Button-label"
+                      style=""
+                    >
+                      Leave Organization
+                    </span>
+                  </span>
+                </button>
+              </td>
             </tr>
             <tr
               class="m_4e7aa4fd mantine-Table-tr MRT_TableBodyRow-module_root__2c3D4"
@@ -596,6 +714,29 @@ exports[`MemberTable > Snapshot 1`] = `
                 data-index="3"
                 style="min-width: max(calc(var(--col-role-size) * 1px), 40px); --mrt-cell-align: left;"
               />
+              <td
+                class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
+                data-index="4"
+                style="min-width: max(calc(var(--col-action-size) * 1px), 40px); --mrt-cell-align: left;"
+              >
+                <button
+                  class="mantine-focus-auto mantine-active m_77c9d27d mantine-Button-root m_87cf2631 mantine-UnstyledButton-root"
+                  style="--button-bg: #d84c30; --button-hover: rgba(194, 68, 43, 1); --button-color: var(--mantine-color-white); --button-bd: calc(0.0625rem * var(--mantine-scale)) solid transparent;"
+                  type="button"
+                >
+                  <span
+                    class="m_80f1301b mantine-Button-inner"
+                    style=""
+                  >
+                    <span
+                      class="m_811560b9 mantine-Button-label"
+                      style=""
+                    >
+                      Leave Organization
+                    </span>
+                  </span>
+                </button>
+              </td>
             </tr>
             <tr
               class="m_4e7aa4fd mantine-Table-tr MRT_TableBodyRow-module_root__2c3D4"
@@ -628,6 +769,29 @@ exports[`MemberTable > Snapshot 1`] = `
                 data-index="3"
                 style="min-width: max(calc(var(--col-role-size) * 1px), 40px); --mrt-cell-align: left;"
               />
+              <td
+                class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
+                data-index="4"
+                style="min-width: max(calc(var(--col-action-size) * 1px), 40px); --mrt-cell-align: left;"
+              >
+                <button
+                  class="mantine-focus-auto mantine-active m_77c9d27d mantine-Button-root m_87cf2631 mantine-UnstyledButton-root"
+                  style="--button-bg: #d84c30; --button-hover: rgba(194, 68, 43, 1); --button-color: var(--mantine-color-white); --button-bd: calc(0.0625rem * var(--mantine-scale)) solid transparent;"
+                  type="button"
+                >
+                  <span
+                    class="m_80f1301b mantine-Button-inner"
+                    style=""
+                  >
+                    <span
+                      class="m_811560b9 mantine-Button-label"
+                      style=""
+                    >
+                      Leave Organization
+                    </span>
+                  </span>
+                </button>
+              </td>
             </tr>
             <tr
               class="m_4e7aa4fd mantine-Table-tr MRT_TableBodyRow-module_root__2c3D4"
@@ -660,6 +824,29 @@ exports[`MemberTable > Snapshot 1`] = `
                 data-index="3"
                 style="min-width: max(calc(var(--col-role-size) * 1px), 40px); --mrt-cell-align: left;"
               />
+              <td
+                class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
+                data-index="4"
+                style="min-width: max(calc(var(--col-action-size) * 1px), 40px); --mrt-cell-align: left;"
+              >
+                <button
+                  class="mantine-focus-auto mantine-active m_77c9d27d mantine-Button-root m_87cf2631 mantine-UnstyledButton-root"
+                  style="--button-bg: #d84c30; --button-hover: rgba(194, 68, 43, 1); --button-color: var(--mantine-color-white); --button-bd: calc(0.0625rem * var(--mantine-scale)) solid transparent;"
+                  type="button"
+                >
+                  <span
+                    class="m_80f1301b mantine-Button-inner"
+                    style=""
+                  >
+                    <span
+                      class="m_811560b9 mantine-Button-label"
+                      style=""
+                    >
+                      Leave Organization
+                    </span>
+                  </span>
+                </button>
+              </td>
             </tr>
             <tr
               class="m_4e7aa4fd mantine-Table-tr MRT_TableBodyRow-module_root__2c3D4"
@@ -692,6 +879,29 @@ exports[`MemberTable > Snapshot 1`] = `
                 data-index="3"
                 style="min-width: max(calc(var(--col-role-size) * 1px), 40px); --mrt-cell-align: left;"
               />
+              <td
+                class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
+                data-index="4"
+                style="min-width: max(calc(var(--col-action-size) * 1px), 40px); --mrt-cell-align: left;"
+              >
+                <button
+                  class="mantine-focus-auto mantine-active m_77c9d27d mantine-Button-root m_87cf2631 mantine-UnstyledButton-root"
+                  style="--button-bg: #d84c30; --button-hover: rgba(194, 68, 43, 1); --button-color: var(--mantine-color-white); --button-bd: calc(0.0625rem * var(--mantine-scale)) solid transparent;"
+                  type="button"
+                >
+                  <span
+                    class="m_80f1301b mantine-Button-inner"
+                    style=""
+                  >
+                    <span
+                      class="m_811560b9 mantine-Button-label"
+                      style=""
+                    >
+                      Leave Organization
+                    </span>
+                  </span>
+                </button>
+              </td>
             </tr>
             <tr
               class="m_4e7aa4fd mantine-Table-tr MRT_TableBodyRow-module_root__2c3D4"
@@ -724,6 +934,29 @@ exports[`MemberTable > Snapshot 1`] = `
                 data-index="3"
                 style="min-width: max(calc(var(--col-role-size) * 1px), 40px); --mrt-cell-align: left;"
               />
+              <td
+                class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
+                data-index="4"
+                style="min-width: max(calc(var(--col-action-size) * 1px), 40px); --mrt-cell-align: left;"
+              >
+                <button
+                  class="mantine-focus-auto mantine-active m_77c9d27d mantine-Button-root m_87cf2631 mantine-UnstyledButton-root"
+                  style="--button-bg: #d84c30; --button-hover: rgba(194, 68, 43, 1); --button-color: var(--mantine-color-white); --button-bd: calc(0.0625rem * var(--mantine-scale)) solid transparent;"
+                  type="button"
+                >
+                  <span
+                    class="m_80f1301b mantine-Button-inner"
+                    style=""
+                  >
+                    <span
+                      class="m_811560b9 mantine-Button-label"
+                      style=""
+                    >
+                      Leave Organization
+                    </span>
+                  </span>
+                </button>
+              </td>
             </tr>
             <tr
               class="m_4e7aa4fd mantine-Table-tr MRT_TableBodyRow-module_root__2c3D4"
@@ -760,6 +993,30 @@ exports[`MemberTable > Snapshot 1`] = `
                 data-last-row="true"
                 style="min-width: max(calc(var(--col-role-size) * 1px), 40px); --mrt-cell-align: left;"
               />
+              <td
+                class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
+                data-index="4"
+                data-last-row="true"
+                style="min-width: max(calc(var(--col-action-size) * 1px), 40px); --mrt-cell-align: left;"
+              >
+                <button
+                  class="mantine-focus-auto mantine-active m_77c9d27d mantine-Button-root m_87cf2631 mantine-UnstyledButton-root"
+                  style="--button-bg: #d84c30; --button-hover: rgba(194, 68, 43, 1); --button-color: var(--mantine-color-white); --button-bd: calc(0.0625rem * var(--mantine-scale)) solid transparent;"
+                  type="button"
+                >
+                  <span
+                    class="m_80f1301b mantine-Button-inner"
+                    style=""
+                  >
+                    <span
+                      class="m_811560b9 mantine-Button-label"
+                      style=""
+                    >
+                      Leave Organization
+                    </span>
+                  </span>
+                </button>
+              </td>
             </tr>
           </tbody>
           <tfoot
