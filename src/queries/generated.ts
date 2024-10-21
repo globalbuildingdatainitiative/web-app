@@ -3020,6 +3020,7 @@ export type GetProjectPortfolioQuery = {
           c3?: number | null
           c4?: number | null
           d?: number | null
+          total?: number | null
         } | null
       } | null
     }> | null
@@ -3870,6 +3871,7 @@ export const GetProjectPortfolioDocument = gql`
             c3
             c4
             d
+            total
           }
         }
       }

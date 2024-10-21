@@ -207,6 +207,7 @@ query getProjectPortfolio($limit: Int, $offset: Int, $filters: FilterBy) {
           c3
           c4
           d
+          total
         }
       }
     }
