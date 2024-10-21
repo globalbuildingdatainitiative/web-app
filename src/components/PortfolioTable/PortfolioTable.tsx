@@ -130,12 +130,6 @@ interface GWPIntensity {
   row: MRT_Row<Pick<Contribution, 'id'>>
 }
 
-// type Result = {
-//   [key in ImpactCategoryKey]: {
-//     [key in LifeCycleStage]: number
-//   }
-// }
-
 const getGWPIntensity = ({ cell, row }: GWPIntensity) => {
   const gwp = cell.getValue<Results | null>()?.gwp || ({} as ImpactCategoryResults)
   const footprint = row.getValue('projectInfo.grossFloorArea.value') as number
