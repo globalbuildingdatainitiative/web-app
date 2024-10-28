@@ -3,6 +3,7 @@ import { MantineReactTable, MRT_ColumnDef, useMantineReactTable, MRT_PaginationS
 import React, { useMemo, useState } from 'react'
 import dayjs from 'dayjs'
 import { Group, Select, Pagination, Text, Tooltip } from '@mantine/core'
+import { ViewProjectDetails } from './viewProjectDetails.tsx'
 
 interface TruncatedTextWithTooltipProps {
   text: string
@@ -111,6 +112,11 @@ export const ContributionTable: React.FC = () => {
           return <TruncatedTextWithTooltip text={displayText.toUpperCase()} />
         },
       },
+      {
+        id: 'projectDetails',
+        header: 'View Details',
+        Cell: ({ row }) => <ViewProjectDetails contributionId={row.original.id} />
+      }
     ],
     [],
   )
