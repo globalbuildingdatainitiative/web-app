@@ -10,6 +10,10 @@ const formatEnumValue = (value: string): string => {
     .replace(/\b\w/g, (char) => char.toUpperCase())
 }
 
+const capitalizeEnumValue = (value: string): string => {
+  return value.toUpperCase()
+}
+
 export const GlobalBoxPlot = () => {
   const [selectedTypologies, setSelectedTypologies] = useState<string[]>([])
   const [selectedLifeCycleStage, setSelectedLifeCycleStage] = useState<string>(LifeCycleStage.A1A3)
@@ -27,7 +31,7 @@ export const GlobalBoxPlot = () => {
     () =>
       Object.values(LifeCycleStage).map((value) => ({
         value,
-        label: formatEnumValue(value),
+        label: capitalizeEnumValue(value),
       })),
     [],
   )
