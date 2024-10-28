@@ -3,9 +3,38 @@ import { BoxPlot, BoxPlotData, Loading } from '@components'
 import { useGetProjectDataForBoxPlotQuery, LifeCycleStage, BuildingTypology } from '@queries'
 import { useState, useMemo } from 'react'
 
+const formatEnumValue = (value: string): string => {
+  return value
+    .toLowerCase()
+    .replace(/_/g, ' ')
+    .replace(/\b\w/g, (char) => char.toUpperCase())
+}
+
+const capitalizeEnumValue = (value: string): string => {
+  return value.toUpperCase()
+}
+
 export const GlobalBoxPlot = () => {
   const [selectedTypologies, setSelectedTypologies] = useState<string[]>([])
   const [selectedLifeCycleStage, setSelectedLifeCycleStage] = useState<string>(LifeCycleStage.A1A3)
+
+  const typologyOptions = useMemo(
+    () =>
+      Object.values(BuildingTypology).map((value) => ({
+        value,
+        label: formatEnumValue(value),
+      })),
+    [],
+  )
+
+  const lifeCycleOptions = useMemo(
+    () =>
+      Object.values(LifeCycleStage).map((value) => ({
+        value,
+        label: capitalizeEnumValue(value),
+      })),
+    [],
+  )
 
   const aggregation = useMemo(() => {
     const divideAggregation = {
@@ -90,7 +119,7 @@ export const GlobalBoxPlot = () => {
       <Grid>
         <Grid.Col span={6}>
           <MultiSelect
-            data={Object.values(BuildingTypology)}
+            data={typologyOptions}
             value={selectedTypologies}
             onChange={(value: string[]) => setSelectedTypologies(value)}
             label='Building Typology'
@@ -99,7 +128,7 @@ export const GlobalBoxPlot = () => {
         </Grid.Col>
         <Grid.Col span={6}>
           <Select
-            data={Object.values(LifeCycleStage)}
+            data={lifeCycleOptions}
             value={selectedLifeCycleStage}
             onChange={(value: string | null) => {
               if (value) setSelectedLifeCycleStage(value as LifeCycleStage)
