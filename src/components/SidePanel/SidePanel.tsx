@@ -72,7 +72,7 @@ export const SidePanel = ({ collapsed, toggleCollapsed }: SidePanelProps) => {
             <Button
               key={index}
               variant={onCurrentPage(link) ? 'filled' : 'transparent'}
-              color={onCurrentPage(link) ? theme?.colors?.green?.[9] : 'gray'}
+              color={onCurrentPage(link) ? theme?.primaryColor : 'gray'}
               leftSection={<Logo stroke={2} size={collapsed ? 28 : 24} />}
               rightSection={!collapsed && <IconChevronRight size={16} />}
               onClick={() => navigate(link)}
