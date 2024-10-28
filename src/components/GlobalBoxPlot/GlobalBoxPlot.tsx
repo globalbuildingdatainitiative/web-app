@@ -55,26 +55,28 @@ export const GlobalBoxPlot = () => {
   const boxPlotData: BoxPlotData[] = useMemo(() => {
     if (!data) return []
 
-    return data.projects.aggregation.map(
-      (agg: {
-        min: number
-        pct: [number, number]
-        median: number
-        max: number
-        avg: number
-        group: string
-        count: number
-      }) => ({
-        min: agg.min,
-        pct25: agg.pct[0],
-        median: agg.median,
-        pct75: agg.pct[1],
-        max: agg.max,
-        avg: agg.avg,
-        name: data.projects.groups.find((group) => group.group == agg.group)?.items[0].location.countryName,
-        count: agg.count,
-      }),
-    )
+    return data.projects.aggregation
+      .map(
+        (agg: {
+          min: number
+          pct: [number, number]
+          median: number
+          max: number
+          avg: number
+          group: string
+          count: number
+        }) => ({
+          min: agg.min,
+          pct25: agg.pct[0],
+          median: agg.median,
+          pct75: agg.pct[1],
+          max: agg.max,
+          avg: agg.avg,
+          name: data.projects.groups.find((group) => group.group == agg.group)?.items[0].location.countryName,
+          count: agg.count,
+        }),
+      )
+      .sort((a: BoxPlotData, b: BoxPlotData) => (a.name && b.name ? a.name.localeCompare(b.name) : 0))
   }, [data])
 
   if (loading)
