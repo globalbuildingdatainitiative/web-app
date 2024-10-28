@@ -8,6 +8,13 @@ import { useUserContext } from '@context'
 import { countryNameToAlpha3 } from './countryCodesMapping'
 import { useApolloClient } from '@apollo/client'
 
+const formatEnumValue = (value: string): string => {
+  return value
+    .toLowerCase()
+    .replace(/_/g, ' ')
+    .replace(/\b\w/g, (char) => char.toUpperCase())
+}
+
 export const CreateOrganizationPaper = () => {
   const client = useApolloClient()
   const navigate = useNavigate()
@@ -60,8 +67,10 @@ export const CreateOrganizationPaper = () => {
   }
 
   const countryNames = Object.keys(countryNameToAlpha3)
-  const stakeholderOptions = Object.values(StakeholderEnum)
-
+  const stakeholderOptions = Object.values(StakeholderEnum).map((value) => ({
+    value,
+    label: formatEnumValue(value),
+  }))
   return (
     <Paper data-testid='CreateOrganizationPaper'>
       <Group>
