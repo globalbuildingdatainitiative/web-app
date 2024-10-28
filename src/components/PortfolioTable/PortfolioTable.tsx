@@ -81,10 +81,8 @@ export const PortfolioTable = () => {
     data: rowData,
     rowCount: totalRowCount,
     pageCount: Math.ceil(totalRowCount / pagination.pageSize),
-    enableColumnActions: false,
-    enableColumnFilters: false,
     enablePagination: false,
-    enableSorting: false,
+    enableGlobalFilter: false,
     mantineToolbarAlertBannerProps: error
       ? {
           color: 'red',
