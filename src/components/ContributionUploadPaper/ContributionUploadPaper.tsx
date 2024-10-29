@@ -56,23 +56,30 @@ export const ContributionUploadPaper = () => {
     const file = files[0]
     setFileName(file.name)
 
-    if (file.name.endsWith('.parquet')) {
-      setFileLoading(true)
-      const contributions = parseSLiCEtoContribution(new Uint8Array(await file.arrayBuffer()))
+    try {
+      if (file.name.endsWith('.parquet')) {
+        setFileLoading(true)
+        const contributions = parseSLiCEtoContribution(new Uint8Array(await file.arrayBuffer()))
+        setFileLoading(false)
+        return contributions
+      } else if (file.name.endsWith('.json')) {
+        setFileLoading(true)
+        const contributions = parseLcaxToContribution(JSON.parse(await file.text()))
+        setFileLoading(false)
+        return contributions
+      } else if (file.name.endsWith('.xlsx')) {
+        setFileLoading(true)
+        const json = await parseXlsxToContribution(file)
+        const contributions = mapJsonToInputContribution(json as never)
+        setFileLoading(false)
+        return contributions
+      }
+    } catch (e) {
+      setFileErrors([{file: file, errors: [{message: 'Unexpected Error While Processing the File. Contact the GBDI team if error persists.', code: 'parsing-error'}]}])
       setFileLoading(false)
-      return contributions
-    } else if (file.name.endsWith('.json')) {
-      setFileLoading(true)
-      const contributions = parseLcaxToContribution(JSON.parse(await file.text()))
-      setFileLoading(false)
-      return contributions
-    } else if (file.name.endsWith('.xlsx')) {
-      setFileLoading(true)
-      const json = await parseXlsxToContribution(file)
-      const contributions = mapJsonToInputContribution(json as never)
-      setFileLoading(false)
-      return contributions
+      console.error('Error in file parsing', e)
     }
+
     return [{ project: { name: file.name } as InputProject }]
   }
 
