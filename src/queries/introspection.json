@@ -884,6 +884,18 @@
             "deprecationReason": null
           },
           {
+            "name": "public",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": { "kind": "SCALAR", "name": "Boolean", "ofType": null }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "uploadedAt",
             "description": null,
             "args": [],
@@ -2746,6 +2758,18 @@
               "ofType": { "kind": "INPUT_OBJECT", "name": "InputProject", "ofType": null }
             },
             "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "public",
+            "description": null,
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": { "kind": "SCALAR", "name": "Boolean", "ofType": null }
+            },
+            "defaultValue": "false",
             "isDeprecated": false,
             "deprecationReason": null
           }
