@@ -8,7 +8,7 @@ const mocks = [
   {
     request: {
       query: AcceptInvitationDocument,
-      variables: { userId: '123' },
+      variables: { user: { id: '123' } },
     },
     result: {
       data: {
@@ -52,7 +52,7 @@ describe('ExistingUserInvitation', () => {
       {
         request: {
           query: AcceptInvitationDocument,
-          variables: { userId: '456' },
+          variables: { user: { id: '456' } },
         },
         error: new Error('An error occurred'),
       },
