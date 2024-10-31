@@ -30,6 +30,14 @@ export type Scalars = {
   _FieldSet: { input: any; output: any }
 }
 
+export type AcceptInvitationInput = {
+  currentPassword?: Scalars['String']['input']
+  firstName?: InputMaybe<Scalars['String']['input']>
+  id: Scalars['UUID']['input']
+  lastName?: InputMaybe<Scalars['String']['input']>
+  newPassword?: InputMaybe<Scalars['String']['input']>
+}
+
 export enum AggregationMethod {
   AVG = 'AVG',
   DIV = 'DIV',
@@ -1110,7 +1118,7 @@ export type Mutation = {
 }
 
 export type MutationAcceptInvitationArgs = {
-  userId: Scalars['String']['input']
+  user: AcceptInvitationInput
 }
 
 export type MutationAddContributionsArgs = {
@@ -1716,9 +1724,10 @@ export type ResolversUnionTypes<_RefType extends Record<string, unknown>> = {
 
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
+  AcceptInvitationInput: AcceptInvitationInput
+  String: ResolverTypeWrapper<Scalars['String']['output']>
   AggregationMethod: AggregationMethod
   AggregationResult: ResolverTypeWrapper<AggregationResult>
-  String: ResolverTypeWrapper<Scalars['String']['output']>
   Float: ResolverTypeWrapper<Scalars['Float']['output']>
   AreaType: ResolverTypeWrapper<AreaType>
   Assembly: ResolverTypeWrapper<Omit<Assembly, 'products'> & { products: Array<ResolversTypes['Product']> }>
@@ -1824,8 +1833,9 @@ export type ResolversTypes = {
 
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
-  AggregationResult: AggregationResult
+  AcceptInvitationInput: AcceptInvitationInput
   String: Scalars['String']['output']
+  AggregationResult: AggregationResult
   Float: Scalars['Float']['output']
   AreaType: AreaType
   Assembly: Omit<Assembly, 'products'> & { products: Array<ResolversParentTypes['Product']> }
@@ -2250,7 +2260,7 @@ export type MutationResolvers<
     ResolversTypes['Boolean'],
     ParentType,
     ContextType,
-    RequireFields<MutationAcceptInvitationArgs, 'userId'>
+    RequireFields<MutationAcceptInvitationArgs, 'user'>
   >
   addContributions?: Resolver<
     Array<ResolversTypes['Contribution']>,
@@ -2765,7 +2775,7 @@ export type DirectiveResolvers<ContextType = any> = {
 }
 
 export type AcceptInvitationMutationVariables = Exact<{
-  userId: Scalars['String']['input']
+  user: AcceptInvitationInput
 }>
 
 export type AcceptInvitationMutation = { __typename?: 'Mutation'; acceptInvitation: boolean }
@@ -3028,8 +3038,8 @@ export type GetProjectPortfolioQuery = {
 }
 
 export const AcceptInvitationDocument = gql`
-  mutation acceptInvitation($userId: String!) {
-    acceptInvitation(userId: $userId)
+  mutation acceptInvitation($user: AcceptInvitationInput!) {
+    acceptInvitation(user: $user)
   }
 `
 export type AcceptInvitationMutationFn = Apollo.MutationFunction<
@@ -3050,7 +3060,7 @@ export type AcceptInvitationMutationFn = Apollo.MutationFunction<
  * @example
  * const [acceptInvitationMutation, { data, loading, error }] = useAcceptInvitationMutation({
  *   variables: {
- *      userId: // value for 'userId'
+ *      user: // value for 'user'
  *   },
  * });
  */
