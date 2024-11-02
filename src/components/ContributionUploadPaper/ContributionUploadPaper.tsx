@@ -5,7 +5,7 @@ import {
   parseLcaxToContribution,
   parseSLiCEtoContribution,
 } from '@components'
-import { Button, Group, rem, Stack, Text, Title } from '@mantine/core'
+import { Button, Checkbox, Group, rem, Stack, Text, Title, Tooltip } from '@mantine/core'
 import { Dropzone, FileRejection } from '@mantine/dropzone'
 import { IconPhoto, IconUpload, IconX } from '@tabler/icons-react'
 import { useState } from 'react'
@@ -39,6 +39,16 @@ export const ContributionUploadPaper = () => {
     }
 
     navigate('/contributions')
+  }
+
+  const handlePublicToggle = (checked: boolean) => {
+    if (contributionData) {
+      const updatedData = contributionData.map((item) => ({
+        ...item,
+        public: checked,
+      }))
+      setContributionData(updatedData)
+    }
   }
 
   const fileValidator = (file: File) => {
@@ -137,9 +147,18 @@ export const ContributionUploadPaper = () => {
         <Group justify='flex-end' style={{ marginTop: 16 }}>
           {error ? <Text c='red'>{error.message}</Text> : null}
           <Text>Upload {fileName}?</Text>
-          <Button loading={loading} color='green' onClick={onContribute}>
-            Contribute
-          </Button>
+          <Group>
+            <Tooltip label='Make these contributions visible to other organizations' position='top' withArrow>
+              <Checkbox
+                label='Make contributions public'
+                onChange={(event) => handlePublicToggle(event.currentTarget.checked)}
+                disabled={loading}
+              />
+            </Tooltip>
+            <Button loading={loading} color='green' onClick={onContribute}>
+              Contribute
+            </Button>
+          </Group>
         </Group>
       ) : null}
     </Paper>

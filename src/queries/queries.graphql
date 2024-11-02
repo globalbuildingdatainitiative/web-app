@@ -46,6 +46,7 @@ query getContributions($limit: Int, $offset: Int) {
     items(limit: $limit, offset: $offset) {
       id
       uploadedAt
+      public
       user {
         id
         firstName
@@ -166,6 +167,9 @@ query getProjectDataForBoxPlot($aggregation: JSON!) {
         id
         location {
           countryName
+        }
+        softwareInfo {
+          lcaSoftware
         }
       }
     }
