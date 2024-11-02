@@ -38,6 +38,8 @@ export const EditOrganizationForm = () => {
     label: formatEnumValue(value),
   }))
 
+  const isOwner = user?.role?.toLowerCase() === 'owner'
+
   const form = useForm({
     initialValues: {
       name: user?.organization?.name || '',
@@ -58,6 +60,10 @@ export const EditOrganizationForm = () => {
   })
 
   const handleSubmit = async (values: typeof form.values) => {
+    if (!isOwner) {
+      return
+    }
+
     if (!user?.organization?.id) {
       console.error('No organization ID found')
       return
@@ -106,7 +112,12 @@ export const EditOrganizationForm = () => {
         <img src={logo} alt='Company Logo' style={{ maxWidth: '500px' }} />
         <form onSubmit={form.onSubmit(handleSubmit)} style={{ flex: 1 }}>
           <Stack align='center' gap='xl'>
-            <Title order={2}>Edit Organization</Title>
+            <Title order={2}>{isOwner ? 'Edit Organization' : 'Organization Details'}</Title>
+            {!isOwner && (
+              <Text c='dimmed' mb='md'>
+                You are viewing this information in read-only mode as a member.
+              </Text>
+            )}
             <TextInput
               size='md'
               radius='md'
@@ -114,6 +125,7 @@ export const EditOrganizationForm = () => {
               placeholder='Enter Name'
               style={{ width: '500px' }}
               {...form.getInputProps('name')}
+              disabled={!isOwner}
               required
             />
             <TextInput
@@ -123,6 +135,7 @@ export const EditOrganizationForm = () => {
               placeholder='Enter Address'
               style={{ width: '500px' }}
               {...form.getInputProps('address')}
+              disabled={!isOwner}
               required
             />
             <TextInput
@@ -132,6 +145,7 @@ export const EditOrganizationForm = () => {
               placeholder='Enter City'
               style={{ width: '500px' }}
               {...form.getInputProps('city')}
+              disabled={!isOwner}
               required
             />
             <Autocomplete
@@ -142,6 +156,7 @@ export const EditOrganizationForm = () => {
               style={{ width: '500px' }}
               data={countryNames}
               {...form.getInputProps('country')}
+              disabled={!isOwner}
               required
               aria-label='Country'
             />
@@ -156,25 +171,20 @@ export const EditOrganizationForm = () => {
               searchable
               nothingFoundMessage='No stakeholders found'
               clearable
+              disabled={!isOwner}
               required
               aria-label='Stakeholders'
             />
             {error && <Text c='red'>{error.message}</Text>}
-            <Group mt='xl'>
+            <Group>
               <Button variant='default' radius='lg' px={16} size='md' onClick={() => navigate('/organization')}>
-                Cancel
+                Go Back
               </Button>
-              <Button
-                color='green'
-                radius='lg'
-                px={16}
-                size='md'
-                type='submit'
-                loading={loading}
-                disabled={!form.isDirty()}
-              >
-                Save Changes
-              </Button>
+              {isOwner ? (
+                <Button color='green' radius='lg' px={16} size='md' type='submit' loading={loading} disabled={!isOwner}>
+                  Save Changes
+                </Button>
+              ) : null}
             </Group>
           </Stack>
         </form>
