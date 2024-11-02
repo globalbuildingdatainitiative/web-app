@@ -1,5 +1,5 @@
-mutation acceptInvitation($userId: String!) {
-  acceptInvitation(userId: $userId)
+mutation acceptInvitation($user: AcceptInvitationInput!) {
+  acceptInvitation(user: $user)
 }
 
 mutation rejectInvitation($userId: String!) {

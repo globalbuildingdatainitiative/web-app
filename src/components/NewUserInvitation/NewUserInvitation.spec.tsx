@@ -1,33 +1,21 @@
-import { render, screen, fireEvent, waitFor } from '@testing-library/react'
+import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 import { MockedProvider } from '@apollo/client/testing'
 import { MemoryRouter, Route, Routes } from 'react-router-dom'
 import { NewUserInvitation } from '@components'
-import { UpdateUserDocument, AcceptInvitationDocument } from '@queries'
+import { AcceptInvitationDocument } from '@queries'
 
 const mocks = [
   {
     request: {
-      query: UpdateUserDocument,
+      query: AcceptInvitationDocument,
       variables: {
-        userInput: {
+        user: {
           id: '123',
           firstName: 'John',
           lastName: 'Doe',
-          currentPassword: 'asokdA87fnf30efjoiOI**cwjkn',
           newPassword: 'newPassword123',
         },
       },
-    },
-    result: {
-      data: {
-        updateUser: true,
-      },
-    },
-  },
-  {
-    request: {
-      query: AcceptInvitationDocument,
-      variables: { userId: '123' },
     },
     result: {
       data: {
