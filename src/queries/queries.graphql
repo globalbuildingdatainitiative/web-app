@@ -168,6 +168,9 @@ query getProjectDataForBoxPlot($aggregation: JSON!) {
         location {
           countryName
         }
+        softwareInfo {
+          lcaSoftware
+        }
       }
     }
     aggregation(apply: $aggregation)

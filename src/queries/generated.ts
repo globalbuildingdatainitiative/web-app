@@ -2976,7 +2976,12 @@ export type GetProjectDataForBoxPlotQuery = {
     groups: Array<{
       __typename?: 'ProjectGraphQLGroupResponse'
       group: string
-      items: Array<{ __typename?: 'Project'; id: any; location: { __typename?: 'Location'; countryName: string } }>
+      items: Array<{
+        __typename?: 'Project'
+        id: any
+        location: { __typename?: 'Location'; countryName: string }
+        softwareInfo: { __typename?: 'SoftwareInfo'; lcaSoftware: string }
+      }>
     }>
   }
 }
@@ -3778,6 +3783,9 @@ export const GetProjectDataForBoxPlotDocument = gql`
           id
           location {
             countryName
+          }
+          softwareInfo {
+            lcaSoftware
           }
         }
       }

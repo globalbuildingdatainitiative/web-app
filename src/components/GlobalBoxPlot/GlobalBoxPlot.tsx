@@ -167,6 +167,7 @@ export const GlobalBoxPlot = () => {
   const [selectedTypologies, setSelectedTypologies] = useState<string[]>([])
   const [selectedLifeCycleStage, setSelectedLifeCycleStage] = useState<string>(LifeCycleStage.A1A3)
   const [selectedCountries, setSelectedCountries] = useState<string[]>([])
+  const [selectedSoftware, setSelectedSoftware] = useState<string[]>([])
 
   const typologyOptions = useMemo(
     () =>
@@ -193,6 +194,7 @@ export const GlobalBoxPlot = () => {
     const typologyFilter =
       selectedTypologies.length > 0 ? { 'projectInfo.buildingTypology': { $in: selectedTypologies } } : {}
     const countryFilter = selectedCountries.length > 0 ? { 'location.country': { $in: selectedCountries } } : {}
+    const softwareFilter = selectedSoftware.length > 0 ? { 'softwareInfo.lcaSoftware': { $in: selectedSoftware } } : {}
 
     return [
       {
@@ -202,6 +204,7 @@ export const GlobalBoxPlot = () => {
             { 'projectInfo.grossFloorArea.value': { $gt: 0 } },
             typologyFilter,
             countryFilter,
+            softwareFilter,
           ],
         },
       },
@@ -229,7 +232,7 @@ export const GlobalBoxPlot = () => {
         },
       },
     ]
-  }, [selectedTypologies, selectedLifeCycleStage, selectedCountries])
+  }, [selectedTypologies, selectedLifeCycleStage, selectedCountries, selectedSoftware])
 
   const { data, loading, error } = useGetProjectDataForBoxPlotQuery({ variables: { aggregation } })
 
@@ -244,12 +247,38 @@ export const GlobalBoxPlot = () => {
     return [{ value: 'all', label: 'Select All' }, ...countries.sort((a, b) => a.label.localeCompare(b.label))]
   }, [data])
 
+  const softwareOptions = useMemo(() => {
+    if (!data) return []
+
+    const softwareSet = new Set<string>()
+    data.projects.groups.forEach((group) => {
+      const software = group.items[0].softwareInfo?.lcaSoftware
+      if (software) softwareSet.add(software)
+    })
+
+    const options = Array.from(softwareSet).map((software) => ({
+      value: software,
+      label: software,
+    }))
+
+    return [{ value: 'all', label: 'Select All' }, ...options.sort((a, b) => a.label.localeCompare(b.label))]
+  }, [data])
+
   const handleCountryChange = (value: string[]) => {
     if (value.includes('all')) {
       const allCountries = countryOptions.filter((option) => option.value !== 'all').map((option) => option.value)
       setSelectedCountries(allCountries)
     } else {
       setSelectedCountries(value)
+    }
+  }
+
+  const handleSoftwareChange = (value: string[]) => {
+    if (value.includes('all')) {
+      const allSoftware = softwareOptions.filter((option) => option.value !== 'all').map((option) => option.value)
+      setSelectedSoftware(allSoftware)
+    } else {
+      setSelectedSoftware(value)
     }
   }
 
@@ -318,6 +347,17 @@ export const GlobalBoxPlot = () => {
             onChange={handleCountryChange}
             label='Country'
             placeholder='Select countries'
+            searchable
+            clearable
+          />
+        </Grid.Col>
+        <Grid.Col span={3}>
+          <MultiSelect
+            data={softwareOptions}
+            value={selectedSoftware}
+            onChange={handleSoftwareChange}
+            label='LCA Software'
+            placeholder='Select LCA software'
             searchable
             clearable
           />
