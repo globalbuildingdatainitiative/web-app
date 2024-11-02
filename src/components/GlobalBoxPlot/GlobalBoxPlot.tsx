@@ -147,7 +147,7 @@ export const GlobalBoxPlot = () => {
 }
 */
 
-import { Center, Grid, MultiSelect, Select, Stack } from '@mantine/core'
+import { Center, Grid, MultiSelect, Select, Stack, RangeSlider, Text } from '@mantine/core'
 import { BoxPlot, BoxPlotData, Loading } from '@components'
 import { useGetProjectDataForBoxPlotQuery, LifeCycleStage, BuildingTypology } from '@queries'
 import { useState, useMemo } from 'react'
@@ -168,6 +168,8 @@ export const GlobalBoxPlot = () => {
   const [selectedLifeCycleStage, setSelectedLifeCycleStage] = useState<string>(LifeCycleStage.A1A3)
   const [selectedCountries, setSelectedCountries] = useState<string[]>([])
   const [selectedSoftware, setSelectedSoftware] = useState<string[]>([])
+  const [gfaRange, setGfaRange] = useState<[number, number]>([0, 5000])
+  const [confirmedGfaRange, setConfirmedGfaRange] = useState<[number, number]>([0, 5000])
 
   const typologyOptions = useMemo(
     () =>
@@ -195,6 +197,12 @@ export const GlobalBoxPlot = () => {
       selectedTypologies.length > 0 ? { 'projectInfo.buildingTypology': { $in: selectedTypologies } } : {}
     const countryFilter = selectedCountries.length > 0 ? { 'location.country': { $in: selectedCountries } } : {}
     const softwareFilter = selectedSoftware.length > 0 ? { 'softwareInfo.lcaSoftware': { $in: selectedSoftware } } : {}
+    const gfaFilter = {
+      'projectInfo.grossFloorArea.value': {
+        $gte: confirmedGfaRange[0],
+        $lte: confirmedGfaRange[1],
+      },
+    }
 
     return [
       {
@@ -205,6 +213,7 @@ export const GlobalBoxPlot = () => {
             typologyFilter,
             countryFilter,
             softwareFilter,
+            gfaFilter,
           ],
         },
       },
@@ -232,24 +241,21 @@ export const GlobalBoxPlot = () => {
         },
       },
     ]
-  }, [selectedTypologies, selectedLifeCycleStage, selectedCountries, selectedSoftware])
+  }, [selectedTypologies, selectedLifeCycleStage, selectedCountries, selectedSoftware, confirmedGfaRange])
 
   const { data, loading, error } = useGetProjectDataForBoxPlotQuery({ variables: { aggregation } })
 
   const countryOptions = useMemo(() => {
     if (!data) return []
-
     const countries = data.projects.groups.map((group) => ({
       value: group.group,
       label: group.items[0].location.countryName,
     }))
-
     return [{ value: 'all', label: 'Select All' }, ...countries.sort((a, b) => a.label.localeCompare(b.label))]
   }, [data])
 
   const softwareOptions = useMemo(() => {
     if (!data) return []
-
     const softwareSet = new Set<string>()
     data.projects.groups.forEach((group) => {
       const software = group.items[0].softwareInfo?.lcaSoftware
@@ -280,6 +286,15 @@ export const GlobalBoxPlot = () => {
     } else {
       setSelectedSoftware(value)
     }
+  }
+
+  const handleRangeConfirm = (value: [number, number]) => {
+    setGfaRange(value)
+    setConfirmedGfaRange(value)
+  }
+
+  const formatGfaValue = (value: number) => {
+    return `${value.toLocaleString()} m²`
   }
 
   const boxPlotData: BoxPlotData[] = useMemo(() => {
@@ -360,6 +375,26 @@ export const GlobalBoxPlot = () => {
             placeholder='Select LCA software'
             searchable
             clearable
+          />
+        </Grid.Col>
+        <Grid.Col span={6}>
+          <Text size='sm' fw={500} style={{ marginBottom: '0.5rem' }}>
+            Gross Floor Area Range
+          </Text>
+          <RangeSlider
+            min={0}
+            max={5000}
+            step={100}
+            value={gfaRange}
+            onChange={setGfaRange}
+            onChangeEnd={handleRangeConfirm}
+            onBlur={() => setConfirmedGfaRange(gfaRange)}
+            label={formatGfaValue}
+            marks={[
+              { value: 0, label: '0 m²' },
+              { value: 2500, label: '2500 m²' },
+              { value: 5000, label: '5000 m²' },
+            ]}
           />
         </Grid.Col>
       </Grid>
