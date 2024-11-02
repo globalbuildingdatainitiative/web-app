@@ -100,6 +100,19 @@ mutation createOrganizations($organizations: [InputOrganization!]!) {
   }
 }
 
+mutation updateOrganizations($organizations: [InputOrganization!]!) {
+  updateOrganizations(organizations: $organizations) {
+    id
+    name
+    address
+    city
+    country
+    metaData {
+      stakeholders
+    }
+  }
+}
+
 query getUsers($filters: UserFilters) {
   users(filters: $filters) {
     id
@@ -125,6 +138,12 @@ query getCurrentUser($id: String!) {
     organization {
       id
       name
+      address
+      city
+      country
+      metaData {
+        stakeholders
+      }
     }
     timeJoined
   }
