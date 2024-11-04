@@ -193,6 +193,7 @@ export type Contribution = {
   id: Scalars['UUID']['output']
   organizationId: Scalars['UUID']['output']
   project: Project
+  public: Scalars['Boolean']['output']
   uploadedAt: Scalars['DateTime']['output']
   user: User
   userId: Scalars['UUID']['output']
@@ -922,6 +923,7 @@ export type InputClassification = {
 
 export type InputContribution = {
   project: InputProject
+  public?: Scalars['Boolean']['input']
 }
 
 export type InputConversion = {
@@ -2062,6 +2064,7 @@ export type ContributionResolvers<
   id?: Resolver<ResolversTypes['UUID'], ParentType, ContextType>
   organizationId?: Resolver<ResolversTypes['UUID'], ParentType, ContextType>
   project?: Resolver<ResolversTypes['Project'], ParentType, ContextType>
+  public?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>
   uploadedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>
   user?: Resolver<ResolversTypes['User'], ParentType, ContextType>
   userId?: Resolver<ResolversTypes['UUID'], ParentType, ContextType>
@@ -2840,6 +2843,7 @@ export type GetContributionsQuery = {
       __typename?: 'Contribution'
       id: any
       uploadedAt: any
+      public: boolean
       user: { __typename?: 'User'; id: any; firstName?: string | null; lastName?: string | null }
       project: {
         __typename?: 'Project'
@@ -3339,6 +3343,7 @@ export const GetContributionsDocument = gql`
       items(limit: $limit, offset: $offset) {
         id
         uploadedAt
+        public
         user {
           id
           firstName
