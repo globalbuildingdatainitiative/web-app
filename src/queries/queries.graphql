@@ -1,5 +1,5 @@
-mutation acceptInvitation($userId: String!) {
-  acceptInvitation(userId: $userId)
+mutation acceptInvitation($user: AcceptInvitationInput!) {
+  acceptInvitation(user: $user)
 }
 
 mutation rejectInvitation($userId: String!) {
@@ -46,6 +46,7 @@ query getContributions($limit: Int, $offset: Int) {
     items(limit: $limit, offset: $offset) {
       id
       uploadedAt
+      public
       user {
         id
         firstName
@@ -99,6 +100,19 @@ mutation createOrganizations($organizations: [InputOrganization!]!) {
   }
 }
 
+mutation updateOrganizations($organizations: [InputOrganization!]!) {
+  updateOrganizations(organizations: $organizations) {
+    id
+    name
+    address
+    city
+    country
+    metaData {
+      stakeholders
+    }
+  }
+}
+
 query getUsers($filters: UserFilters) {
   users(filters: $filters) {
     id
@@ -124,6 +138,12 @@ query getCurrentUser($id: String!) {
     organization {
       id
       name
+      address
+      city
+      country
+      metaData {
+        stakeholders
+      }
     }
     timeJoined
   }
@@ -166,6 +186,9 @@ query getProjectDataForBoxPlot($aggregation: JSON!) {
         id
         location {
           countryName
+        }
+        softwareInfo {
+          lcaSoftware
         }
       }
     }

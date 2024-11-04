@@ -1,7 +1,7 @@
 import { ContributionHeader, ProfilePaper, EditProfileForm } from '@components'
 import { Grid, Stack } from '@mantine/core'
 
-export const ProfilePage = () => {
+export const EditProfilePage = () => {
   return (
     <Stack>
       <ContributionHeader />

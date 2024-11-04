@@ -30,6 +30,14 @@ export type Scalars = {
   _FieldSet: { input: any; output: any }
 }
 
+export type AcceptInvitationInput = {
+  currentPassword?: Scalars['String']['input']
+  firstName?: InputMaybe<Scalars['String']['input']>
+  id: Scalars['UUID']['input']
+  lastName?: InputMaybe<Scalars['String']['input']>
+  newPassword?: InputMaybe<Scalars['String']['input']>
+}
+
 export enum AggregationMethod {
   AVG = 'AVG',
   DIV = 'DIV',
@@ -185,6 +193,7 @@ export type Contribution = {
   id: Scalars['UUID']['output']
   organizationId: Scalars['UUID']['output']
   project: Project
+  public: Scalars['Boolean']['output']
   uploadedAt: Scalars['DateTime']['output']
   user: User
   userId: Scalars['UUID']['output']
@@ -914,6 +923,7 @@ export type InputClassification = {
 
 export type InputContribution = {
   project: InputProject
+  public?: Scalars['Boolean']['input']
 }
 
 export type InputConversion = {
@@ -1110,7 +1120,7 @@ export type Mutation = {
 }
 
 export type MutationAcceptInvitationArgs = {
-  userId: Scalars['String']['input']
+  user: AcceptInvitationInput
 }
 
 export type MutationAddContributionsArgs = {
@@ -1716,9 +1726,10 @@ export type ResolversUnionTypes<_RefType extends Record<string, unknown>> = {
 
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
+  AcceptInvitationInput: AcceptInvitationInput
+  String: ResolverTypeWrapper<Scalars['String']['output']>
   AggregationMethod: AggregationMethod
   AggregationResult: ResolverTypeWrapper<AggregationResult>
-  String: ResolverTypeWrapper<Scalars['String']['output']>
   Float: ResolverTypeWrapper<Scalars['Float']['output']>
   AreaType: ResolverTypeWrapper<AreaType>
   Assembly: ResolverTypeWrapper<Omit<Assembly, 'products'> & { products: Array<ResolversTypes['Product']> }>
@@ -1824,8 +1835,9 @@ export type ResolversTypes = {
 
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
-  AggregationResult: AggregationResult
+  AcceptInvitationInput: AcceptInvitationInput
   String: Scalars['String']['output']
+  AggregationResult: AggregationResult
   Float: Scalars['Float']['output']
   AreaType: AreaType
   Assembly: Omit<Assembly, 'products'> & { products: Array<ResolversParentTypes['Product']> }
@@ -2052,6 +2064,7 @@ export type ContributionResolvers<
   id?: Resolver<ResolversTypes['UUID'], ParentType, ContextType>
   organizationId?: Resolver<ResolversTypes['UUID'], ParentType, ContextType>
   project?: Resolver<ResolversTypes['Project'], ParentType, ContextType>
+  public?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>
   uploadedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>
   user?: Resolver<ResolversTypes['User'], ParentType, ContextType>
   userId?: Resolver<ResolversTypes['UUID'], ParentType, ContextType>
@@ -2250,7 +2263,7 @@ export type MutationResolvers<
     ResolversTypes['Boolean'],
     ParentType,
     ContextType,
-    RequireFields<MutationAcceptInvitationArgs, 'userId'>
+    RequireFields<MutationAcceptInvitationArgs, 'user'>
   >
   addContributions?: Resolver<
     Array<ResolversTypes['Contribution']>,
@@ -2765,7 +2778,7 @@ export type DirectiveResolvers<ContextType = any> = {
 }
 
 export type AcceptInvitationMutationVariables = Exact<{
-  userId: Scalars['String']['input']
+  user: AcceptInvitationInput
 }>
 
 export type AcceptInvitationMutation = { __typename?: 'Mutation'; acceptInvitation: boolean }
@@ -2830,6 +2843,7 @@ export type GetContributionsQuery = {
       __typename?: 'Contribution'
       id: any
       uploadedAt: any
+      public: boolean
       user: { __typename?: 'User'; id: any; firstName?: string | null; lastName?: string | null }
       project: {
         __typename?: 'Project'
@@ -2884,6 +2898,23 @@ export type CreateOrganizationsMutation = {
   }>
 }
 
+export type UpdateOrganizationsMutationVariables = Exact<{
+  organizations: Array<InputOrganization> | InputOrganization
+}>
+
+export type UpdateOrganizationsMutation = {
+  __typename?: 'Mutation'
+  updateOrganizations: Array<{
+    __typename?: 'Organization'
+    id: any
+    name: string
+    address: string
+    city: string
+    country: CountryCodes
+    metaData: { __typename?: 'OrganizationMetaData'; stakeholders: Array<StakeholderEnum> }
+  }>
+}
+
 export type GetUsersQueryVariables = Exact<{
   filters?: InputMaybe<UserFilters>
 }>
@@ -2919,7 +2950,15 @@ export type GetCurrentUserQuery = {
     email: string
     role?: Role | null
     timeJoined: any
-    organization?: { __typename?: 'Organization'; id: any; name: string } | null
+    organization?: {
+      __typename?: 'Organization'
+      id: any
+      name: string
+      address: string
+      city: string
+      country: CountryCodes
+      metaData: { __typename?: 'OrganizationMetaData'; stakeholders: Array<StakeholderEnum> }
+    } | null
   }>
 }
 
@@ -2972,7 +3011,12 @@ export type GetProjectDataForBoxPlotQuery = {
     groups: Array<{
       __typename?: 'ProjectGraphQLGroupResponse'
       group: string
-      items: Array<{ __typename?: 'Project'; id: any; location: { __typename?: 'Location'; countryName: string } }>
+      items: Array<{
+        __typename?: 'Project'
+        id: any
+        location: { __typename?: 'Location'; countryName: string }
+        softwareInfo: { __typename?: 'SoftwareInfo'; lcaSoftware: string }
+      }>
     }>
   }
 }
@@ -3028,8 +3072,8 @@ export type GetProjectPortfolioQuery = {
 }
 
 export const AcceptInvitationDocument = gql`
-  mutation acceptInvitation($userId: String!) {
-    acceptInvitation(userId: $userId)
+  mutation acceptInvitation($user: AcceptInvitationInput!) {
+    acceptInvitation(user: $user)
   }
 `
 export type AcceptInvitationMutationFn = Apollo.MutationFunction<
@@ -3050,7 +3094,7 @@ export type AcceptInvitationMutationFn = Apollo.MutationFunction<
  * @example
  * const [acceptInvitationMutation, { data, loading, error }] = useAcceptInvitationMutation({
  *   variables: {
- *      userId: // value for 'userId'
+ *      user: // value for 'user'
  *   },
  * });
  */
@@ -3329,6 +3373,7 @@ export const GetContributionsDocument = gql`
       items(limit: $limit, offset: $offset) {
         id
         uploadedAt
+        public
         user {
           id
           firstName
@@ -3544,6 +3589,57 @@ export type CreateOrganizationsMutationOptions = Apollo.BaseMutationOptions<
   CreateOrganizationsMutation,
   CreateOrganizationsMutationVariables
 >
+export const UpdateOrganizationsDocument = gql`
+  mutation updateOrganizations($organizations: [InputOrganization!]!) {
+    updateOrganizations(organizations: $organizations) {
+      id
+      name
+      address
+      city
+      country
+      metaData {
+        stakeholders
+      }
+    }
+  }
+`
+export type UpdateOrganizationsMutationFn = Apollo.MutationFunction<
+  UpdateOrganizationsMutation,
+  UpdateOrganizationsMutationVariables
+>
+
+/**
+ * __useUpdateOrganizationsMutation__
+ *
+ * To run a mutation, you first call `useUpdateOrganizationsMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateOrganizationsMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateOrganizationsMutation, { data, loading, error }] = useUpdateOrganizationsMutation({
+ *   variables: {
+ *      organizations: // value for 'organizations'
+ *   },
+ * });
+ */
+export function useUpdateOrganizationsMutation(
+  baseOptions?: Apollo.MutationHookOptions<UpdateOrganizationsMutation, UpdateOrganizationsMutationVariables>,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<UpdateOrganizationsMutation, UpdateOrganizationsMutationVariables>(
+    UpdateOrganizationsDocument,
+    options,
+  )
+}
+export type UpdateOrganizationsMutationHookResult = ReturnType<typeof useUpdateOrganizationsMutation>
+export type UpdateOrganizationsMutationResult = Apollo.MutationResult<UpdateOrganizationsMutation>
+export type UpdateOrganizationsMutationOptions = Apollo.BaseMutationOptions<
+  UpdateOrganizationsMutation,
+  UpdateOrganizationsMutationVariables
+>
 export const GetUsersDocument = gql`
   query getUsers($filters: UserFilters) {
     users(filters: $filters) {
@@ -3606,6 +3702,12 @@ export const GetCurrentUserDocument = gql`
       organization {
         id
         name
+        address
+        city
+        country
+        metaData {
+          stakeholders
+        }
       }
       timeJoined
     }
@@ -3773,6 +3875,9 @@ export const GetProjectDataForBoxPlotDocument = gql`
           id
           location {
             countryName
+          }
+          softwareInfo {
+            lcaSoftware
           }
         }
       }
