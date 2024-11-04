@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Paper } from '@components'
+import { Paper, ErrorMessage, theme } from '@components'
 import { Button, Stack, Text, Title, Container } from '@mantine/core'
 import logo from 'assets/logo.png'
 import { useNavigate, useLocation } from 'react-router-dom'
@@ -12,27 +12,58 @@ export const ExistingUserInvitation = () => {
   const searchParams = new URLSearchParams(location.search)
   const userId = searchParams.get('user_id')
   const [accepted, setAccepted] = useState(false)
+  const [invitationError, setInvitationError] = useState<Error | null>(null)
 
-  const [acceptInvitation, { loading, error }] = useAcceptInvitationMutation()
+  const [acceptInvitation, { loading }] = useAcceptInvitationMutation({
+    onError: (error) => {
+      setInvitationError(error)
+    },
+  })
 
   const handleAccept = async () => {
-    if (userId) {
-      try {
-        const { data } = await acceptInvitation({ variables: { user: { id: userId } } })
-        if (data?.acceptInvitation) {
-          setAccepted(true)
-          setTimeout(() => navigate('/'), 3000)
-        } else {
-          console.error('Failed to accept invitation')
-        }
-      } catch (err) {
-        console.error('Error accepting invitation:', err)
+    if (!userId) {
+      setInvitationError(new Error('Invalid invitation link. Missing user ID.'))
+      return
+    }
+
+    try {
+      setInvitationError(null) // Clear any previous errors
+      const { data } = await acceptInvitation({ variables: { user: { id: userId } } })
+
+      if (data?.acceptInvitation) {
+        setAccepted(true)
+        setTimeout(() => navigate('/'), 3000)
+      } else {
+        setInvitationError(new Error('Failed to accept invitation. Please try again or contact support.'))
       }
+    } catch (err) {
+      setInvitationError(err instanceof Error ? err : new Error('An unexpected error occurred'))
     }
   }
 
+  const renderContent = () => {
+    if (accepted) {
+      return (
+        <>
+          <Text ta='center'>Invitation accepted successfully.</Text>
+          <Text ta='center'>Redirecting to home page...</Text>
+        </>
+      )
+    }
+
+    return (
+      <>
+        <Text ta='center'>Click the button below to accept the invitation and sign in:</Text>
+        {invitationError && <ErrorMessage error={invitationError} />}
+        <Button radius='lg' px={16} size='md' w={500} onClick={handleAccept} loading={loading} disabled={loading}>
+          Accept Invitation and Sign In
+        </Button>
+      </>
+    )
+  }
+
   return (
-    <MantineProvider>
+    <MantineProvider theme={theme}>
       <div
         style={{
           minHeight: '100vh',
@@ -58,28 +89,7 @@ export const ExistingUserInvitation = () => {
                 Accept Invitation to Join GBDI
               </Title>
 
-              {!accepted ? (
-                <>
-                  <Text ta='center'>Click the button below to accept the invitation and sign in:</Text>
-                  {error && <Text c='red'>Error: {error.message}</Text>}
-                  <Button
-                    radius='lg'
-                    px={16}
-                    size='md'
-                    w={500}
-                    onClick={handleAccept}
-                    loading={loading}
-                    color='green.9'
-                  >
-                    Accept Invitation and Sign In
-                  </Button>
-                </>
-              ) : (
-                <>
-                  <Text ta='center'>Invitation accepted successfully.</Text>
-                  <Text ta='center'>Redirecting to home page...</Text>
-                </>
-              )}
+              {renderContent()}
             </Stack>
           </Paper>
         </Container>

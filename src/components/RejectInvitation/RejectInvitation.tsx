@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Paper } from '@components'
+import { Paper, ErrorMessage, theme } from '@components'
 import { Button, Stack, Text, Title, Container } from '@mantine/core'
 import logo from 'assets/logo.png'
 import { useNavigate, useLocation } from 'react-router-dom'
@@ -10,27 +10,71 @@ export const RejectInvitation = () => {
   const navigate = useNavigate()
   const location = useLocation()
   const searchParams = new URLSearchParams(location.search)
-  const user_id = searchParams.get('user_id')
+  const userId = searchParams.get('user_id')
   const [rejected, setRejected] = useState(false)
+  const [invitationError, setInvitationError] = useState<Error | null>(null)
 
-  const [rejectInvitation, { loading, error }] = useRejectInvitationMutation()
+  const [rejectInvitation, { loading }] = useRejectInvitationMutation({
+    onError: (error) => {
+      setInvitationError(error)
+    },
+  })
 
   const handleReject = async () => {
-    if (user_id) {
-      try {
-        const { data } = await rejectInvitation({ variables: { userId: user_id } })
-        if (data?.rejectInvitation) {
-          setRejected(true)
-          setTimeout(() => navigate('/'), 3000)
-        }
-      } catch (err) {
-        console.error('Error rejecting invitation:', err)
+    if (!userId) {
+      setInvitationError(new Error('Invalid invitation link. Missing user ID.'))
+      return
+    }
+
+    try {
+      setInvitationError(null) // Clear any previous errors
+
+      const { data } = await rejectInvitation({ variables: { userId } })
+
+      if (data?.rejectInvitation) {
+        setRejected(true)
+        setTimeout(() => navigate('/'), 3000)
+      } else {
+        setInvitationError(new Error('Failed to reject invitation. Please try again or contact support.'))
       }
+    } catch (err) {
+      setInvitationError(err instanceof Error ? err : new Error('An unexpected error occurred'))
+      console.error('Error rejecting invitation:', err)
     }
   }
 
+  const renderContent = () => {
+    if (rejected) {
+      return (
+        <>
+          <Text ta='center'>Invitation rejected successfully.</Text>
+          <Text ta='center'>Redirecting to home page...</Text>
+        </>
+      )
+    }
+
+    return (
+      <>
+        <Text ta='center'>Are you sure you want to reject this invitation?</Text>
+        {invitationError && <ErrorMessage error={invitationError} />}
+        <Button
+          radius='lg'
+          px={16}
+          size='md'
+          w={500}
+          onClick={handleReject}
+          loading={loading}
+          disabled={loading}
+          color='red.9'
+        >
+          Reject Invitation
+        </Button>
+      </>
+    )
+  }
+
   return (
-    <MantineProvider>
+    <MantineProvider theme={theme}>
       <div
         style={{
           minHeight: '100vh',
@@ -53,23 +97,10 @@ export const RejectInvitation = () => {
               <img src={logo} alt='Company Logo' style={{ maxWidth: '400px' }} />
 
               <Title order={2} ta='center' mt='md'>
-                Accept Invitation to Join GBDI
+                Reject Invitation to Join GBDI
               </Title>
 
-              {!rejected ? (
-                <>
-                  <Text ta='center'>Are you sure you want to reject this invitation?</Text>
-                  {error && <Text c='red'>Error: {error.message}</Text>}
-                  <Button radius='lg' px={16} size='md' w={500} onClick={handleReject} loading={loading} color='red.9'>
-                    Reject Invitation
-                  </Button>
-                </>
-              ) : (
-                <>
-                  <Text ta='center'>Invitation rejected successfully.</Text>
-                  <Text ta='center'>Redirecting to home page...</Text>
-                </>
-              )}
+              {renderContent()}
             </Stack>
           </Paper>
         </Container>

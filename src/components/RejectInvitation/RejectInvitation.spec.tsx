@@ -3,6 +3,7 @@ import { MockedProvider } from '@apollo/client/testing'
 import { MemoryRouter, Route, Routes } from 'react-router-dom'
 import { RejectInvitation } from '@components'
 import { RejectInvitationDocument } from '@queries'
+import '@testing-library/jest-dom'
 
 const mocks = [
   {
@@ -72,8 +73,10 @@ describe('RejectInvitation', () => {
     const rejectButton = screen.getByText('Reject Invitation')
     fireEvent.click(rejectButton)
 
+    // Wait for the error message to appear
     await waitFor(() => {
-      expect(screen.getByText('Error: An error occurred')).toBeTruthy()
+      const alertMessage = screen.getByRole('alert').querySelector('.mantine-Alert-message')
+      expect(alertMessage).toHaveTextContent('Failed to reject invitation. Please try again or contact support.')
     })
   })
 })
