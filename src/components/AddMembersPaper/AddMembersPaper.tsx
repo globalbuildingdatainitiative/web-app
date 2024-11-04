@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Paper } from '@components'
-import { Button, Group, Stack, Textarea, Title, Text } from '@mantine/core'
+import { Button, Group, Stack, Textarea, Title, Text, Pill } from '@mantine/core'
 import logo from 'assets/logo.png'
 import { useInviteUsersMutation } from '@queries'
 
@@ -11,29 +11,55 @@ interface InviteResult {
 }
 
 export const AddMembersPaper = () => {
-  const [emails, setEmails] = useState<string>('')
+  const [emailInput, setEmailInput] = useState<string>('')
+  const [parsedEmails, setParsedEmails] = useState<string[]>([])
   const [inviteResults, setInviteResults] = useState<InviteResult[]>([])
   const [inviteUsers, { loading, error }] = useInviteUsersMutation()
 
-  const handleSubmit = async (event: React.FormEvent) => {
-    event.preventDefault()
-    const emailList = emails
+  const parseEmails = (input: string): string[] => {
+    const normalizedInput = input
+      .replace(/[;:]/g, ',')
+      .replace(/[\n\t]/g, ',')
+      .replace(/\s+/g, ',')
+      .replace(/,+/g, ',')
+
+    return normalizedInput
       .split(',')
       .map((email) => email.trim())
-      .filter((email) => email !== '')
+      .filter((email) => {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+        return email !== '' && emailRegex.test(email)
+      })
+  }
 
-    if (emailList.length === 0) {
-      alert('Please enter at least one email address')
+  const handleInputChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const newInput = event.currentTarget.value
+    setEmailInput(newInput)
+    setParsedEmails(parseEmails(newInput))
+  }
+
+  const handleRemoveEmail = (emailToRemove: string) => {
+    const updatedEmails = parsedEmails.filter((email) => email !== emailToRemove)
+    setParsedEmails(updatedEmails)
+    setEmailInput(updatedEmails.join(', '))
+  }
+
+  const handleSubmit = async (event: React.FormEvent) => {
+    event.preventDefault()
+
+    if (parsedEmails.length === 0) {
+      alert('Please enter at least one valid email address')
       return
     }
 
     try {
       const { data } = await inviteUsers({
-        variables: { input: { emails: emailList } },
+        variables: { input: { emails: parsedEmails } },
       })
       if (data) {
         setInviteResults(data.inviteUsers)
-        setEmails('')
+        setEmailInput('')
+        setParsedEmails([])
       }
     } catch (err) {
       alert('An error occurred while inviting users. Please try again.')
@@ -47,20 +73,39 @@ export const AddMembersPaper = () => {
           <img src={logo} alt='Company Logo' style={{ maxWidth: '400px' }} />
           <Stack align='center' gap='xl'>
             <Title order={2}>Add Members</Title>
-            <Textarea
-              value={emails}
-              onChange={(event) => setEmails(event.currentTarget.value)}
+            <Stack gap='xs' style={{ width: '500px' }}>
+              <Textarea
+                value={emailInput}
+                onChange={handleInputChange}
+                size='md'
+                radius='md'
+                label='Member Emails'
+                description='Enter email addresses separated by comma, semicolon, colon, new line, tab, or spaces'
+                placeholder='e.g., user@example.com, another@example.com'
+                required
+                autosize
+                minRows={3}
+                maxRows={5}
+              />
+              {parsedEmails.length > 0 && (
+                <Group gap='xs' wrap='wrap'>
+                  {parsedEmails.map((email, index) => (
+                    <Pill key={index} withRemoveButton onRemove={() => handleRemoveEmail(email)} size='lg'>
+                      {email}
+                    </Pill>
+                  ))}
+                </Group>
+              )}
+            </Stack>
+            <Button
+              radius='lg'
+              px={16}
               size='md'
-              radius='md'
-              label='Member Emails'
-              placeholder='Enter Email Addresses (comma-separated)'
               style={{ width: '500px' }}
-              required
-              autosize
-              minRows={3}
-              maxRows={5}
-            />
-            <Button radius='lg' px={16} size='md' style={{ width: '500px' }} type='submit' loading={loading}>
+              type='submit'
+              loading={loading}
+              disabled={parsedEmails.length === 0}
+            >
               Send Invitations
             </Button>
           </Stack>
