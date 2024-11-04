@@ -99,6 +99,11 @@ export const ContributionTable: React.FC = () => {
         Cell: ({ cell }) => <Text>{dayjs(cell.getValue<string>()).format('DD/MM/YYYY')}</Text>,
       },
       {
+        accessorKey: 'public',
+        header: 'Public',
+        Cell: ({ cell }) => <Text>{cell.getValue<boolean>() ? 'Yes' : 'No'}</Text>,
+      },
+      {
         accessorKey: 'project.lifeCycleStages',
         header: 'Life Cycle Stages',
         Cell: ({ cell }) => {
