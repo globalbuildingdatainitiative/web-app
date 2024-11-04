@@ -10,15 +10,15 @@ export const ExistingUserInvitation = () => {
   const navigate = useNavigate()
   const location = useLocation()
   const searchParams = new URLSearchParams(location.search)
-  const user_id = searchParams.get('user_id')
+  const userId = searchParams.get('user_id')
   const [accepted, setAccepted] = useState(false)
 
   const [acceptInvitation, { loading, error }] = useAcceptInvitationMutation()
 
   const handleAccept = async () => {
-    if (user_id) {
+    if (userId) {
       try {
-        const { data } = await acceptInvitation({ variables: { userId: user_id } })
+        const { data } = await acceptInvitation({ variables: { user: { id: userId } } })
         if (data?.acceptInvitation) {
           setAccepted(true)
           setTimeout(() => navigate('/'), 3000) // Redirect to home after 3 seconds

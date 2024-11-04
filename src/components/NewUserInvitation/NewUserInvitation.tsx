@@ -1,22 +1,19 @@
 import { useState } from 'react'
 import { Paper } from '@components'
-import { Button, Group, Stack, Text, TextInput, PasswordInput } from '@mantine/core'
-import { useForm, isNotEmpty, matchesField } from '@mantine/form'
+import { Button, Group, MantineProvider, PasswordInput, Stack, Text, TextInput } from '@mantine/core'
+import { isNotEmpty, matchesField, useForm } from '@mantine/form'
 import logo from 'assets/logo.png'
-import { useNavigate, useLocation } from 'react-router-dom'
-import { MantineProvider } from '@mantine/core'
-import { useAcceptInvitationMutation, useUpdateUserMutation } from '@queries'
+import { useLocation, useNavigate } from 'react-router-dom'
+import { useAcceptInvitationMutation } from '@queries'
 
 export const NewUserInvitation = () => {
   const navigate = useNavigate()
   const location = useLocation()
   const searchParams = new URLSearchParams(location.search)
-  const user_id = searchParams.get('user_id')
+  const userId = searchParams.get('user_id')
   const [accepted, setAccepted] = useState(false)
 
   const [acceptInvitation] = useAcceptInvitationMutation()
-  const [updateUser] = useUpdateUserMutation()
-  const currentPassword = 'asokdA87fnf30efjoiOI**cwjkn'
 
   const form = useForm({
     initialValues: {
@@ -33,22 +30,19 @@ export const NewUserInvitation = () => {
     },
   })
   const handleAccept = async (values: typeof form.values) => {
-    if (user_id) {
+    if (userId) {
       try {
-        await updateUser({
+        // Accept invitation
+        const { data } = await acceptInvitation({
           variables: {
-            userInput: {
-              id: user_id,
+            user: {
+              id: userId,
               firstName: values.firstName,
               lastName: values.lastName,
-              currentPassword: currentPassword,
               newPassword: values.newPassword,
             },
           },
         })
-
-        // Accept invitation
-        const { data } = await acceptInvitation({ variables: { userId: user_id } })
 
         if (data?.acceptInvitation) {
           setAccepted(true)
