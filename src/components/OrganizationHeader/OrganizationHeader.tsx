@@ -5,7 +5,7 @@ import { useGetUsersQuery } from '@queries'
 import { IconBuilding, IconUser } from '@tabler/icons-react'
 
 interface OrganizationHeaderProps {
-  context: 'organization' | 'addMembers' | 'createOrganization' | 'portfolio'
+  context: 'organization' | 'addMembers' | 'createOrganization' | 'portfolio' | 'editOrganization'
 }
 
 export const OrganizationHeader = ({ context }: OrganizationHeaderProps) => {
@@ -53,6 +53,22 @@ export const OrganizationHeader = ({ context }: OrganizationHeaderProps) => {
 
         {context === 'organization' && organizationName !== 'Unknown' && (
           <>
+            <Center>
+              <ActionButton buttonName='View Organization' navigateTo='/organization/edit' />
+            </Center>
+            <Divider orientation='vertical' />
+            <Center>
+              <ActionButton buttonName='Add Members' navigateTo='/organization/addmembers' />
+            </Center>
+          </>
+        )}
+
+        {context === 'editOrganization' && organizationName !== 'Unknown' && (
+          <>
+            <Center>
+              <ActionButton buttonName='View Members' navigateTo='/organization' />
+            </Center>
+            <Divider orientation='vertical' />
             <Center>
               <ActionButton buttonName='Add Members' navigateTo='/organization/addmembers' />
             </Center>
