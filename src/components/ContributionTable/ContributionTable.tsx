@@ -100,11 +100,6 @@ export const ContributionTable: React.FC = () => {
         Cell: ({ cell }) => <Text>{dayjs(cell.getValue<string>()).format('DD/MM/YYYY')}</Text>,
       },
       {
-        accessorKey: 'public',
-        header: 'Public',
-        Cell: ({ cell }) => <Text>{cell.getValue<boolean>() ? 'Yes' : 'No'}</Text>,
-      },
-      {
         accessorKey: 'project.lifeCycleStages',
         header: 'Life Cycle Stages',
         Cell: ({ cell }) => {
@@ -125,8 +120,8 @@ export const ContributionTable: React.FC = () => {
       {
         id: 'projectDetails',
         header: 'View Details',
-        Cell: ({ row }) => <ViewProjectDetails contributionId={row.original.id} />
-      }
+        Cell: ({ row }) => <ViewProjectDetails contributionId={row.original.id} />,
+      },
     ],
     [],
   )
