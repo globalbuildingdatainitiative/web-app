@@ -90,7 +90,7 @@ export const AddMembersPaper = () => {
               {parsedEmails.length > 0 && (
                 <Group gap='xs' wrap='wrap'>
                   {parsedEmails.map((email, index) => (
-                    <Pill key={index} withRemoveButton onRemove={() => handleRemoveEmail(email)} size='lg'>
+                    <Pill key={index} withRemoveButton onRemove={() => handleRemoveEmail(email)} size='md'>
                       {email}
                     </Pill>
                   ))}
