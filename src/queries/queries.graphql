@@ -287,6 +287,10 @@ query getProjectDetails($id: UUID!) {
           roofType
         }
         metaData {
+          source {
+            name
+            url
+          }
           productClassificationSystem
           climateZone
           owner {
