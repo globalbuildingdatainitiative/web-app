@@ -30,6 +30,7 @@
       "@queries": ["queries"],
       "@mocks": ["__mocks__"],
       "@test": ["__test__"],
+      "@lib": ["lib"],
     }
   },
   "include": ["src"],
