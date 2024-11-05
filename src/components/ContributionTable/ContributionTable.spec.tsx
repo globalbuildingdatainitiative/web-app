@@ -2,31 +2,38 @@ import { ContributionTable } from '@components'
 import { MockedProvider } from '@apollo/client/testing'
 import { getContributionsMock } from '@mocks'
 import { expect, render, screen, suite, test, fireEvent } from '@test'
+import { MemoryRouter } from 'react-router-dom'
 
 suite('ContributionTable', () => {
   test('Snapshot', () => {
     const { container } = render(
-      <MockedProvider mocks={getContributionsMock} addTypename={false}>
-        <ContributionTable />
-      </MockedProvider>,
+      <MemoryRouter initialEntries={['/']}>
+        <MockedProvider mocks={getContributionsMock} addTypename={false}>
+          <ContributionTable />
+        </MockedProvider>
+      </MemoryRouter>,
     )
     expect(container).toMatchSnapshot()
   })
 
   test('Render Correctly', async () => {
     render(
-      <MockedProvider mocks={getContributionsMock} addTypename={false}>
-        <ContributionTable />
-      </MockedProvider>,
+      <MemoryRouter initialEntries={['/']}>
+        <MockedProvider mocks={getContributionsMock} addTypename={false}>
+          <ContributionTable />
+        </MockedProvider>
+      </MemoryRouter>,
     )
     expect(await screen.findByTestId('ContributionTable')).toBeTruthy()
   })
 
   test('Render Rows with User Names', async () => {
     render(
-      <MockedProvider mocks={getContributionsMock} addTypename={false}>
-        <ContributionTable />
-      </MockedProvider>,
+      <MemoryRouter initialEntries={['/']}>
+        <MockedProvider mocks={getContributionsMock} addTypename={false}>
+          <ContributionTable />
+        </MockedProvider>
+      </MemoryRouter>,
     )
     expect(await screen.findByText('My Project 1')).toBeTruthy()
     expect(await screen.findByText('John Doe')).toBeTruthy()
@@ -36,9 +43,11 @@ suite('ContributionTable', () => {
 
   test('Handle Pagination', async () => {
     render(
-      <MockedProvider mocks={getContributionsMock} addTypename={false}>
-        <ContributionTable />
-      </MockedProvider>,
+      <MemoryRouter initialEntries={['/']}>
+        <MockedProvider mocks={getContributionsMock} addTypename={false}>
+          <ContributionTable />
+        </MockedProvider>
+      </MemoryRouter>,
     )
 
     expect(await screen.findByText('My Project 1')).toBeTruthy()
