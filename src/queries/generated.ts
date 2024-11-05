@@ -30,6 +30,14 @@ export type Scalars = {
   _FieldSet: { input: any; output: any }
 }
 
+export type AcceptInvitationInput = {
+  currentPassword?: Scalars['String']['input']
+  firstName?: InputMaybe<Scalars['String']['input']>
+  id: Scalars['UUID']['input']
+  lastName?: InputMaybe<Scalars['String']['input']>
+  newPassword?: InputMaybe<Scalars['String']['input']>
+}
+
 export enum AggregationMethod {
   AVG = 'AVG',
   DIV = 'DIV',
@@ -185,6 +193,7 @@ export type Contribution = {
   id: Scalars['UUID']['output']
   organizationId: Scalars['UUID']['output']
   project: Project
+  public: Scalars['Boolean']['output']
   uploadedAt: Scalars['DateTime']['output']
   user: User
   userId: Scalars['UUID']['output']
@@ -787,7 +796,7 @@ export type Energy = {
   electricityCarbonFactorSource?: Maybe<Scalars['String']['output']>
   electricityProvider?: Maybe<Scalars['String']['output']>
   electricitySource?: Maybe<Scalars['String']['output']>
-  eneryModelMethodologyReference?: Maybe<Scalars['String']['output']>
+  energyModelMethodologyReference?: Maybe<Scalars['String']['output']>
   gwpEnergySourcesYear?: Maybe<Scalars['Float']['output']>
   siteLocationWeatherData?: Maybe<Scalars['String']['output']>
   toolEnergyModeling?: Maybe<Scalars['String']['output']>
@@ -914,6 +923,7 @@ export type InputClassification = {
 
 export type InputContribution = {
   project: InputProject
+  public?: Scalars['Boolean']['input']
 }
 
 export type InputConversion = {
@@ -1110,7 +1120,7 @@ export type Mutation = {
 }
 
 export type MutationAcceptInvitationArgs = {
-  userId: Scalars['String']['input']
+  user: AcceptInvitationInput
 }
 
 export type MutationAddContributionsArgs = {
@@ -1716,9 +1726,10 @@ export type ResolversUnionTypes<_RefType extends Record<string, unknown>> = {
 
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
+  AcceptInvitationInput: AcceptInvitationInput
+  String: ResolverTypeWrapper<Scalars['String']['output']>
   AggregationMethod: AggregationMethod
   AggregationResult: ResolverTypeWrapper<AggregationResult>
-  String: ResolverTypeWrapper<Scalars['String']['output']>
   Float: ResolverTypeWrapper<Scalars['Float']['output']>
   AreaType: ResolverTypeWrapper<AreaType>
   Assembly: ResolverTypeWrapper<Omit<Assembly, 'products'> & { products: Array<ResolversTypes['Product']> }>
@@ -1824,8 +1835,9 @@ export type ResolversTypes = {
 
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
-  AggregationResult: AggregationResult
+  AcceptInvitationInput: AcceptInvitationInput
   String: Scalars['String']['output']
+  AggregationResult: AggregationResult
   Float: Scalars['Float']['output']
   AreaType: AreaType
   Assembly: Omit<Assembly, 'products'> & { products: Array<ResolversParentTypes['Product']> }
@@ -2052,6 +2064,7 @@ export type ContributionResolvers<
   id?: Resolver<ResolversTypes['UUID'], ParentType, ContextType>
   organizationId?: Resolver<ResolversTypes['UUID'], ParentType, ContextType>
   project?: Resolver<ResolversTypes['Project'], ParentType, ContextType>
+  public?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>
   uploadedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>
   user?: Resolver<ResolversTypes['User'], ParentType, ContextType>
   userId?: Resolver<ResolversTypes['UUID'], ParentType, ContextType>
@@ -2182,7 +2195,7 @@ export type EnergyResolvers<
   electricityCarbonFactorSource?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
   electricityProvider?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
   electricitySource?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
-  eneryModelMethodologyReference?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
+  energyModelMethodologyReference?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
   gwpEnergySourcesYear?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>
   siteLocationWeatherData?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
   toolEnergyModeling?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
@@ -2250,7 +2263,7 @@ export type MutationResolvers<
     ResolversTypes['Boolean'],
     ParentType,
     ContextType,
-    RequireFields<MutationAcceptInvitationArgs, 'userId'>
+    RequireFields<MutationAcceptInvitationArgs, 'user'>
   >
   addContributions?: Resolver<
     Array<ResolversTypes['Contribution']>,
@@ -2765,7 +2778,7 @@ export type DirectiveResolvers<ContextType = any> = {
 }
 
 export type AcceptInvitationMutationVariables = Exact<{
-  userId: Scalars['String']['input']
+  user: AcceptInvitationInput
 }>
 
 export type AcceptInvitationMutation = { __typename?: 'Mutation'; acceptInvitation: boolean }
@@ -2830,6 +2843,7 @@ export type GetContributionsQuery = {
       __typename?: 'Contribution'
       id: any
       uploadedAt: any
+      public: boolean
       user: { __typename?: 'User'; id: any; firstName?: string | null; lastName?: string | null }
       project: {
         __typename?: 'Project'
@@ -2884,6 +2898,23 @@ export type CreateOrganizationsMutation = {
   }>
 }
 
+export type UpdateOrganizationsMutationVariables = Exact<{
+  organizations: Array<InputOrganization> | InputOrganization
+}>
+
+export type UpdateOrganizationsMutation = {
+  __typename?: 'Mutation'
+  updateOrganizations: Array<{
+    __typename?: 'Organization'
+    id: any
+    name: string
+    address: string
+    city: string
+    country: CountryCodes
+    metaData: { __typename?: 'OrganizationMetaData'; stakeholders: Array<StakeholderEnum> }
+  }>
+}
+
 export type GetUsersQueryVariables = Exact<{
   filters?: InputMaybe<UserFilters>
 }>
@@ -2919,7 +2950,15 @@ export type GetCurrentUserQuery = {
     email: string
     role?: Role | null
     timeJoined: any
-    organization?: { __typename?: 'Organization'; id: any; name: string } | null
+    organization?: {
+      __typename?: 'Organization'
+      id: any
+      name: string
+      address: string
+      city: string
+      country: CountryCodes
+      metaData: { __typename?: 'OrganizationMetaData'; stakeholders: Array<StakeholderEnum> }
+    } | null
   }>
 }
 
@@ -2972,7 +3011,12 @@ export type GetProjectDataForBoxPlotQuery = {
     groups: Array<{
       __typename?: 'ProjectGraphQLGroupResponse'
       group: string
-      items: Array<{ __typename?: 'Project'; id: any; location: { __typename?: 'Location'; countryName: string } }>
+      items: Array<{
+        __typename?: 'Project'
+        id: any
+        location: { __typename?: 'Location'; countryName: string }
+        softwareInfo: { __typename?: 'SoftwareInfo'; lcaSoftware: string }
+      }>
     }>
   }
 }
@@ -3020,15 +3064,253 @@ export type GetProjectPortfolioQuery = {
           c3?: number | null
           c4?: number | null
           d?: number | null
+          total?: number | null
         } | null
       } | null
     }> | null
   }
 }
 
+export type GetProjectDetailsQueryVariables = Exact<{
+  id: Scalars['UUID']['input']
+}>
+
+export type GetProjectDetailsQuery = {
+  __typename?: 'Query'
+  contributions: {
+    __typename?: 'ContributionGraphQLResponse'
+    items?: Array<{
+      __typename?: 'Contribution'
+      project: {
+        __typename?: 'Project'
+        name: string
+        location: { __typename?: 'Location'; countryName: string }
+        projectInfo: {
+          __typename?: 'ProjectInfo'
+          buildingCompletionYear?: number | null
+          buildingModelScope?: Array<BuildingModelScope> | null
+          buildingPermitYear?: number | null
+          buildingType: BuildingType
+          buildingTypology: Array<BuildingTypology>
+          buildingUsers?: number | null
+          certifications?: Array<string> | null
+          energyDemandElectricity?: number | null
+          energyDemandHeating?: number | null
+          energySupplyElectricity?: number | null
+          energySupplyHeating?: number | null
+          exportedElectricity?: number | null
+          floorsAboveGround: number
+          floorsBelowGround?: number | null
+          frameType?: string | null
+          generalEnergyClass: GeneralEnergyClass
+          localEnergyClass?: string | null
+          roofType: RoofType
+          buildingFootprint?: { __typename?: 'ValueUnit'; value: number; unit: Unit } | null
+          buildingHeight?: { __typename?: 'ValueUnit'; value: number; unit: Unit } | null
+          buildingMass?: { __typename?: 'ValueUnit'; value: number; unit: Unit } | null
+          grossFloorArea?: { __typename?: 'AreaType'; value: number; unit: Unit } | null
+          heatedFloorArea?: { __typename?: 'AreaType'; value: number; unit: Unit } | null
+        }
+        metaData?: {
+          __typename?: 'ProjectMetaData'
+          productClassificationSystem?: string | null
+          climateZone?: string | null
+          lcaSoftwareVersion?: string | null
+          lcaDatabase?: string | null
+          lcaDatabaseVersion?: string | null
+          lcaDatabaseOther?: string | null
+          lcaModelType?: string | null
+          interstitialFloors?: string | null
+          buildingProjectConstructionType2?: string | null
+          infrastructureProjectConstructionType?: string | null
+          infrastructureSectorType?: string | null
+          buildingUseType?: string | null
+          infrastructureUseType?: string | null
+          ibcConstructionType?: string | null
+          projectSurroundings?: string | null
+          projectHistoric?: boolean | null
+          fullTimeEquivalent?: number | null
+          occupantLoad?: number | null
+          windowWallRatio?: number | null
+          residentialUnits?: number | null
+          bedroomCount?: number | null
+          projectExpectedLife?: number | null
+          resultsValidatedAsBuilt?: boolean | null
+          resultsValidatedAsBuiltDescription?: string | null
+          assessmentCutoffType?: string | null
+          assessmentCutoff?: string | null
+          assessmentCostCutoff?: string | null
+          heritageStatus?: string | null
+          omniclassConstructionEntity?: string | null
+          architectOfRecord?: string | null
+          projectUserStudio?: string | null
+          generalContractor?: string | null
+          mepEngineer?: string | null
+          sustainabilityConsultant?: string | null
+          structuralEngineer?: string | null
+          civilEngineer?: string | null
+          landscapeConsultant?: string | null
+          interiorDesigner?: string | null
+          otherProjectTeam?: string | null
+          workCompletionYear?: number | null
+          constructionStart?: any | null
+          constructionYearExistingBuilding?: number | null
+          buildingOccupancyStart?: any | null
+          owner?: {
+            __typename?: 'Owner'
+            contact?: string | null
+            web?: string | null
+            country?: string | null
+            email?: string | null
+            type?: string | null
+            representative?: string | null
+          } | null
+          assessment?: {
+            __typename?: 'AssessmentMetaData'
+            assessmentMethodologyDescription?: string | null
+            uncertainty?: number | null
+            cutoffMethod?: string | null
+            year?: number | null
+            date?: any | null
+            quantitySource?: string | null
+            quantitySourceDetail?: string | null
+            purpose?: string | null
+            iso21931Compliance?: boolean | null
+            en15978Compliance?: boolean | null
+            rics2017Compliance?: boolean | null
+            rics2023Compliance?: boolean | null
+            ashrae240pCompliance?: boolean | null
+            seiPrestandardCompliance?: boolean | null
+            verified?: boolean | null
+            verifiedInfo?: string | null
+            validityPeriod?: string | null
+            resultsValidationDescription?: string | null
+            toolReportUpload?: any | null
+            reportName?: string | null
+            additionalLcaReportName?: string | null
+            projectPhaseAtReporting?: string | null
+            projectPhaseAtTimeOfAssessment?: string | null
+            operationalEnergyIncluded?: boolean | null
+            biogenicCarbonIncluded?: boolean | null
+            biogenicCarbonAccountingMethod?: string | null
+            bioSustainabilityCertification?: string | null
+            biogenicCarbonDescription?: string | null
+            projectRefrigerants?: string | null
+            refrigerantTypeIncluded?: string | null
+            substructureScope?: string | null
+            shellSuperstructureScope?: string | null
+            shellExteriorEnclosureScope?: string | null
+            interiorConstructionScope?: string | null
+            interiorFinishesScope?: string | null
+            servicesMechanicalScope?: string | null
+            servicesElectricalScope?: string | null
+            servicesPlumbingScope?: string | null
+            siteworkScope?: string | null
+            equipmentScope?: string | null
+            furnishingsScope?: string | null
+            lcaRequirements?: string | null
+            assessor?: {
+              __typename?: 'Assessor'
+              name?: string | null
+              email?: string | null
+              organization?: string | null
+            } | null
+          } | null
+          newlyBuiltArea?: { __typename?: 'ValueUnit'; value: number; unit: Unit } | null
+          retrofittedArea?: { __typename?: 'ValueUnit'; value: number; unit: Unit } | null
+          demolishedArea?: { __typename?: 'ValueUnit'; value: number; unit: Unit } | null
+          existingArea?: { __typename?: 'ValueUnit'; value: number; unit: Unit } | null
+          builtFloorArea?: { __typename?: 'ValueUnit'; value: number; unit: Unit } | null
+          projectWorkArea?: { __typename?: 'ValueUnit'; value: number; unit: Unit } | null
+          projectSiteArea?: { __typename?: 'ValueUnit'; value: number; unit: Unit } | null
+          conditionedFloorArea?: { __typename?: 'ValueUnit'; value: number; unit: Unit } | null
+          unconditionedFloorArea?: { __typename?: 'ValueUnit'; value: number; unit: Unit } | null
+          enclosedParkingArea?: { __typename?: 'ValueUnit'; value: number; unit: Unit } | null
+          detachedParkingArea?: { __typename?: 'ValueUnit'; value: number; unit: Unit } | null
+          surfaceParkingArea?: { __typename?: 'ValueUnit'; value: number; unit: Unit } | null
+          detachedParkingStructureArea?: { __typename?: 'ValueUnit'; value: number; unit: Unit } | null
+          meanRoofHeight?: { __typename?: 'ValueUnit'; value: number; unit: Unit } | null
+          thermalEnvelopeArea?: { __typename?: 'ValueUnit'; value: number; unit: Unit } | null
+          energy?: {
+            __typename?: 'Energy'
+            toolEnergyModeling?: string | null
+            toolEnergyModelingVersion?: string | null
+            energyModelMethodologyReference?: string | null
+            gwpEnergySourcesYear?: number | null
+            siteLocationWeatherData?: string | null
+            electricityProvider?: string | null
+            electricitySource?: string | null
+            electricityCarbonFactor?: number | null
+            electricityCarbonFactorSource?: string | null
+          } | null
+          cost?: {
+            __typename?: 'Cost'
+            currency?: string | null
+            totalCost?: number | null
+            hardCost?: number | null
+            softCost?: number | null
+            siteworksCost?: number | null
+            costSource?: string | null
+            notes?: string | null
+          } | null
+          structural?: {
+            __typename?: 'Structural'
+            riskCategory?: string | null
+            earthquakeImportanceFactor?: number | null
+            seismicDesignCategory?: string | null
+            horizontalGravitySystem?: string | null
+            secondaryHorizontalGravitySystem?: string | null
+            verticalGravitySystem?: string | null
+            secondaryVerticalGravitySystem?: string | null
+            lateralSystem?: string | null
+            podium?: string | null
+            foundationType?: string | null
+            columnGridLong?: { __typename?: 'ValueUnit'; value: number; unit: Unit } | null
+            liveLoad?: { __typename?: 'ValueUnit'; value: number; unit: Unit } | null
+            snowLoad?: { __typename?: 'ValueUnit'; value: number; unit: Unit } | null
+            windSpeed?: { __typename?: 'ValueUnit'; value: number; unit: Unit } | null
+            allowableSoilBearingPressure?: { __typename?: 'ValueUnit'; value: number; unit: Unit } | null
+          } | null
+          publication?: {
+            __typename?: 'Publication'
+            authors?: string | null
+            year?: number | null
+            doi?: string | null
+            title?: string | null
+            publisher?: string | null
+          } | null
+        } | null
+        results?: {
+          __typename?: 'Results'
+          gwp?: {
+            __typename?: 'ImpactCategoryResults'
+            a0?: number | null
+            a1a3?: number | null
+            a4?: number | null
+            a5?: number | null
+            b1?: number | null
+            b2?: number | null
+            b3?: number | null
+            b4?: number | null
+            b5?: number | null
+            b6?: number | null
+            b7?: number | null
+            b8?: number | null
+            c1?: number | null
+            c2?: number | null
+            c3?: number | null
+            c4?: number | null
+            d?: number | null
+          } | null
+        } | null
+      }
+    }> | null
+  }
+}
+
 export const AcceptInvitationDocument = gql`
-  mutation acceptInvitation($userId: String!) {
-    acceptInvitation(userId: $userId)
+  mutation acceptInvitation($user: AcceptInvitationInput!) {
+    acceptInvitation(user: $user)
   }
 `
 export type AcceptInvitationMutationFn = Apollo.MutationFunction<
@@ -3049,7 +3331,7 @@ export type AcceptInvitationMutationFn = Apollo.MutationFunction<
  * @example
  * const [acceptInvitationMutation, { data, loading, error }] = useAcceptInvitationMutation({
  *   variables: {
- *      userId: // value for 'userId'
+ *      user: // value for 'user'
  *   },
  * });
  */
@@ -3328,6 +3610,7 @@ export const GetContributionsDocument = gql`
       items(limit: $limit, offset: $offset) {
         id
         uploadedAt
+        public
         user {
           id
           firstName
@@ -3543,6 +3826,57 @@ export type CreateOrganizationsMutationOptions = Apollo.BaseMutationOptions<
   CreateOrganizationsMutation,
   CreateOrganizationsMutationVariables
 >
+export const UpdateOrganizationsDocument = gql`
+  mutation updateOrganizations($organizations: [InputOrganization!]!) {
+    updateOrganizations(organizations: $organizations) {
+      id
+      name
+      address
+      city
+      country
+      metaData {
+        stakeholders
+      }
+    }
+  }
+`
+export type UpdateOrganizationsMutationFn = Apollo.MutationFunction<
+  UpdateOrganizationsMutation,
+  UpdateOrganizationsMutationVariables
+>
+
+/**
+ * __useUpdateOrganizationsMutation__
+ *
+ * To run a mutation, you first call `useUpdateOrganizationsMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateOrganizationsMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateOrganizationsMutation, { data, loading, error }] = useUpdateOrganizationsMutation({
+ *   variables: {
+ *      organizations: // value for 'organizations'
+ *   },
+ * });
+ */
+export function useUpdateOrganizationsMutation(
+  baseOptions?: Apollo.MutationHookOptions<UpdateOrganizationsMutation, UpdateOrganizationsMutationVariables>,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<UpdateOrganizationsMutation, UpdateOrganizationsMutationVariables>(
+    UpdateOrganizationsDocument,
+    options,
+  )
+}
+export type UpdateOrganizationsMutationHookResult = ReturnType<typeof useUpdateOrganizationsMutation>
+export type UpdateOrganizationsMutationResult = Apollo.MutationResult<UpdateOrganizationsMutation>
+export type UpdateOrganizationsMutationOptions = Apollo.BaseMutationOptions<
+  UpdateOrganizationsMutation,
+  UpdateOrganizationsMutationVariables
+>
 export const GetUsersDocument = gql`
   query getUsers($filters: UserFilters) {
     users(filters: $filters) {
@@ -3605,6 +3939,12 @@ export const GetCurrentUserDocument = gql`
       organization {
         id
         name
+        address
+        city
+        country
+        metaData {
+          stakeholders
+        }
       }
       timeJoined
     }
@@ -3773,6 +4113,9 @@ export const GetProjectDataForBoxPlotDocument = gql`
           location {
             countryName
           }
+          softwareInfo {
+            lcaSoftware
+          }
         }
       }
       aggregation(apply: $aggregation)
@@ -3870,6 +4213,7 @@ export const GetProjectPortfolioDocument = gql`
             c3
             c4
             d
+            total
           }
         }
       }
@@ -3932,3 +4276,347 @@ export type GetProjectPortfolioQueryResult = Apollo.QueryResult<
   GetProjectPortfolioQuery,
   GetProjectPortfolioQueryVariables
 >
+export const GetProjectDetailsDocument = gql`
+  query getProjectDetails($id: UUID!) {
+    contributions {
+      items(filterBy: { equal: { id: $id } }) {
+        project {
+          name
+          location {
+            countryName
+          }
+          projectInfo {
+            buildingCompletionYear
+            buildingFootprint {
+              value
+              unit
+            }
+            buildingHeight {
+              value
+              unit
+            }
+            buildingMass {
+              value
+              unit
+            }
+            buildingModelScope
+            buildingPermitYear
+            buildingType
+            buildingTypology
+            buildingUsers
+            certifications
+            energyDemandElectricity
+            energyDemandHeating
+            energySupplyElectricity
+            energySupplyHeating
+            exportedElectricity
+            floorsAboveGround
+            floorsBelowGround
+            frameType
+            generalEnergyClass
+            grossFloorArea {
+              value
+              unit
+            }
+            heatedFloorArea {
+              value
+              unit
+            }
+            localEnergyClass
+            roofType
+          }
+          metaData {
+            productClassificationSystem
+            climateZone
+            owner {
+              contact
+              web
+              country
+              email
+              type
+              representative
+            }
+            assessment {
+              assessmentMethodologyDescription
+              uncertainty
+              cutoffMethod
+              assessor {
+                name
+                email
+                organization
+              }
+              year
+              date
+              quantitySource
+              quantitySourceDetail
+              purpose
+              iso21931Compliance
+              en15978Compliance
+              rics2017Compliance
+              rics2023Compliance
+              ashrae240pCompliance
+              seiPrestandardCompliance
+              verified
+              verifiedInfo
+              validityPeriod
+              resultsValidationDescription
+              toolReportUpload
+              reportName
+              additionalLcaReportName
+              projectPhaseAtReporting
+              projectPhaseAtTimeOfAssessment
+              operationalEnergyIncluded
+              biogenicCarbonIncluded
+              biogenicCarbonAccountingMethod
+              bioSustainabilityCertification
+              biogenicCarbonDescription
+              projectRefrigerants
+              refrigerantTypeIncluded
+              substructureScope
+              shellSuperstructureScope
+              shellExteriorEnclosureScope
+              interiorConstructionScope
+              interiorFinishesScope
+              servicesMechanicalScope
+              servicesElectricalScope
+              servicesPlumbingScope
+              siteworkScope
+              equipmentScope
+              furnishingsScope
+              lcaRequirements
+            }
+            lcaSoftwareVersion
+            lcaDatabase
+            lcaDatabaseVersion
+            lcaDatabaseOther
+            lcaModelType
+            interstitialFloors
+            newlyBuiltArea {
+              value
+              unit
+            }
+            retrofittedArea {
+              value
+              unit
+            }
+            demolishedArea {
+              value
+              unit
+            }
+            existingArea {
+              value
+              unit
+            }
+            builtFloorArea {
+              value
+              unit
+            }
+            buildingProjectConstructionType2
+            infrastructureProjectConstructionType
+            infrastructureSectorType
+            buildingUseType
+            infrastructureUseType
+            projectWorkArea {
+              value
+              unit
+            }
+            projectSiteArea {
+              value
+              unit
+            }
+            conditionedFloorArea {
+              value
+              unit
+            }
+            unconditionedFloorArea {
+              value
+              unit
+            }
+            enclosedParkingArea {
+              value
+              unit
+            }
+            detachedParkingArea {
+              value
+              unit
+            }
+            surfaceParkingArea {
+              value
+              unit
+            }
+            detachedParkingStructureArea {
+              value
+              unit
+            }
+            ibcConstructionType
+            projectSurroundings
+            projectHistoric
+            fullTimeEquivalent
+            occupantLoad
+            meanRoofHeight {
+              value
+              unit
+            }
+            windowWallRatio
+            thermalEnvelopeArea {
+              value
+              unit
+            }
+            residentialUnits
+            bedroomCount
+            projectExpectedLife
+            resultsValidatedAsBuilt
+            resultsValidatedAsBuiltDescription
+            assessmentCutoffType
+            assessmentCutoff
+            assessmentCostCutoff
+            heritageStatus
+            omniclassConstructionEntity
+            energy {
+              toolEnergyModeling
+              toolEnergyModelingVersion
+              energyModelMethodologyReference
+              gwpEnergySourcesYear
+              siteLocationWeatherData
+              electricityProvider
+              electricitySource
+              electricityCarbonFactor
+              electricityCarbonFactorSource
+            }
+            architectOfRecord
+            projectUserStudio
+            generalContractor
+            mepEngineer
+            sustainabilityConsultant
+            structuralEngineer
+            civilEngineer
+            landscapeConsultant
+            interiorDesigner
+            otherProjectTeam
+            workCompletionYear
+            constructionStart
+            constructionYearExistingBuilding
+            buildingOccupancyStart
+            cost {
+              currency
+              totalCost
+              hardCost
+              softCost
+              siteworksCost
+              costSource
+              notes
+            }
+            structural {
+              columnGridLong {
+                value
+                unit
+              }
+              riskCategory
+              liveLoad {
+                value
+                unit
+              }
+              snowLoad {
+                value
+                unit
+              }
+              windSpeed {
+                value
+                unit
+              }
+              earthquakeImportanceFactor
+              seismicDesignCategory
+              horizontalGravitySystem
+              secondaryHorizontalGravitySystem
+              verticalGravitySystem
+              secondaryVerticalGravitySystem
+              lateralSystem
+              podium
+              allowableSoilBearingPressure {
+                value
+                unit
+              }
+              foundationType
+            }
+            publication {
+              authors
+              year
+              doi
+              title
+              publisher
+            }
+          }
+          results {
+            gwp {
+              a0
+              a1a3
+              a4
+              a5
+              b1
+              b2
+              b3
+              b4
+              b5
+              b6
+              b7
+              b8
+              c1
+              c2
+              c3
+              c4
+              d
+            }
+          }
+        }
+      }
+    }
+  }
+`
+
+/**
+ * __useGetProjectDetailsQuery__
+ *
+ * To run a query within a React component, call `useGetProjectDetailsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetProjectDetailsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetProjectDetailsQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useGetProjectDetailsQuery(
+  baseOptions: Apollo.QueryHookOptions<GetProjectDetailsQuery, GetProjectDetailsQueryVariables> &
+    ({ variables: GetProjectDetailsQueryVariables; skip?: boolean } | { skip: boolean }),
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<GetProjectDetailsQuery, GetProjectDetailsQueryVariables>(GetProjectDetailsDocument, options)
+}
+export function useGetProjectDetailsLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<GetProjectDetailsQuery, GetProjectDetailsQueryVariables>,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<GetProjectDetailsQuery, GetProjectDetailsQueryVariables>(
+    GetProjectDetailsDocument,
+    options,
+  )
+}
+export function useGetProjectDetailsSuspenseQuery(
+  baseOptions?:
+    | Apollo.SkipToken
+    | Apollo.SuspenseQueryHookOptions<GetProjectDetailsQuery, GetProjectDetailsQueryVariables>,
+) {
+  const options = baseOptions === Apollo.skipToken ? baseOptions : { ...defaultOptions, ...baseOptions }
+  return Apollo.useSuspenseQuery<GetProjectDetailsQuery, GetProjectDetailsQueryVariables>(
+    GetProjectDetailsDocument,
+    options,
+  )
+}
+export type GetProjectDetailsQueryHookResult = ReturnType<typeof useGetProjectDetailsQuery>
+export type GetProjectDetailsLazyQueryHookResult = ReturnType<typeof useGetProjectDetailsLazyQuery>
+export type GetProjectDetailsSuspenseQueryHookResult = ReturnType<typeof useGetProjectDetailsSuspenseQuery>
+export type GetProjectDetailsQueryResult = Apollo.QueryResult<GetProjectDetailsQuery, GetProjectDetailsQueryVariables>

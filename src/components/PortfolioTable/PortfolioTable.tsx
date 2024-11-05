@@ -1,4 +1,4 @@
-import { Contribution, useGetProjectPortfolioQuery, ImpactCategoryKey, LifeCycleStage } from '@queries'
+import { Contribution, useGetProjectPortfolioQuery, Results, ImpactCategoryResults } from '@queries'
 import {
   MantineReactTable,
   MRT_Cell,
@@ -81,10 +81,8 @@ export const PortfolioTable = () => {
     data: rowData,
     rowCount: totalRowCount,
     pageCount: Math.ceil(totalRowCount / pagination.pageSize),
-    enableColumnActions: false,
-    enableColumnFilters: false,
     enablePagination: false,
-    enableSorting: false,
+    enableGlobalFilter: false,
     mantineToolbarAlertBannerProps: error
       ? {
           color: 'red',
@@ -130,34 +128,27 @@ interface GWPIntensity {
   row: MRT_Row<Pick<Contribution, 'id'>>
 }
 
-type Result = {
-  [key in ImpactCategoryKey]: {
-    [key in LifeCycleStage]: number
-  }
-}
-
 const getGWPIntensity = ({ cell, row }: GWPIntensity) => {
-  const results = cell.getValue<Result | null>()?.gwp || ({} as Result)
+  const gwp = cell.getValue<Results | null>()?.gwp || ({} as ImpactCategoryResults)
   const footprint = row.getValue('projectInfo.grossFloorArea.value') as number
-  const sumOfResults = Object.values(results).reduce((prev: number, next: number) => prev + next, 0)
+  if (!gwp) return null
+  const total = gwp.total!
 
-  return <>{Number(sumOfResults / footprint).toFixed(2)}</>
+  return <>{Number(total / footprint).toFixed(2)}</>
 }
 
 const getGWPBreakdown = ({ row }: GWPIntensity) => {
-  const gwp = row.getValue<Result | null>('results')?.gwp
+  const gwp = row.getValue<Results | null>('results')?.gwp
   if (!gwp) return null
-  const total = Object.values(gwp)
-    .filter((value) => value && Number(value))
-    .reduce((prevValue, newValue) => prevValue + newValue, 0)
+  const total = gwp.total!
 
   return (
     <Progress.Root size={40}>
       {Object.entries(gwp)
-        .filter(([key, value]) => value && key !== '__typename')
+        .filter(([key, value]) => value && ['__typename', 'total'].indexOf(key) < 0)
         .map(([key, value]) => (
-          <Tooltip label={`${key.toUpperCase()}: ${Number((value / total) * 100).toFixed(2)}%`}>
-            <Progress.Section value={(value / total) * 100} color={lifeCycleStageMap[key]}>
+          <Tooltip label={`${key.toUpperCase()}: ${Number(((value as number) / total) * 100).toFixed(2)}%`}>
+            <Progress.Section value={((value as number) / total) * 100} color={lifeCycleStageMap[key]}>
               <Progress.Label>{key.toUpperCase()}</Progress.Label>
             </Progress.Section>
           </Tooltip>

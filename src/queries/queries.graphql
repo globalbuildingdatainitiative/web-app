@@ -1,5 +1,5 @@
-mutation acceptInvitation($userId: String!) {
-  acceptInvitation(userId: $userId)
+mutation acceptInvitation($user: AcceptInvitationInput!) {
+  acceptInvitation(user: $user)
 }
 
 mutation rejectInvitation($userId: String!) {
@@ -46,6 +46,7 @@ query getContributions($limit: Int, $offset: Int) {
     items(limit: $limit, offset: $offset) {
       id
       uploadedAt
+      public
       user {
         id
         firstName
@@ -99,6 +100,19 @@ mutation createOrganizations($organizations: [InputOrganization!]!) {
   }
 }
 
+mutation updateOrganizations($organizations: [InputOrganization!]!) {
+  updateOrganizations(organizations: $organizations) {
+    id
+    name
+    address
+    city
+    country
+    metaData {
+      stakeholders
+    }
+  }
+}
+
 query getUsers($filters: UserFilters) {
   users(filters: $filters) {
     id
@@ -124,6 +138,12 @@ query getCurrentUser($id: String!) {
     organization {
       id
       name
+      address
+      city
+      country
+      metaData {
+        stakeholders
+      }
     }
     timeJoined
   }
@@ -167,6 +187,9 @@ query getProjectDataForBoxPlot($aggregation: JSON!) {
         location {
           countryName
         }
+        softwareInfo {
+          lcaSoftware
+        }
       }
     }
     aggregation(apply: $aggregation)
@@ -207,9 +230,305 @@ query getProjectPortfolio($limit: Int, $offset: Int, $filters: FilterBy) {
           c3
           c4
           d
+          total
         }
       }
     }
     count(filterBy: $filters)
+  }
+}
+
+query getProjectDetails($id: UUID!) {
+  contributions {
+    items(filterBy: { equal: { id: $id } }) {
+      project {
+        name
+        location {
+          countryName
+        }
+        projectInfo {
+          buildingCompletionYear
+          buildingFootprint {
+            value
+            unit
+          }
+          buildingHeight {
+            value
+            unit
+          }
+          buildingMass {
+            value
+            unit
+          }
+          buildingModelScope
+          buildingPermitYear
+          buildingType
+          buildingTypology
+          buildingUsers
+          certifications
+          energyDemandElectricity
+          energyDemandHeating
+          energySupplyElectricity
+          energySupplyHeating
+          exportedElectricity
+          floorsAboveGround
+          floorsBelowGround
+          frameType
+          generalEnergyClass
+          grossFloorArea {
+            value
+            unit
+          }
+          heatedFloorArea {
+            value
+            unit
+          }
+          localEnergyClass
+          roofType
+        }
+        metaData {
+          productClassificationSystem
+          climateZone
+          owner {
+            contact
+            web
+            country
+            email
+            type
+            representative
+          }
+          assessment {
+            assessmentMethodologyDescription
+            uncertainty
+            cutoffMethod
+            assessor {
+              name
+              email
+              organization
+            }
+            year
+            date
+            quantitySource
+            quantitySourceDetail
+            purpose
+            iso21931Compliance
+            en15978Compliance
+            rics2017Compliance
+            rics2023Compliance
+            ashrae240pCompliance
+            seiPrestandardCompliance
+            verified
+            verifiedInfo
+            validityPeriod
+            resultsValidationDescription
+            toolReportUpload
+            reportName
+            additionalLcaReportName
+            projectPhaseAtReporting
+            projectPhaseAtTimeOfAssessment
+            operationalEnergyIncluded
+            biogenicCarbonIncluded
+            biogenicCarbonAccountingMethod
+            bioSustainabilityCertification
+            biogenicCarbonDescription
+            projectRefrigerants
+            refrigerantTypeIncluded
+            substructureScope
+            shellSuperstructureScope
+            shellExteriorEnclosureScope
+            interiorConstructionScope
+            interiorFinishesScope
+            servicesMechanicalScope
+            servicesElectricalScope
+            servicesPlumbingScope
+            siteworkScope
+            equipmentScope
+            furnishingsScope
+            lcaRequirements
+          }
+          lcaSoftwareVersion
+          lcaDatabase
+          lcaDatabaseVersion
+          lcaDatabaseOther
+          lcaModelType
+          interstitialFloors
+          newlyBuiltArea {
+            value
+            unit
+          }
+          retrofittedArea {
+            value
+            unit
+          }
+          demolishedArea {
+            value
+            unit
+          }
+          existingArea {
+            value
+            unit
+          }
+          builtFloorArea {
+            value
+            unit
+          }
+          buildingProjectConstructionType2
+          infrastructureProjectConstructionType
+          infrastructureSectorType
+          buildingUseType
+          infrastructureUseType
+          projectWorkArea {
+            value
+            unit
+          }
+          projectSiteArea {
+            value
+            unit
+          }
+          conditionedFloorArea {
+            value
+            unit
+          }
+          unconditionedFloorArea {
+            value
+            unit
+          }
+          enclosedParkingArea {
+            value
+            unit
+          }
+          detachedParkingArea {
+            value
+            unit
+          }
+          surfaceParkingArea {
+            value
+            unit
+          }
+          detachedParkingStructureArea {
+            value
+            unit
+          }
+          ibcConstructionType
+          projectSurroundings
+          projectHistoric
+          fullTimeEquivalent
+          occupantLoad
+          meanRoofHeight {
+            value
+            unit
+          }
+          windowWallRatio
+          thermalEnvelopeArea {
+            value
+            unit
+          }
+          residentialUnits
+          bedroomCount
+          projectExpectedLife
+          resultsValidatedAsBuilt
+          resultsValidatedAsBuiltDescription
+          assessmentCutoffType
+          assessmentCutoff
+          assessmentCostCutoff
+          heritageStatus
+          omniclassConstructionEntity
+          energy {
+            toolEnergyModeling
+            toolEnergyModelingVersion
+            energyModelMethodologyReference
+            gwpEnergySourcesYear
+            siteLocationWeatherData
+            electricityProvider
+            electricitySource
+            electricityCarbonFactor
+            electricityCarbonFactorSource
+          }
+          architectOfRecord
+          projectUserStudio
+          generalContractor
+          mepEngineer
+          sustainabilityConsultant
+          structuralEngineer
+          civilEngineer
+          landscapeConsultant
+          interiorDesigner
+          otherProjectTeam
+          workCompletionYear
+          constructionStart
+          constructionYearExistingBuilding
+          buildingOccupancyStart
+          cost {
+            currency
+            totalCost
+            hardCost
+            softCost
+            siteworksCost
+            costSource
+            notes
+          }
+          structural {
+            columnGridLong {
+              value
+              unit
+            }
+            riskCategory
+            liveLoad {
+              value
+              unit
+            }
+            snowLoad {
+              value
+              unit
+            }
+            windSpeed {
+              value
+              unit
+            }
+            earthquakeImportanceFactor
+            seismicDesignCategory
+            horizontalGravitySystem
+            secondaryHorizontalGravitySystem
+            verticalGravitySystem
+            secondaryVerticalGravitySystem
+            lateralSystem
+            podium
+            allowableSoilBearingPressure {
+              value
+              unit
+            }
+            foundationType
+          }
+          publication {
+            authors
+            year
+            doi
+            title
+            publisher
+          }
+        }
+        results {
+          gwp {
+            a0
+            a1a3
+            a4
+            a5
+            b1
+            b2
+            b3
+            b4
+            b5
+            b6
+            b7
+            b8
+            c1
+            c2
+            c3
+            c4
+            d
+          }
+        }
+      }
+    }
   }
 }

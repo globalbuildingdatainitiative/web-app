@@ -3,6 +3,7 @@ import { MantineReactTable, MRT_ColumnDef, useMantineReactTable, MRT_PaginationS
 import React, { useMemo, useState } from 'react'
 import dayjs from 'dayjs'
 import { Group, Select, Pagination, Text, Tooltip } from '@mantine/core'
+import { ViewProjectDetails } from './viewProjectDetails.tsx'
 
 interface TruncatedTextWithTooltipProps {
   text: string
@@ -89,6 +90,11 @@ export const ContributionTable: React.FC = () => {
         },
       },
       {
+        accessorKey: 'public',
+        header: 'Public',
+        Cell: ({ cell }) => <Text>{cell.getValue<boolean>() ? 'Yes' : 'No'}</Text>,
+      },
+      {
         accessorKey: 'uploadedAt',
         header: 'Date',
         Cell: ({ cell }) => <Text>{dayjs(cell.getValue<string>()).format('DD/MM/YYYY')}</Text>,
@@ -111,6 +117,11 @@ export const ContributionTable: React.FC = () => {
           return <TruncatedTextWithTooltip text={displayText.toUpperCase()} />
         },
       },
+      {
+        id: 'projectDetails',
+        header: 'View Details',
+        Cell: ({ row }) => <ViewProjectDetails contributionId={row.original.id} />,
+      },
     ],
     [],
   )
@@ -122,10 +133,8 @@ export const ContributionTable: React.FC = () => {
     data: rowData,
     rowCount: totalRowCount,
     pageCount: Math.ceil(totalRowCount / pagination.pageSize),
-    enableColumnActions: false,
-    enableColumnFilters: false,
     enablePagination: false,
-    enableSorting: false,
+    enableGlobalFilter: false,
     mantineToolbarAlertBannerProps: error
       ? {
           color: 'red',
