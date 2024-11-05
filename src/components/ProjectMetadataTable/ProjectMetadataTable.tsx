@@ -3,6 +3,7 @@ import { useMemo, useState } from 'react'
 import { MantineReactTable, MRT_ColumnDef, MRT_PaginationState, useMantineReactTable } from 'mantine-react-table'
 import { Group, Pagination, Select } from '@mantine/core'
 import { camelCaseToHumanCase } from '@lib'
+import { ErrorBoundary } from '../ErrorBoundary'
 
 type Project = NonNullable<GetProjectDetailsQuery['contributions']['items']>[number]['project']
 
@@ -66,7 +67,9 @@ export const ProjectMetadataTable = (props: ProjectMetadataTableProps) => {
 
   return (
     <div data-testid='MetadataTable'>
-      <MantineReactTable table={table} />
+      <ErrorBoundary>
+        <MantineReactTable table={table} />
+      </ErrorBoundary>
       <Group align='flex-end' mt='md'>
         <Pagination
           total={Math.ceil(metaData.length / pagination.pageSize)}

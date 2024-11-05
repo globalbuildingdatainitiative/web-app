@@ -39,6 +39,7 @@ const getMetaData = (projectData: ProjectData) => ({
   // Information
   projectClassificationSystem: String(projectData['meta_data.project_classification_system'] || ''),
   image: String(projectData['meta_data.image'] || ''),
+  source: { name: String(projectData['meta_data.source.name'] || ''), url: null },
 
   // Location
   climateZone: String(projectData['meta_data.climate_zone'] || ''),
