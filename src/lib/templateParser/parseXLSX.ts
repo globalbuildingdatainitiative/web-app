@@ -50,7 +50,7 @@ export const parseXlsxToContribution = async (file: File) => {
   const assembliesSheet = XLSX.utils.sheet_to_json(workbook.Sheets['Assemblies'], { header: 1 }) as (
     | string
     | number
-    )[][]
+  )[][]
 
   return {
     project: mapToJson(projectSheet),

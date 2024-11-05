@@ -8,9 +8,9 @@ type ProjectData = Record<string, string | number>
 export const getProject = (projectData: ProjectData, assemblies: InputAssembly[]) => {
   return {
     id: uuidv4(),
-    name: projectData['name'] as string || 'Unknown Project',
-    description: projectData['description'] as string || '',
-    comment: projectData['comment'] as string || '',
+    name: (projectData['name'] as string) || 'Unknown Project',
+    description: (projectData['description'] as string) || '',
+    comment: (projectData['comment'] as string) || '',
     classificationSystem: projectData['classification_system'] || '',
     projectPhase: projectData['project_phase'],
     location: getLocation(projectData),
@@ -31,7 +31,7 @@ export const getProject = (projectData: ProjectData, assemblies: InputAssembly[]
 
     projectInfo: getProjectInfo(projectData),
 
-    //metaData: getMetaData(projectData),
+    metaData: getMetaData(projectData),
   } as RequiredInputProject
 }
 
@@ -258,63 +258,59 @@ const getMetaData = (projectData: ProjectData) => ({
   journalPublisher: String(projectData['meta_data.publication.publisher'] || ''),
 })
 
-const getProjectInfo = (projectData: ProjectData) => (
-  {
-    type: 'buildingInfo',
-    buildingFootprint: {
-      value: projectData['project_info.building_info.building_footprint.value'] || 0,
-      unit: projectData['project_info.building_info.building_footprint.unit'] || 'unknown',
-    },
-    buildingHeight: {
-      value: projectData['project_info.building_info.building_height.value'] || 0,
-      unit: projectData['project_info.building_info.building_height.unit'] || 'unknown',
-    },
-    buildingMass: {
-      value: projectData['project_info.building_info.building_mass.value'] || 0,
-      unit: projectData['project_info.building_info.building_mass.unit'] || 'unknown',
-    },
-    buildingModelScope: [projectData['project_info.building_info.building_model_scope'] || ''],
-    buildingType: ((projectData['project_info.building_info.building_type'] as string) || '')
-      .toLowerCase()
-      .replace(/ /g, '_'),
-    buildingTypology: [((projectData['project_info.building_info.building_typology'] as string) || '').toLowerCase()],
-    buildingUsers: projectData['building_users'] || 0,
-    certifications: [projectData['certifications'] || 'unknown'],
-    floorsAboveGround: projectData['floors_above_ground'] || 0,
-    floorsBelowGround: projectData['floors_below_ground'] || 0,
-    frameType: projectData['frame_type'] || '',
-    grossFloorArea: {
-      value: projectData['gross_floor_area.value'] || 0,
-      unit: projectData['gross_floor_area.unit'] || 'unknown',
-      definition: '',
-    },
-    heatedFloorArea: {
-      value: projectData['heated_floor_area.value'] || 0,
-      unit: projectData['heated_floor_area.unit'] || 'unknown',
-      definition: '',
-    },
-    roofType: projectData['project_info.building_info.roof_type'] || '',
-    buildingCompletionYear: Number(projectData['project_info.building_info.building_completion_year']) || 0,
-    buildingPermitYear: Number(projectData['building_permit_year']) || 0,
-    energyDemandHeating: projectData['building_info.energy_demand_heating'] || 0,
-    energySupplyHeating: projectData['building_info.energy_supply_heating'] || 0,
-    energyDemandElectricity: projectData['building_info.energy_demand_electricity'] || 0,
-    energySupplyElectricity: projectData['building_info.energy_supply_electricity'] || 0,
-    exportedElectricity: projectData['building_info.exported_electricity'] || 0,
-    generalEnergyClass: projectData['building_info.general_energy_class'] || '',
-    localEnergyClass: projectData['building_info.local_energy_class'] || '',
-  }
-)
+const getProjectInfo = (projectData: ProjectData) => ({
+  type: 'buildingInfo',
+  buildingFootprint: {
+    value: projectData['project_info.building_info.building_footprint.value'] || 0,
+    unit: projectData['project_info.building_info.building_footprint.unit'] || 'unknown',
+  },
+  buildingHeight: {
+    value: projectData['project_info.building_info.building_height.value'] || 0,
+    unit: projectData['project_info.building_info.building_height.unit'] || 'unknown',
+  },
+  buildingMass: {
+    value: projectData['project_info.building_info.building_mass.value'] || 0,
+    unit: projectData['project_info.building_info.building_mass.unit'] || 'unknown',
+  },
+  buildingModelScope: [projectData['project_info.building_info.building_model_scope'] || ''],
+  buildingType: ((projectData['project_info.building_info.building_type'] as string) || '')
+    .toLowerCase()
+    .replace(/ /g, '_'),
+  buildingTypology: [((projectData['project_info.building_info.building_typology'] as string) || '').toLowerCase()],
+  buildingUsers: projectData['building_users'] || 0,
+  certifications: [projectData['certifications'] || 'unknown'],
+  floorsAboveGround: projectData['floors_above_ground'] || 0,
+  floorsBelowGround: projectData['floors_below_ground'] || 0,
+  frameType: projectData['frame_type'] || '',
+  grossFloorArea: {
+    value: projectData['gross_floor_area.value'] || 0,
+    unit: projectData['gross_floor_area.unit'] || 'unknown',
+    definition: '',
+  },
+  heatedFloorArea: {
+    value: projectData['heated_floor_area.value'] || 0,
+    unit: projectData['heated_floor_area.unit'] || 'unknown',
+    definition: '',
+  },
+  roofType: projectData['project_info.building_info.roof_type'] || '',
+  buildingCompletionYear: Number(projectData['project_info.building_info.building_completion_year']) || 0,
+  buildingPermitYear: Number(projectData['building_permit_year']) || 0,
+  energyDemandHeating: projectData['building_info.energy_demand_heating'] || 0,
+  energySupplyHeating: projectData['building_info.energy_supply_heating'] || 0,
+  energyDemandElectricity: projectData['building_info.energy_demand_electricity'] || 0,
+  energySupplyElectricity: projectData['building_info.energy_supply_electricity'] || 0,
+  exportedElectricity: projectData['building_info.exported_electricity'] || 0,
+  generalEnergyClass: projectData['building_info.general_energy_class'] || '',
+  localEnergyClass: projectData['building_info.local_energy_class'] || '',
+})
 
-const getLocation = (projectData: ProjectData) => (
-  {
-    address: projectData['location.address'] || '',
-    city: projectData['location.city'] || '',
-    country: ((projectData['location.country'] as string) || '').toLowerCase(),
-    latitude: projectData['location.latitude'] || 0,
-    longitude: projectData['location.longitude'] || 0,
-  }
-)
+const getLocation = (projectData: ProjectData) => ({
+  address: projectData['location.address'] || '',
+  city: projectData['location.city'] || '',
+  country: ((projectData['location.country'] as string) || '').toLowerCase(),
+  latitude: projectData['location.latitude'] || 0,
+  longitude: projectData['location.longitude'] || 0,
+})
 
 // Function to map life cycle stages
 const mapLifeCycleStages = (assemblies: InputAssembly[]): LifeCycleStage[] => {

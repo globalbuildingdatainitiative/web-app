@@ -1,10 +1,10 @@
+import { Paper } from '@components'
 import {
-  Paper,
-  parseXlsxToContribution,
   mapJsonToInputContribution,
   parseLcaxToContribution,
   parseSLiCEtoContribution,
-} from '@components'
+  parseXlsxToContribution,
+} from '@lib'
 import { Button, Checkbox, Group, rem, Stack, Text, Title, Tooltip } from '@mantine/core'
 import { Dropzone, FileRejection } from '@mantine/dropzone'
 import { IconPhoto, IconUpload, IconX } from '@tabler/icons-react'
@@ -85,7 +85,17 @@ export const ContributionUploadPaper = () => {
         return contributions
       }
     } catch (e) {
-      setFileErrors([{file: file, errors: [{message: 'Unexpected Error While Processing the File. Contact the GBDI team if error persists.', code: 'parsing-error'}]}])
+      setFileErrors([
+        {
+          file: file,
+          errors: [
+            {
+              message: 'Unexpected Error While Processing the File. Contact the GBDI team if error persists.',
+              code: 'parsing-error',
+            },
+          ],
+        },
+      ])
       setFileLoading(false)
       console.error('Error in file parsing', e)
     }

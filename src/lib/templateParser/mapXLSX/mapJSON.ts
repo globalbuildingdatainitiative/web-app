@@ -29,7 +29,8 @@ export const mapJsonToInputContribution = (json: never): InputContribution[] => 
   )
 
   let project = { ...inputProject, assemblies: _assemblies } // expects assemblies and products to be objects with key=id, value=object
-  // debugger
+
+  // @ts-expect-error ignore project type
   project = calculateProject(project as unknown as Project)
 
   // @ts-expect-error Ignoring type mismatch for calculateProject
