@@ -14,6 +14,7 @@ const OrganizationPortfolioPage = lazy(() => import('../../pages/PortfolioPage')
 const EditProfilePage = lazy(() => import('../../pages/EditProfilePage'))
 const EditOrganizationPage = lazy(() => import('../../pages/EditOrganizationPage'))
 const Page404 = lazy(() => import('../../pages/404Page'))
+const ProjectDetailsPage = lazy(() => import('../../pages/ProjectDetailsPage'))
 
 export const AppRouter = () => {
   const { user } = useUserContext()
@@ -44,6 +45,7 @@ export const AppRouter = () => {
           <Route path='/organization/addmembers' element={<AddMembersPage />} />
           <Route path='/contributions' element={<ContributionPage />} />
           <Route path='/contributions/new' element={<ContributeNowPage />} />
+          <Route path='/contributions/:contributionId/project' element={<ProjectDetailsPage />} />
           <Route path='/profile' element={<EditProfilePage />} />
           <Route path='*' element={<Page404 />} />
         </Route>

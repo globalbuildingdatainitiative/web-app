@@ -2152,7 +2152,7 @@
             "deprecationReason": null
           },
           {
-            "name": "eneryModelMethodologyReference",
+            "name": "energyModelMethodologyReference",
             "description": null,
             "args": [],
             "type": { "kind": "SCALAR", "name": "String", "ofType": null },
