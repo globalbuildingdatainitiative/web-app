@@ -30,7 +30,7 @@
     "@tabler/icons-react": "^3.2.0",
     "clsx": "^2.1.1",
     "dayjs": "^1.11.10",
-    "lcax": "^2.6.0",
+    "lcax": "^2.6.1",
     "leaflet": "^1.9.4",
     "mantine-react-table": "^2.0.0-beta.5",
     "react": "^18.3.1",
