@@ -1,10 +1,11 @@
 import { useState } from 'react'
-import { Paper, ErrorMessage, theme } from '@components'
-import { Button, MantineProvider, PasswordInput, Stack, Text, TextInput, Title, Container } from '@mantine/core'
-import { isNotEmpty, matchesField, useForm } from '@mantine/form'
-import logo from 'assets/logo.png'
+import { useForm } from '@mantine/form'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { useAcceptInvitationMutation } from '@queries'
+import { InvitationLayout } from '../InvitationLayout'
+import { InvitationSuccess } from '../InvitationSuccess'
+import { NewUserInvitationForm } from './NewUserInvitationForm'
+import { FormValues } from './types.ts'
 
 export const NewUserInvitation = () => {
   const navigate = useNavigate()
@@ -20,7 +21,7 @@ export const NewUserInvitation = () => {
     },
   })
 
-  const form = useForm({
+  const form = useForm<FormValues>({
     initialValues: {
       firstName: '',
       lastName: '',
@@ -28,22 +29,22 @@ export const NewUserInvitation = () => {
       confirmPassword: '',
     },
     validate: {
-      firstName: isNotEmpty('First name is required'),
-      lastName: isNotEmpty('Last name is required'),
-      newPassword: isNotEmpty('Password is required'),
-      confirmPassword: matchesField('newPassword', 'Passwords do not match'),
+      firstName: (value: string) => (value.trim() ? null : 'First name is required'),
+      lastName: (value: string) => (value.trim() ? null : 'Last name is required'),
+      newPassword: (value: string) => (value ? null : 'Password is required'),
+      confirmPassword: (value: string, values: FormValues) =>
+        value !== values.newPassword ? 'Passwords do not match' : null,
     },
   })
 
-  const handleAccept = async (values: typeof form.values) => {
+  const handleAccept = async (values: FormValues) => {
     if (!userId) {
       setInvitationError(new Error('Invalid invitation link. Missing user ID.'))
       return
     }
 
     try {
-      setInvitationError(null) // Clear any previous errors
-
+      setInvitationError(null)
       const { data } = await acceptInvitation({
         variables: {
           user: {
@@ -66,86 +67,13 @@ export const NewUserInvitation = () => {
     }
   }
 
-  const renderContent = () => {
-    if (accepted) {
-      return (
-        <>
-          <Text ta='center'>Invitation accepted successfully.</Text>
-          <Text ta='center'>Redirecting to home page...</Text>
-        </>
-      )
-    }
-
-    return (
-      <>
-        {invitationError && <ErrorMessage error={invitationError} />}
-        <form onSubmit={form.onSubmit(handleAccept)} style={{ width: '100%', maxWidth: '500px' }}>
-          <Stack gap='md'>
-            <TextInput
-              label='First Name'
-              placeholder='Enter your first name'
-              {...form.getInputProps('firstName')}
-              disabled={loading}
-            />
-            <TextInput
-              label='Last Name'
-              placeholder='Enter your last name'
-              {...form.getInputProps('lastName')}
-              disabled={loading}
-            />
-            <PasswordInput
-              label='New Password'
-              placeholder='Enter your new password'
-              {...form.getInputProps('newPassword')}
-              disabled={loading}
-            />
-            <PasswordInput
-              label='Confirm New Password'
-              placeholder='Confirm your new password'
-              {...form.getInputProps('confirmPassword')}
-              disabled={loading}
-            />
-            <Button type='submit' radius='lg' px={16} size='md' w={500} loading={loading} disabled={loading}>
-              Accept Invitation and Sign Up
-            </Button>
-          </Stack>
-        </form>
-      </>
-    )
-  }
-
   return (
-    <MantineProvider theme={theme}>
-      <div
-        style={{
-          minHeight: '100vh',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          backgroundColor: '#fafbff',
-          margin: 0,
-          padding: 0,
-          position: 'fixed',
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-        }}
-      >
-        <Container size='md' style={{ margin: '0 auto' }}>
-          <Paper data-testid='NewUserInvitation'>
-            <Stack gap='xl' align='center'>
-              <img src={logo} alt='Company Logo' style={{ maxWidth: '400px' }} />
-
-              <Title order={2} ta='center' mt='md'>
-                Accept Invitation to Join GBDI
-              </Title>
-
-              {renderContent()}
-            </Stack>
-          </Paper>
-        </Container>
-      </div>
-    </MantineProvider>
+    <InvitationLayout title='Accept Invitation to Join GBDI' testId='NewUserInvitation'>
+      {accepted ? (
+        <InvitationSuccess message='Invitation accepted successfully.' />
+      ) : (
+        <NewUserInvitationForm form={form} onSubmit={handleAccept} loading={loading} error={invitationError} />
+      )}
+    </InvitationLayout>
   )
 }
