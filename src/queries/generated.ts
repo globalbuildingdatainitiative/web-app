@@ -1374,6 +1374,7 @@ export type ProjectMetaData = {
   resultsValidatedAsBuilt?: Maybe<Scalars['Boolean']['output']>
   resultsValidatedAsBuiltDescription?: Maybe<Scalars['String']['output']>
   retrofittedArea?: Maybe<ValueUnit>
+  source?: Maybe<Source>
   structural?: Maybe<Structural>
   structuralEngineer?: Maybe<Scalars['String']['output']>
   surfaceParkingArea?: Maybe<ValueUnit>
@@ -2550,6 +2551,7 @@ export type ProjectMetaDataResolvers<
   resultsValidatedAsBuilt?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>
   resultsValidatedAsBuiltDescription?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
   retrofittedArea?: Resolver<Maybe<ResolversTypes['ValueUnit']>, ParentType, ContextType>
+  source?: Resolver<Maybe<ResolversTypes['Source']>, ParentType, ContextType>
   structural?: Resolver<Maybe<ResolversTypes['Structural']>, ParentType, ContextType>
   structuralEngineer?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
   surfaceParkingArea?: Resolver<Maybe<ResolversTypes['ValueUnit']>, ParentType, ContextType>
@@ -3156,6 +3158,7 @@ export type GetProjectDetailsQuery = {
           constructionStart?: any | null
           constructionYearExistingBuilding?: number | null
           buildingOccupancyStart?: any | null
+          source?: { __typename?: 'Source'; name: string; url?: string | null } | null
           owner?: {
             __typename?: 'Owner'
             contact?: string | null
@@ -4326,6 +4329,10 @@ export const GetProjectDetailsDocument = gql`
             roofType
           }
           metaData {
+            source {
+              name
+              url
+            }
             productClassificationSystem
             climateZone
             owner {
