@@ -30,9 +30,9 @@ export const SidePanel = ({ collapsed, toggleCollapsed }: SidePanelProps) => {
 
   const buttons: ButtonProps[] = [
     { name: 'Dashboard', Logo: IconDashboard, link: '/' },
+    { name: 'Portfolio', Logo: IconChartHistogram, link: '/portfolio' },
     { name: 'Contributions', Logo: IconUpload, link: '/contributions' },
     { name: 'Organization', Logo: IconAffiliate, link: '/organization' },
-    { name: 'Portfolio', Logo: IconChartHistogram, link: '/portfolio' },
     { name: 'Profile', Logo: IconUser, link: '/profile' },
   ]
 
