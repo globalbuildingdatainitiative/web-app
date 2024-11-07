@@ -17,7 +17,7 @@ export const InvitationLayout = ({ title, children, testId }: InvitationLayoutPr
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: '#fafbff',
+        backgroundColor: theme?.other?.backgroundColor,
         margin: 0,
         padding: 0,
         position: 'fixed',

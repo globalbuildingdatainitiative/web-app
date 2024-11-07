@@ -1,4 +1,4 @@
-import { Loading, Paper, ProjectMetadataTable } from '@components'
+import { ErrorBoundary, Loading, Paper, ProjectMetadataTable } from '@components'
 import { Center, Divider, Title } from '@mantine/core'
 import { useGetProjectDetailsQuery } from '@queries'
 import { useMemo } from 'react'
@@ -31,7 +31,9 @@ export const ProjectDetailsPaper = (props: ProjectDetailsPaperProps) => {
       <Title order={4} style={{ marginBottom: 2 }}>
         Metadata
       </Title>
-      <ProjectMetadataTable project={project} />
+      <ErrorBoundary>
+        <ProjectMetadataTable project={project} />
+      </ErrorBoundary>
     </Paper>
   )
 }
