@@ -27,6 +27,30 @@ SuperTokens.init({
     websiteBasePath: import.meta.env.VITE_AUTH_WEB_PATH,
   },
   style: `
+        [data-supertokens~=container] {
+            box-shadow: #1d9a78;
+            padding-top: 120px !important;
+            padding-bottom: 24px !important;
+            position: relative;
+        }
+        [data-supertokens~=container]:before {
+            content: '';
+            background-image: url('/src/assets/logo.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            width: 120px;
+            height: 120px;
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        [data-supertokens~=headerTitle] {
+            text-align: center !important;
+            margin-bottom: 25px !important;
+        }
+
         [data-supertokens~=button] {
             background-color: #1d9a78;
             border: 0px;
@@ -36,9 +60,9 @@ SuperTokens.init({
             transition: all 0.4s
         }
         button[data-supertokens~='button']:hover {
-            background-color: #134f5c !important; /* Darker shade on hover (#166b65) */
-          }
-          [data-supertokens~=linkButton] {
+            background-color: #134f5c !important;
+        }
+        [data-supertokens~=linkButton] {
             color: #1d9a78;
         }
         [data-supertokens~=link] {
@@ -46,9 +70,6 @@ SuperTokens.init({
         }
         [data-supertokens~=label] {
             font-family: Calibri, sans-serif;
-        }
-        [data-supertokens~=container] {
-            box-shadow: #1d9a78;
         }
         [data-supertokens~="headerSubtitle"][data-supertokens~="secondaryText"] {
             color: #868d8b;
