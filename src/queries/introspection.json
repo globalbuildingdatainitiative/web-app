@@ -6047,6 +6047,14 @@
             "deprecationReason": null
           },
           {
+            "name": "source",
+            "description": null,
+            "args": [],
+            "type": { "kind": "OBJECT", "name": "Source", "ofType": null },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "structural",
             "description": null,
             "args": [],
