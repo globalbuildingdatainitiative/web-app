@@ -686,7 +686,7 @@ exports[`ContributionTable > Snapshot 1`] = `
               </th>
               <th
                 align="left"
-                class="m_4e7aa4f3 mantine-Table-th MRT_TableHeadCell-module_root__6y50a MRT_TableHeadCell-module_root-no-select__BEOVU"
+                class="m_4e7aa4f3 mantine-Table-th MRT_TableHeadCell-module_root__6y50a"
                 colspan="1"
                 data-index="3"
                 style="min-width: max(calc(var(--header-User-size) * 1px), 40px);"
@@ -696,8 +696,8 @@ exports[`ContributionTable > Snapshot 1`] = `
                   style=""
                 >
                   <div
-                    class="mrt-table-head-cell-labels MRT_TableHeadCell-module_labels__oiMSr MRT_TableHeadCell-module_labels-sortable__tyuLr MRT_TableHeadCell-module_labels-data__PvFGO m_8bffd616 mantine-Flex-root __m__-r4d"
-                    style="--mrt-table-head-cell-labels-padding-left: 2.75;"
+                    class="mrt-table-head-cell-labels MRT_TableHeadCell-module_labels__oiMSr MRT_TableHeadCell-module_labels-data__PvFGO m_8bffd616 mantine-Flex-root __m__-r4d"
+                    style="--mrt-table-head-cell-labels-padding-left: 1.75;"
                   >
                     <div
                       class="mrt-table-head-cell-content-wrapper MRT_TableHeadCell-module_content-wrapper__py6aJ MRT_TableHeadCell-module_content-wrapper-hidden-overflow__QY40r MRT_TableHeadCell-module_content-wrapper-nowrap__-4aIg m_8bffd616 mantine-Flex-root __m__-r4f"
@@ -705,40 +705,9 @@ exports[`ContributionTable > Snapshot 1`] = `
                     >
                       User
                     </div>
-                    <button
-                      aria-label="Sort by User ascending"
-                      class="mantine-focus-auto mantine-active mrt-table-head-sort-button MRT_TableHeadCellSortLabel-module_sort-icon__zs1xA m_8d3f4000 mantine-ActionIcon-root m_87cf2631 mantine-UnstyledButton-root"
-                      style="--ai-color: var(--mantine-color-white);"
-                      type="button"
-                    >
-                      <span
-                        class="m_8d3afb97 mantine-ActionIcon-icon"
-                        style=""
-                      >
-                        <svg
-                          class="tabler-icon tabler-icon-arrows-sort "
-                          fill="none"
-                          height="100%"
-                          stroke="currentColor"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
-                          viewBox="0 0 24 24"
-                          width="100%"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            d="M3 9l4 -4l4 4m-4 -4v14"
-                          />
-                          <path
-                            d="M21 15l-4 4l-4 -4m4 4v-14"
-                          />
-                        </svg>
-                      </span>
-                    </button>
                   </div>
                   <div
-                    class="mrt-table-head-cell-content-actions MRT_TableHeadCell-module_content-actions__utxbm m_8bffd616 mantine-Flex-root __m__-r4o"
+                    class="mrt-table-head-cell-content-actions MRT_TableHeadCell-module_content-actions__utxbm m_8bffd616 mantine-Flex-root __m__-r4h"
                     style=""
                   >
                     <button
@@ -783,47 +752,6 @@ exports[`ContributionTable > Snapshot 1`] = `
                     </button>
                   </div>
                 </div>
-                <div
-                  aria-hidden="true"
-                  class=""
-                  style="box-sizing: border-box; opacity: 0; transition: opacity 200ms ease; display: none; height: 0px; overflow: hidden;"
-                >
-                  <div
-                    class="m_8bffd616 mantine-Flex-root __m__-r52"
-                    style="flex-direction: column;"
-                  >
-                    <div
-                      class="m_8bffd616 mantine-Flex-root __m__-r54"
-                      style="align-items: flex-end;"
-                    >
-                      <div
-                        class="mrt-filter-text-input MRT_FilterTextInput-module_root__Ss8Ql MRT_FilterTextInput-module_not-filter-chip__u8b1y m_46b77525 mantine-InputWrapper-root mantine-TextInput-root"
-                        data-variant="unstyled"
-                        style="margin-top: 0rem;"
-                      >
-                        <div
-                          class="m_6c018570 mantine-Input-wrapper mantine-TextInput-wrapper"
-                          data-variant="unstyled"
-                          style=""
-                        >
-                          <input
-                            aria-invalid="false"
-                            aria-label="Filter by User"
-                            class="m_8fb7ebe7 mantine-Input-input mantine-TextInput-input"
-                            data-variant="unstyled"
-                            formaction="http://localhost:3000/"
-                            formmethod=""
-                            id=""
-                            placeholder="Filter by User"
-                            style=""
-                            title="Filter by User"
-                            value=""
-                          />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
               </th>
               <th
                 align="left"
@@ -833,15 +761,15 @@ exports[`ContributionTable > Snapshot 1`] = `
                 style="min-width: max(calc(var(--header-uploadedAt-size) * 1px), 40px);"
               >
                 <div
-                  class="mrt-table-head-cell-content MRT_TableHeadCell-module_content__-pzSK m_8bffd616 mantine-Flex-root __m__-r5b"
+                  class="mrt-table-head-cell-content MRT_TableHeadCell-module_content__-pzSK m_8bffd616 mantine-Flex-root __m__-r4r"
                   style=""
                 >
                   <div
-                    class="mrt-table-head-cell-labels MRT_TableHeadCell-module_labels__oiMSr MRT_TableHeadCell-module_labels-sortable__tyuLr MRT_TableHeadCell-module_labels-data__PvFGO m_8bffd616 mantine-Flex-root __m__-r5d"
+                    class="mrt-table-head-cell-labels MRT_TableHeadCell-module_labels__oiMSr MRT_TableHeadCell-module_labels-sortable__tyuLr MRT_TableHeadCell-module_labels-data__PvFGO m_8bffd616 mantine-Flex-root __m__-r4t"
                     style="--mrt-table-head-cell-labels-padding-left: 2.75;"
                   >
                     <div
-                      class="mrt-table-head-cell-content-wrapper MRT_TableHeadCell-module_content-wrapper__py6aJ MRT_TableHeadCell-module_content-wrapper-hidden-overflow__QY40r MRT_TableHeadCell-module_content-wrapper-nowrap__-4aIg m_8bffd616 mantine-Flex-root __m__-r5f"
+                      class="mrt-table-head-cell-content-wrapper MRT_TableHeadCell-module_content-wrapper__py6aJ MRT_TableHeadCell-module_content-wrapper-hidden-overflow__QY40r MRT_TableHeadCell-module_content-wrapper-nowrap__-4aIg m_8bffd616 mantine-Flex-root __m__-r4v"
                       style=""
                     >
                       Date
@@ -879,7 +807,7 @@ exports[`ContributionTable > Snapshot 1`] = `
                     </button>
                   </div>
                   <div
-                    class="mrt-table-head-cell-content-actions MRT_TableHeadCell-module_content-actions__utxbm m_8bffd616 mantine-Flex-root __m__-r5o"
+                    class="mrt-table-head-cell-content-actions MRT_TableHeadCell-module_content-actions__utxbm m_8bffd616 mantine-Flex-root __m__-r58"
                     style=""
                   >
                     <button
@@ -930,11 +858,11 @@ exports[`ContributionTable > Snapshot 1`] = `
                   style="box-sizing: border-box; opacity: 0; transition: opacity 200ms ease; display: none; height: 0px; overflow: hidden;"
                 >
                   <div
-                    class="m_8bffd616 mantine-Flex-root __m__-r62"
+                    class="m_8bffd616 mantine-Flex-root __m__-r5i"
                     style="flex-direction: column;"
                   >
                     <div
-                      class="m_8bffd616 mantine-Flex-root __m__-r64"
+                      class="m_8bffd616 mantine-Flex-root __m__-r5k"
                       style="align-items: flex-end;"
                     >
                       <div
@@ -974,15 +902,15 @@ exports[`ContributionTable > Snapshot 1`] = `
                 style="min-width: max(calc(var(--header-public-size) * 1px), 40px);"
               >
                 <div
-                  class="mrt-table-head-cell-content MRT_TableHeadCell-module_content__-pzSK m_8bffd616 mantine-Flex-root __m__-r6b"
+                  class="mrt-table-head-cell-content MRT_TableHeadCell-module_content__-pzSK m_8bffd616 mantine-Flex-root __m__-r5r"
                   style=""
                 >
                   <div
-                    class="mrt-table-head-cell-labels MRT_TableHeadCell-module_labels__oiMSr MRT_TableHeadCell-module_labels-sortable__tyuLr MRT_TableHeadCell-module_labels-data__PvFGO m_8bffd616 mantine-Flex-root __m__-r6d"
+                    class="mrt-table-head-cell-labels MRT_TableHeadCell-module_labels__oiMSr MRT_TableHeadCell-module_labels-sortable__tyuLr MRT_TableHeadCell-module_labels-data__PvFGO m_8bffd616 mantine-Flex-root __m__-r5t"
                     style="--mrt-table-head-cell-labels-padding-left: 2.75;"
                   >
                     <div
-                      class="mrt-table-head-cell-content-wrapper MRT_TableHeadCell-module_content-wrapper__py6aJ MRT_TableHeadCell-module_content-wrapper-hidden-overflow__QY40r MRT_TableHeadCell-module_content-wrapper-nowrap__-4aIg m_8bffd616 mantine-Flex-root __m__-r6f"
+                      class="mrt-table-head-cell-content-wrapper MRT_TableHeadCell-module_content-wrapper__py6aJ MRT_TableHeadCell-module_content-wrapper-hidden-overflow__QY40r MRT_TableHeadCell-module_content-wrapper-nowrap__-4aIg m_8bffd616 mantine-Flex-root __m__-r5v"
                       style=""
                     >
                       Public
@@ -1020,7 +948,7 @@ exports[`ContributionTable > Snapshot 1`] = `
                     </button>
                   </div>
                   <div
-                    class="mrt-table-head-cell-content-actions MRT_TableHeadCell-module_content-actions__utxbm m_8bffd616 mantine-Flex-root __m__-r6o"
+                    class="mrt-table-head-cell-content-actions MRT_TableHeadCell-module_content-actions__utxbm m_8bffd616 mantine-Flex-root __m__-r68"
                     style=""
                   >
                     <button
@@ -1071,11 +999,11 @@ exports[`ContributionTable > Snapshot 1`] = `
                   style="box-sizing: border-box; opacity: 0; transition: opacity 200ms ease; display: none; height: 0px; overflow: hidden;"
                 >
                   <div
-                    class="m_8bffd616 mantine-Flex-root __m__-r72"
+                    class="m_8bffd616 mantine-Flex-root __m__-r6i"
                     style="flex-direction: column;"
                   >
                     <div
-                      class="m_8bffd616 mantine-Flex-root __m__-r74"
+                      class="m_8bffd616 mantine-Flex-root __m__-r6k"
                       style="align-items: flex-end;"
                     >
                       <div
@@ -1115,15 +1043,15 @@ exports[`ContributionTable > Snapshot 1`] = `
                 style="min-width: max(calc(var(--header-project_lifeCycleStages-size) * 1px), 40px);"
               >
                 <div
-                  class="mrt-table-head-cell-content MRT_TableHeadCell-module_content__-pzSK m_8bffd616 mantine-Flex-root __m__-r7b"
+                  class="mrt-table-head-cell-content MRT_TableHeadCell-module_content__-pzSK m_8bffd616 mantine-Flex-root __m__-r6r"
                   style=""
                 >
                   <div
-                    class="mrt-table-head-cell-labels MRT_TableHeadCell-module_labels__oiMSr MRT_TableHeadCell-module_labels-sortable__tyuLr MRT_TableHeadCell-module_labels-data__PvFGO m_8bffd616 mantine-Flex-root __m__-r7d"
+                    class="mrt-table-head-cell-labels MRT_TableHeadCell-module_labels__oiMSr MRT_TableHeadCell-module_labels-sortable__tyuLr MRT_TableHeadCell-module_labels-data__PvFGO m_8bffd616 mantine-Flex-root __m__-r6t"
                     style="--mrt-table-head-cell-labels-padding-left: 2.75;"
                   >
                     <div
-                      class="mrt-table-head-cell-content-wrapper MRT_TableHeadCell-module_content-wrapper__py6aJ MRT_TableHeadCell-module_content-wrapper-hidden-overflow__QY40r MRT_TableHeadCell-module_content-wrapper-nowrap__-4aIg m_8bffd616 mantine-Flex-root __m__-r7f"
+                      class="mrt-table-head-cell-content-wrapper MRT_TableHeadCell-module_content-wrapper__py6aJ MRT_TableHeadCell-module_content-wrapper-hidden-overflow__QY40r MRT_TableHeadCell-module_content-wrapper-nowrap__-4aIg m_8bffd616 mantine-Flex-root __m__-r6v"
                       style=""
                     >
                       Life Cycle Stages
@@ -1161,7 +1089,7 @@ exports[`ContributionTable > Snapshot 1`] = `
                     </button>
                   </div>
                   <div
-                    class="mrt-table-head-cell-content-actions MRT_TableHeadCell-module_content-actions__utxbm m_8bffd616 mantine-Flex-root __m__-r7o"
+                    class="mrt-table-head-cell-content-actions MRT_TableHeadCell-module_content-actions__utxbm m_8bffd616 mantine-Flex-root __m__-r78"
                     style=""
                   >
                     <button
@@ -1212,11 +1140,11 @@ exports[`ContributionTable > Snapshot 1`] = `
                   style="box-sizing: border-box; opacity: 0; transition: opacity 200ms ease; display: none; height: 0px; overflow: hidden;"
                 >
                   <div
-                    class="m_8bffd616 mantine-Flex-root __m__-r82"
+                    class="m_8bffd616 mantine-Flex-root __m__-r7i"
                     style="flex-direction: column;"
                   >
                     <div
-                      class="m_8bffd616 mantine-Flex-root __m__-r84"
+                      class="m_8bffd616 mantine-Flex-root __m__-r7k"
                       style="align-items: flex-end;"
                     >
                       <div
@@ -1256,15 +1184,15 @@ exports[`ContributionTable > Snapshot 1`] = `
                 style="min-width: max(calc(var(--header-project_impactCategories-size) * 1px), 40px);"
               >
                 <div
-                  class="mrt-table-head-cell-content MRT_TableHeadCell-module_content__-pzSK m_8bffd616 mantine-Flex-root __m__-r8b"
+                  class="mrt-table-head-cell-content MRT_TableHeadCell-module_content__-pzSK m_8bffd616 mantine-Flex-root __m__-r7r"
                   style=""
                 >
                   <div
-                    class="mrt-table-head-cell-labels MRT_TableHeadCell-module_labels__oiMSr MRT_TableHeadCell-module_labels-sortable__tyuLr MRT_TableHeadCell-module_labels-data__PvFGO m_8bffd616 mantine-Flex-root __m__-r8d"
+                    class="mrt-table-head-cell-labels MRT_TableHeadCell-module_labels__oiMSr MRT_TableHeadCell-module_labels-sortable__tyuLr MRT_TableHeadCell-module_labels-data__PvFGO m_8bffd616 mantine-Flex-root __m__-r7t"
                     style="--mrt-table-head-cell-labels-padding-left: 2.75;"
                   >
                     <div
-                      class="mrt-table-head-cell-content-wrapper MRT_TableHeadCell-module_content-wrapper__py6aJ MRT_TableHeadCell-module_content-wrapper-hidden-overflow__QY40r MRT_TableHeadCell-module_content-wrapper-nowrap__-4aIg m_8bffd616 mantine-Flex-root __m__-r8f"
+                      class="mrt-table-head-cell-content-wrapper MRT_TableHeadCell-module_content-wrapper__py6aJ MRT_TableHeadCell-module_content-wrapper-hidden-overflow__QY40r MRT_TableHeadCell-module_content-wrapper-nowrap__-4aIg m_8bffd616 mantine-Flex-root __m__-r7v"
                       style=""
                     >
                       Impact Categories
@@ -1302,7 +1230,7 @@ exports[`ContributionTable > Snapshot 1`] = `
                     </button>
                   </div>
                   <div
-                    class="mrt-table-head-cell-content-actions MRT_TableHeadCell-module_content-actions__utxbm m_8bffd616 mantine-Flex-root __m__-r8o"
+                    class="mrt-table-head-cell-content-actions MRT_TableHeadCell-module_content-actions__utxbm m_8bffd616 mantine-Flex-root __m__-r88"
                     style=""
                   >
                     <button
@@ -1353,11 +1281,11 @@ exports[`ContributionTable > Snapshot 1`] = `
                   style="box-sizing: border-box; opacity: 0; transition: opacity 200ms ease; display: none; height: 0px; overflow: hidden;"
                 >
                   <div
-                    class="m_8bffd616 mantine-Flex-root __m__-r92"
+                    class="m_8bffd616 mantine-Flex-root __m__-r8i"
                     style="flex-direction: column;"
                   >
                     <div
-                      class="m_8bffd616 mantine-Flex-root __m__-r94"
+                      class="m_8bffd616 mantine-Flex-root __m__-r8k"
                       style="align-items: flex-end;"
                     >
                       <div
