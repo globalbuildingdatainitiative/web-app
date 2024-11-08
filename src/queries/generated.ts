@@ -796,7 +796,7 @@ export type Energy = {
   electricityCarbonFactorSource?: Maybe<Scalars['String']['output']>
   electricityProvider?: Maybe<Scalars['String']['output']>
   electricitySource?: Maybe<Scalars['String']['output']>
-  eneryModelMethodologyReference?: Maybe<Scalars['String']['output']>
+  energyModelMethodologyReference?: Maybe<Scalars['String']['output']>
   gwpEnergySourcesYear?: Maybe<Scalars['Float']['output']>
   siteLocationWeatherData?: Maybe<Scalars['String']['output']>
   toolEnergyModeling?: Maybe<Scalars['String']['output']>
@@ -804,6 +804,8 @@ export type Energy = {
 }
 
 export type FilterBy = {
+  contains?: InputMaybe<Scalars['JSON']['input']>
+  endsWith?: InputMaybe<Scalars['JSON']['input']>
   equal?: InputMaybe<Scalars['JSON']['input']>
   gt?: InputMaybe<Scalars['JSON']['input']>
   gte?: InputMaybe<Scalars['JSON']['input']>
@@ -811,6 +813,7 @@ export type FilterBy = {
   lt?: InputMaybe<Scalars['JSON']['input']>
   lte?: InputMaybe<Scalars['JSON']['input']>
   notEqual?: InputMaybe<Scalars['JSON']['input']>
+  startsWith?: InputMaybe<Scalars['JSON']['input']>
 }
 
 export type FilterOptions = {
@@ -2195,7 +2198,7 @@ export type EnergyResolvers<
   electricityCarbonFactorSource?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
   electricityProvider?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
   electricitySource?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
-  eneryModelMethodologyReference?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
+  energyModelMethodologyReference?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
   gwpEnergySourcesYear?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>
   siteLocationWeatherData?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
   toolEnergyModeling?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
@@ -2832,6 +2835,8 @@ export type GetContributionsForHeaderQuery = {
 export type GetContributionsQueryVariables = Exact<{
   limit?: InputMaybe<Scalars['Int']['input']>
   offset?: InputMaybe<Scalars['Int']['input']>
+  sortBy?: InputMaybe<SortBy>
+  filterBy?: InputMaybe<FilterBy>
 }>
 
 export type GetContributionsQuery = {
@@ -3368,9 +3373,9 @@ export type GetContributionsForHeaderQueryResult = Apollo.QueryResult<
   GetContributionsForHeaderQueryVariables
 >
 export const GetContributionsDocument = gql`
-  query getContributions($limit: Int, $offset: Int) {
+  query getContributions($limit: Int, $offset: Int, $sortBy: SortBy, $filterBy: FilterBy) {
     contributions {
-      items(limit: $limit, offset: $offset) {
+      items(limit: $limit, offset: $offset, sortBy: $sortBy, filterBy: $filterBy) {
         id
         uploadedAt
         public
@@ -3391,7 +3396,7 @@ export const GetContributionsDocument = gql`
           }
         }
       }
-      count
+      count(filterBy: $filterBy)
     }
   }
 `
@@ -3410,6 +3415,8 @@ export const GetContributionsDocument = gql`
  *   variables: {
  *      limit: // value for 'limit'
  *      offset: // value for 'offset'
+ *      sortBy: // value for 'sortBy'
+ *      filterBy: // value for 'filterBy'
  *   },
  * });
  */

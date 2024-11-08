@@ -2152,7 +2152,7 @@
             "deprecationReason": null
           },
           {
-            "name": "eneryModelMethodologyReference",
+            "name": "energyModelMethodologyReference",
             "description": null,
             "args": [],
             "type": { "kind": "SCALAR", "name": "String", "ofType": null },
@@ -2205,6 +2205,22 @@
         "fields": null,
         "inputFields": [
           {
+            "name": "contains",
+            "description": null,
+            "type": { "kind": "SCALAR", "name": "JSON", "ofType": null },
+            "defaultValue": "null",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "endsWith",
+            "description": null,
+            "type": { "kind": "SCALAR", "name": "JSON", "ofType": null },
+            "defaultValue": "null",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "equal",
             "description": null,
             "type": { "kind": "SCALAR", "name": "JSON", "ofType": null },
@@ -2254,6 +2270,14 @@
           },
           {
             "name": "notEqual",
+            "description": null,
+            "type": { "kind": "SCALAR", "name": "JSON", "ofType": null },
+            "defaultValue": "null",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "startsWith",
             "description": null,
             "type": { "kind": "SCALAR", "name": "JSON", "ofType": null },
             "defaultValue": "null",
