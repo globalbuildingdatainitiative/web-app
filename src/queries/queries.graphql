@@ -64,7 +64,7 @@ query getContributions($limit: Int, $offset: Int, $sortBy: SortBy, $filterBy: Fi
         }
       }
     }
-    count (filterBy: $filterBy)
+    count(filterBy: $filterBy)
   }
 }
 

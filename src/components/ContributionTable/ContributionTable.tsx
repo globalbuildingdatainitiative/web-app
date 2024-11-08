@@ -462,7 +462,14 @@ export const ContributionTable: React.FC = () => {
 */
 
 import { useGetContributionsQuery, GetContributionsQuery } from '@queries'
-import { MantineReactTable, MRT_ColumnDef, useMantineReactTable, MRT_PaginationState, MRT_SortingState, MRT_ColumnFiltersState } from 'mantine-react-table'
+import {
+  MantineReactTable,
+  MRT_ColumnDef,
+  useMantineReactTable,
+  MRT_PaginationState,
+  MRT_SortingState,
+  MRT_ColumnFiltersState,
+} from 'mantine-react-table'
 import React, { useMemo, useState } from 'react'
 import dayjs from 'dayjs'
 import { Group, Select, Pagination, Text, Tooltip } from '@mantine/core'
@@ -513,26 +520,29 @@ export const ContributionTable: React.FC = () => {
 
     // Don't modify the field path, send it as is to match the backend mapping
     return {
-      [sort.desc ? 'dsc' : 'asc']: sort.id
+      [sort.desc ? 'dsc' : 'asc']: sort.id,
     }
   }
 
   const getFilterVariables = () => {
     if (!columnFilters.length) return undefined
 
-    const filters = columnFilters.reduce((acc, filter) => {
-      // Strip any nested path indicators
-      const fieldName = filter.id.split('.').pop() || filter.id
-      return {
-        contains: {
-          ...acc.contains,
-          [fieldName]: filter.value
+    const filters = columnFilters.reduce(
+      (acc, filter) => {
+        // Strip any nested path indicators
+        const fieldName = filter.id.split('.').pop() || filter.id
+        return {
+          contains: {
+            ...acc.contains,
+            [fieldName]: filter.value,
+          },
         }
-      }
-    }, { contains: {} })
+      },
+      { contains: {} },
+    )
+
     return filters
   }
-
 
   const { loading, error, data } = useGetContributionsQuery({
     variables: {
@@ -640,9 +650,9 @@ export const ContributionTable: React.FC = () => {
     manualPagination: true,
     mantineToolbarAlertBannerProps: error
       ? {
-        color: 'red',
-        children: error.message,
-      }
+          color: 'red',
+          children: error.message,
+        }
       : undefined,
     state: {
       isLoading: loading,
