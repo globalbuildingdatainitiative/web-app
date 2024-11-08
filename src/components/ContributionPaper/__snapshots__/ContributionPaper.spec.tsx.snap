@@ -1004,19 +1004,23 @@ exports[`ContributionPaper 1`] = `
                           style="align-items: flex-end;"
                         >
                           <div
-                            class="mrt-filter-text-input MRT_FilterTextInput-module_root__Ss8Ql MRT_FilterTextInput-module_not-filter-chip__u8b1y m_46b77525 mantine-InputWrapper-root mantine-TextInput-root"
+                            class="mrt-filter-text-input MRT_FilterTextInput-module_root__Ss8Ql MRT_FilterTextInput-module_not-filter-chip__u8b1y m_46b77525 mantine-InputWrapper-root mantine-Select-root"
                             data-variant="unstyled"
-                            style="margin-top: 0rem;"
+                            style=""
                           >
                             <div
-                              class="m_6c018570 mantine-Input-wrapper mantine-TextInput-wrapper"
+                              class="m_6c018570 mantine-Input-wrapper mantine-Select-wrapper"
                               data-variant="unstyled"
-                              style=""
+                              data-with-right-section="true"
+                              style="--input-right-section-pointer-events: none;"
                             >
                               <input
+                                aria-controls=""
+                                aria-haspopup="listbox"
                                 aria-invalid="false"
                                 aria-label="Filter by Public"
-                                class="m_8fb7ebe7 mantine-Input-input mantine-TextInput-input"
+                                autocomplete="off"
+                                class="m_8fb7ebe7 mantine-Input-input mantine-Select-input"
                                 data-variant="unstyled"
                                 formaction="http://localhost:3000/"
                                 formmethod=""
@@ -1026,8 +1030,34 @@ exports[`ContributionPaper 1`] = `
                                 title="Filter by Public"
                                 value=""
                               />
+                              <div
+                                class="m_82577fc2 mantine-Input-section mantine-Select-section"
+                                data-position="right"
+                                style=""
+                              >
+                                <svg
+                                  class="m_2943220b mantine-ComboboxChevron-chevron"
+                                  data-combobox-chevron="true"
+                                  fill="none"
+                                  viewBox="0 0 15 15"
+                                  xmlns="http://www.w3.org/2000/svg"
+                                >
+                                  <path
+                                    clip-rule="evenodd"
+                                    d="M4.93179 5.43179C4.75605 5.60753 4.75605 5.89245 4.93179 6.06819C5.10753 6.24392 5.39245 6.24392 5.56819 6.06819L7.49999 4.13638L9.43179 6.06819C9.60753 6.24392 9.89245 6.24392 10.0682 6.06819C10.2439 5.89245 10.2439 5.60753 10.0682 5.43179L7.81819 3.18179C7.73379 3.0974 7.61933 3.04999 7.49999 3.04999C7.38064 3.04999 7.26618 3.0974 7.18179 3.18179L4.93179 5.43179ZM10.0682 9.56819C10.2439 9.39245 10.2439 9.10753 10.0682 8.93179C9.89245 8.75606 9.60753 8.75606 9.43179 8.93179L7.49999 10.8636L5.56819 8.93179C5.39245 8.75606 5.10753 8.75606 4.93179 8.93179C4.75605 9.10753 4.75605 9.39245 4.93179 9.56819L7.18179 11.8182C7.35753 11.9939 7.64245 11.9939 7.81819 11.8182L10.0682 9.56819Z"
+                                    fill="currentColor"
+                                    fill-rule="evenodd"
+                                  />
+                                </svg>
+                              </div>
                             </div>
                           </div>
+                          <input
+                            formaction="http://localhost:3000/"
+                            formmethod=""
+                            type="hidden"
+                            value=""
+                          />
                         </div>
                       </div>
                     </div>
@@ -1040,15 +1070,15 @@ exports[`ContributionPaper 1`] = `
                     style="min-width: max(calc(var(--header-project_lifeCycleStages-size) * 1px), 40px);"
                   >
                     <div
-                      class="mrt-table-head-cell-content MRT_TableHeadCell-module_content__-pzSK m_8bffd616 mantine-Flex-root __m__-r6t"
+                      class="mrt-table-head-cell-content MRT_TableHeadCell-module_content__-pzSK m_8bffd616 mantine-Flex-root __m__-r71"
                       style=""
                     >
                       <div
-                        class="mrt-table-head-cell-labels MRT_TableHeadCell-module_labels__oiMSr MRT_TableHeadCell-module_labels-sortable__tyuLr MRT_TableHeadCell-module_labels-data__PvFGO m_8bffd616 mantine-Flex-root __m__-r6v"
+                        class="mrt-table-head-cell-labels MRT_TableHeadCell-module_labels__oiMSr MRT_TableHeadCell-module_labels-sortable__tyuLr MRT_TableHeadCell-module_labels-data__PvFGO m_8bffd616 mantine-Flex-root __m__-r73"
                         style="--mrt-table-head-cell-labels-padding-left: 2.75;"
                       >
                         <div
-                          class="mrt-table-head-cell-content-wrapper MRT_TableHeadCell-module_content-wrapper__py6aJ MRT_TableHeadCell-module_content-wrapper-hidden-overflow__QY40r MRT_TableHeadCell-module_content-wrapper-nowrap__-4aIg m_8bffd616 mantine-Flex-root __m__-r71"
+                          class="mrt-table-head-cell-content-wrapper MRT_TableHeadCell-module_content-wrapper__py6aJ MRT_TableHeadCell-module_content-wrapper-hidden-overflow__QY40r MRT_TableHeadCell-module_content-wrapper-nowrap__-4aIg m_8bffd616 mantine-Flex-root __m__-r75"
                           style=""
                         >
                           Life Cycle Stages
@@ -1086,7 +1116,7 @@ exports[`ContributionPaper 1`] = `
                         </button>
                       </div>
                       <div
-                        class="mrt-table-head-cell-content-actions MRT_TableHeadCell-module_content-actions__utxbm m_8bffd616 mantine-Flex-root __m__-r7a"
+                        class="mrt-table-head-cell-content-actions MRT_TableHeadCell-module_content-actions__utxbm m_8bffd616 mantine-Flex-root __m__-r7e"
                         style=""
                       >
                         <button
@@ -1137,11 +1167,11 @@ exports[`ContributionPaper 1`] = `
                       style="box-sizing: border-box; opacity: 0; transition: opacity 200ms ease; display: none; height: 0px; overflow: hidden;"
                     >
                       <div
-                        class="m_8bffd616 mantine-Flex-root __m__-r7k"
+                        class="m_8bffd616 mantine-Flex-root __m__-r7o"
                         style="flex-direction: column;"
                       >
                         <div
-                          class="m_8bffd616 mantine-Flex-root __m__-r7m"
+                          class="m_8bffd616 mantine-Flex-root __m__-r7q"
                           style="align-items: flex-end;"
                         >
                           <div
@@ -1181,15 +1211,15 @@ exports[`ContributionPaper 1`] = `
                     style="min-width: max(calc(var(--header-project_impactCategories-size) * 1px), 40px);"
                   >
                     <div
-                      class="mrt-table-head-cell-content MRT_TableHeadCell-module_content__-pzSK m_8bffd616 mantine-Flex-root __m__-r7t"
+                      class="mrt-table-head-cell-content MRT_TableHeadCell-module_content__-pzSK m_8bffd616 mantine-Flex-root __m__-r81"
                       style=""
                     >
                       <div
-                        class="mrt-table-head-cell-labels MRT_TableHeadCell-module_labels__oiMSr MRT_TableHeadCell-module_labels-sortable__tyuLr MRT_TableHeadCell-module_labels-data__PvFGO m_8bffd616 mantine-Flex-root __m__-r7v"
+                        class="mrt-table-head-cell-labels MRT_TableHeadCell-module_labels__oiMSr MRT_TableHeadCell-module_labels-sortable__tyuLr MRT_TableHeadCell-module_labels-data__PvFGO m_8bffd616 mantine-Flex-root __m__-r83"
                         style="--mrt-table-head-cell-labels-padding-left: 2.75;"
                       >
                         <div
-                          class="mrt-table-head-cell-content-wrapper MRT_TableHeadCell-module_content-wrapper__py6aJ MRT_TableHeadCell-module_content-wrapper-hidden-overflow__QY40r MRT_TableHeadCell-module_content-wrapper-nowrap__-4aIg m_8bffd616 mantine-Flex-root __m__-r81"
+                          class="mrt-table-head-cell-content-wrapper MRT_TableHeadCell-module_content-wrapper__py6aJ MRT_TableHeadCell-module_content-wrapper-hidden-overflow__QY40r MRT_TableHeadCell-module_content-wrapper-nowrap__-4aIg m_8bffd616 mantine-Flex-root __m__-r85"
                           style=""
                         >
                           Impact Categories
@@ -1227,7 +1257,7 @@ exports[`ContributionPaper 1`] = `
                         </button>
                       </div>
                       <div
-                        class="mrt-table-head-cell-content-actions MRT_TableHeadCell-module_content-actions__utxbm m_8bffd616 mantine-Flex-root __m__-r8a"
+                        class="mrt-table-head-cell-content-actions MRT_TableHeadCell-module_content-actions__utxbm m_8bffd616 mantine-Flex-root __m__-r8e"
                         style=""
                       >
                         <button
@@ -1278,11 +1308,11 @@ exports[`ContributionPaper 1`] = `
                       style="box-sizing: border-box; opacity: 0; transition: opacity 200ms ease; display: none; height: 0px; overflow: hidden;"
                     >
                       <div
-                        class="m_8bffd616 mantine-Flex-root __m__-r8k"
+                        class="m_8bffd616 mantine-Flex-root __m__-r8o"
                         style="flex-direction: column;"
                       >
                         <div
-                          class="m_8bffd616 mantine-Flex-root __m__-r8m"
+                          class="m_8bffd616 mantine-Flex-root __m__-r8q"
                           style="align-items: flex-end;"
                         >
                           <div
@@ -1809,6 +1839,91 @@ exports[`ContributionPaper 1`] = `
   />
   <div
     data-portal="true"
+  >
+    <div
+      class="m_38a85659 mantine-Popover-dropdown m_88b62a41 mantine-Select-dropdown"
+      data-position="bottom"
+      role="presentation"
+      style="display: none; z-index: 300; top: 8px; left: 0px; width: 0px;"
+    >
+      <div
+        aria-label="Filter by Public"
+        class="m_b2821a6e mantine-Select-options"
+        id=""
+        role="listbox"
+        style=""
+      >
+        <div
+          class=""
+          style="display: flex; overflow: auto; max-height: calc(13.75rem * var(--mantine-scale));"
+        >
+          <div
+            class=""
+            style="display: flex; flex-direction: column; flex-grow: 1; flex-shrink: 1; flex-basis: 0%;"
+          >
+            <div
+              class="m_d57069b5 mantine-ScrollArea-root"
+              style="--scrollarea-scrollbar-size: var(--combobox-padding); --sa-corner-width: 0px; --sa-corner-height: 0px;"
+            >
+              <div
+                class="m_c0783ff9 mantine-ScrollArea-viewport"
+                data-offset-scrollbars="y"
+                data-scrollbars="xy"
+                style="overflow-x: scroll; overflow-y: scroll;"
+              >
+                <div
+                  style="min-width: 100%; display: table;"
+                >
+                  <div
+                    aria-selected="false"
+                    class="m_92253aa5 mantine-Select-option m_390b5f4"
+                    data-combobox-option="true"
+                    id=":rf3:"
+                    role="option"
+                    style=""
+                    value="true"
+                  >
+                    <span>
+                      Yes
+                    </span>
+                  </div>
+                  <div
+                    aria-selected="false"
+                    class="m_92253aa5 mantine-Select-option m_390b5f4"
+                    data-combobox-option="true"
+                    id=":rf5:"
+                    role="option"
+                    style=""
+                    value="false"
+                  >
+                    <span>
+                      No
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="m_c44ba933 mantine-ScrollArea-scrollbar"
+                data-mantine-scrollbar="true"
+                data-orientation="horizontal"
+                data-state="hidden"
+                style="position: absolute; --sa-thumb-width: 18px;"
+              />
+              <div
+                class="m_c44ba933 mantine-ScrollArea-scrollbar"
+                data-mantine-scrollbar="true"
+                data-orientation="vertical"
+                data-state="hidden"
+                style="position: absolute; --sa-thumb-height: 18px;"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    data-portal="true"
   />
   <div
     data-portal="true"
@@ -1868,7 +1983,7 @@ exports[`ContributionPaper 1`] = `
                     data-checked="true"
                     data-combobox-active="true"
                     data-combobox-option="true"
-                    id=":rev:"
+                    id=":rfe:"
                     role="option"
                     style=""
                     value="10"
@@ -1895,7 +2010,7 @@ exports[`ContributionPaper 1`] = `
                     aria-selected="false"
                     class="m_92253aa5 mantine-Select-option m_390b5f4"
                     data-combobox-option="true"
-                    id=":rf1:"
+                    id=":rfg:"
                     role="option"
                     style=""
                     value="20"
@@ -1908,7 +2023,7 @@ exports[`ContributionPaper 1`] = `
                     aria-selected="false"
                     class="m_92253aa5 mantine-Select-option m_390b5f4"
                     data-combobox-option="true"
-                    id=":rf3:"
+                    id=":rfi:"
                     role="option"
                     style=""
                     value="30"
@@ -1921,7 +2036,7 @@ exports[`ContributionPaper 1`] = `
                     aria-selected="false"
                     class="m_92253aa5 mantine-Select-option m_390b5f4"
                     data-combobox-option="true"
-                    id=":rf5:"
+                    id=":rfk:"
                     role="option"
                     style=""
                     value="50"
@@ -1934,7 +2049,7 @@ exports[`ContributionPaper 1`] = `
                     aria-selected="false"
                     class="m_92253aa5 mantine-Select-option m_390b5f4"
                     data-combobox-option="true"
-                    id=":rf7:"
+                    id=":rfm:"
                     role="option"
                     style=""
                     value="100"
@@ -1947,7 +2062,7 @@ exports[`ContributionPaper 1`] = `
                     aria-selected="false"
                     class="m_92253aa5 mantine-Select-option m_390b5f4"
                     data-combobox-option="true"
-                    id=":rf9:"
+                    id=":rfo:"
                     role="option"
                     style=""
                     value="200"
