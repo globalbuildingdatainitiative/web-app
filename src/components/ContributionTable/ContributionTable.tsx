@@ -64,21 +64,48 @@ export const ContributionTable: React.FC = () => {
   const getFilterVariables = () => {
     if (!columnFilters.length) return undefined
 
-    const filters = columnFilters.reduce(
+    interface FilterAccumulator {
+      contains: Record<string, unknown>
+      equal: Record<string, unknown>
+    }
+
+    const filters = columnFilters.reduce<FilterAccumulator>(
       (acc, filter) => {
-        // Strip any nested path indicators
         const fieldName = filter.id.split('.').pop() || filter.id
+
+        if (fieldName === 'public') {
+          return {
+            ...acc,
+            equal: {
+              ...acc.equal,
+              [fieldName]: filter.value === 'true',
+            },
+            contains: acc.contains, // Maintain the contains object
+          }
+        }
+
         return {
+          ...acc,
+          equal: acc.equal, // Maintain the equal object
           contains: {
             ...acc.contains,
             [fieldName]: filter.value,
           },
         }
       },
-      { contains: {} },
+      { contains: {}, equal: {} },
     )
 
-    return filters
+    // Only return non-empty filter objects
+    const result: Record<string, Record<string, unknown>> = {}
+    if (Object.keys(filters.contains).length > 0) {
+      result.contains = filters.contains
+    }
+    if (Object.keys(filters.equal).length > 0) {
+      result.equal = filters.equal
+    }
+
+    return Object.keys(result).length > 0 ? result : undefined
   }
 
   const { loading, error, data } = useGetContributionsQuery({
@@ -98,8 +125,6 @@ export const ContributionTable: React.FC = () => {
       {
         accessorKey: 'project.name',
         header: 'Project Name',
-        enableSorting: true,
-        enableColumnFilter: true,
         Cell: ({ cell }) => {
           const project_name = cell.getValue<string>() || 'N/A'
           return <TruncatedTextWithTooltip text={project_name} />
@@ -108,8 +133,6 @@ export const ContributionTable: React.FC = () => {
       {
         accessorKey: 'project.location.countryName',
         header: 'Country',
-        enableSorting: true,
-        enableColumnFilter: true,
         Cell: ({ cell }) => {
           const country = cell.getValue<string>() || 'N/A'
           return <TruncatedTextWithTooltip text={country} />
@@ -118,8 +141,6 @@ export const ContributionTable: React.FC = () => {
       {
         accessorKey: 'project.projectInfo.buildingType',
         header: 'Building Type',
-        enableSorting: true,
-        enableColumnFilter: true,
         Cell: ({ cell }) => {
           const rawValue = cell.getValue<string>() || 'N/A'
           const formattedValue = rawValue.replace(/_/g, ' ').replace(/\b\w/g, (char) => char.toUpperCase())
@@ -140,15 +161,18 @@ export const ContributionTable: React.FC = () => {
       {
         accessorKey: 'uploadedAt',
         header: 'Date',
-        enableSorting: true,
-        enableColumnFilter: true,
         Cell: ({ cell }) => <Text>{dayjs(cell.getValue<string>()).format('DD/MM/YYYY')}</Text>,
       },
       {
         accessorKey: 'public',
         header: 'Public',
-        enableSorting: true,
-        enableColumnFilter: true,
+        filterVariant: 'select',
+        mantineFilterSelectProps: {
+          data: [
+            { value: 'true', label: 'Yes' },
+            { value: 'false', label: 'No' },
+          ],
+        },
         Cell: ({ cell }) => <Text>{cell.getValue<boolean>() ? 'Yes' : 'No'}</Text>,
       },
       {
