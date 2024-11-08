@@ -17,6 +17,12 @@ export const AddMembersPaper = () => {
   const [inviteUsers, { loading, error }] = useInviteUsersMutation()
 
   const parseEmails = (input: string): string[] => {
+    const hasSeparator = /[,;:\n\t\s]/.test(input)
+
+    if (!hasSeparator) {
+      return []
+    }
+
     const normalizedInput = input
       .replace(/[;:]/g, ',')
       .replace(/[\n\t]/g, ',')
@@ -24,7 +30,7 @@ export const AddMembersPaper = () => {
       .replace(/,+/g, ',')
 
     return normalizedInput
-      .split(',')
+      .split(/[,\s]+/)
       .map((email) => email.trim())
       .filter((email) => {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
@@ -34,14 +40,25 @@ export const AddMembersPaper = () => {
 
   const handleInputChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     const newInput = event.currentTarget.value
-    setEmailInput(newInput)
-    setParsedEmails(parseEmails(newInput))
+    const newParsedEmails = parseEmails(newInput)
+
+    if (newParsedEmails.length > 0) {
+      const uniqueNewEmails = newParsedEmails.filter((email) => !parsedEmails.includes(email))
+
+      if (uniqueNewEmails.length > 0) {
+        setParsedEmails([...parsedEmails, ...uniqueNewEmails])
+        setEmailInput('')
+      } else {
+        setEmailInput(newInput)
+      }
+    } else {
+      setEmailInput(newInput)
+    }
   }
 
   const handleRemoveEmail = (emailToRemove: string) => {
     const updatedEmails = parsedEmails.filter((email) => email !== emailToRemove)
     setParsedEmails(updatedEmails)
-    setEmailInput(updatedEmails.join(', '))
   }
 
   const handleSubmit = async (event: React.FormEvent) => {
@@ -82,19 +99,24 @@ export const AddMembersPaper = () => {
                 label='Member Emails'
                 description='Enter email addresses separated by comma, semicolon, colon, new line, tab, or spaces'
                 placeholder='e.g., user@example.com, another@example.com'
-                required
+                required={parsedEmails.length === 0}
                 autosize
                 minRows={3}
                 maxRows={5}
               />
               {parsedEmails.length > 0 && (
-                <Group gap='xs' wrap='wrap'>
-                  {parsedEmails.map((email, index) => (
-                    <Pill key={index} withRemoveButton onRemove={() => handleRemoveEmail(email)} size='md'>
-                      {email}
-                    </Pill>
-                  ))}
-                </Group>
+                <>
+                  <Text size='sm' fw={500}>
+                    An invitation will be sent to the following emails:
+                  </Text>
+                  <Group gap='xs' wrap='wrap'>
+                    {parsedEmails.map((email, index) => (
+                      <Pill key={index} withRemoveButton onRemove={() => handleRemoveEmail(email)} size='md'>
+                        {email}
+                      </Pill>
+                    ))}
+                  </Group>
+                </>
               )}
             </Stack>
             <Button
