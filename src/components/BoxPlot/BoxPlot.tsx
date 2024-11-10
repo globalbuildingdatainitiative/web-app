@@ -158,6 +158,10 @@ export const BoxPlot = (props: BoxPlotProps) => {
     [props.data],
   )
 
+  // Calculate domain bounds rounded to nearest 10
+  const maxValue = Math.max(...props.data.map((d) => Math.max(d.max, d.avg))) || 0
+  const roundedMax = Math.ceil(maxValue / 10) * 10
+
   return (
     <div data-testid='BoxPlot'>
       <ResponsiveContainer width='100%' height={height * 0.9}>
@@ -165,8 +169,9 @@ export const BoxPlot = (props: BoxPlotProps) => {
           <CartesianGrid strokeDasharray='3 3' horizontal={false} />
           <XAxis
             type='number'
-            domain={['dataMin', 'dataMax + 1']}
+            domain={[0, roundedMax]}
             tickCount={7}
+            ticks={Array.from({ length: 8 }, (_, i) => Math.round((i * roundedMax) / 7 / 10) * 10)}
             label={{ value: 'GWP Intensity (kgCO₂eq/m²)', position: 'insideBottom', offset: -10 }}
           />
           <YAxis type='category' dataKey='name' />
