@@ -43,7 +43,7 @@ export const GlobalMap = () => {
             radius={getRadius(projectGroup.count)}
             pathOptions={{
               color: theme.primaryColor,
-              fillOpacity: 0.7,
+              fillOpacity: 1,
             }}
             center={[projectGroup.items[0].location.latitude, projectGroup.items[0].location.longitude]}
           >
