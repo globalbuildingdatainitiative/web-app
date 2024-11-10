@@ -4,6 +4,7 @@ import React, { useMemo, useState } from 'react'
 import dayjs from 'dayjs'
 import { Group, Select, Pagination, Text, Tooltip } from '@mantine/core'
 import { ViewProjectDetails } from './viewProjectDetails.tsx'
+import { useMediaQuery } from '@mantine/hooks'
 
 interface TruncatedTextWithTooltipProps {
   text: string
@@ -42,6 +43,7 @@ export const TruncatedTextWithTooltip: React.FC<TruncatedTextWithTooltipProps> =
 
 export const ContributionTable: React.FC = () => {
   const [pagination, setPagination] = useState<MRT_PaginationState>({ pageIndex: 0, pageSize: 10 })
+  const isSmallScreen = useMediaQuery('(max-width: 1800px)')
 
   const { loading, error, data } = useGetContributionsQuery({
     variables: {
@@ -53,7 +55,7 @@ export const ContributionTable: React.FC = () => {
 
   type ContributionItems = NonNullable<GetContributionsQuery['contributions']['items']>[number]
 
-  const columns = useMemo<MRT_ColumnDef<ContributionItems>[]>(
+  const allColumns = useMemo<MRT_ColumnDef<ContributionItems>[]>(
     () => [
       {
         accessorKey: 'project.name',
@@ -125,11 +127,23 @@ export const ContributionTable: React.FC = () => {
     ],
     [],
   )
+
+  const visibleColumns = useMemo(() => {
+    if (isSmallScreen) {
+      return allColumns.filter((column) =>
+        ['project.name', 'project.location.countryName', 'User', 'uploadedAt', 'projectDetails'].includes(
+          column.accessorKey || column.id || '',
+        ),
+      )
+    }
+    return allColumns
+  }, [allColumns, isSmallScreen])
+
   const rowData = useMemo(() => data?.contributions.items || [], [data])
   const totalRowCount = useMemo(() => data?.contributions.count || 0, [data])
 
   const table = useMantineReactTable({
-    columns,
+    columns: visibleColumns,
     data: rowData,
     rowCount: totalRowCount,
     pageCount: Math.ceil(totalRowCount / pagination.pageSize),
