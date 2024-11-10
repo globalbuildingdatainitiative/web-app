@@ -14,6 +14,19 @@ const capitalizeEnumValue = (value: string): string => {
   return value.toUpperCase()
 }
 
+const formatCountryName = (countryName: string): string => {
+  switch (countryName) {
+    case 'United Kingdom of Great Britain and Northern Ireland':
+      return 'UK'
+    case 'United States of America':
+      return 'USA'
+    case 'Korea, Republic of':
+      return 'South Korea'
+    default:
+      return countryName
+  }
+}
+
 export const GlobalBoxPlot = () => {
   const [selectedTypologies, setSelectedTypologies] = useState<string[]>([])
   const [selectedLifeCycleStages, setSelectedLifeCycleStages] = useState<string[]>([LifeCycleStage.A1A3])
@@ -125,7 +138,7 @@ export const GlobalBoxPlot = () => {
     if (!data) return []
     const countries = data.projects.groups.map((group) => ({
       value: group.group,
-      label: group.items[0].location.countryName,
+      label: formatCountryName(group.items[0].location.countryName),
     }))
     return [{ value: 'all', label: 'Select All' }, ...countries.sort((a, b) => a.label.localeCompare(b.label))]
   }, [data])
@@ -193,7 +206,9 @@ export const GlobalBoxPlot = () => {
           pct75: agg.pct[1],
           max: agg.max,
           avg: agg.avg,
-          name: data.projects.groups.find((group) => group.group == agg.group)?.items[0].location.countryName,
+          name: formatCountryName(
+            data.projects.groups.find((group) => group.group == agg.group)?.items[0].location.countryName ?? '',
+          ),
           count: agg.count,
         }),
       )

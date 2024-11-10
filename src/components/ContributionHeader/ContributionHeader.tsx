@@ -1,13 +1,10 @@
-import { Paper } from '@components'
-import { Button, Divider, Group, Title, Text } from '@mantine/core'
-import { useNavigate } from 'react-router-dom'
+import { ActionButton, Paper, theme } from '@components'
+import { Divider, Group, Text, Stack, Center } from '@mantine/core'
 import { useGetContributionsForHeaderQuery } from '@queries'
 import dayjs from 'dayjs'
-import { IconUsers } from '@tabler/icons-react'
+import { IconStack3, IconCalendarMonth } from '@tabler/icons-react'
 
 export const ContributionHeader = () => {
-  const navigate = useNavigate()
-
   const { data, loading, error } = useGetContributionsForHeaderQuery()
 
   if (loading) return <div>Loading...</div>
@@ -20,33 +17,31 @@ export const ContributionHeader = () => {
   return (
     <Paper data-testid='ContributionHeader'>
       <Group justify='space-between' align='center'>
-        <Group>
-          <IconUsers color='green' size={32} />
-          <div>
-            <Title size='sm' order={3}>
-              Total Contributions
-            </Title>
-            <Text style={{ textAlign: 'center' }} size='xl'>
-              {totalContributions}
-            </Text>
-          </div>
+        <Divider orientation='vertical' color='white' />
+        <Group align='center'>
+          <IconStack3 size={36} color={theme.primaryColor} />
+          <Stack align='center'>
+            <Text> Total Contributions </Text>
+            <Text style={{ textAlign: 'center' }}> {totalContributions} </Text>
+          </Stack>
         </Group>
         <Divider orientation='vertical' />
-        <Group>
-          <IconUsers color='green' size={32} />
-          <div>
-            <Title size='sm' order={3}>
-              Days Since Last Contribution
-            </Title>
-            <Text style={{ textAlign: 'center' }} size='xl'>
-              {daysSinceLastContribution}
-            </Text>
-          </div>
+
+        <Group align='center'>
+          <IconCalendarMonth size={36} color={theme.primaryColor} />
+          <Stack>
+            <Text> Days Since Last Contribution </Text>
+            <Text style={{ textAlign: 'center' }}> {daysSinceLastContribution} </Text>
+          </Stack>
         </Group>
         <Divider orientation='vertical' />
-        <Button color='green' radius='sm' px={16} onClick={() => navigate('/contributions/new')}>
-          Contribute Now
-        </Button>
+
+        <>
+          <Center>
+            <ActionButton buttonName='Contribute Now' navigateTo='/contributions/new' />
+          </Center>
+          <Divider orientation='vertical' color='white' />
+        </>
       </Group>
     </Paper>
   )

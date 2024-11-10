@@ -2,7 +2,7 @@ import { Paper, ActionButton } from '@components'
 import { Center, Divider, Group, Stack, Text, useMantineTheme } from '@mantine/core'
 import { useUserContext } from '@context'
 import { useGetUsersQuery } from '@queries'
-import { IconBuilding, IconUser } from '@tabler/icons-react'
+import { IconBuilding, IconUsers } from '@tabler/icons-react'
 
 interface OrganizationHeaderProps {
   context: 'organization' | 'addMembers' | 'createOrganization' | 'portfolio' | 'editOrganization'
@@ -33,7 +33,7 @@ export const OrganizationHeader = ({ context }: OrganizationHeaderProps) => {
       <Group align='center' justify='space-between'>
         <Divider orientation='vertical' color='white' />
         <Group align='center'>
-          <IconUser size={48} color={theme.primaryColor} />
+          <IconUsers size={36} color={theme.primaryColor} />
           <Stack align='center'>
             <Text>Total Members</Text>
             <Text>{totalMembers}</Text>
@@ -42,7 +42,7 @@ export const OrganizationHeader = ({ context }: OrganizationHeaderProps) => {
         <Divider orientation='vertical' />
 
         <Group align='center'>
-          <IconBuilding size={48} color={theme.primaryColor} />
+          <IconBuilding size={36} color={theme.primaryColor} />
           <Stack align='center'>
             <Text>Organization Name</Text>
             <Text size='xl'>{organizationName}</Text>
