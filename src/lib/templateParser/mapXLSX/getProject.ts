@@ -308,7 +308,7 @@ const getProjectInfo = (projectData: ProjectData) => ({
 const getLocation = (projectData: ProjectData) => ({
   address: projectData['location.address'] || '',
   city: projectData['location.city'] || '',
-  country: ((projectData['location.country'] as string) || '').toLowerCase(),
+  country: ((projectData['location.country'] as string) || 'unknown').toLowerCase(),
   latitude: projectData['location.latitude'] || 0,
   longitude: projectData['location.longitude'] || 0,
 })
