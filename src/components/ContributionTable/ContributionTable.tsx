@@ -1,10 +1,10 @@
 import { useGetContributionsQuery, GetContributionsQuery } from '@queries'
 import { MantineReactTable, MRT_ColumnDef, useMantineReactTable, MRT_PaginationState } from 'mantine-react-table'
-import React, { useMemo, useState } from 'react'
+import React, { useMemo, useState, useEffect } from 'react'
 import dayjs from 'dayjs'
 import { Group, Select, Pagination, Text, Tooltip } from '@mantine/core'
 import { ViewProjectDetails } from './viewProjectDetails.tsx'
-import { useMediaQuery } from '@mantine/hooks'
+import { useViewportSize } from '@mantine/hooks'
 
 interface TruncatedTextWithTooltipProps {
   text: string
@@ -43,7 +43,9 @@ export const TruncatedTextWithTooltip: React.FC<TruncatedTextWithTooltipProps> =
 
 export const ContributionTable: React.FC = () => {
   const [pagination, setPagination] = useState<MRT_PaginationState>({ pageIndex: 0, pageSize: 10 })
-  const isSmallScreen = useMediaQuery('(max-width: 1800px)')
+  const { width: viewportWidth } = useViewportSize()
+  const [columnVisibility, setColumnVisibility] = useState({})
+  const shouldHideColumns = viewportWidth < window.screen.width
 
   const { loading, error, data } = useGetContributionsQuery({
     variables: {
@@ -55,7 +57,7 @@ export const ContributionTable: React.FC = () => {
 
   type ContributionItems = NonNullable<GetContributionsQuery['contributions']['items']>[number]
 
-  const allColumns = useMemo<MRT_ColumnDef<ContributionItems>[]>(
+  const columns = useMemo<MRT_ColumnDef<ContributionItems>[]>(
     () => [
       {
         accessorKey: 'project.name',
@@ -128,27 +130,30 @@ export const ContributionTable: React.FC = () => {
     [],
   )
 
-  const visibleColumns = useMemo(() => {
-    if (isSmallScreen) {
-      return allColumns.filter((column) =>
-        ['project.name', 'project.location.countryName', 'User', 'uploadedAt', 'projectDetails'].includes(
-          column.accessorKey || column.id || '',
-        ),
-      )
+  useEffect(() => {
+    if (shouldHideColumns) {
+      setColumnVisibility({
+        'project.projectInfo.buildingType': false,
+        public: false,
+        'project.lifeCycleStages': false,
+        'project.impactCategories': false,
+      })
+    } else {
+      setColumnVisibility({})
     }
-    return allColumns
-  }, [allColumns, isSmallScreen])
+  }, [shouldHideColumns])
 
   const rowData = useMemo(() => data?.contributions.items || [], [data])
   const totalRowCount = useMemo(() => data?.contributions.count || 0, [data])
 
   const table = useMantineReactTable({
-    columns: visibleColumns,
+    columns,
     data: rowData,
     rowCount: totalRowCount,
     pageCount: Math.ceil(totalRowCount / pagination.pageSize),
     enablePagination: false,
     enableGlobalFilter: false,
+    enableColumnActions: true,
     mantineToolbarAlertBannerProps: error
       ? {
           color: 'red',
@@ -160,6 +165,7 @@ export const ContributionTable: React.FC = () => {
       showAlertBanner: !!error,
       showSkeletons: false,
       pagination,
+      columnVisibility,
     },
     onPaginationChange: (newPagination) => {
       if (typeof newPagination === 'function') {
@@ -168,6 +174,7 @@ export const ContributionTable: React.FC = () => {
         setPagination(newPagination)
       }
     },
+    onColumnVisibilityChange: setColumnVisibility,
   })
 
   return (
