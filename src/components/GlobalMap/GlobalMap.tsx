@@ -26,7 +26,7 @@ export const GlobalMap = () => {
     // Minimum radius of 1, maximum of 10
     // Scale logarithmically to prevent huge circles for large counts
     const minRadius = 1
-    const maxRadius = 10
+    const maxRadius = 20
     return minRadius + (Math.log(count) / Math.log(maxCount)) * (maxRadius - minRadius)
   }
 
@@ -42,7 +42,9 @@ export const GlobalMap = () => {
             key={index}
             radius={getRadius(projectGroup.count)}
             pathOptions={{
-              color: theme.primaryColor,
+              color: 'white',
+              weight: 1,
+              fillColor: theme.primaryColor,
               fillOpacity: 1,
             }}
             center={[projectGroup.items[0].location.latitude, projectGroup.items[0].location.longitude]}
