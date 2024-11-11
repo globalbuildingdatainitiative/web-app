@@ -1,18 +1,17 @@
-import { useGetContributionsQuery, GetContributionsQuery } from '@queries'
+import { GetContributionsQuery, useGetContributionsQuery } from '@queries'
 import {
   MantineReactTable,
   MRT_ColumnDef,
-  useMantineReactTable,
+  MRT_ColumnFiltersState,
   MRT_PaginationState,
   MRT_SortingState,
-  MRT_ColumnFiltersState,
+  useMantineReactTable,
 } from 'mantine-react-table'
-import React, { useMemo, useState, useEffect } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import dayjs from 'dayjs'
-import { Group, Select, Pagination, Text, Tooltip, ScrollArea } from '@mantine/core'
+import { Group, Pagination, ScrollArea, Select, Text, Tooltip } from '@mantine/core'
 import { ViewProjectDetails } from './viewProjectDetails.tsx'
 import { useViewportSize } from '@mantine/hooks'
-import { Group, Select, Pagination, Text, Tooltip } from '@mantine/core'
 
 interface TruncatedTextWithTooltipProps {
   text: string

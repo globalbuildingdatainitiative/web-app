@@ -563,15 +563,15 @@ exports[`ContributionTable > Snapshot 1`] = `
                       style="min-width: max(calc(var(--header-project_projectInfo_buildingType-size) * 1px), 40px);"
                     >
                       <div
-                        class="mrt-table-head-cell-content MRT_TableHeadCell-module_content__-pzSK m_8bffd616 mantine-Flex-root __m__-rha"
+                        class="mrt-table-head-cell-content MRT_TableHeadCell-module_content__-pzSK m_8bffd616 mantine-Flex-root __m__-rh9"
                         style=""
                       >
                         <div
-                          class="mrt-table-head-cell-labels MRT_TableHeadCell-module_labels__oiMSr MRT_TableHeadCell-module_labels-sortable__tyuLr MRT_TableHeadCell-module_labels-data__PvFGO m_8bffd616 mantine-Flex-root __m__-rhc"
+                          class="mrt-table-head-cell-labels MRT_TableHeadCell-module_labels__oiMSr MRT_TableHeadCell-module_labels-sortable__tyuLr MRT_TableHeadCell-module_labels-data__PvFGO m_8bffd616 mantine-Flex-root __m__-rhb"
                           style="--mrt-table-head-cell-labels-padding-left: 2.75;"
                         >
                           <div
-                            class="mrt-table-head-cell-content-wrapper MRT_TableHeadCell-module_content-wrapper__py6aJ MRT_TableHeadCell-module_content-wrapper-hidden-overflow__QY40r MRT_TableHeadCell-module_content-wrapper-nowrap__-4aIg m_8bffd616 mantine-Flex-root __m__-rhe"
+                            class="mrt-table-head-cell-content-wrapper MRT_TableHeadCell-module_content-wrapper__py6aJ MRT_TableHeadCell-module_content-wrapper-hidden-overflow__QY40r MRT_TableHeadCell-module_content-wrapper-nowrap__-4aIg m_8bffd616 mantine-Flex-root __m__-rhd"
                             style=""
                           >
                             Building Type
@@ -609,7 +609,7 @@ exports[`ContributionTable > Snapshot 1`] = `
                           </button>
                         </div>
                         <div
-                          class="mrt-table-head-cell-content-actions MRT_TableHeadCell-module_content-actions__utxbm m_8bffd616 mantine-Flex-root __m__-rhn"
+                          class="mrt-table-head-cell-content-actions MRT_TableHeadCell-module_content-actions__utxbm m_8bffd616 mantine-Flex-root __m__-rhm"
                           style=""
                         >
                           <button
@@ -660,11 +660,11 @@ exports[`ContributionTable > Snapshot 1`] = `
                         style="box-sizing: border-box; opacity: 0; transition: opacity 200ms ease; display: none; height: 0px; overflow: hidden;"
                       >
                         <div
-                          class="m_8bffd616 mantine-Flex-root __m__-ri1"
+                          class="m_8bffd616 mantine-Flex-root __m__-ri0"
                           style="flex-direction: column;"
                         >
                           <div
-                            class="m_8bffd616 mantine-Flex-root __m__-ri3"
+                            class="m_8bffd616 mantine-Flex-root __m__-ri2"
                             style="align-items: flex-end;"
                           >
                             <div
@@ -698,7 +698,7 @@ exports[`ContributionTable > Snapshot 1`] = `
                     </th>
                     <th
                       align="left"
-                      class="m_4e7aa4f3 mantine-Table-th MRT_TableHeadCell-module_root__6y50a MRT_TableHeadCell-module_root-no-select__BEOVU"
+                      class="m_4e7aa4f3 mantine-Table-th MRT_TableHeadCell-module_root__6y50a"
                       colspan="1"
                       data-index="3"
                       style="min-width: max(calc(var(--header-User-size) * 1px), 40px);"
@@ -708,8 +708,8 @@ exports[`ContributionTable > Snapshot 1`] = `
                         style=""
                       >
                         <div
-                          class="mrt-table-head-cell-labels MRT_TableHeadCell-module_labels__oiMSr MRT_TableHeadCell-module_labels-sortable__tyuLr MRT_TableHeadCell-module_labels-data__PvFGO m_8bffd616 mantine-Flex-root __m__-r4f"
-                          style="--mrt-table-head-cell-labels-padding-left: 2.75;"
+                          class="mrt-table-head-cell-labels MRT_TableHeadCell-module_labels__oiMSr MRT_TableHeadCell-module_labels-data__PvFGO m_8bffd616 mantine-Flex-root __m__-r4f"
+                          style="--mrt-table-head-cell-labels-padding-left: 1.75;"
                         >
                           <div
                             class="mrt-table-head-cell-content-wrapper MRT_TableHeadCell-module_content-wrapper__py6aJ MRT_TableHeadCell-module_content-wrapper-hidden-overflow__QY40r MRT_TableHeadCell-module_content-wrapper-nowrap__-4aIg m_8bffd616 mantine-Flex-root __m__-r4h"
@@ -717,40 +717,9 @@ exports[`ContributionTable > Snapshot 1`] = `
                           >
                             User
                           </div>
-                          <button
-                            aria-label="Sort by User ascending"
-                            class="mantine-focus-auto mantine-active mrt-table-head-sort-button MRT_TableHeadCellSortLabel-module_sort-icon__zs1xA m_8d3f4000 mantine-ActionIcon-root m_87cf2631 mantine-UnstyledButton-root"
-                            style="--ai-color: var(--mantine-color-white);"
-                            type="button"
-                          >
-                            <span
-                              class="m_8d3afb97 mantine-ActionIcon-icon"
-                              style=""
-                            >
-                              <svg
-                                class="tabler-icon tabler-icon-arrows-sort "
-                                fill="none"
-                                height="100%"
-                                stroke="currentColor"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                stroke-width="2"
-                                viewBox="0 0 24 24"
-                                width="100%"
-                                xmlns="http://www.w3.org/2000/svg"
-                              >
-                                <path
-                                  d="M3 9l4 -4l4 4m-4 -4v14"
-                                />
-                                <path
-                                  d="M21 15l-4 4l-4 -4m4 4v-14"
-                                />
-                              </svg>
-                            </span>
-                          </button>
                         </div>
                         <div
-                          class="mrt-table-head-cell-content-actions MRT_TableHeadCell-module_content-actions__utxbm m_8bffd616 mantine-Flex-root __m__-r4q"
+                          class="mrt-table-head-cell-content-actions MRT_TableHeadCell-module_content-actions__utxbm m_8bffd616 mantine-Flex-root __m__-r4j"
                           style=""
                         >
                           <button
@@ -793,47 +762,6 @@ exports[`ContributionTable > Snapshot 1`] = `
                               </svg>
                             </span>
                           </button>
-                        </div>
-                      </div>
-                      <div
-                        aria-hidden="true"
-                        class=""
-                        style="box-sizing: border-box; opacity: 0; transition: opacity 200ms ease; display: none; height: 0px; overflow: hidden;"
-                      >
-                        <div
-                          class="m_8bffd616 mantine-Flex-root __m__-r54"
-                          style="flex-direction: column;"
-                        >
-                          <div
-                            class="m_8bffd616 mantine-Flex-root __m__-r56"
-                            style="align-items: flex-end;"
-                          >
-                            <div
-                              class="mrt-filter-text-input MRT_FilterTextInput-module_root__Ss8Ql MRT_FilterTextInput-module_not-filter-chip__u8b1y m_46b77525 mantine-InputWrapper-root mantine-TextInput-root"
-                              data-variant="unstyled"
-                              style="margin-top: 0rem;"
-                            >
-                              <div
-                                class="m_6c018570 mantine-Input-wrapper mantine-TextInput-wrapper"
-                                data-variant="unstyled"
-                                style=""
-                              >
-                                <input
-                                  aria-invalid="false"
-                                  aria-label="Filter by User"
-                                  class="m_8fb7ebe7 mantine-Input-input mantine-TextInput-input"
-                                  data-variant="unstyled"
-                                  formaction="http://localhost:3000/"
-                                  formmethod=""
-                                  id=""
-                                  placeholder="Filter by User"
-                                  style=""
-                                  title="Filter by User"
-                                  value=""
-                                />
-                              </div>
-                            </div>
-                          </div>
                         </div>
                       </div>
                     </th>
@@ -842,159 +770,18 @@ exports[`ContributionTable > Snapshot 1`] = `
                       class="m_4e7aa4f3 mantine-Table-th MRT_TableHeadCell-module_root__6y50a MRT_TableHeadCell-module_root-no-select__BEOVU"
                       colspan="1"
                       data-index="4"
-                      style="min-width: max(calc(var(--header-public-size) * 1px), 40px);"
-                    >
-                      <div
-                        class="mrt-table-head-cell-content MRT_TableHeadCell-module_content__-pzSK m_8bffd616 mantine-Flex-root __m__-ria"
-                        style=""
-                      >
-                        <div
-                          class="mrt-table-head-cell-labels MRT_TableHeadCell-module_labels__oiMSr MRT_TableHeadCell-module_labels-sortable__tyuLr MRT_TableHeadCell-module_labels-data__PvFGO m_8bffd616 mantine-Flex-root __m__-ric"
-                          style="--mrt-table-head-cell-labels-padding-left: 2.75;"
-                        >
-                          <div
-                            class="mrt-table-head-cell-content-wrapper MRT_TableHeadCell-module_content-wrapper__py6aJ MRT_TableHeadCell-module_content-wrapper-hidden-overflow__QY40r MRT_TableHeadCell-module_content-wrapper-nowrap__-4aIg m_8bffd616 mantine-Flex-root __m__-rie"
-                            style=""
-                          >
-                            Public
-                          </div>
-                          <button
-                            aria-label="Sort by Public descending"
-                            class="mantine-focus-auto mantine-active mrt-table-head-sort-button MRT_TableHeadCellSortLabel-module_sort-icon__zs1xA m_8d3f4000 mantine-ActionIcon-root m_87cf2631 mantine-UnstyledButton-root"
-                            style="--ai-color: var(--mantine-color-white);"
-                            type="button"
-                          >
-                            <span
-                              class="m_8d3afb97 mantine-ActionIcon-icon"
-                              style=""
-                            >
-                              <svg
-                                class="tabler-icon tabler-icon-arrows-sort "
-                                fill="none"
-                                height="100%"
-                                stroke="currentColor"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                stroke-width="2"
-                                viewBox="0 0 24 24"
-                                width="100%"
-                                xmlns="http://www.w3.org/2000/svg"
-                              >
-                                <path
-                                  d="M3 9l4 -4l4 4m-4 -4v14"
-                                />
-                                <path
-                                  d="M21 15l-4 4l-4 -4m4 4v-14"
-                                />
-                              </svg>
-                            </span>
-                          </button>
-                        </div>
-                        <div
-                          class="mrt-table-head-cell-content-actions MRT_TableHeadCell-module_content-actions__utxbm m_8bffd616 mantine-Flex-root __m__-rin"
-                          style=""
-                        >
-                          <button
-                            aria-controls=""
-                            aria-expanded="false"
-                            aria-haspopup="menu"
-                            aria-label="Column Actions"
-                            class="mantine-focus-auto mantine-active m_8d3f4000 mantine-ActionIcon-root m_87cf2631 mantine-UnstyledButton-root"
-                            data-size="sm"
-                            data-variant="subtle"
-                            id=""
-                            style="--ai-size: var(--ai-size-sm); --ai-bg: transparent; --ai-hover: var(--mantine-color-gray-light-hover); --ai-color: var(--mantine-color-gray-light-color); --ai-bd: calc(0.0625rem * var(--mantine-scale)) solid transparent;"
-                            type="button"
-                          >
-                            <span
-                              class="m_8d3afb97 mantine-ActionIcon-icon"
-                              style=""
-                            >
-                              <svg
-                                class="tabler-icon tabler-icon-dots-vertical "
-                                fill="none"
-                                height="100%"
-                                stroke="currentColor"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                stroke-width="2"
-                                viewBox="0 0 24 24"
-                                width="100%"
-                                xmlns="http://www.w3.org/2000/svg"
-                              >
-                                <path
-                                  d="M12 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"
-                                />
-                                <path
-                                  d="M12 19m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"
-                                />
-                                <path
-                                  d="M12 5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"
-                                />
-                              </svg>
-                            </span>
-                          </button>
-                        </div>
-                      </div>
-                      <div
-                        aria-hidden="true"
-                        class=""
-                        style="box-sizing: border-box; opacity: 0; transition: opacity 200ms ease; display: none; height: 0px; overflow: hidden;"
-                      >
-                        <div
-                          class="m_8bffd616 mantine-Flex-root __m__-rj1"
-                          style="flex-direction: column;"
-                        >
-                          <div
-                            class="m_8bffd616 mantine-Flex-root __m__-rj3"
-                            style="align-items: flex-end;"
-                          >
-                            <div
-                              class="mrt-filter-text-input MRT_FilterTextInput-module_root__Ss8Ql MRT_FilterTextInput-module_not-filter-chip__u8b1y m_46b77525 mantine-InputWrapper-root mantine-TextInput-root"
-                              data-variant="unstyled"
-                              style="margin-top: 0rem;"
-                            >
-                              <div
-                                class="m_6c018570 mantine-Input-wrapper mantine-TextInput-wrapper"
-                                data-variant="unstyled"
-                                style=""
-                              >
-                                <input
-                                  aria-invalid="false"
-                                  aria-label="Filter by Public"
-                                  class="m_8fb7ebe7 mantine-Input-input mantine-TextInput-input"
-                                  data-variant="unstyled"
-                                  formaction="http://localhost:3000/"
-                                  formmethod=""
-                                  id=""
-                                  placeholder="Filter by Public"
-                                  style=""
-                                  title="Filter by Public"
-                                  value=""
-                                />
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </th>
-                    <th
-                      align="left"
-                      class="m_4e7aa4f3 mantine-Table-th MRT_TableHeadCell-module_root__6y50a MRT_TableHeadCell-module_root-no-select__BEOVU"
-                      colspan="1"
-                      data-index="5"
                       style="min-width: max(calc(var(--header-uploadedAt-size) * 1px), 40px);"
                     >
                       <div
-                        class="mrt-table-head-cell-content MRT_TableHeadCell-module_content__-pzSK m_8bffd616 mantine-Flex-root __m__-r6d"
+                        class="mrt-table-head-cell-content MRT_TableHeadCell-module_content__-pzSK m_8bffd616 mantine-Flex-root __m__-r4t"
                         style=""
                       >
                         <div
-                          class="mrt-table-head-cell-labels MRT_TableHeadCell-module_labels__oiMSr MRT_TableHeadCell-module_labels-sortable__tyuLr MRT_TableHeadCell-module_labels-data__PvFGO m_8bffd616 mantine-Flex-root __m__-r6f"
+                          class="mrt-table-head-cell-labels MRT_TableHeadCell-module_labels__oiMSr MRT_TableHeadCell-module_labels-sortable__tyuLr MRT_TableHeadCell-module_labels-data__PvFGO m_8bffd616 mantine-Flex-root __m__-r4v"
                           style="--mrt-table-head-cell-labels-padding-left: 2.75;"
                         >
                           <div
-                            class="mrt-table-head-cell-content-wrapper MRT_TableHeadCell-module_content-wrapper__py6aJ MRT_TableHeadCell-module_content-wrapper-hidden-overflow__QY40r MRT_TableHeadCell-module_content-wrapper-nowrap__-4aIg m_8bffd616 mantine-Flex-root __m__-r6h"
+                            class="mrt-table-head-cell-content-wrapper MRT_TableHeadCell-module_content-wrapper__py6aJ MRT_TableHeadCell-module_content-wrapper-hidden-overflow__QY40r MRT_TableHeadCell-module_content-wrapper-nowrap__-4aIg m_8bffd616 mantine-Flex-root __m__-r51"
                             style=""
                           >
                             Date
@@ -1032,7 +819,7 @@ exports[`ContributionTable > Snapshot 1`] = `
                           </button>
                         </div>
                         <div
-                          class="mrt-table-head-cell-content-actions MRT_TableHeadCell-module_content-actions__utxbm m_8bffd616 mantine-Flex-root __m__-r6q"
+                          class="mrt-table-head-cell-content-actions MRT_TableHeadCell-module_content-actions__utxbm m_8bffd616 mantine-Flex-root __m__-r5a"
                           style=""
                         >
                           <button
@@ -1083,11 +870,11 @@ exports[`ContributionTable > Snapshot 1`] = `
                         style="box-sizing: border-box; opacity: 0; transition: opacity 200ms ease; display: none; height: 0px; overflow: hidden;"
                       >
                         <div
-                          class="m_8bffd616 mantine-Flex-root __m__-r74"
+                          class="m_8bffd616 mantine-Flex-root __m__-r5k"
                           style="flex-direction: column;"
                         >
                           <div
-                            class="m_8bffd616 mantine-Flex-root __m__-r76"
+                            class="m_8bffd616 mantine-Flex-root __m__-r5m"
                             style="align-items: flex-end;"
                           >
                             <div
@@ -1123,19 +910,189 @@ exports[`ContributionTable > Snapshot 1`] = `
                       align="left"
                       class="m_4e7aa4f3 mantine-Table-th MRT_TableHeadCell-module_root__6y50a MRT_TableHeadCell-module_root-no-select__BEOVU"
                       colspan="1"
+                      data-index="5"
+                      style="min-width: max(calc(var(--header-public-size) * 1px), 40px);"
+                    >
+                      <div
+                        class="mrt-table-head-cell-content MRT_TableHeadCell-module_content__-pzSK m_8bffd616 mantine-Flex-root __m__-ri9"
+                        style=""
+                      >
+                        <div
+                          class="mrt-table-head-cell-labels MRT_TableHeadCell-module_labels__oiMSr MRT_TableHeadCell-module_labels-sortable__tyuLr MRT_TableHeadCell-module_labels-data__PvFGO m_8bffd616 mantine-Flex-root __m__-rib"
+                          style="--mrt-table-head-cell-labels-padding-left: 2.75;"
+                        >
+                          <div
+                            class="mrt-table-head-cell-content-wrapper MRT_TableHeadCell-module_content-wrapper__py6aJ MRT_TableHeadCell-module_content-wrapper-hidden-overflow__QY40r MRT_TableHeadCell-module_content-wrapper-nowrap__-4aIg m_8bffd616 mantine-Flex-root __m__-rid"
+                            style=""
+                          >
+                            Public
+                          </div>
+                          <button
+                            aria-label="Sort by Public descending"
+                            class="mantine-focus-auto mantine-active mrt-table-head-sort-button MRT_TableHeadCellSortLabel-module_sort-icon__zs1xA m_8d3f4000 mantine-ActionIcon-root m_87cf2631 mantine-UnstyledButton-root"
+                            style="--ai-color: var(--mantine-color-white);"
+                            type="button"
+                          >
+                            <span
+                              class="m_8d3afb97 mantine-ActionIcon-icon"
+                              style=""
+                            >
+                              <svg
+                                class="tabler-icon tabler-icon-arrows-sort "
+                                fill="none"
+                                height="100%"
+                                stroke="currentColor"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                viewBox="0 0 24 24"
+                                width="100%"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  d="M3 9l4 -4l4 4m-4 -4v14"
+                                />
+                                <path
+                                  d="M21 15l-4 4l-4 -4m4 4v-14"
+                                />
+                              </svg>
+                            </span>
+                          </button>
+                        </div>
+                        <div
+                          class="mrt-table-head-cell-content-actions MRT_TableHeadCell-module_content-actions__utxbm m_8bffd616 mantine-Flex-root __m__-rim"
+                          style=""
+                        >
+                          <button
+                            aria-controls=""
+                            aria-expanded="false"
+                            aria-haspopup="menu"
+                            aria-label="Column Actions"
+                            class="mantine-focus-auto mantine-active m_8d3f4000 mantine-ActionIcon-root m_87cf2631 mantine-UnstyledButton-root"
+                            data-size="sm"
+                            data-variant="subtle"
+                            id=""
+                            style="--ai-size: var(--ai-size-sm); --ai-bg: transparent; --ai-hover: var(--mantine-color-gray-light-hover); --ai-color: var(--mantine-color-gray-light-color); --ai-bd: calc(0.0625rem * var(--mantine-scale)) solid transparent;"
+                            type="button"
+                          >
+                            <span
+                              class="m_8d3afb97 mantine-ActionIcon-icon"
+                              style=""
+                            >
+                              <svg
+                                class="tabler-icon tabler-icon-dots-vertical "
+                                fill="none"
+                                height="100%"
+                                stroke="currentColor"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                viewBox="0 0 24 24"
+                                width="100%"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  d="M12 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"
+                                />
+                                <path
+                                  d="M12 19m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"
+                                />
+                                <path
+                                  d="M12 5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"
+                                />
+                              </svg>
+                            </span>
+                          </button>
+                        </div>
+                      </div>
+                      <div
+                        aria-hidden="true"
+                        class=""
+                        style="box-sizing: border-box; opacity: 0; transition: opacity 200ms ease; display: none; height: 0px; overflow: hidden;"
+                      >
+                        <div
+                          class="m_8bffd616 mantine-Flex-root __m__-rj0"
+                          style="flex-direction: column;"
+                        >
+                          <div
+                            class="m_8bffd616 mantine-Flex-root __m__-rj2"
+                            style="align-items: flex-end;"
+                          >
+                            <div
+                              class="mrt-filter-text-input MRT_FilterTextInput-module_root__Ss8Ql MRT_FilterTextInput-module_not-filter-chip__u8b1y m_46b77525 mantine-InputWrapper-root mantine-Select-root"
+                              data-variant="unstyled"
+                              style=""
+                            >
+                              <div
+                                class="m_6c018570 mantine-Input-wrapper mantine-Select-wrapper"
+                                data-variant="unstyled"
+                                data-with-right-section="true"
+                                style="--input-right-section-pointer-events: none;"
+                              >
+                                <input
+                                  aria-haspopup="listbox"
+                                  aria-invalid="false"
+                                  aria-label="Filter by Public"
+                                  autocomplete="off"
+                                  class="m_8fb7ebe7 mantine-Input-input mantine-Select-input"
+                                  data-variant="unstyled"
+                                  formaction="http://localhost:3000/"
+                                  formmethod=""
+                                  id=""
+                                  placeholder="Filter by Public"
+                                  style=""
+                                  title="Filter by Public"
+                                  value=""
+                                />
+                                <div
+                                  class="m_82577fc2 mantine-Input-section mantine-Select-section"
+                                  data-position="right"
+                                  style=""
+                                >
+                                  <svg
+                                    class="m_2943220b mantine-ComboboxChevron-chevron"
+                                    data-combobox-chevron="true"
+                                    fill="none"
+                                    viewBox="0 0 15 15"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                  >
+                                    <path
+                                      clip-rule="evenodd"
+                                      d="M4.93179 5.43179C4.75605 5.60753 4.75605 5.89245 4.93179 6.06819C5.10753 6.24392 5.39245 6.24392 5.56819 6.06819L7.49999 4.13638L9.43179 6.06819C9.60753 6.24392 9.89245 6.24392 10.0682 6.06819C10.2439 5.89245 10.2439 5.60753 10.0682 5.43179L7.81819 3.18179C7.73379 3.0974 7.61933 3.04999 7.49999 3.04999C7.38064 3.04999 7.26618 3.0974 7.18179 3.18179L4.93179 5.43179ZM10.0682 9.56819C10.2439 9.39245 10.2439 9.10753 10.0682 8.93179C9.89245 8.75606 9.60753 8.75606 9.43179 8.93179L7.49999 10.8636L5.56819 8.93179C5.39245 8.75606 5.10753 8.75606 4.93179 8.93179C4.75605 9.10753 4.75605 9.39245 4.93179 9.56819L7.18179 11.8182C7.35753 11.9939 7.64245 11.9939 7.81819 11.8182L10.0682 9.56819Z"
+                                      fill="currentColor"
+                                      fill-rule="evenodd"
+                                    />
+                                  </svg>
+                                </div>
+                              </div>
+                            </div>
+                            <input
+                              formaction="http://localhost:3000/"
+                              formmethod=""
+                              type="hidden"
+                              value=""
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </th>
+                    <th
+                      align="left"
+                      class="m_4e7aa4f3 mantine-Table-th MRT_TableHeadCell-module_root__6y50a MRT_TableHeadCell-module_root-no-select__BEOVU"
+                      colspan="1"
                       data-index="6"
                       style="min-width: max(calc(var(--header-project_lifeCycleStages-size) * 1px), 40px);"
                     >
                       <div
-                        class="mrt-table-head-cell-content MRT_TableHeadCell-module_content__-pzSK m_8bffd616 mantine-Flex-root __m__-rja"
+                        class="mrt-table-head-cell-content MRT_TableHeadCell-module_content__-pzSK m_8bffd616 mantine-Flex-root __m__-rjd"
                         style=""
                       >
                         <div
-                          class="mrt-table-head-cell-labels MRT_TableHeadCell-module_labels__oiMSr MRT_TableHeadCell-module_labels-sortable__tyuLr MRT_TableHeadCell-module_labels-data__PvFGO m_8bffd616 mantine-Flex-root __m__-rjc"
+                          class="mrt-table-head-cell-labels MRT_TableHeadCell-module_labels__oiMSr MRT_TableHeadCell-module_labels-sortable__tyuLr MRT_TableHeadCell-module_labels-data__PvFGO m_8bffd616 mantine-Flex-root __m__-rjf"
                           style="--mrt-table-head-cell-labels-padding-left: 2.75;"
                         >
                           <div
-                            class="mrt-table-head-cell-content-wrapper MRT_TableHeadCell-module_content-wrapper__py6aJ MRT_TableHeadCell-module_content-wrapper-hidden-overflow__QY40r MRT_TableHeadCell-module_content-wrapper-nowrap__-4aIg m_8bffd616 mantine-Flex-root __m__-rje"
+                            class="mrt-table-head-cell-content-wrapper MRT_TableHeadCell-module_content-wrapper__py6aJ MRT_TableHeadCell-module_content-wrapper-hidden-overflow__QY40r MRT_TableHeadCell-module_content-wrapper-nowrap__-4aIg m_8bffd616 mantine-Flex-root __m__-rjh"
                             style=""
                           >
                             Life Cycle Stages
@@ -1173,7 +1130,7 @@ exports[`ContributionTable > Snapshot 1`] = `
                           </button>
                         </div>
                         <div
-                          class="mrt-table-head-cell-content-actions MRT_TableHeadCell-module_content-actions__utxbm m_8bffd616 mantine-Flex-root __m__-rjn"
+                          class="mrt-table-head-cell-content-actions MRT_TableHeadCell-module_content-actions__utxbm m_8bffd616 mantine-Flex-root __m__-rjq"
                           style=""
                         >
                           <button
@@ -1224,11 +1181,11 @@ exports[`ContributionTable > Snapshot 1`] = `
                         style="box-sizing: border-box; opacity: 0; transition: opacity 200ms ease; display: none; height: 0px; overflow: hidden;"
                       >
                         <div
-                          class="m_8bffd616 mantine-Flex-root __m__-rk1"
+                          class="m_8bffd616 mantine-Flex-root __m__-rk4"
                           style="flex-direction: column;"
                         >
                           <div
-                            class="m_8bffd616 mantine-Flex-root __m__-rk3"
+                            class="m_8bffd616 mantine-Flex-root __m__-rk6"
                             style="align-items: flex-end;"
                           >
                             <div
@@ -1268,15 +1225,15 @@ exports[`ContributionTable > Snapshot 1`] = `
                       style="min-width: max(calc(var(--header-project_impactCategories-size) * 1px), 40px);"
                     >
                       <div
-                        class="mrt-table-head-cell-content MRT_TableHeadCell-module_content__-pzSK m_8bffd616 mantine-Flex-root __m__-rka"
+                        class="mrt-table-head-cell-content MRT_TableHeadCell-module_content__-pzSK m_8bffd616 mantine-Flex-root __m__-rkd"
                         style=""
                       >
                         <div
-                          class="mrt-table-head-cell-labels MRT_TableHeadCell-module_labels__oiMSr MRT_TableHeadCell-module_labels-sortable__tyuLr MRT_TableHeadCell-module_labels-data__PvFGO m_8bffd616 mantine-Flex-root __m__-rkc"
+                          class="mrt-table-head-cell-labels MRT_TableHeadCell-module_labels__oiMSr MRT_TableHeadCell-module_labels-sortable__tyuLr MRT_TableHeadCell-module_labels-data__PvFGO m_8bffd616 mantine-Flex-root __m__-rkf"
                           style="--mrt-table-head-cell-labels-padding-left: 2.75;"
                         >
                           <div
-                            class="mrt-table-head-cell-content-wrapper MRT_TableHeadCell-module_content-wrapper__py6aJ MRT_TableHeadCell-module_content-wrapper-hidden-overflow__QY40r MRT_TableHeadCell-module_content-wrapper-nowrap__-4aIg m_8bffd616 mantine-Flex-root __m__-rke"
+                            class="mrt-table-head-cell-content-wrapper MRT_TableHeadCell-module_content-wrapper__py6aJ MRT_TableHeadCell-module_content-wrapper-hidden-overflow__QY40r MRT_TableHeadCell-module_content-wrapper-nowrap__-4aIg m_8bffd616 mantine-Flex-root __m__-rkh"
                             style=""
                           >
                             Impact Categories
@@ -1314,7 +1271,7 @@ exports[`ContributionTable > Snapshot 1`] = `
                           </button>
                         </div>
                         <div
-                          class="mrt-table-head-cell-content-actions MRT_TableHeadCell-module_content-actions__utxbm m_8bffd616 mantine-Flex-root __m__-rkn"
+                          class="mrt-table-head-cell-content-actions MRT_TableHeadCell-module_content-actions__utxbm m_8bffd616 mantine-Flex-root __m__-rkq"
                           style=""
                         >
                           <button
@@ -1365,11 +1322,11 @@ exports[`ContributionTable > Snapshot 1`] = `
                         style="box-sizing: border-box; opacity: 0; transition: opacity 200ms ease; display: none; height: 0px; overflow: hidden;"
                       >
                         <div
-                          class="m_8bffd616 mantine-Flex-root __m__-rl1"
+                          class="m_8bffd616 mantine-Flex-root __m__-rl4"
                           style="flex-direction: column;"
                         >
                           <div
-                            class="m_8bffd616 mantine-Flex-root __m__-rl3"
+                            class="m_8bffd616 mantine-Flex-root __m__-rl6"
                             style="align-items: flex-end;"
                           >
                             <div
@@ -1409,22 +1366,22 @@ exports[`ContributionTable > Snapshot 1`] = `
                       style="min-width: max(calc(var(--header-projectDetails-size) * 1px), 40px);"
                     >
                       <div
-                        class="mrt-table-head-cell-content MRT_TableHeadCell-module_content__-pzSK m_8bffd616 mantine-Flex-root __m__-r9d"
+                        class="mrt-table-head-cell-content MRT_TableHeadCell-module_content__-pzSK m_8bffd616 mantine-Flex-root __m__-r91"
                         style=""
                       >
                         <div
-                          class="mrt-table-head-cell-labels MRT_TableHeadCell-module_labels__oiMSr MRT_TableHeadCell-module_labels-data__PvFGO m_8bffd616 mantine-Flex-root __m__-r9f"
+                          class="mrt-table-head-cell-labels MRT_TableHeadCell-module_labels__oiMSr MRT_TableHeadCell-module_labels-data__PvFGO m_8bffd616 mantine-Flex-root __m__-r93"
                           style="--mrt-table-head-cell-labels-padding-left: 1.75;"
                         >
                           <div
-                            class="mrt-table-head-cell-content-wrapper MRT_TableHeadCell-module_content-wrapper__py6aJ MRT_TableHeadCell-module_content-wrapper-hidden-overflow__QY40r MRT_TableHeadCell-module_content-wrapper-nowrap__-4aIg m_8bffd616 mantine-Flex-root __m__-r9h"
+                            class="mrt-table-head-cell-content-wrapper MRT_TableHeadCell-module_content-wrapper__py6aJ MRT_TableHeadCell-module_content-wrapper-hidden-overflow__QY40r MRT_TableHeadCell-module_content-wrapper-nowrap__-4aIg m_8bffd616 mantine-Flex-root __m__-r95"
                             style=""
                           >
                             View Details
                           </div>
                         </div>
                         <div
-                          class="mrt-table-head-cell-content-actions MRT_TableHeadCell-module_content-actions__utxbm m_8bffd616 mantine-Flex-root __m__-r9j"
+                          class="mrt-table-head-cell-content-actions MRT_TableHeadCell-module_content-actions__utxbm m_8bffd616 mantine-Flex-root __m__-r97"
                           style=""
                         >
                           <button
@@ -1534,18 +1491,6 @@ exports[`ContributionTable > Snapshot 1`] = `
                     <td
                       class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
                       data-index="4"
-                      style="min-width: max(calc(var(--col-public-size) * 1px), 40px); --mrt-cell-align: left;"
-                    >
-                      <p
-                        class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
-                        style=""
-                      >
-                        No
-                      </p>
-                    </td>
-                    <td
-                      class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
-                      data-index="5"
                       style="min-width: max(calc(var(--col-uploadedAt-size) * 1px), 40px); --mrt-cell-align: left;"
                     >
                       <p
@@ -1553,6 +1498,18 @@ exports[`ContributionTable > Snapshot 1`] = `
                         style=""
                       >
                         Invalid Date
+                      </p>
+                    </td>
+                    <td
+                      class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
+                      data-index="5"
+                      style="min-width: max(calc(var(--col-public-size) * 1px), 40px); --mrt-cell-align: left;"
+                    >
+                      <p
+                        class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
+                        style=""
+                      >
+                        No
                       </p>
                     </td>
                     <td
@@ -1678,18 +1635,6 @@ exports[`ContributionTable > Snapshot 1`] = `
                     <td
                       class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
                       data-index="4"
-                      style="min-width: max(calc(var(--col-public-size) * 1px), 40px); --mrt-cell-align: left;"
-                    >
-                      <p
-                        class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
-                        style=""
-                      >
-                        No
-                      </p>
-                    </td>
-                    <td
-                      class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
-                      data-index="5"
                       style="min-width: max(calc(var(--col-uploadedAt-size) * 1px), 40px); --mrt-cell-align: left;"
                     >
                       <p
@@ -1697,6 +1642,18 @@ exports[`ContributionTable > Snapshot 1`] = `
                         style=""
                       >
                         Invalid Date
+                      </p>
+                    </td>
+                    <td
+                      class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
+                      data-index="5"
+                      style="min-width: max(calc(var(--col-public-size) * 1px), 40px); --mrt-cell-align: left;"
+                    >
+                      <p
+                        class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
+                        style=""
+                      >
+                        No
                       </p>
                     </td>
                     <td
@@ -1822,18 +1779,6 @@ exports[`ContributionTable > Snapshot 1`] = `
                     <td
                       class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
                       data-index="4"
-                      style="min-width: max(calc(var(--col-public-size) * 1px), 40px); --mrt-cell-align: left;"
-                    >
-                      <p
-                        class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
-                        style=""
-                      >
-                        No
-                      </p>
-                    </td>
-                    <td
-                      class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
-                      data-index="5"
                       style="min-width: max(calc(var(--col-uploadedAt-size) * 1px), 40px); --mrt-cell-align: left;"
                     >
                       <p
@@ -1841,6 +1786,18 @@ exports[`ContributionTable > Snapshot 1`] = `
                         style=""
                       >
                         Invalid Date
+                      </p>
+                    </td>
+                    <td
+                      class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
+                      data-index="5"
+                      style="min-width: max(calc(var(--col-public-size) * 1px), 40px); --mrt-cell-align: left;"
+                    >
+                      <p
+                        class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
+                        style=""
+                      >
+                        No
                       </p>
                     </td>
                     <td
@@ -1966,18 +1923,6 @@ exports[`ContributionTable > Snapshot 1`] = `
                     <td
                       class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
                       data-index="4"
-                      style="min-width: max(calc(var(--col-public-size) * 1px), 40px); --mrt-cell-align: left;"
-                    >
-                      <p
-                        class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
-                        style=""
-                      >
-                        No
-                      </p>
-                    </td>
-                    <td
-                      class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
-                      data-index="5"
                       style="min-width: max(calc(var(--col-uploadedAt-size) * 1px), 40px); --mrt-cell-align: left;"
                     >
                       <p
@@ -1985,6 +1930,18 @@ exports[`ContributionTable > Snapshot 1`] = `
                         style=""
                       >
                         Invalid Date
+                      </p>
+                    </td>
+                    <td
+                      class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
+                      data-index="5"
+                      style="min-width: max(calc(var(--col-public-size) * 1px), 40px); --mrt-cell-align: left;"
+                    >
+                      <p
+                        class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
+                        style=""
+                      >
+                        No
                       </p>
                     </td>
                     <td
@@ -2110,18 +2067,6 @@ exports[`ContributionTable > Snapshot 1`] = `
                     <td
                       class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
                       data-index="4"
-                      style="min-width: max(calc(var(--col-public-size) * 1px), 40px); --mrt-cell-align: left;"
-                    >
-                      <p
-                        class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
-                        style=""
-                      >
-                        No
-                      </p>
-                    </td>
-                    <td
-                      class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
-                      data-index="5"
                       style="min-width: max(calc(var(--col-uploadedAt-size) * 1px), 40px); --mrt-cell-align: left;"
                     >
                       <p
@@ -2129,6 +2074,18 @@ exports[`ContributionTable > Snapshot 1`] = `
                         style=""
                       >
                         Invalid Date
+                      </p>
+                    </td>
+                    <td
+                      class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
+                      data-index="5"
+                      style="min-width: max(calc(var(--col-public-size) * 1px), 40px); --mrt-cell-align: left;"
+                    >
+                      <p
+                        class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
+                        style=""
+                      >
+                        No
                       </p>
                     </td>
                     <td
@@ -2254,18 +2211,6 @@ exports[`ContributionTable > Snapshot 1`] = `
                     <td
                       class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
                       data-index="4"
-                      style="min-width: max(calc(var(--col-public-size) * 1px), 40px); --mrt-cell-align: left;"
-                    >
-                      <p
-                        class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
-                        style=""
-                      >
-                        No
-                      </p>
-                    </td>
-                    <td
-                      class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
-                      data-index="5"
                       style="min-width: max(calc(var(--col-uploadedAt-size) * 1px), 40px); --mrt-cell-align: left;"
                     >
                       <p
@@ -2273,6 +2218,18 @@ exports[`ContributionTable > Snapshot 1`] = `
                         style=""
                       >
                         Invalid Date
+                      </p>
+                    </td>
+                    <td
+                      class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
+                      data-index="5"
+                      style="min-width: max(calc(var(--col-public-size) * 1px), 40px); --mrt-cell-align: left;"
+                    >
+                      <p
+                        class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
+                        style=""
+                      >
+                        No
                       </p>
                     </td>
                     <td
@@ -2398,18 +2355,6 @@ exports[`ContributionTable > Snapshot 1`] = `
                     <td
                       class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
                       data-index="4"
-                      style="min-width: max(calc(var(--col-public-size) * 1px), 40px); --mrt-cell-align: left;"
-                    >
-                      <p
-                        class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
-                        style=""
-                      >
-                        No
-                      </p>
-                    </td>
-                    <td
-                      class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
-                      data-index="5"
                       style="min-width: max(calc(var(--col-uploadedAt-size) * 1px), 40px); --mrt-cell-align: left;"
                     >
                       <p
@@ -2417,6 +2362,18 @@ exports[`ContributionTable > Snapshot 1`] = `
                         style=""
                       >
                         Invalid Date
+                      </p>
+                    </td>
+                    <td
+                      class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
+                      data-index="5"
+                      style="min-width: max(calc(var(--col-public-size) * 1px), 40px); --mrt-cell-align: left;"
+                    >
+                      <p
+                        class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
+                        style=""
+                      >
+                        No
                       </p>
                     </td>
                     <td
@@ -2542,18 +2499,6 @@ exports[`ContributionTable > Snapshot 1`] = `
                     <td
                       class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
                       data-index="4"
-                      style="min-width: max(calc(var(--col-public-size) * 1px), 40px); --mrt-cell-align: left;"
-                    >
-                      <p
-                        class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
-                        style=""
-                      >
-                        No
-                      </p>
-                    </td>
-                    <td
-                      class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
-                      data-index="5"
                       style="min-width: max(calc(var(--col-uploadedAt-size) * 1px), 40px); --mrt-cell-align: left;"
                     >
                       <p
@@ -2561,6 +2506,18 @@ exports[`ContributionTable > Snapshot 1`] = `
                         style=""
                       >
                         Invalid Date
+                      </p>
+                    </td>
+                    <td
+                      class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
+                      data-index="5"
+                      style="min-width: max(calc(var(--col-public-size) * 1px), 40px); --mrt-cell-align: left;"
+                    >
+                      <p
+                        class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
+                        style=""
+                      >
+                        No
                       </p>
                     </td>
                     <td
@@ -2686,18 +2643,6 @@ exports[`ContributionTable > Snapshot 1`] = `
                     <td
                       class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
                       data-index="4"
-                      style="min-width: max(calc(var(--col-public-size) * 1px), 40px); --mrt-cell-align: left;"
-                    >
-                      <p
-                        class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
-                        style=""
-                      >
-                        No
-                      </p>
-                    </td>
-                    <td
-                      class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
-                      data-index="5"
                       style="min-width: max(calc(var(--col-uploadedAt-size) * 1px), 40px); --mrt-cell-align: left;"
                     >
                       <p
@@ -2705,6 +2650,18 @@ exports[`ContributionTable > Snapshot 1`] = `
                         style=""
                       >
                         Invalid Date
+                      </p>
+                    </td>
+                    <td
+                      class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
+                      data-index="5"
+                      style="min-width: max(calc(var(--col-public-size) * 1px), 40px); --mrt-cell-align: left;"
+                    >
+                      <p
+                        class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
+                        style=""
+                      >
+                        No
                       </p>
                     </td>
                     <td
@@ -2835,19 +2792,6 @@ exports[`ContributionTable > Snapshot 1`] = `
                       class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
                       data-index="4"
                       data-last-row="true"
-                      style="min-width: max(calc(var(--col-public-size) * 1px), 40px); --mrt-cell-align: left;"
-                    >
-                      <p
-                        class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
-                        style=""
-                      >
-                        No
-                      </p>
-                    </td>
-                    <td
-                      class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
-                      data-index="5"
-                      data-last-row="true"
                       style="min-width: max(calc(var(--col-uploadedAt-size) * 1px), 40px); --mrt-cell-align: left;"
                     >
                       <p
@@ -2855,6 +2799,19 @@ exports[`ContributionTable > Snapshot 1`] = `
                         style=""
                       >
                         Invalid Date
+                      </p>
+                    </td>
+                    <td
+                      class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
+                      data-index="5"
+                      data-last-row="true"
+                      style="min-width: max(calc(var(--col-public-size) * 1px), 40px); --mrt-cell-align: left;"
+                    >
+                      <p
+                        class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
+                        style=""
+                      >
+                        No
                       </p>
                     </td>
                     <td
