@@ -36,6 +36,9 @@ query getContributionsForHeader {
   contributions {
     items(sortBy: { dsc: "uploaded_at" }, limit: null) {
       uploadedAt
+      user {
+        id
+      }
     }
     count
   }
