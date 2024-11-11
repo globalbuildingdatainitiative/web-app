@@ -2827,7 +2827,7 @@ export type GetContributionsForHeaderQuery = {
   contributions: {
     __typename?: 'ContributionGraphQLResponse'
     count: number
-    items?: Array<{ __typename?: 'Contribution'; uploadedAt: any }> | null
+    items?: Array<{ __typename?: 'Contribution'; uploadedAt: any; user: { __typename?: 'User'; id: any } }> | null
   }
 }
 
@@ -3548,6 +3548,9 @@ export const GetContributionsForHeaderDocument = gql`
     contributions {
       items(sortBy: { dsc: "uploaded_at" }, limit: null) {
         uploadedAt
+        user {
+          id
+        }
       }
       count
     }

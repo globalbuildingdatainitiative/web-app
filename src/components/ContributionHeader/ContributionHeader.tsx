@@ -3,16 +3,24 @@ import { Divider, Group, Text, Stack, Center } from '@mantine/core'
 import { useGetContributionsForHeaderQuery } from '@queries'
 import dayjs from 'dayjs'
 import { IconStack3, IconCalendarMonth } from '@tabler/icons-react'
+import { useUserContext } from '@context'
 
 export const ContributionHeader = () => {
+  const { user: currentUser } = useUserContext()
   const { data, loading, error } = useGetContributionsForHeaderQuery()
 
   if (loading) return <div>Loading...</div>
   if (error) return <div>Error loading data</div>
 
+  const userContributions = data?.contributions?.items?.filter((item) => item.user?.id === currentUser?.id) || []
+  const sortedContributions = [...userContributions].sort(
+    (a, b) => dayjs(b.uploadedAt).valueOf() - dayjs(a.uploadedAt).valueOf(),
+  )
   const totalContributions = data?.contributions?.count || 0
-  const lastContributionDate = data?.contributions?.items?.[0]?.uploadedAt || null
-  const daysSinceLastContribution = lastContributionDate ? dayjs().diff(dayjs(lastContributionDate), 'day') : 'N/A'
+  const lastContributionDate = sortedContributions[0]?.uploadedAt || null
+  const daysSinceLastContribution = lastContributionDate
+    ? Math.max(0, dayjs().startOf('day').diff(dayjs(lastContributionDate).startOf('day'), 'day'))
+    : 'N/A'
 
   return (
     <Paper data-testid='ContributionHeader'>
