@@ -1,10 +1,18 @@
 import { useGetContributionsQuery, GetContributionsQuery } from '@queries'
-import { MantineReactTable, MRT_ColumnDef, useMantineReactTable, MRT_PaginationState } from 'mantine-react-table'
+import {
+  MantineReactTable,
+  MRT_ColumnDef,
+  useMantineReactTable,
+  MRT_PaginationState,
+  MRT_SortingState,
+  MRT_ColumnFiltersState,
+} from 'mantine-react-table'
 import React, { useMemo, useState, useEffect } from 'react'
 import dayjs from 'dayjs'
 import { Group, Select, Pagination, Text, Tooltip, ScrollArea } from '@mantine/core'
 import { ViewProjectDetails } from './viewProjectDetails.tsx'
 import { useViewportSize } from '@mantine/hooks'
+import { Group, Select, Pagination, Text, Tooltip } from '@mantine/core'
 
 interface TruncatedTextWithTooltipProps {
   text: string
@@ -43,14 +51,75 @@ export const TruncatedTextWithTooltip: React.FC<TruncatedTextWithTooltipProps> =
 
 export const ContributionTable: React.FC = () => {
   const [pagination, setPagination] = useState<MRT_PaginationState>({ pageIndex: 0, pageSize: 10 })
+  const [sorting, setSorting] = useState<MRT_SortingState>([])
+  const [columnFilters, setColumnFilters] = useState<MRT_ColumnFiltersState>([])
   const { width: viewportWidth } = useViewportSize()
   const [columnVisibility, setColumnVisibility] = useState({})
   const shouldHideColumns = viewportWidth < window.screen.width
+
+  const getSortingVariables = () => {
+    if (!sorting.length) return undefined
+    const [sort] = sorting
+
+    // Don't modify the field path, send it as is to match the backend mapping
+    return {
+      [sort.desc ? 'dsc' : 'asc']: sort.id,
+    }
+  }
+
+  const getFilterVariables = () => {
+    if (!columnFilters.length) return undefined
+
+    interface FilterAccumulator {
+      contains: Record<string, unknown>
+      equal: Record<string, unknown>
+    }
+
+    const filters = columnFilters.reduce<FilterAccumulator>(
+      (acc, filter) => {
+        const fieldName = filter.id.split('.').pop() || filter.id
+
+        if (fieldName === 'public') {
+          return {
+            ...acc,
+            equal: {
+              ...acc.equal,
+              [fieldName]: filter.value === 'true',
+            },
+            contains: acc.contains, // Maintain the contains object
+          }
+        }
+
+        return {
+          ...acc,
+          equal: acc.equal, // Maintain the equal object
+          contains: {
+            ...acc.contains,
+            [fieldName]: filter.value,
+          },
+        }
+      },
+      { contains: {}, equal: {} },
+    )
+
+    // Only return non-empty filter objects
+    const result: Record<string, Record<string, unknown>> = {}
+    if (Object.keys(filters.contains).length > 0) {
+      result.contains = filters.contains
+    }
+    if (Object.keys(filters.equal).length > 0) {
+      result.equal = filters.equal
+    }
+
+    return Object.keys(result).length > 0 ? result : undefined
+  }
 
   const { loading, error, data } = useGetContributionsQuery({
     variables: {
       limit: pagination.pageSize,
       offset: pagination.pageIndex * pagination.pageSize,
+      sortBy: getSortingVariables(),
+      filterBy: getFilterVariables(),
     },
     fetchPolicy: 'network-only',
   })
@@ -87,6 +156,8 @@ export const ContributionTable: React.FC = () => {
       {
         accessorFn: (row) => `${row.user?.firstName ?? 'N/A'} ${row.user?.lastName ?? 'N/A'}`,
         header: 'User',
+        enableSorting: false,
+        enableColumnFilter: false,
         Cell: ({ row }) => {
           const firstName = row.original.user?.firstName ?? 'N/A'
           const lastName = row.original.user?.lastName ?? 'N/A'
@@ -94,14 +165,21 @@ export const ContributionTable: React.FC = () => {
         },
       },
       {
-        accessorKey: 'public',
-        header: 'Public',
-        Cell: ({ cell }) => <Text>{cell.getValue<boolean>() ? 'Yes' : 'No'}</Text>,
-      },
-      {
         accessorKey: 'uploadedAt',
         header: 'Date',
         Cell: ({ cell }) => <Text>{dayjs(cell.getValue<string>()).format('DD/MM/YYYY')}</Text>,
+      },
+      {
+        accessorKey: 'public',
+        header: 'Public',
+        filterVariant: 'select',
+        mantineFilterSelectProps: {
+          data: [
+            { value: 'true', label: 'Yes' },
+            { value: 'false', label: 'No' },
+          ],
+        },
+        Cell: ({ cell }) => <Text>{cell.getValue<boolean>() ? 'Yes' : 'No'}</Text>,
       },
       {
         accessorKey: 'project.lifeCycleStages',
@@ -153,6 +231,9 @@ export const ContributionTable: React.FC = () => {
     pageCount: Math.ceil(totalRowCount / pagination.pageSize),
     enablePagination: false,
     enableGlobalFilter: false,
+    manualFiltering: true,
+    manualSorting: true,
+    manualPagination: true,
     enableColumnActions: true,
     mantineToolbarAlertBannerProps: error
       ? {
@@ -165,6 +246,8 @@ export const ContributionTable: React.FC = () => {
       showAlertBanner: !!error,
       showSkeletons: false,
       pagination,
+      sorting,
+      columnFilters,
       columnVisibility,
     },
     onPaginationChange: (newPagination) => {
@@ -175,6 +258,8 @@ export const ContributionTable: React.FC = () => {
       }
     },
     onColumnVisibilityChange: setColumnVisibility,
+    onSortingChange: setSorting,
+    onColumnFiltersChange: setColumnFilters,
   })
 
   return (

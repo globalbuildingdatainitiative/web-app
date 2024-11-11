@@ -41,9 +41,9 @@ query getContributionsForHeader {
   }
 }
 
-query getContributions($limit: Int, $offset: Int) {
+query getContributions($limit: Int, $offset: Int, $sortBy: SortBy, $filterBy: FilterBy) {
   contributions {
-    items(limit: $limit, offset: $offset) {
+    items(limit: $limit, offset: $offset, sortBy: $sortBy, filterBy: $filterBy) {
       id
       uploadedAt
       public
@@ -64,7 +64,7 @@ query getContributions($limit: Int, $offset: Int) {
         }
       }
     }
-    count
+    count(filterBy: $filterBy)
   }
 }
 
