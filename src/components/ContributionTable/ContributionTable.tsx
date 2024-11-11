@@ -2,7 +2,7 @@ import { useGetContributionsQuery, GetContributionsQuery } from '@queries'
 import { MantineReactTable, MRT_ColumnDef, useMantineReactTable, MRT_PaginationState } from 'mantine-react-table'
 import React, { useMemo, useState, useEffect } from 'react'
 import dayjs from 'dayjs'
-import { Group, Select, Pagination, Text, Tooltip } from '@mantine/core'
+import { Group, Select, Pagination, Text, Tooltip, ScrollArea } from '@mantine/core'
 import { ViewProjectDetails } from './viewProjectDetails.tsx'
 import { useViewportSize } from '@mantine/hooks'
 
@@ -179,7 +179,9 @@ export const ContributionTable: React.FC = () => {
 
   return (
     <div data-testid='ContributionTable'>
-      <MantineReactTable table={table} />
+      <ScrollArea scrollbars='x'>
+        <MantineReactTable table={table} />
+      </ScrollArea>
       <Group align='flex-end' mt='md'>
         <Pagination
           total={Math.ceil(totalRowCount / pagination.pageSize)}
