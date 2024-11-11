@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { BarChart } from '@mantine/charts'
 import { useGetContributionsPerMonthQuery } from '@queries'
 import { Loader, Center, Title } from '@mantine/core'
+import { theme } from '@components'
 
 type ChartDataType = {
   month: string
@@ -11,6 +12,7 @@ type ChartDataType = {
 export const UserContributionsChart = () => {
   const { loading, error, data } = useGetContributionsPerMonthQuery()
   const [chartData, setChartData] = useState<ChartDataType[]>([])
+  const chartColor = theme.primaryColor
 
   useEffect(() => {
     if (data && data.contributions && data.contributions.items) {
@@ -55,7 +57,7 @@ export const UserContributionsChart = () => {
         h={300}
         data={chartData}
         dataKey='month'
-        series={[{ name: 'contributions', color: 'blue.6' }]}
+        series={[{ name: 'contributions', color: chartColor }]}
         tickLine='y'
       />
     </>
