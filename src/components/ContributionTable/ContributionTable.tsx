@@ -1,15 +1,17 @@
-import { useGetContributionsQuery, GetContributionsQuery } from '@queries'
+import { GetContributionsQuery, useGetContributionsQuery } from '@queries'
 import {
   MantineReactTable,
   MRT_ColumnDef,
-  useMantineReactTable,
+  MRT_ColumnFiltersState,
   MRT_PaginationState,
   MRT_SortingState,
-  MRT_ColumnFiltersState,
+  useMantineReactTable,
 } from 'mantine-react-table'
-import React, { useMemo, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import dayjs from 'dayjs'
-import { Group, Select, Pagination, Text, Tooltip } from '@mantine/core'
+import { Group, Pagination, ScrollArea, Select, Text, Tooltip } from '@mantine/core'
+import { ViewProjectDetails } from './viewProjectDetails.tsx'
+import { useViewportSize } from '@mantine/hooks'
 
 interface TruncatedTextWithTooltipProps {
   text: string
@@ -50,6 +52,9 @@ export const ContributionTable: React.FC = () => {
   const [pagination, setPagination] = useState<MRT_PaginationState>({ pageIndex: 0, pageSize: 10 })
   const [sorting, setSorting] = useState<MRT_SortingState>([])
   const [columnFilters, setColumnFilters] = useState<MRT_ColumnFiltersState>([])
+  const { width: viewportWidth } = useViewportSize()
+  const [columnVisibility, setColumnVisibility] = useState({})
+  const shouldHideColumns = viewportWidth < window.screen.width
 
   const getSortingVariables = () => {
     if (!sorting.length) return undefined
@@ -193,9 +198,28 @@ export const ContributionTable: React.FC = () => {
           return <TruncatedTextWithTooltip text={displayText.toUpperCase()} />
         },
       },
+      {
+        id: 'projectDetails',
+        header: 'View Details',
+        Cell: ({ row }) => <ViewProjectDetails contributionId={row.original.id} />,
+      },
     ],
     [],
   )
+
+  useEffect(() => {
+    if (shouldHideColumns) {
+      setColumnVisibility({
+        'project.projectInfo.buildingType': false,
+        public: false,
+        'project.lifeCycleStages': false,
+        'project.impactCategories': false,
+      })
+    } else {
+      setColumnVisibility({})
+    }
+  }, [shouldHideColumns])
+
   const rowData = useMemo(() => data?.contributions.items || [], [data])
   const totalRowCount = useMemo(() => data?.contributions.count || 0, [data])
 
@@ -209,6 +233,7 @@ export const ContributionTable: React.FC = () => {
     manualFiltering: true,
     manualSorting: true,
     manualPagination: true,
+    enableColumnActions: true,
     mantineToolbarAlertBannerProps: error
       ? {
           color: 'red',
@@ -222,6 +247,7 @@ export const ContributionTable: React.FC = () => {
       pagination,
       sorting,
       columnFilters,
+      columnVisibility,
     },
     onPaginationChange: (newPagination) => {
       if (typeof newPagination === 'function') {
@@ -230,13 +256,16 @@ export const ContributionTable: React.FC = () => {
         setPagination(newPagination)
       }
     },
+    onColumnVisibilityChange: setColumnVisibility,
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
   })
 
   return (
     <div data-testid='ContributionTable'>
-      <MantineReactTable table={table} />
+      <ScrollArea scrollbars='x'>
+        <MantineReactTable table={table} />
+      </ScrollArea>
       <Group align='flex-end' mt='md'>
         <Pagination
           total={Math.ceil(totalRowCount / pagination.pageSize)}
