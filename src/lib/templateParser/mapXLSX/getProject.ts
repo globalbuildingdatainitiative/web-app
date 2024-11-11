@@ -333,7 +333,7 @@ const mapLifeCycleStages = (assemblies: InputAssembly[]): LifeCycleStage[] => {
     }
   }
 
-  return usedStages.size > 0 ? Array.from(usedStages) : ['none' as LifeCycleStage]
+  return usedStages.size > 0 ? Array.from(usedStages) : ['a1a3' as LifeCycleStage]
 }
 
 // Function to map impact categories
