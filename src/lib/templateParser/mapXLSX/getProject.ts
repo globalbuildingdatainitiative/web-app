@@ -5,14 +5,28 @@ type RequiredInputProject = Omit<InputProject, 'id'> & { id: string }
 
 type ProjectData = Record<string, string | number>
 
+const formatEnumString = (value: string): string => {
+  if (!value) return value;
+
+  // Remove leading/trailing spaces and convert to lowercase
+  let formatted = value.trim().toLowerCase();
+
+  // Replace spaces with underscores
+  formatted = formatted.replace(/\s+/g, '_');
+
+  return formatted;
+};
+
+
 export const getProject = (projectData: ProjectData, assemblies: InputAssembly[]) => {
+
   return {
     id: uuidv4(),
     name: (projectData['name'] as string) || 'Unknown Project',
     description: (projectData['description'] as string) || '',
     comment: (projectData['comment'] as string) || '',
     classificationSystem: projectData['classification_system'] || '',
-    projectPhase: projectData['project_phase'],
+    projectPhase: formatEnumString(String(projectData['project_phase'] || '')),
     location: getLocation(projectData),
     owner: projectData['owner'] || 'Unknown Owner',
     lifeCycleStages: mapLifeCycleStages(assemblies),
