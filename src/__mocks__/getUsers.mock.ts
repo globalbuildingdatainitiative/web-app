@@ -6,7 +6,22 @@ export const getUsersMock: MockedResponse[] = [
   {
     request: {
       query: GetUsersDocument,
-      variables: { filters: { organizationId: { equal: '1' } } },
+      variables: {
+        filters: {
+          organizationId: { equal: '1' },
+        },
+        sortBy: undefined,
+      },
+    },
+    result: getUsersResponse,
+  },
+  {
+    request: {
+      query: GetUsersDocument,
+      variables: {
+        filters: undefined,
+        sortBy: undefined,
+      },
     },
     result: getUsersResponse,
   },
