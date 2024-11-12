@@ -1,7 +1,8 @@
 import { Center, Grid, MultiSelect, Stack, RangeSlider, Text } from '@mantine/core'
 import { BoxPlot, BoxPlotData, Loading } from '@components'
 import { useGetProjectDataForBoxPlotQuery, LifeCycleStage, BuildingTypology } from '@queries'
-import { useState, useMemo } from 'react'
+import { useMemo } from 'react'
+import { FilterState } from '@components'
 
 const formatEnumValue = (value: string): string => {
   return value
@@ -27,33 +28,20 @@ const formatCountryName = (countryName: string): string => {
   }
 }
 
-export const GlobalBoxPlot = () => {
-  const [selectedTypologies, setSelectedTypologies] = useState<string[]>([])
-  const [selectedLifeCycleStages, setSelectedLifeCycleStages] = useState<string[]>([LifeCycleStage.A1A3])
-  const [selectedCountries, setSelectedCountries] = useState<string[]>([])
-  const [selectedSoftware, setSelectedSoftware] = useState<string[]>([])
-  const [gfaRange, setGfaRange] = useState<[number, number]>([0, 5000])
-  const [confirmedGfaRange, setConfirmedGfaRange] = useState<[number, number]>([0, 5000])
+interface GlobalBoxPlotProps {
+  filters: FilterState
+  onFiltersChange: (filters: FilterState) => void
+}
 
-  const typologyOptions = useMemo(
-    () =>
-      Object.values(BuildingTypology).map((value) => ({
-        value,
-        label: formatEnumValue(value),
-      })),
-    [],
-  )
-
-  const lifeCycleOptions = useMemo(
-    () => [
-      { value: 'all', label: 'Select All' },
-      ...Object.values(LifeCycleStage).map((value) => ({
-        value,
-        label: capitalizeEnumValue(value),
-      })),
-    ],
-    [],
-  )
+export const GlobalBoxPlot = ({ filters, onFiltersChange }: GlobalBoxPlotProps) => {
+  const {
+    selectedTypologies,
+    selectedLifeCycleStages,
+    selectedCountries,
+    selectedSoftware,
+    gfaRange,
+    confirmedGfaRange,
+  } = filters
 
   const aggregation = useMemo(() => {
     const divideAggregation = {
@@ -125,14 +113,69 @@ export const GlobalBoxPlot = () => {
 
   const { data, loading, error } = useGetProjectDataForBoxPlotQuery({ variables: { aggregation } })
 
+  const handleTypologyChange = (value: string[]) => {
+    onFiltersChange({ ...filters, selectedTypologies: value })
+  }
+
   const handleLifeCycleStageChange = (value: string[]) => {
     if (value.includes('all')) {
       const allStages = Object.values(LifeCycleStage)
-      setSelectedLifeCycleStages(allStages)
+      onFiltersChange({ ...filters, selectedLifeCycleStages: allStages })
     } else {
-      setSelectedLifeCycleStages(value)
+      onFiltersChange({ ...filters, selectedLifeCycleStages: value })
     }
   }
+
+  const handleCountryChange = (value: string[]) => {
+    if (value.includes('all')) {
+      const allCountries = countryOptions.filter((option) => option.value !== 'all').map((option) => option.value)
+      onFiltersChange({ ...filters, selectedCountries: allCountries })
+    } else {
+      onFiltersChange({ ...filters, selectedCountries: value })
+    }
+  }
+
+  const handleSoftwareChange = (value: string[]) => {
+    if (value.includes('all')) {
+      const allSoftware = softwareOptions.filter((option) => option.value !== 'all').map((option) => option.value)
+      onFiltersChange({ ...filters, selectedSoftware: allSoftware })
+    } else {
+      onFiltersChange({ ...filters, selectedSoftware: value })
+    }
+  }
+
+  const handleRangeChange = (value: [number, number]) => {
+    onFiltersChange({ ...filters, gfaRange: value })
+  }
+
+  const handleRangeConfirm = (value: [number, number]) => {
+    onFiltersChange({
+      ...filters,
+      gfaRange: value,
+      confirmedGfaRange: value,
+    })
+  }
+
+  // Options for select components
+  const typologyOptions = useMemo(
+    () =>
+      Object.values(BuildingTypology).map((value) => ({
+        value,
+        label: formatEnumValue(value),
+      })),
+    [],
+  )
+
+  const lifeCycleOptions = useMemo(
+    () => [
+      { value: 'all', label: 'Select All' },
+      ...Object.values(LifeCycleStage).map((value) => ({
+        value,
+        label: capitalizeEnumValue(value),
+      })),
+    ],
+    [],
+  )
 
   const countryOptions = useMemo(() => {
     if (!data) return []
@@ -158,29 +201,6 @@ export const GlobalBoxPlot = () => {
 
     return [{ value: 'all', label: 'Select All' }, ...options.sort((a, b) => a.label.localeCompare(b.label))]
   }, [data])
-
-  const handleCountryChange = (value: string[]) => {
-    if (value.includes('all')) {
-      const allCountries = countryOptions.filter((option) => option.value !== 'all').map((option) => option.value)
-      setSelectedCountries(allCountries)
-    } else {
-      setSelectedCountries(value)
-    }
-  }
-
-  const handleSoftwareChange = (value: string[]) => {
-    if (value.includes('all')) {
-      const allSoftware = softwareOptions.filter((option) => option.value !== 'all').map((option) => option.value)
-      setSelectedSoftware(allSoftware)
-    } else {
-      setSelectedSoftware(value)
-    }
-  }
-
-  const handleRangeConfirm = (value: [number, number]) => {
-    setGfaRange(value)
-    setConfirmedGfaRange(value)
-  }
 
   const formatGfaValue = (value: number) => {
     return `${value.toLocaleString()} m²`
@@ -230,7 +250,7 @@ export const GlobalBoxPlot = () => {
           <MultiSelect
             data={typologyOptions}
             value={selectedTypologies}
-            onChange={(value: string[]) => setSelectedTypologies(value)}
+            onChange={handleTypologyChange}
             label='Building Typology'
             placeholder='Select building typologies'
           />
@@ -275,9 +295,8 @@ export const GlobalBoxPlot = () => {
             max={5000}
             step={100}
             value={gfaRange}
-            onChange={setGfaRange}
+            onChange={handleRangeChange}
             onChangeEnd={handleRangeConfirm}
-            onBlur={() => setConfirmedGfaRange(gfaRange)}
             label={formatGfaValue}
             marks={[
               { value: 0, label: '0 m²' },
