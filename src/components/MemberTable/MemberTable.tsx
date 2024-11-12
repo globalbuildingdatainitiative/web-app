@@ -1,8 +1,8 @@
 import { useGetUsersQuery, useUpdateUserMutation } from '@queries'
 import { MantineReactTable, MRT_ColumnDef, useMantineReactTable } from 'mantine-react-table'
-import React, { useMemo } from 'react'
+import React, { useMemo, useState } from 'react'
 import { useUserContext } from '@context'
-import { Button } from '@mantine/core'
+import { Button, Group, Pagination, ScrollArea, Select } from '@mantine/core'
 import { useNavigate } from 'react-router-dom'
 import { theme } from '@components'
 
@@ -23,6 +23,11 @@ export const MemberTable: React.FC<MemberTableProps> = ({ organizationId }) => {
   const { user: currentUser } = useUserContext()
   const currentUserId = currentUser?.id
   const navigate = useNavigate()
+
+  const [pagination, setPagination] = useState({
+    pageIndex: 0,
+    pageSize: 10,
+  })
 
   const {
     loading: loadingUsers,
@@ -70,6 +75,7 @@ export const MemberTable: React.FC<MemberTableProps> = ({ organizationId }) => {
   }, [usersData])
 
   const currentUserRole = getUserRole(currentUserId)
+  const totalRowCount = rowData.length
 
   const columns = useMemo<MRT_ColumnDef<Row>[]>(() => {
     const handleRemoveFromOrganization = async (userId: string) => {
@@ -133,9 +139,14 @@ export const MemberTable: React.FC<MemberTableProps> = ({ organizationId }) => {
     ]
   }, [currentUserId, currentUserRole, updateUser, navigate, refetchUsers])
 
+  const slicedData = useMemo(() => {
+    const start = pagination.pageIndex * pagination.pageSize
+    return rowData.slice(start, start + pagination.pageSize)
+  }, [rowData, pagination.pageIndex, pagination.pageSize])
+
   const table = useMantineReactTable({
     columns,
-    data: rowData,
+    data: slicedData,
     rowCount: rowData.length,
     enableColumnActions: false,
     enableColumnFilters: false,
@@ -151,12 +162,29 @@ export const MemberTable: React.FC<MemberTableProps> = ({ organizationId }) => {
       isLoading: loadingUsers,
       showAlertBanner: !!errorUsers,
       showSkeletons: false,
+      pagination,
     },
+    onPaginationChange: setPagination,
   })
 
   return (
     <div data-testid='MemberTable'>
-      <MantineReactTable table={table} />
+      <ScrollArea scrollbars='x'>
+        <MantineReactTable table={table} />
+      </ScrollArea>
+      <Group align='flex-end' mt='md'>
+        <Pagination
+          total={Math.ceil(totalRowCount / pagination.pageSize)}
+          value={pagination.pageIndex + 1}
+          onChange={(page) => setPagination((prev) => ({ ...prev, pageIndex: page - 1 }))}
+        />
+        <Select
+          value={String(pagination.pageSize)}
+          onChange={(size) => setPagination((prev) => ({ ...prev, pageSize: Number(size), pageIndex: 0 }))}
+          data={['10', '20', '30', '50', '100', '200']}
+          label='Rows per page'
+        />
+      </Group>
     </div>
   )
 }
