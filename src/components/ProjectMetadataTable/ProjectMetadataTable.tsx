@@ -17,6 +17,46 @@ interface MetaData {
   unit?: string
 }
 
+// Formatting numbers with thousand separators
+const formatNumber = (value: number): string => {
+  return new Intl.NumberFormat('en-US').format(value)
+}
+
+// Formatting units with proper superscript
+const formatUnit = (unit?: string): string => {
+  if (!unit) return ''
+  return unit
+    .replace('m2', 'm²')
+    .replace('m3', 'm³')
+    .replace('kg/m2', 'kg/m²')
+    .replace('kWh/m2', 'kWh/m²')
+}
+
+// Formatting enum values by capitalizing first letter and replacing underscores with spaces
+const formatEnumValue = (value: string): string => {
+  return value
+    .split('_')
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+    .join(' ')
+}
+
+// Formatting cell value based on its type and unit
+const formatCellValue = (value: string | number | string[], unit?: string): string => {
+  if (Array.isArray(value)) {
+    return value.map(v => typeof v === 'string' ? formatEnumValue(v) : formatNumber(Number(v))).join(', ')
+  }
+
+  if (typeof value === 'number') {
+    return formatNumber(value)
+  }
+
+  if (typeof value === 'string' && value.includes('_')) {
+    return formatEnumValue(value)
+  }
+
+  return String(value)
+}
+
 export const ProjectMetadataTable = (props: ProjectMetadataTableProps) => {
   const { project } = props
   const [pagination, setPagination] = useState<MRT_PaginationState>({ pageIndex: 0, pageSize: 10 })
@@ -32,10 +72,12 @@ export const ProjectMetadataTable = (props: ProjectMetadataTableProps) => {
       {
         accessorKey: 'value',
         header: 'Value',
+        Cell: ({ cell }) => formatCellValue(cell.getValue<string | number | string[]>(), cell.row.original.unit),
       },
       {
         accessorKey: 'unit',
         header: 'Unit',
+        Cell: ({ cell }) => formatUnit(cell.getValue<string>()),
       },
     ],
     [],
@@ -53,6 +95,15 @@ export const ProjectMetadataTable = (props: ProjectMetadataTableProps) => {
     pageCount: Math.ceil(metaData.length / pagination.pageSize),
     enablePagination: false,
     enableGlobalFilter: false,
+    mantinePaperProps: {
+      shadow: 'xs',
+      withBorder: true,
+      p: 'md',
+    },
+    mantineTableProps: {
+      striped: true,
+      highlightOnHover: true,
+    },
     state: {
       pagination,
     },
