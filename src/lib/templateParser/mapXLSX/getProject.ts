@@ -20,7 +20,7 @@ const formatEnumString = (value: string): string => {
 
 export const getProject = (projectData: ProjectData, assemblies: InputAssembly[]) => {
 
-  return {
+  const result = {
     id: uuidv4(),
     name: (projectData['name'] as string) || 'Unknown Project',
     description: (projectData['description'] as string) || '',
@@ -47,11 +47,13 @@ export const getProject = (projectData: ProjectData, assemblies: InputAssembly[]
 
     metaData: getMetaData(projectData),
   } as RequiredInputProject
+  console.log('Final project data:', JSON.stringify(result, null, 2));
+  return result
 }
 
 const getMetaData = (projectData: ProjectData) => ({
   // Information
-  projectClassificationSystem: String(projectData['meta_data.project_classification_system'] || ''),
+  projectClassificationSystem: String(projectData['meta_data.product_classification_system'] || ''),
   image: String(projectData['meta_data.image'] || ''),
   source: { name: String(projectData['meta_data.source.name'] || ''), url: null },
 
@@ -273,6 +275,7 @@ const getMetaData = (projectData: ProjectData) => ({
   journalPublisher: String(projectData['meta_data.publication.publisher'] || ''),
 })
 
+
 const getProjectInfo = (projectData: ProjectData) => ({
   type: 'buildingInfo',
   buildingFootprint: {
@@ -292,24 +295,24 @@ const getProjectInfo = (projectData: ProjectData) => ({
     .toLowerCase()
     .replace(/ /g, '_'),
   buildingTypology: [((projectData['project_info.building_info.building_typology'] as string) || '').toLowerCase()],
-  buildingUsers: projectData['building_users'] || 0,
-  certifications: [projectData['certifications'] || 'unknown'],
-  floorsAboveGround: projectData['floors_above_ground'] || 0,
-  floorsBelowGround: projectData['floors_below_ground'] || 0,
-  frameType: projectData['frame_type'] || '',
+  buildingUsers: projectData['project_info.building_info.building_users'] || 0,
+  certifications: [projectData['project_info.building_info.certifications'] || 'unknown'],
+  floorsAboveGround: projectData['project_info.building_info.floors_above_ground'] || 0,
+  floorsBelowGround: projectData['project_info.building_info.floors_below_ground'] || 0,
+  frameType: projectData['project_info.building_info.frame_type'] || '',
   grossFloorArea: {
-    value: projectData['gross_floor_area.value'] || 0,
-    unit: projectData['gross_floor_area.unit'] || 'unknown',
-    definition: '',
+    value: projectData['project_info.building_info.gross_floor_area.value'] || 0,
+    unit: projectData['project_info.building_info.gross_floor_area.unit'] || 'unknown',
+    definition: projectData['project_info.building_info.gross_floor_area.definition'] || 'unknown',
   },
   heatedFloorArea: {
-    value: projectData['heated_floor_area.value'] || 0,
+    value: projectData['project_info.building_info.heated_floor_area'] || 0,
     unit: projectData['heated_floor_area.unit'] || 'unknown',
     definition: '',
   },
   roofType: projectData['project_info.building_info.roof_type'] || '',
-  buildingCompletionYear: Number(projectData['project_info.building_info.building_completion_year']) || 0,
-  buildingPermitYear: Number(projectData['building_permit_year']) || 0,
+  buildingCompletionYear: projectData['project_info.building_info.building_completion_year'] || 0,
+  buildingPermitYear: projectData['building_permit_year'] || 0,
   energyDemandHeating: projectData['building_info.energy_demand_heating'] || 0,
   energySupplyHeating: projectData['building_info.energy_supply_heating'] || 0,
   energyDemandElectricity: projectData['building_info.energy_demand_electricity'] || 0,

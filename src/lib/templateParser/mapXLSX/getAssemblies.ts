@@ -51,8 +51,8 @@ export const getAssemblies = (assemblyDataArray: AssemblyData[], projectData: Pr
       type: 'actual',
       metaData: {
         volume: {
-          value: projectData['meta_data.volume.value'] || 0,
-          unit: projectData['meta_data.volume.unit'] || 'unknown',
+          value: assemblyData['meta_data.volume.value'] || 0,
+          unit: assemblyData['meta_data.volume.unit'] || 'unknown',
         },
       },
       category: '',
@@ -64,15 +64,15 @@ export const getAssemblies = (assemblyDataArray: AssemblyData[], projectData: Pr
 const getProductMetaData = (projectData: ProjectData, assemblyData: AssemblyData) => ({
   product_class: String(assemblyData['meta_data.product_class'] || ''),
   strength: {
-    value: projectData['meta_data.strength.value'] || 0,
-    unit: projectData['meta_data.strength.unit'] || 'unknown',
+    value: assemblyData['meta_data.strength.value'] || 0,
+    unit: assemblyData['meta_data.strength.unit'] || 'unknown',
   },
   density: {
-    value: projectData['meta_data.density.value'] || 0,
-    unit: projectData['meta_data.density.unit'] || 'unknown',
+    value: assemblyData['meta_data.density.value'] || 0,
+    unit: assemblyData['meta_data.density.unit'] || 'unknown',
   },
   exposure_classes: String(assemblyData['meta_data.exposure_classes'] || ''),
-  concrete_precast: String(assemblyData['meta_data.concrete_precast'] || ''),
+  concrete_precast: assemblyData['meta_data.concrete_precast'] || '',
   brick_type: String(assemblyData['meta_data.brick_type'] || ''),
   brick_grout_included: String(assemblyData['meta_data.brick_grout_included'] || ''),
   timber_type: String(assemblyData['meta_data.timber_type'] || ''),
