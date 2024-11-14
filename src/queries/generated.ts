@@ -3044,12 +3044,25 @@ export type GetProjectPortfolioQuery = {
       id: any
       name: string
       location: { __typename?: 'Location'; countryName: string }
+      softwareInfo: { __typename?: 'SoftwareInfo'; lcaSoftware: string }
       projectInfo: {
         __typename?: 'ProjectInfo'
         buildingType: BuildingType
         buildingTypology: Array<BuildingTypology>
+        buildingCompletionYear?: number | null
+        buildingPermitYear?: number | null
+        buildingUsers?: number | null
+        floorsAboveGround: number
+        floorsBelowGround?: number | null
+        frameType?: string | null
+        generalEnergyClass: GeneralEnergyClass
         grossFloorArea?: { __typename?: 'AreaType'; value: number } | null
+        buildingFootprint?: { __typename?: 'ValueUnit'; value: number } | null
+        buildingHeight?: { __typename?: 'ValueUnit'; value: number } | null
+        buildingMass?: { __typename?: 'ValueUnit'; value: number } | null
+        heatedFloorArea?: { __typename?: 'AreaType'; value: number } | null
       }
+      metaData?: { __typename?: 'ProjectMetaData'; source?: { __typename?: 'Source'; name: string } | null } | null
       results?: {
         __typename?: 'Results'
         gwp?: {
@@ -4200,12 +4213,39 @@ export const GetProjectPortfolioDocument = gql`
         location {
           countryName
         }
+        softwareInfo {
+          lcaSoftware
+        }
         projectInfo {
           grossFloorArea {
             value
           }
           buildingType
           buildingTypology
+          buildingCompletionYear
+          buildingFootprint {
+            value
+          }
+          buildingHeight {
+            value
+          }
+          buildingMass {
+            value
+          }
+          buildingPermitYear
+          buildingUsers
+          floorsAboveGround
+          floorsBelowGround
+          frameType
+          generalEnergyClass
+          heatedFloorArea {
+            value
+          }
+        }
+        metaData {
+          source {
+            name
+          }
         }
         results {
           gwp {

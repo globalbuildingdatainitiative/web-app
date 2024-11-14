@@ -53,6 +53,101 @@ export const PortfolioTable = () => {
         size: 50,
       },
       {
+        accessorKey: 'softwareInfo.lcaSoftware',
+        header: 'LCA Software',
+        Cell: ({ cell }) => {
+          const software = cell.getValue<string>() || 'N/A'
+          return <TruncatedTextWithTooltip text={software} />
+        },
+        size: 100,
+      },
+      {
+        accessorKey: 'metaData.source.name',
+        header: 'Source',
+        Cell: ({ cell }) => {
+          const source = cell.getValue<string>() || 'N/A'
+          return <TruncatedTextWithTooltip text={source} />
+        },
+        size: 100,
+      },
+      {
+        accessorKey: 'projectInfo.buildingCompletionYear',
+        header: 'Completion Year',
+        size: 50,
+      },
+      {
+        accessorKey: 'projectInfo.buildingFootprint.value',
+        header: 'Building Footprint (m²)',
+        size: 50,
+      },
+      {
+        accessorKey: 'projectInfo.buildingHeight.value',
+        header: 'Building Height (m)',
+        size: 50,
+      },
+      {
+        accessorKey: 'projectInfo.buildingMass.value',
+        header: 'Building Mass (kg)',
+        size: 50,
+      },
+      {
+        accessorKey: 'projectInfo.buildingPermitYear',
+        header: 'Permit Year',
+        size: 50,
+      },
+      {
+        accessorKey: 'projectInfo.buildingTypology',
+        header: 'Building Typology',
+        size: 100,
+      },
+      {
+        accessorKey: 'projectInfo.buildingUsers',
+        header: 'Building Users',
+        size: 50,
+      },
+      {
+        accessorKey: 'projectInfo.floorsAboveGround',
+        header: 'Floors Above Ground',
+        size: 50,
+      },
+      {
+        accessorKey: 'projectInfo.floorsBelowGround',
+        header: 'Floors Below Ground',
+        size: 50,
+      },
+      {
+        accessorKey: 'projectInfo.generalEnergyClass',
+        header: 'Energy Class',
+        size: 50,
+      },
+      {
+        accessorKey: 'projectInfo.heatedFloorArea.value',
+        header: 'Heated Floor Area (m²)',
+        Cell: ({ cell }) => {
+          const value = cell.getValue<number>()
+          return value ? value.toFixed(2) : 'N/A'
+        },
+        size: 50,
+      },
+      {
+        accessorKey: 'projectInfo.roofType',
+        header: 'Roof Type',
+        Cell: ({ cell }) => {
+          const roofType = cell.getValue<string>() || 'N/A'
+          return <TruncatedTextWithTooltip text={roofType} />
+        },
+        size: 50,
+      },
+      {
+        accessorKey: 'projectInfo.frameType',
+        header: 'Frame Type',
+        Cell: ({ cell }) => {
+          const frameType = cell.getValue<string>() || 'N/A'
+          return <TruncatedTextWithTooltip text={frameType} />
+        },
+        size: 50,
+      },
+      {
         accessorKey: 'projectInfo.grossFloorArea.value',
         header: 'Gross Floor Area (m²)',
         size: 50,
@@ -68,6 +163,9 @@ export const PortfolioTable = () => {
         Cell: getGWPBreakdown,
         header: 'GWP by Life Cycle Stage',
         grow: true,
+        enableSorting: false,
+        enableColumnFilter: false,
+        enableColumnActions: false,
       },
     ],
     [],
@@ -101,6 +199,13 @@ export const PortfolioTable = () => {
       } else {
         setPagination(newPagination)
       }
+    },
+    enableStickyHeader: true,
+    mantineTableContainerProps: {
+      style: {
+        maxWidth: '100%',
+        overflowX: 'auto',
+      },
     },
   })
   return (
