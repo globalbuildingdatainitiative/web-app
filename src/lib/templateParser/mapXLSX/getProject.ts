@@ -55,7 +55,7 @@ const getMetaData = (projectData: ProjectData) => ({
   // Information
   projectClassificationSystem: String(projectData['meta_data.product_classification_system'] || ''),
   image: String(projectData['meta_data.image'] || ''),
-  source: { name: String(projectData['meta_data.source.name'] || ''), url: null },
+  source: { name: String(projectData['meta_data.source.name'] || ''), url: null }, // No such field in the template
 
   // Location
   climateZone: String(projectData['meta_data.climate_zone'] || ''),
@@ -199,12 +199,12 @@ const getMetaData = (projectData: ProjectData) => ({
   energyModelingTool: String(projectData['meta_data.energy.tool_energy_modeling'] || ''),
   energyModelingToolVersion: String(projectData['meta_data.energy.tool_energy_modeling_version'] || ''),
   energyModelMethodologyReference: String(projectData['meta_data.energy.energy_model_methodology_reference'] || ''),
-  gwpEnergySourcesPeriod: String(projectData['meta_data.energy.gwp_energy_sources_period'] || ''),
+  gwpEnergySourcesPeriod: String(projectData['meta_data.energy.gwp_energy_sources_year'] || ''),
   siteLocationWeatherData: String(projectData['meta_data.energy.site_location_weather_data'] || ''),
   electricityProvider: String(projectData['meta_data.energy.electricity_provider'] || ''),
   electricitySource: String(projectData['meta_data.energy.electricity_source'] || ''),
   electricityCarbonFactor: String(projectData['meta_data.energy.electricity_carbon_factor'] || ''),
-  electricityCarbonFactorSource: String(projectData['meta_data.energy.electricity_carbon_factor_unit'] || ''),
+  electricityCarbonFactorSource: String(projectData['meta_data.energy.electricity_carbon_factor_source'] || ''),
 
   // Project Team
   architectOfRecord: String(projectData['meta_data.architect_of_record'] || ''),
@@ -311,7 +311,10 @@ const getProjectInfo = (projectData: ProjectData) => ({
     definition: '',
   },
   roofType: projectData['project_info.building_info.roof_type'] || '',
-  buildingCompletionYear: projectData['project_info.building_info.building_completion_year'] || 0,
+
+
+  // Error in parsing this date. It should not be number
+  buildingCompletionYear: Number(projectData['project_info.building_info.building_completion_year']),
   buildingPermitYear: projectData['building_permit_year'] || 0,
   energyDemandHeating: projectData['building_info.energy_demand_heating'] || 0,
   energySupplyHeating: projectData['building_info.energy_supply_heating'] || 0,

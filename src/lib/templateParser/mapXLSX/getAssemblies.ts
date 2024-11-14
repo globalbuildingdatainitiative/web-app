@@ -72,7 +72,7 @@ const getProductMetaData = (projectData: ProjectData, assemblyData: AssemblyData
     unit: assemblyData['meta_data.density.unit'] || 'unknown',
   },
   exposure_classes: String(assemblyData['meta_data.exposure_classes'] || ''),
-  concrete_precast: assemblyData['meta_data.concrete_precast'] || '',
+  concrete_precast: String(assemblyData['meta_data.concrete_precast'] || false),
   brick_type: String(assemblyData['meta_data.brick_type'] || ''),
   brick_grout_included: String(assemblyData['meta_data.brick_grout_included'] || ''),
   timber_type: String(assemblyData['meta_data.timber_type'] || ''),
