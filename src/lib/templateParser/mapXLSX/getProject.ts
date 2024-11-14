@@ -45,7 +45,6 @@ export const getProject = (projectData: ProjectData, assemblies: InputAssembly[]
 
     metaData: getMetaData(projectData),
   } as RequiredInputProject
-  //console.log('Final project data:', JSON.stringify(result, null, 2))
   return result
 }
 
