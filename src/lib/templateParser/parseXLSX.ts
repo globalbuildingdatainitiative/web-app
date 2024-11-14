@@ -1,11 +1,9 @@
 import * as XLSX from 'xlsx'
 
-
 // Helper function to trim string values while preserving other types
 const trimIfString = (value: string | number): string | number => {
   return typeof value === 'string' ? value.trim() : value
 }
-
 
 export const mapAssembliesToJson = (sheetData: (string | number)[][]) => {
   const headers = sheetData[0]
