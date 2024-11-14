@@ -6,20 +6,18 @@ type RequiredInputProject = Omit<InputProject, 'id'> & { id: string }
 type ProjectData = Record<string, string | number>
 
 const formatEnumString = (value: string): string => {
-  if (!value) return value;
+  if (!value) return value
 
   // Remove leading/trailing spaces and convert to lowercase
-  let formatted = value.trim().toLowerCase();
+  let formatted = value.trim().toLowerCase()
 
   // Replace spaces with underscores
-  formatted = formatted.replace(/\s+/g, '_');
+  formatted = formatted.replace(/\s+/g, '_')
 
-  return formatted;
-};
-
+  return formatted
+}
 
 export const getProject = (projectData: ProjectData, assemblies: InputAssembly[]) => {
-
   const result = {
     id: uuidv4(),
     name: (projectData['name'] as string) || 'Unknown Project',
@@ -47,7 +45,7 @@ export const getProject = (projectData: ProjectData, assemblies: InputAssembly[]
 
     metaData: getMetaData(projectData),
   } as RequiredInputProject
-  console.log('Final project data:', JSON.stringify(result, null, 2));
+  //console.log('Final project data:', JSON.stringify(result, null, 2))
   return result
 }
 
@@ -275,7 +273,6 @@ const getMetaData = (projectData: ProjectData) => ({
   journalPublisher: String(projectData['meta_data.publication.publisher'] || ''),
 })
 
-
 const getProjectInfo = (projectData: ProjectData) => ({
   type: 'buildingInfo',
   buildingFootprint: {
@@ -311,7 +308,6 @@ const getProjectInfo = (projectData: ProjectData) => ({
     definition: '',
   },
   roofType: projectData['project_info.building_info.roof_type'] || '',
-
 
   // Error in parsing this date. It should not be number
   buildingCompletionYear: Number(projectData['project_info.building_info.building_completion_year']),
