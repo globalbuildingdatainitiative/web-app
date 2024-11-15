@@ -25,36 +25,33 @@ const formatNumber = (value: number): string => {
 // Formatting units with proper superscript
 const formatUnit = (unit?: string): string => {
   if (!unit) return ''
-  return unit
-    .replace('m2', 'm²')
-    .replace('m3', 'm³')
-    .replace('kg/m2', 'kg/m²')
-    .replace('kWh/m2', 'kWh/m²')
+  return unit.replace('m2', 'm²').replace('m3', 'm³').replace('kg/m2', 'kg/m²').replace('kWh/m2', 'kWh/m²')
 }
 
 // Formatting enum values by capitalizing first letter and replacing underscores with spaces
 const formatEnumValue = (value: string): string => {
   return value
     .split('_')
-    .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
     .join(' ')
 }
 
 // Formatting cell value based on its type and unit
 const formatCellValue = (value: string | number | string[], unit?: string): string => {
+  let formattedValue: string
+
   if (Array.isArray(value)) {
-    return value.map(v => typeof v === 'string' ? formatEnumValue(v) : formatNumber(Number(v))).join(', ')
+    formattedValue = value.map((v) => (typeof v === 'string' ? formatEnumValue(v) : formatNumber(Number(v)))).join(', ')
+  } else if (typeof value === 'number') {
+    formattedValue = formatNumber(value)
+  } else if (typeof value === 'string' && value.includes('_')) {
+    formattedValue = formatEnumValue(value)
+  } else {
+    formattedValue = String(value)
   }
 
-  if (typeof value === 'number') {
-    return formatNumber(value)
-  }
-
-  if (typeof value === 'string' && value.includes('_')) {
-    return formatEnumValue(value)
-  }
-
-  return String(value)
+  // Append unit if it exists
+  return unit ? `${formattedValue} ${formatUnit(unit)}` : formattedValue
 }
 
 export const ProjectMetadataTable = (props: ProjectMetadataTableProps) => {
