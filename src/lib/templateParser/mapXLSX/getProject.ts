@@ -52,7 +52,7 @@ const getMetaData = (projectData: ProjectData) => ({
   // Information
   projectClassificationSystem: String(projectData['meta_data.product_classification_system'] || ''),
   image: String(projectData['meta_data.image'] || ''),
-  source: { name: String(projectData['meta_data.source.name'] || ''), url: null }, // No such field in the template
+  source: { name: String(projectData['meta_data.source.name'] || 'Excel Upload'), url: null }, // No such field in the template
 
   // Location
   climateZone: String(projectData['meta_data.climate_zone'] || ''),
@@ -324,8 +324,6 @@ const getLocation = (projectData: ProjectData) => ({
   address: projectData['location.address'] || '',
   city: projectData['location.city'] || '',
   country: ((projectData['location.country'] as string) || 'unknown').toLowerCase(),
-  latitude: projectData['location.latitude'] || 0,
-  longitude: projectData['location.longitude'] || 0,
 })
 
 // Function to map life cycle stages
