@@ -5,14 +5,26 @@ type RequiredInputProject = Omit<InputProject, 'id'> & { id: string }
 
 type ProjectData = Record<string, string | number>
 
+const formatEnumString = (value: string): string => {
+  if (!value) return value
+
+  // Remove leading/trailing spaces and convert to lowercase
+  let formatted = value.trim().toLowerCase()
+
+  // Replace spaces with underscores
+  formatted = formatted.replace(/\s+/g, '_')
+
+  return formatted
+}
+
 export const getProject = (projectData: ProjectData, assemblies: InputAssembly[]) => {
-  return {
+  const result = {
     id: uuidv4(),
     name: (projectData['name'] as string) || 'Unknown Project',
     description: (projectData['description'] as string) || '',
     comment: (projectData['comment'] as string) || '',
     classificationSystem: projectData['classification_system'] || '',
-    projectPhase: projectData['project_phase'],
+    projectPhase: formatEnumString(String(projectData['project_phase'] || '')),
     location: getLocation(projectData),
     owner: projectData['owner'] || 'Unknown Owner',
     lifeCycleStages: mapLifeCycleStages(assemblies),
@@ -33,13 +45,14 @@ export const getProject = (projectData: ProjectData, assemblies: InputAssembly[]
 
     metaData: getMetaData(projectData),
   } as RequiredInputProject
+  return result
 }
 
 const getMetaData = (projectData: ProjectData) => ({
   // Information
-  projectClassificationSystem: String(projectData['meta_data.project_classification_system'] || ''),
+  projectClassificationSystem: String(projectData['meta_data.product_classification_system'] || ''),
   image: String(projectData['meta_data.image'] || ''),
-  source: { name: String(projectData['meta_data.source.name'] || ''), url: null },
+  source: { name: String(projectData['meta_data.source.name'] || 'Excel Upload'), url: null }, // No such field in the template
 
   // Location
   climateZone: String(projectData['meta_data.climate_zone'] || ''),
@@ -183,12 +196,12 @@ const getMetaData = (projectData: ProjectData) => ({
   energyModelingTool: String(projectData['meta_data.energy.tool_energy_modeling'] || ''),
   energyModelingToolVersion: String(projectData['meta_data.energy.tool_energy_modeling_version'] || ''),
   energyModelMethodologyReference: String(projectData['meta_data.energy.energy_model_methodology_reference'] || ''),
-  gwpEnergySourcesPeriod: String(projectData['meta_data.energy.gwp_energy_sources_period'] || ''),
+  gwpEnergySourcesPeriod: String(projectData['meta_data.energy.gwp_energy_sources_year'] || ''),
   siteLocationWeatherData: String(projectData['meta_data.energy.site_location_weather_data'] || ''),
   electricityProvider: String(projectData['meta_data.energy.electricity_provider'] || ''),
   electricitySource: String(projectData['meta_data.energy.electricity_source'] || ''),
   electricityCarbonFactor: String(projectData['meta_data.energy.electricity_carbon_factor'] || ''),
-  electricityCarbonFactorSource: String(projectData['meta_data.energy.electricity_carbon_factor_unit'] || ''),
+  electricityCarbonFactorSource: String(projectData['meta_data.energy.electricity_carbon_factor_source'] || ''),
 
   // Project Team
   architectOfRecord: String(projectData['meta_data.architect_of_record'] || ''),
@@ -278,24 +291,26 @@ const getProjectInfo = (projectData: ProjectData) => ({
     .toLowerCase()
     .replace(/ /g, '_'),
   buildingTypology: [((projectData['project_info.building_info.building_typology'] as string) || '').toLowerCase()],
-  buildingUsers: projectData['building_users'] || 0,
-  certifications: [projectData['certifications'] || 'unknown'],
-  floorsAboveGround: projectData['floors_above_ground'] || 0,
-  floorsBelowGround: projectData['floors_below_ground'] || 0,
-  frameType: projectData['frame_type'] || '',
+  buildingUsers: projectData['project_info.building_info.building_users'] || 0,
+  certifications: [projectData['project_info.building_info.certifications'] || 'unknown'],
+  floorsAboveGround: projectData['project_info.building_info.floors_above_ground'] || 0,
+  floorsBelowGround: projectData['project_info.building_info.floors_below_ground'] || 0,
+  frameType: projectData['project_info.building_info.frame_type'] || '',
   grossFloorArea: {
-    value: projectData['gross_floor_area.value'] || 0,
-    unit: projectData['gross_floor_area.unit'] || 'unknown',
-    definition: '',
+    value: projectData['project_info.building_info.gross_floor_area.value'] || 0,
+    unit: projectData['project_info.building_info.gross_floor_area.unit'] || 'unknown',
+    definition: projectData['project_info.building_info.gross_floor_area.definition'] || 'unknown',
   },
   heatedFloorArea: {
-    value: projectData['heated_floor_area.value'] || 0,
+    value: projectData['project_info.building_info.heated_floor_area'] || 0,
     unit: projectData['heated_floor_area.unit'] || 'unknown',
     definition: '',
   },
   roofType: projectData['project_info.building_info.roof_type'] || '',
-  buildingCompletionYear: Number(projectData['project_info.building_info.building_completion_year']) || 0,
-  buildingPermitYear: Number(projectData['building_permit_year']) || 0,
+
+  // Error in parsing this date. It should not be number
+  buildingCompletionYear: Number(projectData['project_info.building_info.building_completion_year']),
+  buildingPermitYear: projectData['building_permit_year'] || 0,
   energyDemandHeating: projectData['building_info.energy_demand_heating'] || 0,
   energySupplyHeating: projectData['building_info.energy_supply_heating'] || 0,
   energyDemandElectricity: projectData['building_info.energy_demand_electricity'] || 0,
@@ -308,9 +323,7 @@ const getProjectInfo = (projectData: ProjectData) => ({
 const getLocation = (projectData: ProjectData) => ({
   address: projectData['location.address'] || '',
   city: projectData['location.city'] || '',
-  country: ((projectData['location.country'] as string) || '').toLowerCase(),
-  latitude: projectData['location.latitude'] || 0,
-  longitude: projectData['location.longitude'] || 0,
+  country: ((projectData['location.country'] as string) || 'unknown').toLowerCase(),
 })
 
 // Function to map life cycle stages
@@ -333,7 +346,7 @@ const mapLifeCycleStages = (assemblies: InputAssembly[]): LifeCycleStage[] => {
     }
   }
 
-  return usedStages.size > 0 ? Array.from(usedStages) : ['none' as LifeCycleStage]
+  return usedStages.size > 0 ? Array.from(usedStages) : ['a1a3' as LifeCycleStage]
 }
 
 // Function to map impact categories
