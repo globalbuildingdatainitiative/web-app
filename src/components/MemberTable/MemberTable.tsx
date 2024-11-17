@@ -1,5 +1,11 @@
 import { useGetUsersQuery, useUpdateUserMutation } from '@queries'
-import { MantineReactTable, MRT_ColumnDef, useMantineReactTable } from 'mantine-react-table'
+import {
+  MantineReactTable,
+  MRT_ColumnDef,
+  useMantineReactTable,
+  MRT_ColumnFiltersState,
+  MRT_SortingState,
+} from 'mantine-react-table'
 import React, { useMemo, useState } from 'react'
 import { useUserContext } from '@context'
 import { Button, Group, Pagination, ScrollArea, Select } from '@mantine/core'
@@ -24,6 +30,54 @@ export const MemberTable: React.FC<MemberTableProps> = ({ organizationId }) => {
   const currentUserId = currentUser?.id
   const navigate = useNavigate()
 
+  const [sorting, setSorting] = useState<MRT_SortingState>([])
+  const [columnFilters, setColumnFilters] = useState<MRT_ColumnFiltersState>([])
+
+  const getSortingVariables = () => {
+    if (!sorting.length) return undefined
+    const [sort] = sorting
+
+    const fieldMapping: Record<string, string> = {
+      name: 'name',
+      email: 'email',
+      timeJoined: 'timeJoined',
+      role: 'role',
+      firstName: 'firstName',
+      lastName: 'lastName',
+    }
+
+    const sortField = fieldMapping[sort.id] || sort.id
+
+    return {
+      [sort.desc ? 'dsc' : 'asc']: sortField,
+    }
+  }
+
+  const getFilterVariables = () => {
+    if (!columnFilters.length) return undefined
+
+    const filters: Record<string, { contains?: string; equal?: string; is_true?: boolean }> = {
+      organizationId: { equal: organizationId },
+    }
+
+    columnFilters.forEach((filter) => {
+      const fieldName = filter.id === 'name' ? 'firstName' : filter.id
+
+      if (typeof filter.value === 'string') {
+        if (filter.id === 'role') {
+          // Send the role value in lowercase to match the backend enum
+          filters[fieldName] = { equal: filter.value.toLowerCase() }
+        } else {
+          filters[fieldName] = { contains: filter.value }
+        }
+      } else if (typeof filter.value === 'boolean') {
+        filters[fieldName] = { is_true: filter.value }
+      }
+    })
+
+    return filters
+  }
+
   const [pagination, setPagination] = useState({
     pageIndex: 0,
     pageSize: 10,
@@ -36,11 +90,8 @@ export const MemberTable: React.FC<MemberTableProps> = ({ organizationId }) => {
     refetch: refetchUsers,
   } = useGetUsersQuery({
     variables: {
-      filters: {
-        organizationId: {
-          equal: organizationId,
-        },
-      },
+      filters: getFilterVariables(),
+      sortBy: getSortingVariables(),
     },
   })
 
@@ -105,22 +156,37 @@ export const MemberTable: React.FC<MemberTableProps> = ({ organizationId }) => {
         header: 'Name',
         Cell: ({ row }) => `${row.original.firstName} ${row.original.lastName}`,
         size: 150,
+        enableSorting: true,
+        enableColumnFilter: true,
       },
       {
         accessorKey: 'email',
         header: 'Email Address',
         size: 200,
+        enableSorting: true,
+        enableColumnFilter: true,
       },
       {
         accessorKey: 'timeJoined',
         header: 'Joined On',
         Cell: ({ cell }) => new Date(cell.getValue<string>()).toLocaleDateString(),
         size: 100,
+        enableSorting: true,
+        enableColumnFilter: true,
       },
       {
         accessorKey: 'role',
         header: 'Role',
         size: 100,
+        enableSorting: true,
+        enableColumnFilter: true,
+        filterVariant: 'select',
+        mantineFilterSelectProps: {
+          data: [
+            { value: 'owner', label: 'Owner' },
+            { value: 'member', label: 'Member' },
+          ],
+        },
       },
       {
         accessorKey: 'action',
@@ -135,6 +201,8 @@ export const MemberTable: React.FC<MemberTableProps> = ({ organizationId }) => {
           </Button>
         ),
         size: 200,
+        enableSorting: false,
+        enableColumnFilter: false,
       },
     ]
   }, [currentUserId, currentUserRole, updateUser, navigate, refetchUsers])
@@ -148,10 +216,10 @@ export const MemberTable: React.FC<MemberTableProps> = ({ organizationId }) => {
     columns,
     data: slicedData,
     rowCount: rowData.length,
-    enableColumnActions: false,
-    enableColumnFilters: false,
+    enableGlobalFilter: false,
     enablePagination: false,
-    enableSorting: false,
+    manualFiltering: true,
+    manualSorting: true,
     mantineToolbarAlertBannerProps: errorUsers
       ? {
           color: 'red',
@@ -162,8 +230,12 @@ export const MemberTable: React.FC<MemberTableProps> = ({ organizationId }) => {
       isLoading: loadingUsers,
       showAlertBanner: !!errorUsers,
       showSkeletons: false,
+      sorting,
+      columnFilters,
       pagination,
     },
+    onSortingChange: setSorting,
+    onColumnFiltersChange: setColumnFilters,
     onPaginationChange: setPagination,
   })
 
