@@ -18,11 +18,11 @@ export const AppLayout = () => {
   }, [sidepanelBreakpoint])
 
   const navbarWidth = useMatches({
-    xs: collapsed ? 30 : 100,
-    sm: collapsed ? 180 : 200,
-    md: collapsed ? 130 : 300,
-    lg: collapsed ? 130 : 300,
-    xl: collapsed ? 80 : 250,
+    xs: collapsed ? 100 : 100,
+    sm: collapsed ? 100 : 200,
+    md: collapsed ? 100 : 250,
+    lg: collapsed ? 100 : 250,
+    xl: collapsed ? 100 : 250,
   })
 
   return (
