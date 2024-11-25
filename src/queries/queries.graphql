@@ -116,8 +116,8 @@ mutation updateOrganizations($organizations: [InputOrganization!]!) {
   }
 }
 
-query getUsers($filters: UserFilters) {
-  users(filters: $filters) {
+query getUsers($filters: UserFilters, $sortBy: UserSort) {
+  users(filters: $filters, sortBy: $sortBy) {
     id
     firstName
     lastName
@@ -126,7 +126,10 @@ query getUsers($filters: UserFilters) {
     invited
     inviteStatus
     inviterName
-    organizationId
+    organization {
+      id
+      name
+    }
     role
   }
 }

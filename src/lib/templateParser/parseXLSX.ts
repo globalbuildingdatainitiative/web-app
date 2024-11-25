@@ -1,5 +1,10 @@
 import * as XLSX from 'xlsx'
 
+// Helper function to trim string values while preserving other types
+const trimIfString = (value: string | number): string | number => {
+  return typeof value === 'string' ? value.trim() : value
+}
+
 export const mapAssembliesToJson = (sheetData: (string | number)[][]) => {
   const headers = sheetData[0]
   const lcaxIndex = headers.indexOf('openBDF')
@@ -13,7 +18,7 @@ export const mapAssembliesToJson = (sheetData: (string | number)[][]) => {
       const info = row[lcaxIndex]
       const value = row[valueIndex]
       if (info && value) {
-        assemblyGroup[info] = value
+        assemblyGroup[info] = trimIfString(value)
       }
     }
     groupedAssemblies.push(assemblyGroup)
@@ -35,7 +40,7 @@ export const mapToJson = (sheetData: (string | number)[][]) => {
     valueIndexes.forEach((valueIndex) => {
       const value = row[valueIndex]
       if (info && value) {
-        jsonData[info] = value
+        jsonData[info] = trimIfString(value)
       }
     })
   }

@@ -6,19 +6,39 @@ import {
   MRT_PaginationState,
   MRT_Row,
   useMantineReactTable,
+  type MRT_VisibilityState,
 } from 'mantine-react-table'
-import { useEffect, useMemo, useState } from 'react'
+import { useMemo, useState } from 'react'
 import { Group, Pagination, Progress, Select, Text, Tooltip } from '@mantine/core'
 import { TruncatedTextWithTooltip } from '@components'
-import { useViewportSize } from '@mantine/hooks'
 
 export const PortfolioTable = () => {
   const [pagination, setPagination] = useState<MRT_PaginationState>({ pageIndex: 0, pageSize: 20 })
-  const { width: viewportWidth } = useViewportSize()
-  const [columnVisibility, setColumnVisibility] = useState({})
 
-  // Check if browser window is smaller than screen width
-  const shouldHideColumns = viewportWidth < window.screen.width
+  const [columnVisibility, setColumnVisibility] = useState<MRT_VisibilityState>({
+    name: true,
+    'location.countryName': true,
+    'projectInfo.buildingType': true,
+    'softwareInfo.lcaSoftware': true,
+    'metaData.source.name': true,
+    'projectInfo.grossFloorArea.value': true,
+    results: true,
+    breakdown: true,
+
+    'projectInfo.buildingCompletionYear': false,
+    'projectInfo.buildingFootprint.value': false,
+    'projectInfo.buildingHeight.value': false,
+    'projectInfo.buildingMass.value': false,
+    'projectInfo.buildingPermitYear': false,
+    'projectInfo.buildingTypology': false,
+    'projectInfo.buildingUsers': false,
+    'projectInfo.floorsAboveGround': false,
+    'projectInfo.floorsBelowGround': false,
+    'projectInfo.generalEnergyClass': false,
+    'projectInfo.heatedFloorArea.value': false,
+    'projectInfo.roofType': false,
+    'projectInfo.frameType': false,
+  })
 
   const { loading, error, data } = useGetProjectPortfolioQuery({
     variables: {
@@ -177,36 +197,6 @@ export const PortfolioTable = () => {
     [],
   )
 
-  useEffect(() => {
-    if (shouldHideColumns) {
-      setColumnVisibility({
-        name: true,
-        'location.countryName': true,
-        'projectInfo.buildingType': true,
-        'projectInfo.grossFloorArea.value': true,
-        results: true,
-        breakdown: true,
-        'metaData.source.name': true,
-        'softwareInfo.lcaSoftware': true,
-        'projectInfo.buildingCompletionYear': false,
-        'projectInfo.buildingFootprint.value': false,
-        'projectInfo.buildingHeight.value': false,
-        'projectInfo.buildingMass.value': false,
-        'projectInfo.buildingPermitYear': false,
-        'projectInfo.buildingTypology': false,
-        'projectInfo.buildingUsers': false,
-        'projectInfo.floorsAboveGround': false,
-        'projectInfo.floorsBelowGround': false,
-        'projectInfo.generalEnergyClass': false,
-        'projectInfo.heatedFloorArea.value': false,
-        'projectInfo.roofType': false,
-        'projectInfo.frameType': false,
-      })
-    } else {
-      setColumnVisibility({})
-    }
-  }, [shouldHideColumns])
-
   const rowData = useMemo(() => data?.projects.items || [], [data])
   const totalRowCount = useMemo(() => data?.projects.count || 0, [data])
 
@@ -239,6 +229,7 @@ export const PortfolioTable = () => {
       }
     },
     enableStickyHeader: true,
+    onColumnVisibilityChange: setColumnVisibility,
     mantineTableContainerProps: {
       style: {
         maxWidth: '100%',

@@ -1,10 +1,10 @@
 import { MemberTable } from '@components'
 import { MockedProvider } from '@apollo/client/testing'
 import { getUsersMock, getOrganizationsMock, MockSessionProvider } from '@mocks'
-import { expect, render, screen, suite, test, waitFor } from '@test'
+import { expect, render, screen, test, waitFor } from '@test'
 import { MemoryRouter } from 'react-router-dom'
 
-suite('MemberTable', () => {
+describe('MemberTable', () => {
   const mockSessionContext = {
     loading: false as const,
     userId: '1',
@@ -49,11 +49,19 @@ suite('MemberTable', () => {
         </MockSessionProvider>
       </MockedProvider>,
     )
-    await waitFor(() => {
-      expect(screen.getByText('Hassan Shahzad')).toBeTruthy()
-      expect(screen.getByText('Martin Rock')).toBeTruthy()
-      expect(screen.queryByText('Jane Doe')).toBeNull()
-    })
+
+    // Wait for data to load
+    await waitFor(
+      async () => {
+        const table = await screen.findByRole('table')
+        const tableBody = table.querySelector('tbody')
+
+        expect(tableBody?.textContent).toContain('Hassan Shahzad')
+        expect(tableBody?.textContent).toContain('Martin Rock')
+        expect(tableBody?.textContent).not.toContain('Jane Doe')
+      },
+      { timeout: 2000 },
+    )
   })
 
   test('Render Correct Number of Rows', async () => {
@@ -66,10 +74,17 @@ suite('MemberTable', () => {
         </MockSessionProvider>
       </MockedProvider>,
     )
-    await waitFor(() => {
-      const rows = screen.getAllByRole('row')
-      // 2 users + 1 header row
-      expect(rows.length).toBe(3)
-    })
+
+    await waitFor(
+      async () => {
+        const table = await screen.findByRole('table')
+        const tableBody = table.querySelector('tbody')
+        const rows = tableBody?.querySelectorAll('tr') || []
+
+        // We expect 2 data rows
+        expect(rows.length).toBe(2)
+      },
+      { timeout: 2000 },
+    )
   })
 })
