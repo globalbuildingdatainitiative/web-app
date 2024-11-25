@@ -13,14 +13,19 @@ export const GraphQLProvider = ({ children }: GraphQlProviderProps) => {
     credentials: 'include',
   })
 
-  const errorLink = onError(({ graphQLErrors, networkError }) => {
+  const errorLink = onError(({ graphQLErrors, networkError, operation, forward }) => {
     if (graphQLErrors) {
-      graphQLErrors.forEach(({ message, locations, path }) =>
-        console.error(`[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`),
-      )
+      graphQLErrors.forEach(({ message, locations, path }) => {
+        if (message.includes('401: Unauthorized')) {
+          console.warn(`Retrying ${operation}`)
+          return forward(operation)
+        } else {
+          console.error(`[GraphQL Error]: Message: ${message}, Location: ${locations}, Path: ${path}`)
+        }
+      })
     }
     if (networkError) {
-      console.error(`[Network error]: ${networkError}`)
+      console.error(`[Network Error]: ${networkError}`)
     }
   })
 
