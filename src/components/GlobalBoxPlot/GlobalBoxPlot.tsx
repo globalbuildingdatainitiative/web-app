@@ -1,8 +1,7 @@
-import { Center, Grid, MultiSelect, Stack, RangeSlider, Text } from '@mantine/core'
-import { BoxPlot, BoxPlotData, Loading } from '@components'
-import { useGetProjectDataForBoxPlotQuery, LifeCycleStage, BuildingTypology } from '@queries'
+import { Center, Grid, MultiSelect, RangeSlider, Stack, Text } from '@mantine/core'
+import { BoxPlot, BoxPlotData, FilterState, Loading } from '@components'
+import { BuildingTypology, GetProjectDataForBoxPlotQuery, LifeCycleStage } from '@queries'
 import { useMemo } from 'react'
-import { FilterState } from '@components'
 
 const formatEnumValue = (value: string): string => {
   return value
@@ -31,87 +30,13 @@ const formatCountryName = (countryName: string): string => {
 interface GlobalBoxPlotProps {
   filters: FilterState
   onFiltersChange: (filters: FilterState) => void
+  data: GetProjectDataForBoxPlotQuery | undefined
+  loading: boolean
 }
 
-export const GlobalBoxPlot = ({ filters, onFiltersChange }: GlobalBoxPlotProps) => {
-  const {
-    selectedTypologies,
-    selectedLifeCycleStages,
-    selectedCountries,
-    selectedSoftware,
-    gfaRange,
-    confirmedGfaRange,
-  } = filters
-
-  const aggregation = useMemo(() => {
-    const divideAggregation = {
-      $sum: selectedLifeCycleStages.map((stage) => `$results.gwp.${stage.toLowerCase()}`),
-    }
-    const typologyFilter =
-      selectedTypologies.length > 0 ? { 'projectInfo.buildingTypology': { $in: selectedTypologies } } : {}
-    const countryFilter = selectedCountries.length > 0 ? { 'location.country': { $in: selectedCountries } } : {}
-    const softwareFilter = selectedSoftware.length > 0 ? { 'softwareInfo.lcaSoftware': { $in: selectedSoftware } } : {}
-    const gfaFilter = {
-      'projectInfo.grossFloorArea.value': {
-        $gte: confirmedGfaRange[0],
-        $lte: confirmedGfaRange[1],
-      },
-    }
-    const stageFilters = selectedLifeCycleStages.map((stage) => ({
-      [`results.gwp.${stage.toLowerCase()}`]: { $gt: 0 },
-    }))
-
-    return [
-      {
-        $match: {
-          $and: [
-            ...stageFilters,
-            { 'projectInfo.grossFloorArea.value': { $gt: 0 } },
-            typologyFilter,
-            countryFilter,
-            softwareFilter,
-            gfaFilter,
-          ],
-        },
-      },
-      {
-        $group: {
-          _id: '$location.country',
-          count: { $sum: 1 },
-          minimum: { $min: { $divide: [divideAggregation, '$projectInfo.grossFloorArea.value'] } },
-          percentiles: {
-            $percentile: {
-              p: [0.25, 0.75],
-              method: 'approximate',
-              input: { $divide: [divideAggregation, '$projectInfo.grossFloorArea.value'] },
-            },
-          },
-          median: {
-            $median: {
-              method: 'approximate',
-              input: { $divide: [divideAggregation, '$projectInfo.grossFloorArea.value'] },
-            },
-          },
-          maximum: { $max: { $divide: [divideAggregation, '$projectInfo.grossFloorArea.value'] } },
-          average: { $avg: { $divide: [divideAggregation, '$projectInfo.grossFloorArea.value'] } },
-        },
-      },
-      {
-        $project: {
-          _id: null,
-          group: '$_id',
-          count: '$count',
-          min: '$minimum',
-          pct: '$percentiles',
-          median: '$median',
-          max: '$maximum',
-          avg: '$average',
-        },
-      },
-    ]
-  }, [selectedTypologies, selectedLifeCycleStages, selectedCountries, selectedSoftware, confirmedGfaRange])
-
-  const { data, loading, error } = useGetProjectDataForBoxPlotQuery({ variables: { aggregation } })
+export const GlobalBoxPlot = (props: GlobalBoxPlotProps) => {
+  const { filters, onFiltersChange, loading, data } = props
+  const { selectedTypologies, selectedLifeCycleStages, selectedCountries, selectedSoftware, gfaRange } = filters
 
   const handleTypologyChange = (value: string[]) => {
     onFiltersChange({ ...filters, selectedTypologies: value })
@@ -241,7 +166,6 @@ export const GlobalBoxPlot = ({ filters, onFiltersChange }: GlobalBoxPlotProps) 
         <Loading />
       </Center>
     )
-  if (error) return <p>Error: {error.message}</p>
 
   return (
     <Stack>

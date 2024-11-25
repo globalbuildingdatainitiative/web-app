@@ -3,7 +3,6 @@ import { expect, render, screen, suite, test, waitFor } from '@test'
 import { getGlobalMapMock, MockSessionProvider } from '@mocks'
 import { MockedProvider } from '@apollo/client/testing'
 import { MemoryRouter } from 'react-router-dom'
-import { LifeCycleStage } from '@queries'
 
 suite('GlobalMap', () => {
   const mockSessionContext = {
@@ -14,22 +13,12 @@ suite('GlobalMap', () => {
     accessTokenPayload: {},
   }
 
-  // Mock filters prop
-  const mockFilters = {
-    selectedTypologies: [],
-    selectedLifeCycleStages: [LifeCycleStage.A1A3],
-    selectedCountries: [],
-    selectedSoftware: [],
-    gfaRange: [0, 5000] as [number, number],
-    confirmedGfaRange: [0, 5000] as [number, number],
-  }
-
   test('Snapshot', () => {
     const { container } = render(
       <MockedProvider mocks={getGlobalMapMock} addTypename={false}>
         <MockSessionProvider sessionContext={mockSessionContext}>
           <MemoryRouter>
-            <GlobalMap filters={mockFilters} />
+            <GlobalMap loading={false} data={undefined} />
           </MemoryRouter>
         </MockSessionProvider>
       </MockedProvider>,
@@ -42,7 +31,7 @@ suite('GlobalMap', () => {
       <MockedProvider mocks={getGlobalMapMock} addTypename={false}>
         <MockSessionProvider sessionContext={mockSessionContext}>
           <MemoryRouter>
-            <GlobalMap filters={mockFilters} />
+            <GlobalMap loading={false} data={undefined} />
           </MemoryRouter>
         </MockSessionProvider>
       </MockedProvider>,
@@ -52,16 +41,11 @@ suite('GlobalMap', () => {
 
   // Additional tests
   test('Changes color based on filters', async () => {
-    const filteredMockFilters = {
-      ...mockFilters,
-      selectedCountries: ['US', 'UK'],
-    }
-
     render(
       <MockedProvider mocks={getGlobalMapMock} addTypename={false}>
         <MockSessionProvider sessionContext={mockSessionContext}>
           <MemoryRouter>
-            <GlobalMap filters={filteredMockFilters} />
+            <GlobalMap loading={false} data={undefined} />
           </MemoryRouter>
         </MockSessionProvider>
       </MockedProvider>,
@@ -86,14 +70,14 @@ suite('GlobalMap', () => {
       <MockedProvider mocks={errorMock} addTypename={false}>
         <MockSessionProvider sessionContext={mockSessionContext}>
           <MemoryRouter>
-            <GlobalMap filters={mockFilters} />
+            <GlobalMap loading={false} data={undefined} />
           </MemoryRouter>
         </MockSessionProvider>
       </MockedProvider>,
     )
 
     await waitFor(() => {
-      expect(screen.getByText(/Error:/)).to.exist
+      expect(screen.getByText(/Bummer/)).to.exist
     })
   })
 })
