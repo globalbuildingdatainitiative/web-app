@@ -1,7 +1,7 @@
-import { Center, Grid, MultiSelect, Stack, RangeSlider, Text } from '@mantine/core'
-import { BoxPlot, BoxPlotData, Loading } from '@components'
-import { useGetProjectDataForBoxPlotQuery, LifeCycleStage, BuildingTypology } from '@queries'
-import { useState, useMemo } from 'react'
+import { Center, Grid, MultiSelect, RangeSlider, Stack, Text } from '@mantine/core'
+import { BoxPlot, BoxPlotData, FilterState, Loading } from '@components'
+import { BuildingTypology, GetProjectDataForBoxPlotQuery, LifeCycleStage } from '@queries'
+import { useMemo } from 'react'
 
 const formatEnumValue = (value: string): string => {
   return value
@@ -27,14 +27,61 @@ const formatCountryName = (countryName: string): string => {
   }
 }
 
-export const GlobalBoxPlot = () => {
-  const [selectedTypologies, setSelectedTypologies] = useState<string[]>([])
-  const [selectedLifeCycleStages, setSelectedLifeCycleStages] = useState<string[]>([LifeCycleStage.A1A3])
-  const [selectedCountries, setSelectedCountries] = useState<string[]>([])
-  const [selectedSoftware, setSelectedSoftware] = useState<string[]>([])
-  const [gfaRange, setGfaRange] = useState<[number, number]>([0, 5000])
-  const [confirmedGfaRange, setConfirmedGfaRange] = useState<[number, number]>([0, 5000])
+interface GlobalBoxPlotProps {
+  filters: FilterState
+  onFiltersChange: (filters: FilterState) => void
+  data: GetProjectDataForBoxPlotQuery | undefined
+  loading: boolean
+}
 
+export const GlobalBoxPlot = (props: GlobalBoxPlotProps) => {
+  const { filters, onFiltersChange, loading, data } = props
+  const { selectedTypologies, selectedLifeCycleStages, selectedCountries, selectedSoftware, gfaRange } = filters
+
+  const handleTypologyChange = (value: string[]) => {
+    onFiltersChange({ ...filters, selectedTypologies: value })
+  }
+
+  const handleLifeCycleStageChange = (value: string[]) => {
+    if (value.includes('all')) {
+      const allStages = Object.values(LifeCycleStage)
+      onFiltersChange({ ...filters, selectedLifeCycleStages: allStages })
+    } else {
+      onFiltersChange({ ...filters, selectedLifeCycleStages: value })
+    }
+  }
+
+  const handleCountryChange = (value: string[]) => {
+    if (value.includes('all')) {
+      const allCountries = countryOptions.filter((option) => option.value !== 'all').map((option) => option.value)
+      onFiltersChange({ ...filters, selectedCountries: allCountries })
+    } else {
+      onFiltersChange({ ...filters, selectedCountries: value })
+    }
+  }
+
+  const handleSoftwareChange = (value: string[]) => {
+    if (value.includes('all')) {
+      const allSoftware = softwareOptions.filter((option) => option.value !== 'all').map((option) => option.value)
+      onFiltersChange({ ...filters, selectedSoftware: allSoftware })
+    } else {
+      onFiltersChange({ ...filters, selectedSoftware: value })
+    }
+  }
+
+  const handleRangeChange = (value: [number, number]) => {
+    onFiltersChange({ ...filters, gfaRange: value })
+  }
+
+  const handleRangeConfirm = (value: [number, number]) => {
+    onFiltersChange({
+      ...filters,
+      gfaRange: value,
+      confirmedGfaRange: value,
+    })
+  }
+
+  // Options for select components
   const typologyOptions = useMemo(
     () =>
       Object.values(BuildingTypology).map((value) => ({
@@ -54,85 +101,6 @@ export const GlobalBoxPlot = () => {
     ],
     [],
   )
-
-  const aggregation = useMemo(() => {
-    const divideAggregation = {
-      $sum: selectedLifeCycleStages.map((stage) => `$results.gwp.${stage.toLowerCase()}`),
-    }
-    const typologyFilter =
-      selectedTypologies.length > 0 ? { 'projectInfo.buildingTypology': { $in: selectedTypologies } } : {}
-    const countryFilter = selectedCountries.length > 0 ? { 'location.country': { $in: selectedCountries } } : {}
-    const softwareFilter = selectedSoftware.length > 0 ? { 'softwareInfo.lcaSoftware': { $in: selectedSoftware } } : {}
-    const gfaFilter = {
-      'projectInfo.grossFloorArea.value': {
-        $gte: confirmedGfaRange[0],
-        $lte: confirmedGfaRange[1],
-      },
-    }
-    const stageFilters = selectedLifeCycleStages.map((stage) => ({
-      [`results.gwp.${stage.toLowerCase()}`]: { $gt: 0 },
-    }))
-
-    return [
-      {
-        $match: {
-          $and: [
-            ...stageFilters,
-            { 'projectInfo.grossFloorArea.value': { $gt: 0 } },
-            typologyFilter,
-            countryFilter,
-            softwareFilter,
-            gfaFilter,
-          ],
-        },
-      },
-      {
-        $group: {
-          _id: '$location.country',
-          count: { $sum: 1 },
-          minimum: { $min: { $divide: [divideAggregation, '$projectInfo.grossFloorArea.value'] } },
-          percentiles: {
-            $percentile: {
-              p: [0.25, 0.75],
-              method: 'approximate',
-              input: { $divide: [divideAggregation, '$projectInfo.grossFloorArea.value'] },
-            },
-          },
-          median: {
-            $median: {
-              method: 'approximate',
-              input: { $divide: [divideAggregation, '$projectInfo.grossFloorArea.value'] },
-            },
-          },
-          maximum: { $max: { $divide: [divideAggregation, '$projectInfo.grossFloorArea.value'] } },
-          average: { $avg: { $divide: [divideAggregation, '$projectInfo.grossFloorArea.value'] } },
-        },
-      },
-      {
-        $project: {
-          _id: null,
-          group: '$_id',
-          count: '$count',
-          min: '$minimum',
-          pct: '$percentiles',
-          median: '$median',
-          max: '$maximum',
-          avg: '$average',
-        },
-      },
-    ]
-  }, [selectedTypologies, selectedLifeCycleStages, selectedCountries, selectedSoftware, confirmedGfaRange])
-
-  const { data, loading, error } = useGetProjectDataForBoxPlotQuery({ variables: { aggregation } })
-
-  const handleLifeCycleStageChange = (value: string[]) => {
-    if (value.includes('all')) {
-      const allStages = Object.values(LifeCycleStage)
-      setSelectedLifeCycleStages(allStages)
-    } else {
-      setSelectedLifeCycleStages(value)
-    }
-  }
 
   const countryOptions = useMemo(() => {
     if (!data) return []
@@ -158,29 +126,6 @@ export const GlobalBoxPlot = () => {
 
     return [{ value: 'all', label: 'Select All' }, ...options.sort((a, b) => a.label.localeCompare(b.label))]
   }, [data])
-
-  const handleCountryChange = (value: string[]) => {
-    if (value.includes('all')) {
-      const allCountries = countryOptions.filter((option) => option.value !== 'all').map((option) => option.value)
-      setSelectedCountries(allCountries)
-    } else {
-      setSelectedCountries(value)
-    }
-  }
-
-  const handleSoftwareChange = (value: string[]) => {
-    if (value.includes('all')) {
-      const allSoftware = softwareOptions.filter((option) => option.value !== 'all').map((option) => option.value)
-      setSelectedSoftware(allSoftware)
-    } else {
-      setSelectedSoftware(value)
-    }
-  }
-
-  const handleRangeConfirm = (value: [number, number]) => {
-    setGfaRange(value)
-    setConfirmedGfaRange(value)
-  }
 
   const formatGfaValue = (value: number) => {
     return `${value.toLocaleString()} m²`
@@ -221,7 +166,6 @@ export const GlobalBoxPlot = () => {
         <Loading />
       </Center>
     )
-  if (error) return <p>Error: {error.message}</p>
 
   return (
     <Stack>
@@ -230,7 +174,7 @@ export const GlobalBoxPlot = () => {
           <MultiSelect
             data={typologyOptions}
             value={selectedTypologies}
-            onChange={(value: string[]) => setSelectedTypologies(value)}
+            onChange={handleTypologyChange}
             label='Building Typology'
             placeholder='Select building typologies'
           />
@@ -275,9 +219,8 @@ export const GlobalBoxPlot = () => {
             max={5000}
             step={100}
             value={gfaRange}
-            onChange={setGfaRange}
+            onChange={handleRangeChange}
             onChangeEnd={handleRangeConfirm}
-            onBlur={() => setConfirmedGfaRange(gfaRange)}
             label={formatGfaValue}
             marks={[
               { value: 0, label: '0 m²' },

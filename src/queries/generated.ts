@@ -1496,11 +1496,6 @@ export type SortBy = {
   dsc?: InputMaybe<Scalars['String']['input']>
 }
 
-export enum SortOptions {
-  ASC = 'ASC',
-  DSC = 'DSC',
-}
-
 export type Source = {
   __typename?: 'Source'
   name: Scalars['String']['output']
@@ -1633,18 +1628,12 @@ export type UserFilters = {
   lastName?: InputMaybe<FilterOptions>
   organizationId?: InputMaybe<FilterOptions>
   role?: InputMaybe<FilterOptions>
+  timeJoined?: InputMaybe<FilterOptions>
 }
 
 export type UserSort = {
-  firstName?: InputMaybe<SortOptions>
-  id?: InputMaybe<SortOptions>
-  inviteStatus?: InputMaybe<SortOptions>
-  invited?: InputMaybe<SortOptions>
-  inviterName?: InputMaybe<SortOptions>
-  lastName?: InputMaybe<SortOptions>
-  name?: InputMaybe<SortOptions>
-  organizationId?: InputMaybe<SortOptions>
-  role?: InputMaybe<SortOptions>
+  asc?: InputMaybe<Scalars['String']['input']>
+  dsc?: InputMaybe<Scalars['String']['input']>
 }
 
 export type ValueUnit = {
@@ -1821,7 +1810,6 @@ export type ResolversTypes = {
   RoofType: RoofType
   SoftwareInfo: ResolverTypeWrapper<SoftwareInfo>
   SortBy: SortBy
-  SortOptions: SortOptions
   Source: ResolverTypeWrapper<Source>
   StakeholderEnum: StakeholderEnum
   Standard: Standard
@@ -2924,6 +2912,7 @@ export type UpdateOrganizationsMutation = {
 
 export type GetUsersQueryVariables = Exact<{
   filters?: InputMaybe<UserFilters>
+  sortBy?: InputMaybe<UserSort>
 }>
 
 export type GetUsersQuery = {
@@ -2938,8 +2927,8 @@ export type GetUsersQuery = {
     invited: boolean
     inviteStatus: InviteStatus
     inviterName?: string | null
-    organizationId?: any | null
     role?: Role | null
+    organization?: { __typename?: 'Organization'; id: any; name: string } | null
   }>
 }
 
@@ -3044,12 +3033,25 @@ export type GetProjectPortfolioQuery = {
       id: any
       name: string
       location: { __typename?: 'Location'; countryName: string }
+      softwareInfo: { __typename?: 'SoftwareInfo'; lcaSoftware: string }
       projectInfo: {
         __typename?: 'ProjectInfo'
         buildingType: BuildingType
         buildingTypology: Array<BuildingTypology>
+        buildingCompletionYear?: number | null
+        buildingPermitYear?: number | null
+        buildingUsers?: number | null
+        floorsAboveGround: number
+        floorsBelowGround?: number | null
+        frameType?: string | null
+        generalEnergyClass: GeneralEnergyClass
         grossFloorArea?: { __typename?: 'AreaType'; value: number } | null
+        buildingFootprint?: { __typename?: 'ValueUnit'; value: number } | null
+        buildingHeight?: { __typename?: 'ValueUnit'; value: number } | null
+        buildingMass?: { __typename?: 'ValueUnit'; value: number } | null
+        heatedFloorArea?: { __typename?: 'AreaType'; value: number } | null
       }
+      metaData?: { __typename?: 'ProjectMetaData'; source?: { __typename?: 'Source'; name: string } | null } | null
       results?: {
         __typename?: 'Results'
         gwp?: {
@@ -3891,8 +3893,8 @@ export type UpdateOrganizationsMutationOptions = Apollo.BaseMutationOptions<
   UpdateOrganizationsMutationVariables
 >
 export const GetUsersDocument = gql`
-  query getUsers($filters: UserFilters) {
-    users(filters: $filters) {
+  query getUsers($filters: UserFilters, $sortBy: UserSort) {
+    users(filters: $filters, sortBy: $sortBy) {
       id
       firstName
       lastName
@@ -3901,7 +3903,10 @@ export const GetUsersDocument = gql`
       invited
       inviteStatus
       inviterName
-      organizationId
+      organization {
+        id
+        name
+      }
       role
     }
   }
@@ -3920,6 +3925,7 @@ export const GetUsersDocument = gql`
  * const { data, loading, error } = useGetUsersQuery({
  *   variables: {
  *      filters: // value for 'filters'
+ *      sortBy: // value for 'sortBy'
  *   },
  * });
  */
@@ -4200,12 +4206,39 @@ export const GetProjectPortfolioDocument = gql`
         location {
           countryName
         }
+        softwareInfo {
+          lcaSoftware
+        }
         projectInfo {
           grossFloorArea {
             value
           }
           buildingType
           buildingTypology
+          buildingCompletionYear
+          buildingFootprint {
+            value
+          }
+          buildingHeight {
+            value
+          }
+          buildingMass {
+            value
+          }
+          buildingPermitYear
+          buildingUsers
+          floorsAboveGround
+          floorsBelowGround
+          frameType
+          generalEnergyClass
+          heatedFloorArea {
+            value
+          }
+        }
+        metaData {
+          source {
+            name
+          }
         }
         results {
           gwp {

@@ -1,5 +1,7 @@
-import { DashboardPaper } from '@components'
+import { DashboardPaper, ErrorBoundary } from '@components'
 
-export const DashboardPage = () => {
-  return <DashboardPaper />
-}
+export const DashboardPage = () => (
+  <ErrorBoundary>
+    <DashboardPaper />
+  </ErrorBoundary>
+)

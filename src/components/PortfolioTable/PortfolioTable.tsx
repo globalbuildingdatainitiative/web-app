@@ -6,13 +6,19 @@ import {
   MRT_PaginationState,
   MRT_Row,
   useMantineReactTable,
+  type MRT_VisibilityState,
 } from 'mantine-react-table'
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { Group, Pagination, Progress, Select, Text, Tooltip } from '@mantine/core'
 import { TruncatedTextWithTooltip } from '@components'
+import { useViewportSize } from '@mantine/hooks'
 
 export const PortfolioTable = () => {
   const [pagination, setPagination] = useState<MRT_PaginationState>({ pageIndex: 0, pageSize: 20 })
+  const { width: viewportWidth } = useViewportSize()
+  const shouldHideColumns = viewportWidth < window.screen.width
+
+  const [columnVisibility, setColumnVisibility] = useState<MRT_VisibilityState>({})
 
   const { loading, error, data } = useGetProjectPortfolioQuery({
     variables: {
@@ -53,6 +59,101 @@ export const PortfolioTable = () => {
         size: 50,
       },
       {
+        accessorKey: 'softwareInfo.lcaSoftware',
+        header: 'LCA Software',
+        Cell: ({ cell }) => {
+          const software = cell.getValue<string>() || 'N/A'
+          return <TruncatedTextWithTooltip text={software} />
+        },
+        size: 100,
+      },
+      {
+        accessorKey: 'metaData.source.name',
+        header: 'Source',
+        Cell: ({ cell }) => {
+          const source = cell.getValue<string>() || 'N/A'
+          return <TruncatedTextWithTooltip text={source} />
+        },
+        size: 100,
+      },
+      {
+        accessorKey: 'projectInfo.buildingCompletionYear',
+        header: 'Completion Year',
+        size: 50,
+      },
+      {
+        accessorKey: 'projectInfo.buildingFootprint.value',
+        header: 'Building Footprint (m²)',
+        size: 50,
+      },
+      {
+        accessorKey: 'projectInfo.buildingHeight.value',
+        header: 'Building Height (m)',
+        size: 50,
+      },
+      {
+        accessorKey: 'projectInfo.buildingMass.value',
+        header: 'Building Mass (kg)',
+        size: 50,
+      },
+      {
+        accessorKey: 'projectInfo.buildingPermitYear',
+        header: 'Permit Year',
+        size: 50,
+      },
+      {
+        accessorKey: 'projectInfo.buildingTypology',
+        header: 'Building Typology',
+        size: 100,
+      },
+      {
+        accessorKey: 'projectInfo.buildingUsers',
+        header: 'Building Users',
+        size: 50,
+      },
+      {
+        accessorKey: 'projectInfo.floorsAboveGround',
+        header: 'Floors Above Ground',
+        size: 50,
+      },
+      {
+        accessorKey: 'projectInfo.floorsBelowGround',
+        header: 'Floors Below Ground',
+        size: 50,
+      },
+      {
+        accessorKey: 'projectInfo.generalEnergyClass',
+        header: 'Energy Class',
+        size: 50,
+      },
+      {
+        accessorKey: 'projectInfo.heatedFloorArea.value',
+        header: 'Heated Floor Area (m²)',
+        Cell: ({ cell }) => {
+          const value = cell.getValue<number>()
+          return value ? value.toFixed(2) : 'N/A'
+        },
+        size: 50,
+      },
+      {
+        accessorKey: 'projectInfo.roofType',
+        header: 'Roof Type',
+        Cell: ({ cell }) => {
+          const roofType = cell.getValue<string>() || 'N/A'
+          return <TruncatedTextWithTooltip text={roofType} />
+        },
+        size: 50,
+      },
+      {
+        accessorKey: 'projectInfo.frameType',
+        header: 'Frame Type',
+        Cell: ({ cell }) => {
+          const frameType = cell.getValue<string>() || 'N/A'
+          return <TruncatedTextWithTooltip text={frameType} />
+        },
+        size: 50,
+      },
+      {
         accessorKey: 'projectInfo.grossFloorArea.value',
         header: 'Gross Floor Area (m²)',
         size: 50,
@@ -68,10 +169,67 @@ export const PortfolioTable = () => {
         Cell: getGWPBreakdown,
         header: 'GWP by Life Cycle Stage',
         grow: true,
+        enableSorting: false,
+        enableColumnFilter: false,
+        enableColumnActions: false,
       },
     ],
     [],
   )
+
+  useEffect(() => {
+    if (shouldHideColumns) {
+      // Show only essential columns on small screens
+      setColumnVisibility({
+        name: true,
+        'location.countryName': true,
+        'projectInfo.buildingType': true,
+        'projectInfo.grossFloorArea.value': true,
+        results: true,
+        breakdown: true,
+        'softwareInfo.lcaSoftware': false,
+        'metaData.source.name': false,
+        'projectInfo.buildingCompletionYear': false,
+        'projectInfo.buildingFootprint.value': false,
+        'projectInfo.buildingHeight.value': false,
+        'projectInfo.buildingMass.value': false,
+        'projectInfo.buildingPermitYear': false,
+        'projectInfo.buildingTypology': false,
+        'projectInfo.buildingUsers': false,
+        'projectInfo.floorsAboveGround': false,
+        'projectInfo.floorsBelowGround': false,
+        'projectInfo.generalEnergyClass': false,
+        'projectInfo.heatedFloorArea.value': false,
+        'projectInfo.roofType': false,
+        'projectInfo.frameType': false,
+      })
+    } else {
+      // Show default column visibility on larger screens
+      setColumnVisibility({
+        name: true,
+        'location.countryName': true,
+        'projectInfo.buildingType': true,
+        'softwareInfo.lcaSoftware': true,
+        'metaData.source.name': true,
+        'projectInfo.grossFloorArea.value': true,
+        results: true,
+        breakdown: true,
+        'projectInfo.buildingCompletionYear': false,
+        'projectInfo.buildingFootprint.value': false,
+        'projectInfo.buildingHeight.value': false,
+        'projectInfo.buildingMass.value': false,
+        'projectInfo.buildingPermitYear': false,
+        'projectInfo.buildingTypology': false,
+        'projectInfo.buildingUsers': false,
+        'projectInfo.floorsAboveGround': false,
+        'projectInfo.floorsBelowGround': false,
+        'projectInfo.generalEnergyClass': false,
+        'projectInfo.heatedFloorArea.value': false,
+        'projectInfo.roofType': false,
+        'projectInfo.frameType': false,
+      })
+    }
+  }, [shouldHideColumns])
 
   const rowData = useMemo(() => data?.projects.items || [], [data])
   const totalRowCount = useMemo(() => data?.projects.count || 0, [data])
@@ -83,6 +241,7 @@ export const PortfolioTable = () => {
     pageCount: Math.ceil(totalRowCount / pagination.pageSize),
     enablePagination: false,
     enableGlobalFilter: false,
+    enableColumnActions: true,
     mantineToolbarAlertBannerProps: error
       ? {
           color: 'red',
@@ -94,6 +253,7 @@ export const PortfolioTable = () => {
       showAlertBanner: !!error,
       showSkeletons: false,
       pagination,
+      columnVisibility,
     },
     onPaginationChange: (newPagination) => {
       if (typeof newPagination === 'function') {
@@ -101,6 +261,14 @@ export const PortfolioTable = () => {
       } else {
         setPagination(newPagination)
       }
+    },
+    enableStickyHeader: true,
+    onColumnVisibilityChange: setColumnVisibility,
+    mantineTableContainerProps: {
+      style: {
+        maxWidth: '100%',
+        overflowX: 'auto',
+      },
     },
   })
   return (

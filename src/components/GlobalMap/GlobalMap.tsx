@@ -1,61 +1,85 @@
 import { CircleMarker, MapContainer, Popup, TileLayer } from 'react-leaflet'
-import { useGetProjectsCountsByCountryQuery } from '@queries'
+import { GetProjectDataForBoxPlotQuery, useGetProjectsCountsByCountryQuery } from '@queries'
 import 'leaflet/dist/leaflet.css'
-import { Center, useMantineTheme, Text } from '@mantine/core'
-import { Loading } from '@components'
+import { Center, Text, useMantineTheme } from '@mantine/core'
+import { ErrorMessage, Loading } from '@components'
 import { useViewportSize } from '@mantine/hooks'
 
-export const GlobalMap = () => {
-  const { data, loading, error } = useGetProjectsCountsByCountryQuery()
+interface GlobalMapProps {
+  loading: boolean
+  data: GetProjectDataForBoxPlotQuery | undefined
+}
+
+export const GlobalMap = (props: GlobalMapProps) => {
+  const { loading, data: filteredData } = props
+  const { data: mapData, loading: mapLoading, error: mapError } = useGetProjectsCountsByCountryQuery()
   const { height } = useViewportSize()
   const theme = useMantineTheme()
 
-  if (loading)
-    return (
-      <Center style={{ height: '600px' }}>
-        <Loading />
-      </Center>
-    )
-  if (error) return <p>Error: {error.message}</p>
+  // Function to check if a country is filtered out based on all criteria
+  const isCountryActive = (countryCode: string) => {
+    if (!filteredData?.projects.aggregation) return false
 
-  // Calculate the maximum project count to normalize circle sizes
-  const maxCount = Math.max(...(data?.projects.groups.map((group) => group.count) || [1]))
+    // Check if the country exists in the filtered data
+    return filteredData.projects.aggregation.some((agg: { group: string }) => agg.group === countryCode)
+  }
 
-  // Function to calculate circle radius based on project count
+  // Calculate circle color based on filter state
+  const getCircleColor = (countryCode: string) => {
+    return isCountryActive(countryCode) ? theme.primaryColor : theme.colors.gray[4] // Grayed out color for filtered countries
+  }
+
+  // Calculate circle radius based on project count
   const getRadius = (count: number) => {
-    // Minimum radius of 1, maximum of 10
-    // Scale logarithmically to prevent huge circles for large counts
+    const maxCount = Math.max(...(mapData?.projects.groups.map((group) => group.count) || [1]))
     const minRadius = 1
     const maxRadius = 20
     return minRadius + (Math.log(count) / Math.log(maxCount)) * (maxRadius - minRadius)
   }
 
   return (
-    <div style={{ height: height * 0.9 }} data-testid='GlobalMap'>
-      <MapContainer center={[0, 0]} zoom={2} scrollWheelZoom={true} style={{ height: '100%', width: '100%' }}>
-        <TileLayer
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-          url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
-        />
-        {data?.projects.groups.map((projectGroup, index) => (
-          <CircleMarker
-            key={index}
-            radius={getRadius(projectGroup.count)}
-            pathOptions={{
-              color: 'white',
-              weight: 1,
-              fillColor: theme.primaryColor,
-              fillOpacity: 1,
-            }}
-            center={[projectGroup.items[0].location.latitude, projectGroup.items[0].location.longitude]}
-          >
-            <Popup>
-              <Text>{projectGroup.items[0].location.countryName}</Text>
-              <Text>Number of Projects: {projectGroup.count}</Text>
-            </Popup>
-          </CircleMarker>
-        ))}
-      </MapContainer>
+    <div data-testid='GlobalMap'>
+      {mapLoading || loading ? (
+        <Center style={{ height: height * 0.9 }}>
+          <Loading />
+        </Center>
+      ) : (
+        <div style={{ height: height * 0.9, position: 'relative', zIndex: 0 }}>
+          <MapContainer center={[0, 0]} zoom={2} scrollWheelZoom={true} style={{ height: '100%', width: '100%' }}>
+            <TileLayer
+              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+              url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+            />
+            {mapData?.projects.groups.map((projectGroup, index) => {
+              const countryCode = projectGroup.group
+              return (
+                <CircleMarker
+                  key={index}
+                  radius={getRadius(projectGroup.count)}
+                  pathOptions={{
+                    color: 'white',
+                    weight: 1,
+                    fillColor: getCircleColor(countryCode),
+                    fillOpacity: 1,
+                  }}
+                  center={[projectGroup.items[0].location.latitude, projectGroup.items[0].location.longitude]}
+                >
+                  <Popup>
+                    <Text>{projectGroup.items[0].location.countryName}</Text>
+                    <Text>Number of Projects: {projectGroup.count}</Text>
+                    {!isCountryActive(countryCode) && (
+                      <Text size='sm' c='dimmed'>
+                        (Filtered out by current selection)
+                      </Text>
+                    )}
+                  </Popup>
+                </CircleMarker>
+              )
+            })}
+          </MapContainer>
+        </div>
+      )}
+      {mapError ? <ErrorMessage error={mapError} /> : null}
     </div>
   )
 }

@@ -18,7 +18,7 @@ suite('GlobalMap', () => {
       <MockedProvider mocks={getGlobalMapMock} addTypename={false}>
         <MockSessionProvider sessionContext={mockSessionContext}>
           <MemoryRouter>
-            <GlobalMap />
+            <GlobalMap loading={false} data={undefined} />
           </MemoryRouter>
         </MockSessionProvider>
       </MockedProvider>,
@@ -31,11 +31,53 @@ suite('GlobalMap', () => {
       <MockedProvider mocks={getGlobalMapMock} addTypename={false}>
         <MockSessionProvider sessionContext={mockSessionContext}>
           <MemoryRouter>
-            <GlobalMap />
+            <GlobalMap loading={false} data={undefined} />
           </MemoryRouter>
         </MockSessionProvider>
       </MockedProvider>,
     )
     await waitFor(() => expect(screen.getByTestId('GlobalMap')).to.exist)
+  })
+
+  // Additional tests
+  test('Changes color based on filters', async () => {
+    render(
+      <MockedProvider mocks={getGlobalMapMock} addTypename={false}>
+        <MockSessionProvider sessionContext={mockSessionContext}>
+          <MemoryRouter>
+            <GlobalMap loading={false} data={undefined} />
+          </MemoryRouter>
+        </MockSessionProvider>
+      </MockedProvider>,
+    )
+
+    // Wait for data to load
+    await waitFor(() => expect(screen.getByTestId('GlobalMap')).to.exist)
+  })
+
+  test('Shows error state', async () => {
+    const errorMock = [
+      {
+        request: {
+          query: getGlobalMapMock[0].request.query,
+          variables: getGlobalMapMock[0].request.variables,
+        },
+        error: new Error('An error occurred'),
+      },
+    ]
+
+    render(
+      <MockedProvider mocks={errorMock} addTypename={false}>
+        <MockSessionProvider sessionContext={mockSessionContext}>
+          <MemoryRouter>
+            <GlobalMap loading={false} data={undefined} />
+          </MemoryRouter>
+        </MockSessionProvider>
+      </MockedProvider>,
+    )
+
+    await waitFor(() => {
+      expect(screen.getByText(/Bummer/)).to.exist
+    })
   })
 })

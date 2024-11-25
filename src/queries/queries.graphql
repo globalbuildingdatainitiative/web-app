@@ -116,8 +116,8 @@ mutation updateOrganizations($organizations: [InputOrganization!]!) {
   }
 }
 
-query getUsers($filters: UserFilters) {
-  users(filters: $filters) {
+query getUsers($filters: UserFilters, $sortBy: UserSort) {
+  users(filters: $filters, sortBy: $sortBy) {
     id
     firstName
     lastName
@@ -126,7 +126,10 @@ query getUsers($filters: UserFilters) {
     invited
     inviteStatus
     inviterName
-    organizationId
+    organization {
+      id
+      name
+    }
     role
   }
 }
@@ -207,12 +210,39 @@ query getProjectPortfolio($limit: Int, $offset: Int, $filters: FilterBy) {
       location {
         countryName
       }
+      softwareInfo {
+        lcaSoftware
+      }
       projectInfo {
         grossFloorArea {
           value
         }
         buildingType
         buildingTypology
+        buildingCompletionYear
+        buildingFootprint {
+          value
+        }
+        buildingHeight {
+          value
+        }
+        buildingMass {
+          value
+        }
+        buildingPermitYear
+        buildingUsers
+        floorsAboveGround
+        floorsBelowGround
+        frameType
+        generalEnergyClass
+        heatedFloorArea {
+          value
+        }
+      }
+      metaData {
+        source {
+          name
+        }
       }
       results {
         gwp {

@@ -8,7 +8,8 @@ import { ErrorBoundary } from '../ErrorBoundary'
 type Project = NonNullable<GetProjectDetailsQuery['contributions']['items']>[number]['project']
 
 interface ProjectMetadataTableProps {
-  project: Project
+  project: Project | null
+  loading: boolean
 }
 
 interface MetaData {
@@ -55,10 +56,10 @@ const formatCellValue = (value: string | number | string[], unit?: string): stri
 }
 
 export const ProjectMetadataTable = (props: ProjectMetadataTableProps) => {
-  const { project } = props
+  const { project, loading } = props
   const [pagination, setPagination] = useState<MRT_PaginationState>({ pageIndex: 0, pageSize: 10 })
 
-  const metaData = useMemo(() => flattenMetadata(project), [project])
+  const metaData = useMemo(() => (project ? flattenMetadata(project) : []), [project])
 
   const columns = useMemo<MRT_ColumnDef<MetaData>[]>(
     () => [
@@ -103,6 +104,7 @@ export const ProjectMetadataTable = (props: ProjectMetadataTableProps) => {
     },
     state: {
       pagination,
+      isLoading: loading,
     },
     onPaginationChange: (newPagination) => {
       if (typeof newPagination === 'function') {

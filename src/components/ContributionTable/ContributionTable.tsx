@@ -7,6 +7,7 @@ import {
   MRT_SortingState,
   useMantineReactTable,
 } from 'mantine-react-table'
+import 'mantine-react-table/styles.css'
 import React, { useEffect, useMemo, useState } from 'react'
 import dayjs from 'dayjs'
 import { Group, Pagination, ScrollArea, Select, Text, Tooltip } from '@mantine/core'
