@@ -1,7 +1,7 @@
-import { GlobalBoxPlot, ErrorBoundary, GlobalMap, Paper } from '@components'
+import { ErrorBoundary, ErrorMessage, GlobalBoxPlot, GlobalMap, Paper } from '@components'
 import { Grid, Title } from '@mantine/core'
-import { useState } from 'react'
-import { LifeCycleStage } from '@queries'
+import { useMemo, useState } from 'react'
+import { LifeCycleStage, useGetProjectDataForBoxPlotQuery } from '@queries'
 
 export interface FilterState {
   selectedTypologies: string[]
@@ -24,6 +24,84 @@ export const DashboardPaper = () => {
     confirmedGfaRange: [0, 5000],
   })
 
+  const aggregation = useMemo(() => {
+    const divideAggregation = {
+      $sum: filters.selectedLifeCycleStages.map((stage) => `$results.gwp.${stage.toLowerCase()}`),
+    }
+    const stageFilters = filters.selectedLifeCycleStages.map((stage) => ({
+      [`results.gwp.${stage.toLowerCase()}`]: { $gt: 0 },
+    }))
+    const gfaFilter = {
+      'projectInfo.grossFloorArea.value': {
+        $gte: filters.confirmedGfaRange[0],
+        $lte: filters.confirmedGfaRange[1],
+      },
+    }
+    const filtersToApply: object[] = [...stageFilters, gfaFilter]
+
+    const typologyFilter =
+      filters.selectedTypologies.length > 0
+        ? { 'projectInfo.buildingTypology': { $in: filters.selectedTypologies } }
+        : {}
+    if (typologyFilter) {
+      filtersToApply.push(typologyFilter)
+    }
+    const countryFilter =
+      filters.selectedCountries.length > 0 ? { 'location.country': { $in: filters.selectedCountries } } : {}
+    if (countryFilter) {
+      filtersToApply.push(countryFilter)
+    }
+    const softwareFilter =
+      filters.selectedSoftware.length > 0 ? { 'softwareInfo.lcaSoftware': { $in: filters.selectedSoftware } } : {}
+    if (softwareFilter) {
+      filtersToApply.push(softwareFilter)
+    }
+
+    return [
+      {
+        $match: {
+          $and: filtersToApply,
+        },
+      },
+      {
+        $group: {
+          _id: '$location.country',
+          count: { $sum: 1 },
+          minimum: { $min: { $divide: [divideAggregation, '$projectInfo.grossFloorArea.value'] } },
+          percentiles: {
+            $percentile: {
+              p: [0.25, 0.75],
+              method: 'approximate',
+              input: { $divide: [divideAggregation, '$projectInfo.grossFloorArea.value'] },
+            },
+          },
+          median: {
+            $median: {
+              method: 'approximate',
+              input: { $divide: [divideAggregation, '$projectInfo.grossFloorArea.value'] },
+            },
+          },
+          maximum: { $max: { $divide: [divideAggregation, '$projectInfo.grossFloorArea.value'] } },
+          average: { $avg: { $divide: [divideAggregation, '$projectInfo.grossFloorArea.value'] } },
+        },
+      },
+      {
+        $project: {
+          _id: null,
+          group: '$_id',
+          count: '$count',
+          min: '$minimum',
+          pct: '$percentiles',
+          median: '$median',
+          max: '$maximum',
+          avg: '$average',
+        },
+      },
+    ]
+  }, [filters])
+
+  const { data, loading, error } = useGetProjectDataForBoxPlotQuery({ variables: { aggregation } })
+
   return (
     <Paper data-testid='DashboardPaper'>
       <Title order={3} style={{ marginBottom: 8 }}>
@@ -33,22 +111,16 @@ export const DashboardPaper = () => {
       <Grid grow>
         <Grid.Col span={gridSize}>
           <ErrorBoundary>
-            <div
-              style={{
-                position: 'relative',
-                zIndex: 0,
-              }}
-            >
-              <GlobalMap filters={filters} />
-            </div>
+            <GlobalMap loading={loading} data={data} />
           </ErrorBoundary>
         </Grid.Col>
         <Grid.Col span={gridSize}>
           <ErrorBoundary>
-            <GlobalBoxPlot filters={filters} onFiltersChange={setFilters} />
+            <GlobalBoxPlot filters={filters} onFiltersChange={setFilters} loading={loading} data={data} />
           </ErrorBoundary>
         </Grid.Col>
       </Grid>
+      {error ? <ErrorMessage error={error} /> : null}
     </Paper>
   )
 }

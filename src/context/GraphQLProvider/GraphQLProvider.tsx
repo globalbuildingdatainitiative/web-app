@@ -13,12 +13,12 @@ export const GraphQLProvider = ({ children }: GraphQlProviderProps) => {
     credentials: 'include',
   })
 
-  const errorLink = onError(({ graphQLErrors, networkError, operation, forward }) => {
+  const errorLink = onError(({ graphQLErrors, networkError, operation }) => {
     if (graphQLErrors) {
       graphQLErrors.forEach(({ message, locations, path }) => {
         if (message.includes('401: Unauthorized')) {
-          console.warn(`Retrying ${operation}`)
-          return forward(operation)
+          console.warn(`Retrying ${operation.operationName}`)
+          window.location.reload()
         } else {
           console.error(`[GraphQL Error]: Message: ${message}, Location: ${locations}, Path: ${path}`)
         }
@@ -33,7 +33,13 @@ export const GraphQLProvider = ({ children }: GraphQlProviderProps) => {
     () =>
       new ApolloClient({
         link: from([errorLink, httpLink]),
-        cache: new InMemoryCache(),
+        cache: new InMemoryCache({
+          typePolicies: {
+            ProjectGraphQLGroupResponse: {
+              keyFields: ['group'],
+            },
+          },
+        }),
       }),
     [httpLink, errorLink],
   )
