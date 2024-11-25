@@ -6,6 +6,7 @@ import {
   MRT_PaginationState,
   MRT_Row,
   useMantineReactTable,
+  type MRT_VisibilityState,
 } from 'mantine-react-table'
 import { useMemo, useState } from 'react'
 import { Group, Pagination, Progress, Select, Text, Tooltip } from '@mantine/core'
@@ -13,6 +14,31 @@ import { TruncatedTextWithTooltip } from '@components'
 
 export const PortfolioTable = () => {
   const [pagination, setPagination] = useState<MRT_PaginationState>({ pageIndex: 0, pageSize: 20 })
+
+  const [columnVisibility, setColumnVisibility] = useState<MRT_VisibilityState>({
+    name: true,
+    'location.countryName': true,
+    'projectInfo.buildingType': true,
+    'softwareInfo.lcaSoftware': true,
+    'metaData.source.name': true,
+    'projectInfo.grossFloorArea.value': true,
+    results: true,
+    breakdown: true,
+
+    'projectInfo.buildingCompletionYear': false,
+    'projectInfo.buildingFootprint.value': false,
+    'projectInfo.buildingHeight.value': false,
+    'projectInfo.buildingMass.value': false,
+    'projectInfo.buildingPermitYear': false,
+    'projectInfo.buildingTypology': false,
+    'projectInfo.buildingUsers': false,
+    'projectInfo.floorsAboveGround': false,
+    'projectInfo.floorsBelowGround': false,
+    'projectInfo.generalEnergyClass': false,
+    'projectInfo.heatedFloorArea.value': false,
+    'projectInfo.roofType': false,
+    'projectInfo.frameType': false,
+  })
 
   const { loading, error, data } = useGetProjectPortfolioQuery({
     variables: {
@@ -181,6 +207,7 @@ export const PortfolioTable = () => {
     pageCount: Math.ceil(totalRowCount / pagination.pageSize),
     enablePagination: false,
     enableGlobalFilter: false,
+    enableColumnActions: true,
     mantineToolbarAlertBannerProps: error
       ? {
           color: 'red',
@@ -192,6 +219,7 @@ export const PortfolioTable = () => {
       showAlertBanner: !!error,
       showSkeletons: false,
       pagination,
+      columnVisibility,
     },
     onPaginationChange: (newPagination) => {
       if (typeof newPagination === 'function') {
@@ -201,6 +229,7 @@ export const PortfolioTable = () => {
       }
     },
     enableStickyHeader: true,
+    onColumnVisibilityChange: setColumnVisibility,
     mantineTableContainerProps: {
       style: {
         maxWidth: '100%',
