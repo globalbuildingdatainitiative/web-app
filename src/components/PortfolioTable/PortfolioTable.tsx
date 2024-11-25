@@ -8,37 +8,17 @@ import {
   useMantineReactTable,
   type MRT_VisibilityState,
 } from 'mantine-react-table'
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { Group, Pagination, Progress, Select, Text, Tooltip } from '@mantine/core'
 import { TruncatedTextWithTooltip } from '@components'
+import { useViewportSize } from '@mantine/hooks'
 
 export const PortfolioTable = () => {
   const [pagination, setPagination] = useState<MRT_PaginationState>({ pageIndex: 0, pageSize: 20 })
+  const { width: viewportWidth } = useViewportSize()
+  const shouldHideColumns = viewportWidth < window.screen.width
 
-  const [columnVisibility, setColumnVisibility] = useState<MRT_VisibilityState>({
-    name: true,
-    'location.countryName': true,
-    'projectInfo.buildingType': true,
-    'softwareInfo.lcaSoftware': true,
-    'metaData.source.name': true,
-    'projectInfo.grossFloorArea.value': true,
-    results: true,
-    breakdown: true,
-
-    'projectInfo.buildingCompletionYear': false,
-    'projectInfo.buildingFootprint.value': false,
-    'projectInfo.buildingHeight.value': false,
-    'projectInfo.buildingMass.value': false,
-    'projectInfo.buildingPermitYear': false,
-    'projectInfo.buildingTypology': false,
-    'projectInfo.buildingUsers': false,
-    'projectInfo.floorsAboveGround': false,
-    'projectInfo.floorsBelowGround': false,
-    'projectInfo.generalEnergyClass': false,
-    'projectInfo.heatedFloorArea.value': false,
-    'projectInfo.roofType': false,
-    'projectInfo.frameType': false,
-  })
+  const [columnVisibility, setColumnVisibility] = useState<MRT_VisibilityState>({})
 
   const { loading, error, data } = useGetProjectPortfolioQuery({
     variables: {
@@ -196,6 +176,60 @@ export const PortfolioTable = () => {
     ],
     [],
   )
+
+  useEffect(() => {
+    if (shouldHideColumns) {
+      // Show only essential columns on small screens
+      setColumnVisibility({
+        name: true,
+        'location.countryName': true,
+        'projectInfo.buildingType': true,
+        'projectInfo.grossFloorArea.value': true,
+        results: true,
+        breakdown: true,
+        'softwareInfo.lcaSoftware': false,
+        'metaData.source.name': false,
+        'projectInfo.buildingCompletionYear': false,
+        'projectInfo.buildingFootprint.value': false,
+        'projectInfo.buildingHeight.value': false,
+        'projectInfo.buildingMass.value': false,
+        'projectInfo.buildingPermitYear': false,
+        'projectInfo.buildingTypology': false,
+        'projectInfo.buildingUsers': false,
+        'projectInfo.floorsAboveGround': false,
+        'projectInfo.floorsBelowGround': false,
+        'projectInfo.generalEnergyClass': false,
+        'projectInfo.heatedFloorArea.value': false,
+        'projectInfo.roofType': false,
+        'projectInfo.frameType': false,
+      })
+    } else {
+      // Show default column visibility on larger screens
+      setColumnVisibility({
+        name: true,
+        'location.countryName': true,
+        'projectInfo.buildingType': true,
+        'softwareInfo.lcaSoftware': true,
+        'metaData.source.name': true,
+        'projectInfo.grossFloorArea.value': true,
+        results: true,
+        breakdown: true,
+        'projectInfo.buildingCompletionYear': false,
+        'projectInfo.buildingFootprint.value': false,
+        'projectInfo.buildingHeight.value': false,
+        'projectInfo.buildingMass.value': false,
+        'projectInfo.buildingPermitYear': false,
+        'projectInfo.buildingTypology': false,
+        'projectInfo.buildingUsers': false,
+        'projectInfo.floorsAboveGround': false,
+        'projectInfo.floorsBelowGround': false,
+        'projectInfo.generalEnergyClass': false,
+        'projectInfo.heatedFloorArea.value': false,
+        'projectInfo.roofType': false,
+        'projectInfo.frameType': false,
+      })
+    }
+  }, [shouldHideColumns])
 
   const rowData = useMemo(() => data?.projects.items || [], [data])
   const totalRowCount = useMemo(() => data?.projects.count || 0, [data])
