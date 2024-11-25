@@ -210,12 +210,39 @@ query getProjectPortfolio($limit: Int, $offset: Int, $filters: FilterBy) {
       location {
         countryName
       }
+      softwareInfo {
+        lcaSoftware
+      }
       projectInfo {
         grossFloorArea {
           value
         }
         buildingType
         buildingTypology
+        buildingCompletionYear
+        buildingFootprint {
+          value
+        }
+        buildingHeight {
+          value
+        }
+        buildingMass {
+          value
+        }
+        buildingPermitYear
+        buildingUsers
+        floorsAboveGround
+        floorsBelowGround
+        frameType
+        generalEnergyClass
+        heatedFloorArea {
+          value
+        }
+      }
+      metaData {
+        source {
+          name
+        }
       }
       results {
         gwp {
