@@ -61,7 +61,7 @@ export const ProjectMetadataTable = (props: ProjectMetadataTableProps) => {
 
   const metaData = useMemo(() => (project ? flattenMetadata(project) : []), [project])
 
-  console.log('Total metadata fields:', metaData.length)
+  //console.log('Total metadata fields:', metaData.length)
 
   const columns = useMemo<MRT_ColumnDef<MetaData>[]>(
     () => [
