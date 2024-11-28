@@ -485,8 +485,12 @@ export const AttributeChart = ({ visibleColumns }: AttributeChartProps) => {
       return renderChart(data, chartConfig.dataKey, chartConfig.color, chartConfig.title)
     })
 
+  const visibleChartCount = visibleCharts.length
+
+  const gridColumns = visibleChartCount > 4 ? 3 : 2
+
   return (
-    <SimpleGrid cols={3} spacing='md' style={{ height: '100%' }} verticalSpacing='md'>
+    <SimpleGrid cols={gridColumns} spacing='md' style={{ height: '100%' }} verticalSpacing='md'>
       {visibleCharts}
     </SimpleGrid>
   )
