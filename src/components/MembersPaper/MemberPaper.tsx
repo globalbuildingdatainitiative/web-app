@@ -23,7 +23,7 @@ const Wrapper = ({ user }: { user: User | null }) => {
   const iconStyle = { width: rem(12), height: rem(12) }
 
   return (
-    <Tabs defaultValue='members'>
+    <Tabs defaultValue='members' keepMounted={false}>
       <Tabs.List>
         <Tabs.Tab value='members' leftSection={<IconUsers style={iconStyle} />}>
           Members
