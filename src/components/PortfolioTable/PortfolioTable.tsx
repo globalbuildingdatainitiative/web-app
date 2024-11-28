@@ -79,51 +79,91 @@ export const PortfolioTable = () => {
       {
         accessorKey: 'projectInfo.buildingCompletionYear',
         header: 'Completion Year',
+        Cell: ({ cell }) => {
+          const completion_year = cell.getValue<string>() || 'N/A'
+          return <TruncatedTextWithTooltip text={completion_year} />
+        },
         size: 50,
       },
       {
         accessorKey: 'projectInfo.buildingFootprint.value',
         header: 'Building Footprint (m²)',
+        Cell: ({ cell }) => {
+          const building_footprint = cell.getValue<string>() || 'N/A'
+          return <TruncatedTextWithTooltip text={building_footprint} />
+        },
         size: 50,
       },
       {
         accessorKey: 'projectInfo.buildingHeight.value',
         header: 'Building Height (m)',
+        Cell: ({ cell }) => {
+          const building_height = cell.getValue<string>() || 'N/A'
+          return <TruncatedTextWithTooltip text={building_height} />
+        },
         size: 50,
       },
       {
         accessorKey: 'projectInfo.buildingMass.value',
         header: 'Building Mass (kg)',
+        Cell: ({ cell }) => {
+          const building_mass = cell.getValue<string>() || 'N/A'
+          return <TruncatedTextWithTooltip text={building_mass} />
+        },
         size: 50,
       },
       {
         accessorKey: 'projectInfo.buildingPermitYear',
         header: 'Permit Year',
+        Cell: ({ cell }) => {
+          const permit_year = cell.getValue<string>() || 'N/A'
+          return <TruncatedTextWithTooltip text={permit_year} />
+        },
         size: 50,
       },
       {
         accessorKey: 'projectInfo.buildingTypology',
         header: 'Building Typology',
+        Cell: ({ cell }) => {
+          const building_typology = cell.getValue<string>() || 'N/A'
+          return <TruncatedTextWithTooltip text={building_typology} />
+        },
         size: 100,
       },
       {
         accessorKey: 'projectInfo.buildingUsers',
         header: 'Building Users',
+        Cell: ({ cell }) => {
+          const building_users = cell.getValue<string>() || 'N/A'
+          return <TruncatedTextWithTooltip text={building_users} />
+        },
         size: 50,
       },
       {
         accessorKey: 'projectInfo.floorsAboveGround',
         header: 'Floors Above Ground',
+        Cell: ({ cell }) => {
+          const floors_above_ground = cell.getValue<string>() || 'N/A'
+          return <TruncatedTextWithTooltip text={floors_above_ground} />
+        },
         size: 50,
       },
       {
         accessorKey: 'projectInfo.floorsBelowGround',
         header: 'Floors Below Ground',
+        Cell: ({ cell }) => {
+          const floors_below_ground = cell.getValue<string>() || 'N/A'
+          return <TruncatedTextWithTooltip text={floors_below_ground} />
+        },
         size: 50,
       },
       {
         accessorKey: 'projectInfo.generalEnergyClass',
         header: 'Energy Class',
+        Cell: ({ cell }) => {
+          const energy_class = cell.getValue<string>() || 'N/A'
+          return <TruncatedTextWithTooltip text={energy_class} />
+        },
         size: 50,
       },
       {
@@ -156,6 +196,10 @@ export const PortfolioTable = () => {
       {
         accessorKey: 'projectInfo.grossFloorArea.value',
         header: 'Gross Floor Area (m²)',
+        Cell: ({ cell }) => {
+          const gross_floor_area = cell.getValue<string>() || 'N/A'
+          return <TruncatedTextWithTooltip text={gross_floor_area} />
+        },
         size: 50,
       },
       {

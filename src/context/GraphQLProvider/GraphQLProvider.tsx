@@ -18,7 +18,7 @@ export const GraphQLProvider = ({ children }: GraphQlProviderProps) => {
       graphQLErrors.forEach(({ message, locations, path }) => {
         if (message.includes('401: Unauthorized')) {
           console.warn(`Retrying ${operation.operationName}`)
-          window.location.reload()
+          //window.location.reload()
         } else {
           console.error(`[GraphQL Error]: Message: ${message}, Location: ${locations}, Path: ${path}`)
         }
