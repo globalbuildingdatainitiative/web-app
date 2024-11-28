@@ -2,7 +2,8 @@ import React, { useState } from 'react'
 import { Paper } from '@components'
 import { Button, Group, Stack, Textarea, Title, Text, Pill } from '@mantine/core'
 import logo from 'assets/logo.png'
-import { useInviteUsersMutation } from '@queries'
+import { GetUsersDocument, useInviteUsersMutation } from '@queries'
+import { useUserContext } from '@context'
 
 interface InviteResult {
   email: string
@@ -11,10 +12,18 @@ interface InviteResult {
 }
 
 export const AddMembersPaper = () => {
+  const { user } = useUserContext()
   const [emailInput, setEmailInput] = useState<string>('')
   const [parsedEmails, setParsedEmails] = useState<string[]>([])
   const [inviteResults, setInviteResults] = useState<InviteResult[]>([])
-  const [inviteUsers, { loading, error }] = useInviteUsersMutation()
+  const [inviteUsers, { loading, error }] = useInviteUsersMutation({
+    refetchQueries: [
+      {
+        query: GetUsersDocument,
+        variables: { filters: { organizationId: user?.organization?.id } },
+      },
+    ],
+  })
 
   const parseEmails = (input: string): string[] => {
     const hasSeparator = /[,;:\n\t\s]/.test(input)
