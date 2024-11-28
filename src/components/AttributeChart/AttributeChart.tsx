@@ -4,6 +4,7 @@ import { useGetProjectsCountsByCountryQuery, useGetProjectPortfolioQuery, GetPro
 import { Text, Paper, SimpleGrid } from '@mantine/core'
 import { countryNameToAlpha3 } from './countryCodesMapping'
 import type { MRT_VisibilityState } from 'mantine-react-table'
+import { theme } from '@components'
 
 interface ChartData {
   count: number
@@ -47,27 +48,31 @@ const renderChart = (data: ChartData[], dataKey: string, fill: string, title: st
   </ChartContainer>
 )
 
+const getColor = (colorName: string, shade: number, fallback: string): string => {
+  return theme.colors?.[colorName]?.[shade] || fallback
+}
+
 const getChartConfig = (columnKey: string): ChartConfig => {
   const configs: { [key: string]: ChartConfig } = {
-    'location.countryName': { dataKey: 'country', color: '#40C057', title: 'Countries' },
-    'projectInfo.buildingType': { dataKey: 'type', color: '#228BE6', title: 'Building Types' },
-    'softwareInfo.lcaSoftware': { dataKey: 'software', color: '#7950F2', title: 'LCA Software' },
-    'projectInfo.buildingTypology': { dataKey: 'typology', color: '#FF6B6B', title: 'Building Typology' },
-    'metaData.source.name': { dataKey: 'source', color: '#20C997', title: 'Data Sources' },
-    'projectInfo.generalEnergyClass': { dataKey: 'energyClass', color: '#FCC419', title: 'Energy Classes' },
-    'projectInfo.frameType': { dataKey: 'frame', color: '#BE4BDB', title: 'Frame Types' },
-    'projectInfo.roofType': { dataKey: 'roof', color: '#FA5252', title: 'Roof Types' },
-    'projectInfo.grossFloorArea.value': { dataKey: 'range', color: '#FA5252', title: 'Gross Floor Area' },
-    'projectInfo.buildingCompletionYear': { dataKey: 'year', color: '#FD7E14', title: 'Building Completion Year' },
-    'projectInfo.buildingFootprint.value': { dataKey: 'range', color: '#FF9F1C', title: 'Building Footprint' },
-    'projectInfo.buildingHeight.value': { dataKey: 'range', color: '#E63946', title: 'Building Height' },
-    'projectInfo.buildingMass.value': { dataKey: 'range', color: '#2D3A8C', title: 'Building Mass' },
-    'projectInfo.buildingPermitYear': { dataKey: 'range', color: '#6C757D', title: 'Building Permit Year' },
-    'projectInfo.buildingUsers': { dataKey: 'range', color: '#5C940D', title: 'Building Users' },
-    'projectInfo.floorsAboveGround': { dataKey: 'range', color: '#364FC7', title: 'Floors Above Ground' },
-    'projectInfo.floorsBelowGround': { dataKey: 'range', color: '#C92A2A', title: 'Floors Below Ground' },
-    'projectInfo.heatedFloorArea.value': { dataKey: 'range', color: '#868E96', title: 'Heated Floor Area' },
-    results: { dataKey: 'range', color: '#F06595', title: 'GWP Intensity' },
+    'location.countryName': { dataKey: 'country', color: getColor('green', 6, '#40C057'), title: 'Countries' },
+    'projectInfo.buildingType': { dataKey: 'type', color: getColor('blue', 6, '#228BE6'), title: 'Building Types' },
+    'softwareInfo.lcaSoftware': { dataKey: 'software', color: getColor('light_green', 6, '#7950F2'), title: 'LCA Software' },
+    'projectInfo.buildingTypology': { dataKey: 'typology', color: getColor('orange', 6, '#FF6B6B'), title: 'Building Typology' },
+    'metaData.source.name': { dataKey: 'source', color: getColor('light_orange', 6, '#20C997'), title: 'Data Sources' },
+    'projectInfo.generalEnergyClass': { dataKey: 'energyClass', color: getColor('yellow', 6, '#FCC419'), title: 'Energy Classes' },
+    'projectInfo.frameType': { dataKey: 'frame', color: getColor('green', 4, '#BE4BDB'), title: 'Frame Types' },
+    'projectInfo.roofType': { dataKey: 'roof', color: getColor('red', 6, '#FA5252'), title: 'Roof Types' },
+    'projectInfo.grossFloorArea.value': { dataKey: 'range', color: getColor('blue', 4, '#FA5252'), title: 'Gross Floor Area' },
+    'projectInfo.buildingCompletionYear': { dataKey: 'year', color: getColor('light_green', 4, '#FD7E14'), title: 'Building Completion Year' },
+    'projectInfo.buildingFootprint.value': { dataKey: 'range', color: getColor('orange', 4, '#FF9F1C'), title: 'Building Footprint' },
+    'projectInfo.buildingHeight.value': { dataKey: 'range', color: getColor('light_orange', 4, '#E63946'), title: 'Building Height' },
+    'projectInfo.buildingMass.value': { dataKey: 'range', color: getColor('yellow', 4, '#2D3A8C'), title: 'Building Mass' },
+    'projectInfo.buildingPermitYear': { dataKey: 'range', color: getColor('green', 7, '#6C757D'), title: 'Building Permit Year' },
+    'projectInfo.buildingUsers': { dataKey: 'range', color: getColor('blue', 7, '#5C940D'), title: 'Building Users' },
+    'projectInfo.floorsAboveGround': { dataKey: 'range', color: getColor('orange', 7, '#364FC7'), title: 'Floors Above Ground' },
+    'projectInfo.floorsBelowGround': { dataKey: 'range', color: getColor('light_orange', 7, '#C92A2A'), title: 'Floors Below Ground' },
+    'projectInfo.heatedFloorArea.value': { dataKey: 'range', color: getColor('yellow', 7, '#868E96'), title: 'Heated Floor Area' },
+    results: { dataKey: 'range', color: getColor('red', 7, '#F06595'), title: 'GWP Intensity' },
   }
 
   return configs[columnKey] || { dataKey: 'unknown', color: '#999', title: 'Unknown' }
