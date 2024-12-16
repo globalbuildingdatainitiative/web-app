@@ -127,7 +127,7 @@ const getChartConfig = (columnKey: string): ChartConfig => {
 }
 
 const useChartData = (portfolioData: GetProjectPortfolioQuery | undefined) => {
-  const items = portfolioData?.projects?.items || []
+  const items = useMemo(() => portfolioData?.projects?.items || [], [portfolioData])
 
   const buildingTypeData = useMemo(() => {
     const typeCount: { [key: string]: number } = items.reduce(

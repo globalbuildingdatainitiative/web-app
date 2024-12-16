@@ -43,12 +43,9 @@ const formatEnumValue = (value: string): string => {
 }
 
 // Formatting cell value based on its type and unit
-const formatCellValue = (value: string | number | string[], unit?: string): string => {
+const formatCellValue = (value: string | number | string[]): string => {
   let formattedValue: string
-
-  if (Array.isArray(value)) {
-    formattedValue = value.map((v) => (typeof v === 'string' ? formatEnumValue(v) : formatNumber(Number(v)))).join(', ')
-  } else if (typeof value === 'number') {
+  if (typeof value === 'number') {
     formattedValue = formatNumber(value)
   } else if (typeof value === 'string' && value.includes('_')) {
     formattedValue = formatEnumValue(value)
@@ -56,7 +53,7 @@ const formatCellValue = (value: string | number | string[], unit?: string): stri
     formattedValue = String(value)
   }
 
-  return unit ? `${formattedValue} ${formatUnit(unit)}` : formattedValue
+  return formattedValue
 }
 
 type MetadataValue = ValueWithUnit | string | number | null | undefined | { [key: string]: unknown }
@@ -65,7 +62,8 @@ const isValueWithUnit = (value: unknown): value is ValueWithUnit => {
   return value !== null && typeof value === 'object' && 'value' in value && 'unit' in value
 }
 
-const prettifyMetadata = (key: string, value: MetadataValue): MetaData => {
+// @ts-expect-error returning any
+const prettifyMetadata = (key: string, value: MetadataValue) => {
   const name = camelCaseToHumanCase(key)
 
   if (value === null || value === undefined) {
@@ -82,17 +80,20 @@ const prettifyMetadata = (key: string, value: MetadataValue): MetaData => {
       unit: value.unit,
     }
   }
-
-  // Handle nested objects (like source, owner, etc.)
-  if (typeof value === 'object') {
-    const flatValue = Object.entries(value)
-      .filter(([k]) => k !== '__typename')
-      .map(([k, v]) => `${k}: ${v}`)
-      .join(', ')
+  if (Array.isArray(value)) {
     return {
       name,
-      value: flatValue || 'N/A',
+      value: value.join(', '),
     }
+  }
+  // Handle nested objects (like source, owner, etc.)
+  if (typeof value === 'object') {
+    return (
+      Object.entries(value)
+        .filter(([k]) => k !== '__typename')
+        // @ts-expect-error returning any
+        .map(([key, value]) => prettifyMetadata(`${name} ${key}`, value as MetadataValue))
+    )
   }
 
   return {
@@ -112,6 +113,12 @@ const flattenMetadata = (project: Project): MetaData[] => {
     ? Object.entries(project.metaData)
         .filter(([key]) => key !== '__typename')
         .map(([key, value]) => prettifyMetadata(key, value as MetadataValue))
+        .reduce((previousValue, currentValue) => {
+          if (Array.isArray(currentValue)) {
+            return [...previousValue, ...currentValue]
+          }
+          return [...previousValue, currentValue]
+        }, [])
     : []
 
   return [...projectInfo, ...metaData]
@@ -132,7 +139,7 @@ export const ProjectMetadataTable = (props: ProjectMetadataTableProps) => {
       {
         accessorKey: 'value',
         header: 'Value',
-        Cell: ({ cell }) => formatCellValue(cell.getValue<string | number | string[]>(), cell.row.original.unit),
+        Cell: ({ cell }) => formatCellValue(cell.getValue<string | number | string[]>()),
       },
       {
         accessorKey: 'unit',
