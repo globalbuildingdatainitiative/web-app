@@ -19,9 +19,9 @@ export const GraphQLProvider = ({ children }: GraphQlProviderProps) => {
   const errorLink = onError(({ graphQLErrors, networkError }) => {
     if (graphQLErrors) {
       graphQLErrors.forEach(({ message, locations, path }) => {
-        if (message.includes('401: Unauthorized')) {
+        if (message.includes('401: Unauthorized') && location?.pathname !== '/auth') {
           console.warn('Caught 401 - Unauthorized - Redirecting to login.')
-          //SuperTokens.redirectToAuth()
+          SuperTokens.redirectToAuth()
         } else {
           console.error(`[GraphQL Error]: Message: ${message}, Location: ${locations}, Path: ${path}`)
         }
