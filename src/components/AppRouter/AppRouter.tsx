@@ -3,6 +3,7 @@ import { Route, Routes, useNavigate } from 'react-router'
 import { AppLayout, Loading } from '@components'
 import { Center } from '@mantine/core'
 import { useUserContext } from '@context'
+import { useLocation } from 'react-router-dom'
 
 const AddMembersPage = lazy(() => import('../../pages/AddMembersPage'))
 const ContributionPage = lazy(() => import('../../pages/ContributionPage'))
@@ -19,13 +20,14 @@ const ProjectDetailsPage = lazy(() => import('../../pages/ProjectDetailsPage'))
 export const AppRouter = () => {
   const { user } = useUserContext()
   const navigate = useNavigate()
+  const location = useLocation()
 
   useEffect(() => {
     // If the user is not part of any organization, redirect to create organization page
-    if (user && !user.organization) {
+    if (user && !user.organization && location.pathname !== '/organization/new') {
       navigate('/organization/new')
     }
-  }, [user, navigate])
+  }, [user, navigate, location])
 
   return (
     <React.Suspense
