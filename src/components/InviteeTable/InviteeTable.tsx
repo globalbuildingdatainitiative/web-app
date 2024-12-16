@@ -1,4 +1,4 @@
-import React, { useMemo, useState, useCallback } from 'react'
+import { useMemo, useState, useCallback } from 'react'
 import { useGetUsersQuery, useResendInvitationMutation } from '@queries'
 import { MantineReactTable, MRT_ColumnDef, useMantineReactTable } from 'mantine-react-table'
 import { Button, Stack, Title, Text } from '@mantine/core'
@@ -22,7 +22,7 @@ interface InviteResult {
   message: string
 }
 
-export const InviteesTable: React.FC<InviteesTableProps> = ({ organizationId }) => {
+export const InviteesTable = ({ organizationId }: InviteesTableProps) => {
   const [inviteResults, setInviteResults] = useState<InviteResult[]>([])
   const {
     loading: loadingInvitees,
