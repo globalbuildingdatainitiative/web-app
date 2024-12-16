@@ -3,12 +3,14 @@ import { ReactNode, useMemo } from 'react'
 import { ApolloClient, ApolloProvider, createHttpLink, from, InMemoryCache } from '@apollo/client'
 import { onError } from '@apollo/client/link/error'
 import SuperTokens from 'supertokens-auth-react'
+import { useLocation } from 'react-router-dom'
 
 type GraphQlProviderProps = {
   children: ReactNode
 }
 
 export const GraphQLProvider = ({ children }: GraphQlProviderProps) => {
+  const location = useLocation()
   const httpLink = createHttpLink({
     uri: `${import.meta.env.VITE_GRAPHQL_API_DOMAIN}/graphql`,
     credentials: 'include',
@@ -19,7 +21,7 @@ export const GraphQLProvider = ({ children }: GraphQlProviderProps) => {
       graphQLErrors.forEach(({ message, locations, path }) => {
         if (message.includes('401: Unauthorized')) {
           console.warn('Caught 401 - Unauthorized - Redirecting to login.')
-          SuperTokens.redirectToAuth()
+          //SuperTokens.redirectToAuth()
         } else {
           console.error(`[GraphQL Error]: Message: ${message}, Location: ${locations}, Path: ${path}`)
         }
