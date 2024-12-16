@@ -18,6 +18,105 @@ interface MetaData {
   unit?: string
 }
 
+interface ValueWithUnit {
+  value: string | number | string[]
+  unit: string
+}
+
+// Formatting numbers with thousand separators
+const formatNumber = (value: number): string => {
+  return new Intl.NumberFormat('en-US').format(value)
+}
+
+// Formatting units with proper superscript
+const formatUnit = (unit?: string): string => {
+  if (!unit) return ''
+  return unit.replace('m2', 'm²').replace('m3', 'm³').replace('kg/m2', 'kg/m²').replace('kWh/m2', 'kWh/m²')
+}
+
+// Formatting enum values by capitalizing first letter and replacing underscores with spaces
+const formatEnumValue = (value: string): string => {
+  return value
+    .split('_')
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+    .join(' ')
+}
+
+// Formatting cell value based on its type and unit
+const formatCellValue = (value: string | number | string[], unit?: string): string => {
+  let formattedValue: string
+
+  if (Array.isArray(value)) {
+    formattedValue = value.map((v) => (typeof v === 'string' ? formatEnumValue(v) : formatNumber(Number(v)))).join(', ')
+  } else if (typeof value === 'number') {
+    formattedValue = formatNumber(value)
+  } else if (typeof value === 'string' && value.includes('_')) {
+    formattedValue = formatEnumValue(value)
+  } else {
+    formattedValue = String(value)
+  }
+
+  return unit ? `${formattedValue} ${formatUnit(unit)}` : formattedValue
+}
+
+type MetadataValue = ValueWithUnit | string | number | null | undefined | { [key: string]: unknown }
+
+const isValueWithUnit = (value: unknown): value is ValueWithUnit => {
+  return value !== null && typeof value === 'object' && 'value' in value && 'unit' in value
+}
+
+const prettifyMetadata = (key: string, value: MetadataValue): MetaData => {
+  const name = camelCaseToHumanCase(key)
+
+  if (value === null || value === undefined) {
+    return {
+      name,
+      value: 'N/A',
+    }
+  }
+
+  if (isValueWithUnit(value)) {
+    return {
+      name,
+      value: value.value,
+      unit: value.unit,
+    }
+  }
+
+  // Handle nested objects (like source, owner, etc.)
+  if (typeof value === 'object') {
+    const flatValue = Object.entries(value)
+      .filter(([k]) => k !== '__typename')
+      .map(([k, v]) => `${k}: ${v}`)
+      .join(', ')
+    return {
+      name,
+      value: flatValue || 'N/A',
+    }
+  }
+
+  return {
+    name,
+    value: String(value),
+  }
+}
+
+const flattenMetadata = (project: Project): MetaData[] => {
+  if (!project) return []
+
+  const projectInfo = Object.entries(project.projectInfo)
+    .filter(([key]) => key !== '__typename')
+    .map(([key, value]) => prettifyMetadata(key, value as MetadataValue))
+
+  const metaData = project.metaData
+    ? Object.entries(project.metaData)
+        .filter(([key]) => key !== '__typename')
+        .map(([key, value]) => prettifyMetadata(key, value as MetadataValue))
+    : []
+
+  return [...projectInfo, ...metaData]
+}
+
 export const ProjectMetadataTable = (props: ProjectMetadataTableProps) => {
   const { project, loading } = props
   const [pagination, setPagination] = useState<MRT_PaginationState>({ pageIndex: 0, pageSize: 10 })
@@ -33,10 +132,12 @@ export const ProjectMetadataTable = (props: ProjectMetadataTableProps) => {
       {
         accessorKey: 'value',
         header: 'Value',
+        Cell: ({ cell }) => formatCellValue(cell.getValue<string | number | string[]>(), cell.row.original.unit),
       },
       {
         accessorKey: 'unit',
         header: 'Unit',
+        Cell: ({ cell }) => formatUnit(cell.getValue<string>()),
       },
     ],
     [],
@@ -54,6 +155,15 @@ export const ProjectMetadataTable = (props: ProjectMetadataTableProps) => {
     pageCount: Math.ceil(metaData.length / pagination.pageSize),
     enablePagination: false,
     enableGlobalFilter: false,
+    mantinePaperProps: {
+      shadow: 'xs',
+      withBorder: true,
+      p: 'md',
+    },
+    mantineTableProps: {
+      striped: true,
+      highlightOnHover: true,
+    },
     state: {
       pagination,
       isLoading: loading,
@@ -88,22 +198,3 @@ export const ProjectMetadataTable = (props: ProjectMetadataTableProps) => {
     </div>
   )
 }
-
-const flattenMetadata = (project: Project): MetaData[] => {
-  const projectInfo = Object.entries(project.projectInfo)
-    .filter(([key]) => key !== '__typename')
-    // @ts-expect-error ignore
-    .map(([key, value]) => prettifyMetadata(key, value))
-  const metaData = Object.entries(project.metaData!)
-    .filter(([key]) => key !== '__typename')
-    .map(([key, value]) => prettifyMetadata(key, value))
-  return [...projectInfo, ...metaData]
-}
-
-const prettifyMetadata = (key: string, value: { value: string | number | string[]; unit: string } | string) => ({
-  name: camelCaseToHumanCase(key),
-  // @ts-expect-error ignore
-  value: value?.value !== undefined ? value.value : value,
-  // @ts-expect-error ignore
-  unit: value?.unit,
-})

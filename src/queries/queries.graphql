@@ -235,6 +235,7 @@ query getProjectPortfolio($limit: Int, $offset: Int, $filters: FilterBy) {
         floorsBelowGround
         frameType
         generalEnergyClass
+        roofType
         heatedFloorArea {
           value
         }
@@ -242,6 +243,7 @@ query getProjectPortfolio($limit: Int, $offset: Int, $filters: FilterBy) {
       metaData {
         source {
           name
+          url
         }
       }
       results {

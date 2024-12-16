@@ -5642,7 +5642,7 @@
             "name": "buildingOccupancyStart",
             "description": null,
             "args": [],
-            "type": { "kind": "SCALAR", "name": "Date", "ofType": null },
+            "type": { "kind": "SCALAR", "name": "String", "ofType": null },
             "isDeprecated": false,
             "deprecationReason": null
           },
@@ -5698,7 +5698,7 @@
             "name": "constructionStart",
             "description": null,
             "args": [],
-            "type": { "kind": "SCALAR", "name": "Date", "ofType": null },
+            "type": { "kind": "SCALAR", "name": "String", "ofType": null },
             "isDeprecated": false,
             "deprecationReason": null
           },

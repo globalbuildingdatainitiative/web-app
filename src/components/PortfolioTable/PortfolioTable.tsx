@@ -13,12 +13,15 @@ import { Group, Pagination, Progress, Select, Text, Tooltip } from '@mantine/cor
 import { TruncatedTextWithTooltip } from '@components'
 import { useViewportSize } from '@mantine/hooks'
 
-export const PortfolioTable = () => {
+interface PortfolioTableProps {
+  columnVisibility: MRT_VisibilityState
+  onColumnVisibilityChange: (visibility: MRT_VisibilityState) => void
+}
+
+export const PortfolioTable = ({ columnVisibility, onColumnVisibilityChange }: PortfolioTableProps) => {
   const [pagination, setPagination] = useState<MRT_PaginationState>({ pageIndex: 0, pageSize: 20 })
   const { width: viewportWidth } = useViewportSize()
   const shouldHideColumns = viewportWidth < window.screen.width
-
-  const [columnVisibility, setColumnVisibility] = useState<MRT_VisibilityState>({})
 
   const { loading, error, data } = useGetProjectPortfolioQuery({
     variables: {
@@ -79,51 +82,91 @@ export const PortfolioTable = () => {
       {
         accessorKey: 'projectInfo.buildingCompletionYear',
         header: 'Completion Year',
+        Cell: ({ cell }) => {
+          const completion_year = cell.getValue<string>() || 'N/A'
+          return <TruncatedTextWithTooltip text={completion_year} />
+        },
         size: 50,
       },
       {
         accessorKey: 'projectInfo.buildingFootprint.value',
         header: 'Building Footprint (m²)',
+        Cell: ({ cell }) => {
+          const building_footprint = cell.getValue<string>() || 'N/A'
+          return <TruncatedTextWithTooltip text={building_footprint} />
+        },
         size: 50,
       },
       {
         accessorKey: 'projectInfo.buildingHeight.value',
         header: 'Building Height (m)',
+        Cell: ({ cell }) => {
+          const building_height = cell.getValue<string>() || 'N/A'
+          return <TruncatedTextWithTooltip text={building_height} />
+        },
         size: 50,
       },
       {
         accessorKey: 'projectInfo.buildingMass.value',
         header: 'Building Mass (kg)',
+        Cell: ({ cell }) => {
+          const building_mass = cell.getValue<string>() || 'N/A'
+          return <TruncatedTextWithTooltip text={building_mass} />
+        },
         size: 50,
       },
       {
         accessorKey: 'projectInfo.buildingPermitYear',
         header: 'Permit Year',
+        Cell: ({ cell }) => {
+          const permit_year = cell.getValue<string>() || 'N/A'
+          return <TruncatedTextWithTooltip text={permit_year} />
+        },
         size: 50,
       },
       {
         accessorKey: 'projectInfo.buildingTypology',
         header: 'Building Typology',
+        Cell: ({ cell }) => {
+          const building_typology = cell.getValue<string>() || 'N/A'
+          return <TruncatedTextWithTooltip text={building_typology} />
+        },
         size: 100,
       },
       {
         accessorKey: 'projectInfo.buildingUsers',
         header: 'Building Users',
+        Cell: ({ cell }) => {
+          const building_users = cell.getValue<string>() || 'N/A'
+          return <TruncatedTextWithTooltip text={building_users} />
+        },
         size: 50,
       },
       {
         accessorKey: 'projectInfo.floorsAboveGround',
         header: 'Floors Above Ground',
+        Cell: ({ cell }) => {
+          const floors_above_ground = cell.getValue<string>() || 'N/A'
+          return <TruncatedTextWithTooltip text={floors_above_ground} />
+        },
         size: 50,
       },
       {
         accessorKey: 'projectInfo.floorsBelowGround',
         header: 'Floors Below Ground',
+        Cell: ({ cell }) => {
+          const floors_below_ground = cell.getValue<string>() || 'N/A'
+          return <TruncatedTextWithTooltip text={floors_below_ground} />
+        },
         size: 50,
       },
       {
         accessorKey: 'projectInfo.generalEnergyClass',
         header: 'Energy Class',
+        Cell: ({ cell }) => {
+          const energy_class = cell.getValue<string>() || 'N/A'
+          return <TruncatedTextWithTooltip text={energy_class} />
+        },
         size: 50,
       },
       {
@@ -156,6 +199,10 @@ export const PortfolioTable = () => {
       {
         accessorKey: 'projectInfo.grossFloorArea.value',
         header: 'Gross Floor Area (m²)',
+        Cell: ({ cell }) => {
+          const gross_floor_area = cell.getValue<string>() || 'N/A'
+          return <TruncatedTextWithTooltip text={gross_floor_area} />
+        },
         size: 50,
       },
       {
@@ -180,7 +227,7 @@ export const PortfolioTable = () => {
   useEffect(() => {
     if (shouldHideColumns) {
       // Show only essential columns on small screens
-      setColumnVisibility({
+      onColumnVisibilityChange({
         name: true,
         'location.countryName': true,
         'projectInfo.buildingType': true,
@@ -203,33 +250,8 @@ export const PortfolioTable = () => {
         'projectInfo.roofType': false,
         'projectInfo.frameType': false,
       })
-    } else {
-      // Show default column visibility on larger screens
-      setColumnVisibility({
-        name: true,
-        'location.countryName': true,
-        'projectInfo.buildingType': true,
-        'softwareInfo.lcaSoftware': true,
-        'metaData.source.name': true,
-        'projectInfo.grossFloorArea.value': true,
-        results: true,
-        breakdown: true,
-        'projectInfo.buildingCompletionYear': false,
-        'projectInfo.buildingFootprint.value': false,
-        'projectInfo.buildingHeight.value': false,
-        'projectInfo.buildingMass.value': false,
-        'projectInfo.buildingPermitYear': false,
-        'projectInfo.buildingTypology': false,
-        'projectInfo.buildingUsers': false,
-        'projectInfo.floorsAboveGround': false,
-        'projectInfo.floorsBelowGround': false,
-        'projectInfo.generalEnergyClass': false,
-        'projectInfo.heatedFloorArea.value': false,
-        'projectInfo.roofType': false,
-        'projectInfo.frameType': false,
-      })
     }
-  }, [shouldHideColumns])
+  }, [shouldHideColumns, onColumnVisibilityChange])
 
   const rowData = useMemo(() => data?.projects.items || [], [data])
   const totalRowCount = useMemo(() => data?.projects.count || 0, [data])
@@ -263,7 +285,13 @@ export const PortfolioTable = () => {
       }
     },
     enableStickyHeader: true,
-    onColumnVisibilityChange: setColumnVisibility,
+    onColumnVisibilityChange: (updaterOrValue) => {
+      if (typeof updaterOrValue === 'function') {
+        onColumnVisibilityChange(updaterOrValue(columnVisibility))
+      } else {
+        onColumnVisibilityChange(updaterOrValue)
+      }
+    },
     mantineTableContainerProps: {
       style: {
         maxWidth: '100%',

@@ -1,30 +1,37 @@
 import { useViewportSize } from '@mantine/hooks'
-import { Tabs } from '@mantine/core'
+import { Tabs, Paper } from '@mantine/core'
 import { AttributeChart } from '../AttributeChart'
 import { CarbonIntensityChart } from '../CarbonIntensityChart'
+import type { MRT_VisibilityState } from 'mantine-react-table'
 
 interface PortfolioChartsProps {
   className?: string
+  visibleColumns: MRT_VisibilityState
 }
 
 export const PortfolioCharts = (props: PortfolioChartsProps) => {
-  const { className } = props
+  const { className, visibleColumns } = props
   const { height } = useViewportSize()
+
   return (
-    <div style={{ height: height * 0.5 }} className={className}>
+    <Paper shadow='xs' p='md' mb='xl' className={className}>
       <Tabs keepMounted={false} defaultValue='attributes'>
-        <Tabs.List>
+        <Tabs.List mb='md'>
           <Tabs.Tab value='attributes'>Project Attributes</Tabs.Tab>
           <Tabs.Tab value='intensity'>Carbon Intensity</Tabs.Tab>
         </Tabs.List>
 
         <Tabs.Panel value='attributes'>
-          <AttributeChart />
+          <div style={{ height: `${height * 0.7}px`, minHeight: '800px' }}>
+            <AttributeChart visibleColumns={visibleColumns} />
+          </div>
         </Tabs.Panel>
         <Tabs.Panel value='intensity'>
-          <CarbonIntensityChart />
+          <div style={{ height: `${height * 0.7}px`, minHeight: '800px' }}>
+            <CarbonIntensityChart />
+          </div>
         </Tabs.Panel>
       </Tabs>
-    </div>
+    </Paper>
   )
 }

@@ -1326,14 +1326,14 @@ export type ProjectMetaData = {
   assessmentCutoff?: Maybe<Scalars['String']['output']>
   assessmentCutoffType?: Maybe<Scalars['String']['output']>
   bedroomCount?: Maybe<Scalars['Int']['output']>
-  buildingOccupancyStart?: Maybe<Scalars['Date']['output']>
+  buildingOccupancyStart?: Maybe<Scalars['String']['output']>
   buildingProjectConstructionType2?: Maybe<Scalars['String']['output']>
   buildingUseType?: Maybe<Scalars['String']['output']>
   builtFloorArea?: Maybe<ValueUnit>
   civilEngineer?: Maybe<Scalars['String']['output']>
   climateZone?: Maybe<Scalars['String']['output']>
   conditionedFloorArea?: Maybe<ValueUnit>
-  constructionStart?: Maybe<Scalars['Date']['output']>
+  constructionStart?: Maybe<Scalars['String']['output']>
   constructionYearExistingBuilding?: Maybe<Scalars['Int']['output']>
   cost?: Maybe<Cost>
   demolishedArea?: Maybe<ValueUnit>
@@ -2491,14 +2491,14 @@ export type ProjectMetaDataResolvers<
   assessmentCutoff?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
   assessmentCutoffType?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
   bedroomCount?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>
-  buildingOccupancyStart?: Resolver<Maybe<ResolversTypes['Date']>, ParentType, ContextType>
+  buildingOccupancyStart?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
   buildingProjectConstructionType2?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
   buildingUseType?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
   builtFloorArea?: Resolver<Maybe<ResolversTypes['ValueUnit']>, ParentType, ContextType>
   civilEngineer?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
   climateZone?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
   conditionedFloorArea?: Resolver<Maybe<ResolversTypes['ValueUnit']>, ParentType, ContextType>
-  constructionStart?: Resolver<Maybe<ResolversTypes['Date']>, ParentType, ContextType>
+  constructionStart?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
   constructionYearExistingBuilding?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>
   cost?: Resolver<Maybe<ResolversTypes['Cost']>, ParentType, ContextType>
   demolishedArea?: Resolver<Maybe<ResolversTypes['ValueUnit']>, ParentType, ContextType>
@@ -3045,13 +3045,17 @@ export type GetProjectPortfolioQuery = {
         floorsBelowGround?: number | null
         frameType?: string | null
         generalEnergyClass: GeneralEnergyClass
+        roofType: RoofType
         grossFloorArea?: { __typename?: 'AreaType'; value: number } | null
         buildingFootprint?: { __typename?: 'ValueUnit'; value: number } | null
         buildingHeight?: { __typename?: 'ValueUnit'; value: number } | null
         buildingMass?: { __typename?: 'ValueUnit'; value: number } | null
         heatedFloorArea?: { __typename?: 'AreaType'; value: number } | null
       }
-      metaData?: { __typename?: 'ProjectMetaData'; source?: { __typename?: 'Source'; name: string } | null } | null
+      metaData?: {
+        __typename?: 'ProjectMetaData'
+        source?: { __typename?: 'Source'; name: string; url?: string | null } | null
+      } | null
       results?: {
         __typename?: 'Results'
         gwp?: {
@@ -3162,9 +3166,9 @@ export type GetProjectDetailsQuery = {
           interiorDesigner?: string | null
           otherProjectTeam?: string | null
           workCompletionYear?: number | null
-          constructionStart?: any | null
+          constructionStart?: string | null
           constructionYearExistingBuilding?: number | null
-          buildingOccupancyStart?: any | null
+          buildingOccupancyStart?: string | null
           source?: { __typename?: 'Source'; name: string; url?: string | null } | null
           owner?: {
             __typename?: 'Owner'
@@ -4231,6 +4235,7 @@ export const GetProjectPortfolioDocument = gql`
           floorsBelowGround
           frameType
           generalEnergyClass
+          roofType
           heatedFloorArea {
             value
           }
@@ -4238,6 +4243,7 @@ export const GetProjectPortfolioDocument = gql`
         metaData {
           source {
             name
+            url
           }
         }
         results {
