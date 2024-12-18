@@ -243,3 +243,8 @@ export const countryNameToAlpha3: { [key: string]: string } = {
   Zambia: 'ZMB',
   Zimbabwe: 'ZWE',
 }
+
+export const alpha3ToCountryName = () =>
+  Object.entries(countryNameToAlpha3)
+    .map(([key, value]) => ({ [value.toLowerCase()]: key }))
+    .reduce((prev, next) => ({ ...prev, ...next }), {})

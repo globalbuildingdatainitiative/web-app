@@ -1,4 +1,4 @@
-import { Center, Grid, MultiSelect, RangeSlider, Stack, Text } from '@mantine/core'
+import { Grid, MultiSelect, RangeSlider, Stack, Text } from '@mantine/core'
 import { BoxPlot, BoxPlotData, FilterState, Loading } from '@components'
 import { BuildingTypology, GetProjectDataForBoxPlotQuery, LifeCycleStage } from '@queries'
 import { useMemo } from 'react'
@@ -160,15 +160,10 @@ export const GlobalBoxPlot = (props: GlobalBoxPlotProps) => {
       .sort((a: BoxPlotData, b: BoxPlotData) => (a.name && b.name ? a.name.localeCompare(b.name) : 0))
   }, [data])
 
-  if (loading)
-    return (
-      <Center style={{ height: '600px' }}>
-        <Loading />
-      </Center>
-    )
+  if (loading) return <Loading />
 
   return (
-    <Stack>
+    <Stack data-testid='GlobalBoxPlot' style={{ height: '100%' }}>
       <Grid>
         <Grid.Col span={4}>
           <MultiSelect
@@ -230,7 +225,9 @@ export const GlobalBoxPlot = (props: GlobalBoxPlotProps) => {
           />
         </Grid.Col>
       </Grid>
-      <BoxPlot data={boxPlotData} />
+      <div style={{ height: 'calc(100% - 24px)' }}>
+        <BoxPlot data={boxPlotData} />
+      </div>
     </Stack>
   )
 }

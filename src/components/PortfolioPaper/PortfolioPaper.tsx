@@ -1,8 +1,8 @@
-import { Title, Alert } from '@mantine/core'
-import { PortfolioTable, ErrorBoundary, Paper, PortfolioCharts } from '@components'
-import { useState, useCallback } from 'react'
+import { Alert, Title } from '@mantine/core'
+import { ErrorBoundary, Paper, PortfolioCharts, PortfolioTable } from '@components'
+import { useCallback, useState } from 'react'
 import type { MRT_VisibilityState } from 'mantine-react-table'
-import { AlertCircle } from 'lucide-react'
+import { IconExclamationCircle } from '@tabler/icons-react'
 
 const MAX_VISIBLE_COLUMNS = 9
 
@@ -34,6 +34,7 @@ export const PortfolioPaper = () => {
   })
 
   const [showError, setShowError] = useState(false)
+  const [filters, setFilters] = useState({})
 
   const handleColumnVisibilityChange = useCallback((updatedVisibility: MRT_VisibilityState) => {
     const visibleColumnsCount = Object.entries(updatedVisibility).filter(
@@ -55,14 +56,23 @@ export const PortfolioPaper = () => {
         <Title order={2}>Portfolio Analysis</Title>
 
         {showError && (
-          <Alert icon={<AlertCircle size={16} />} color='red' title='Column Limit Exceeded' mb='md'>
+          <Alert icon={<IconExclamationCircle size={16} />} color='red' title='Column Limit Exceeded' mb='md'>
             You can only select up to {MAX_VISIBLE_COLUMNS} columns at a time. Please deselect some columns before
             adding new ones.
           </Alert>
         )}
 
-        <PortfolioCharts visibleColumns={columnVisibility} />
-        <PortfolioTable columnVisibility={columnVisibility} onColumnVisibilityChange={handleColumnVisibilityChange} />
+        <ErrorBoundary>
+          <PortfolioCharts visibleColumns={columnVisibility} filters={filters} />
+        </ErrorBoundary>
+        <ErrorBoundary>
+          <PortfolioTable
+            columnVisibility={columnVisibility}
+            onColumnVisibilityChange={handleColumnVisibilityChange}
+            filters={filters}
+            setFilters={setFilters}
+          />
+        </ErrorBoundary>
       </ErrorBoundary>
     </Paper>
   )

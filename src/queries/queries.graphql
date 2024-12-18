@@ -571,3 +571,9 @@ query getProjectDetails($id: UUID!) {
     }
   }
 }
+
+query getAggregatedProjectData($aggregation: JSON!) {
+  projects {
+    aggregation(apply: $aggregation)
+  }
+}

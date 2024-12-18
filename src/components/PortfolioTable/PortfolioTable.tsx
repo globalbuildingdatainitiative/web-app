@@ -1,36 +1,150 @@
-import { Contribution, useGetProjectPortfolioQuery, Results, ImpactCategoryResults } from '@queries'
+import {
+  BuildingType,
+  BuildingTypology,
+  Contribution,
+  Country,
+  GeneralEnergyClass,
+  ImpactCategoryResults,
+  Results,
+  RoofType,
+  useGetProjectPortfolioQuery,
+} from '@queries'
 import {
   MantineReactTable,
   MRT_Cell,
   MRT_ColumnDef,
+  MRT_ColumnFiltersState,
   MRT_PaginationState,
   MRT_Row,
-  useMantineReactTable,
+  MRT_SortingState,
   type MRT_VisibilityState,
+  useMantineReactTable,
 } from 'mantine-react-table'
-import { useEffect, useMemo, useState } from 'react'
+import { Dispatch, SetStateAction, useEffect, useMemo, useState } from 'react'
 import { Group, Pagination, Progress, Select, Text, Tooltip } from '@mantine/core'
 import { TruncatedTextWithTooltip } from '@components'
 import { useViewportSize } from '@mantine/hooks'
+import { snakeCaseToHumanCase } from '@lib'
+import { alpha3ToCountryName } from '../AttributeChart/countryCodesMapping.ts'
 
 interface PortfolioTableProps {
   columnVisibility: MRT_VisibilityState
   onColumnVisibilityChange: (visibility: MRT_VisibilityState) => void
+  filters: object
+  setFilters: Dispatch<SetStateAction<object>>
 }
 
-export const PortfolioTable = ({ columnVisibility, onColumnVisibilityChange }: PortfolioTableProps) => {
+export const PortfolioTable = (props: PortfolioTableProps) => {
+  const { columnVisibility, onColumnVisibilityChange, filters, setFilters } = props
+
   const [pagination, setPagination] = useState<MRT_PaginationState>({ pageIndex: 0, pageSize: 20 })
+  const [sorting, setSorting] = useState<MRT_SortingState>([])
+  const [columnFilters, setColumnFilters] = useState<MRT_ColumnFiltersState>([])
+
   const { width: viewportWidth } = useViewportSize()
   const shouldHideColumns = viewportWidth < window.screen.width
+
+  useEffect(() => {
+    const baseFilters = { gt: { 'projectInfo.grossFloorArea.value': 0 }, notEqual: { results: null } }
+    if (!columnFilters.length) {
+      setFilters(baseFilters)
+      return
+    }
+
+    interface FilterAccumulator {
+      contains: Record<string, unknown>
+      equal: Record<string, unknown>
+      notEqual: Record<string, unknown>
+      in: Record<string, unknown>
+      gt: Record<string, unknown>
+      lt: Record<string, unknown>
+    }
+
+    const filters = columnFilters.reduce<FilterAccumulator>(
+      (acc, filter) => {
+        let fieldName = filter.id
+
+        const fieldColumn = columns.find((column) => column.accessorKey === fieldName)
+        if (fieldName == 'location.countryName') {
+          fieldName = 'location.country'
+        }
+
+        if (fieldColumn?.filterVariant === 'multi-select') {
+          return {
+            ...acc,
+            equal: acc.equal,
+            gt: acc.gt,
+            lt: acc.lt,
+            in: {
+              ...acc.in,
+              [fieldName]: filter.value,
+            },
+          }
+        } else if (fieldColumn?.filterVariant === 'range-slider') {
+          return {
+            ...acc,
+            equal: acc.equal,
+            gt: {
+              ...acc.gt,
+              // @ts-expect-error filter.value is unknown
+              [fieldName]: filter.value[0],
+            },
+            lt: {
+              ...acc.lt,
+              // @ts-expect-error filter.value is unknown
+              [fieldName]: filter.value[1],
+            },
+            in: acc.in,
+          }
+        }
+        return {
+          ...acc,
+          equal: acc.equal,
+          in: acc.in,
+          gt: acc.gt,
+          lt: acc.lt,
+          contains: {
+            ...acc.contains,
+            [fieldName]: filter.value,
+          },
+        }
+      },
+      { contains: {}, equal: {}, in: {}, lt: {}, ...baseFilters },
+    )
+
+    // Only return non-empty filter objects
+    const result: Record<string, Record<string, unknown>> = {}
+    if (Object.keys(filters.contains).length > 0) {
+      result.contains = filters.contains
+    }
+    if (Object.keys(filters.equal).length > 0) {
+      result.equal = filters.equal
+    }
+    if (Object.keys(filters.notEqual).length > 0) {
+      result.notEqual = filters.notEqual
+    }
+    if (Object.keys(filters.in).length > 0) {
+      result.in = filters.in
+    }
+    if (Object.keys(filters.gt).length > 0) {
+      result.gt = filters.gt
+    }
+    if (Object.keys(filters.lt).length > 0) {
+      result.lt = filters.lt
+    }
+
+    setFilters(result)
+  }, [columnFilters, setFilters])
 
   const { loading, error, data } = useGetProjectPortfolioQuery({
     variables: {
       limit: pagination.pageSize,
       offset: pagination.pageIndex * pagination.pageSize,
-      filters: { gt: { 'projectInfo.grossFloorArea.value': 0 }, notEqual: { results: null } },
+      filters: filters,
     },
     fetchPolicy: 'network-only',
   })
+
   const columns = useMemo<MRT_ColumnDef<Pick<Contribution, 'id'>>[]>(
     () => [
       {
@@ -50,16 +164,25 @@ export const PortfolioTable = ({ columnVisibility, onColumnVisibilityChange }: P
           return <TruncatedTextWithTooltip text={country} />
         },
         size: 150,
+        filterVariant: 'multi-select',
+        mantineFilterMultiSelectProps: {
+          data: Object.values(Country) as string[],
+          renderOption: (item) => alpha3ToCountryName()[item.option.value],
+        },
       },
       {
         accessorKey: 'projectInfo.buildingType',
         header: 'Building Type',
         Cell: ({ cell }) => {
           const rawValue = cell.getValue<string>() || 'N/A'
-          const formattedValue = rawValue.replace(/_/g, ' ').replace(/\b\w/g, (char) => char.toUpperCase())
-          return <Text>{formattedValue}</Text>
+          return <Text>{snakeCaseToHumanCase(rawValue)}</Text>
         },
         size: 50,
+        filterVariant: 'multi-select',
+        mantineFilterMultiSelectProps: {
+          data: Object.values(BuildingType) as string[],
+          renderOption: (item) => snakeCaseToHumanCase(item.option.value),
+        },
       },
       {
         accessorKey: 'softwareInfo.lcaSoftware',
@@ -87,6 +210,13 @@ export const PortfolioTable = ({ columnVisibility, onColumnVisibilityChange }: P
           return <TruncatedTextWithTooltip text={completion_year} />
         },
         size: 50,
+        filterVariant: 'range-slider',
+        filterFn: 'between',
+        mantineFilterRangeSliderProps: {
+          max: 2040, //custom max (as opposed to faceted max)
+          min: 1900, //custom min (as opposed to faceted min)
+          step: 5,
+        },
       },
       {
         accessorKey: 'projectInfo.buildingFootprint.value',
@@ -96,6 +226,13 @@ export const PortfolioTable = ({ columnVisibility, onColumnVisibilityChange }: P
           return <TruncatedTextWithTooltip text={building_footprint} />
         },
         size: 50,
+        filterVariant: 'range-slider',
+        filterFn: 'between',
+        mantineFilterRangeSliderProps: {
+          max: 30_000, //custom max (as opposed to faceted max)
+          min: 0, //custom min (as opposed to faceted min)
+          step: 500,
+        },
       },
       {
         accessorKey: 'projectInfo.buildingHeight.value',
@@ -105,6 +242,13 @@ export const PortfolioTable = ({ columnVisibility, onColumnVisibilityChange }: P
           return <TruncatedTextWithTooltip text={building_height} />
         },
         size: 50,
+        filterVariant: 'range-slider',
+        filterFn: 'between',
+        mantineFilterRangeSliderProps: {
+          max: 500, //custom max (as opposed to faceted max)
+          min: 0, //custom min (as opposed to faceted min)
+          step: 25,
+        },
       },
       {
         accessorKey: 'projectInfo.buildingMass.value',
@@ -114,6 +258,13 @@ export const PortfolioTable = ({ columnVisibility, onColumnVisibilityChange }: P
           return <TruncatedTextWithTooltip text={building_mass} />
         },
         size: 50,
+        filterVariant: 'range-slider',
+        filterFn: 'between',
+        mantineFilterRangeSliderProps: {
+          max: 30_000, //custom max (as opposed to faceted max)
+          min: 0, //custom min (as opposed to faceted min)
+          step: 500,
+        },
       },
       {
         accessorKey: 'projectInfo.buildingPermitYear',
@@ -123,6 +274,13 @@ export const PortfolioTable = ({ columnVisibility, onColumnVisibilityChange }: P
           return <TruncatedTextWithTooltip text={permit_year} />
         },
         size: 50,
+        filterVariant: 'range-slider',
+        filterFn: 'between',
+        mantineFilterRangeSliderProps: {
+          max: 2030, //custom max (as opposed to faceted max)
+          min: 1900, //custom min (as opposed to faceted min)
+          step: 5,
+        },
       },
       {
         accessorKey: 'projectInfo.buildingTypology',
@@ -132,6 +290,10 @@ export const PortfolioTable = ({ columnVisibility, onColumnVisibilityChange }: P
           return <TruncatedTextWithTooltip text={building_typology} />
         },
         size: 100,
+        filterVariant: 'multi-select',
+        mantineFilterMultiSelectProps: {
+          data: Object.values(BuildingTypology) as string[],
+        },
       },
       {
         accessorKey: 'projectInfo.buildingUsers',
@@ -141,6 +303,13 @@ export const PortfolioTable = ({ columnVisibility, onColumnVisibilityChange }: P
           return <TruncatedTextWithTooltip text={building_users} />
         },
         size: 50,
+        filterVariant: 'range-slider',
+        filterFn: 'between',
+        mantineFilterRangeSliderProps: {
+          max: 5000, //custom max (as opposed to faceted max)
+          min: 0, //custom min (as opposed to faceted min)
+          step: 50,
+        },
       },
       {
         accessorKey: 'projectInfo.floorsAboveGround',
@@ -150,6 +319,13 @@ export const PortfolioTable = ({ columnVisibility, onColumnVisibilityChange }: P
           return <TruncatedTextWithTooltip text={floors_above_ground} />
         },
         size: 50,
+        filterVariant: 'range-slider',
+        filterFn: 'between',
+        mantineFilterRangeSliderProps: {
+          max: 150, //custom max (as opposed to faceted max)
+          min: 0, //custom min (as opposed to faceted min)
+          step: 1,
+        },
       },
       {
         accessorKey: 'projectInfo.floorsBelowGround',
@@ -159,6 +335,13 @@ export const PortfolioTable = ({ columnVisibility, onColumnVisibilityChange }: P
           return <TruncatedTextWithTooltip text={floors_below_ground} />
         },
         size: 50,
+        filterVariant: 'range-slider',
+        filterFn: 'between',
+        mantineFilterRangeSliderProps: {
+          max: 20, //custom max (as opposed to faceted max)
+          min: 0, //custom min (as opposed to faceted min)
+          step: 1,
+        },
       },
       {
         accessorKey: 'projectInfo.generalEnergyClass',
@@ -168,6 +351,10 @@ export const PortfolioTable = ({ columnVisibility, onColumnVisibilityChange }: P
           return <TruncatedTextWithTooltip text={energy_class} />
         },
         size: 50,
+        filterVariant: 'multi-select',
+        mantineFilterMultiSelectProps: {
+          data: Object.values(GeneralEnergyClass) as string[],
+        },
       },
       {
         accessorKey: 'projectInfo.heatedFloorArea.value',
@@ -177,6 +364,13 @@ export const PortfolioTable = ({ columnVisibility, onColumnVisibilityChange }: P
           return value ? value.toFixed(2) : 'N/A'
         },
         size: 50,
+        filterVariant: 'range-slider',
+        filterFn: 'between',
+        mantineFilterRangeSliderProps: {
+          max: 30_000, //custom max (as opposed to faceted max)
+          min: 0, //custom min (as opposed to faceted min)
+          step: 500,
+        },
       },
       {
         accessorKey: 'projectInfo.roofType',
@@ -186,6 +380,10 @@ export const PortfolioTable = ({ columnVisibility, onColumnVisibilityChange }: P
           return <TruncatedTextWithTooltip text={roofType} />
         },
         size: 50,
+        filterVariant: 'multi-select',
+        mantineFilterMultiSelectProps: {
+          data: Object.values(RoofType) as string[],
+        },
       },
       {
         accessorKey: 'projectInfo.frameType',
@@ -204,12 +402,22 @@ export const PortfolioTable = ({ columnVisibility, onColumnVisibilityChange }: P
           return <TruncatedTextWithTooltip text={gross_floor_area} />
         },
         size: 50,
+        filterVariant: 'range-slider',
+        filterFn: 'between',
+        mantineFilterRangeSliderProps: {
+          max: 30_000, //custom max (as opposed to faceted max)
+          min: 0, //custom min (as opposed to faceted min)
+          step: 500,
+        },
       },
       {
         accessorKey: 'results',
         Cell: getGWPIntensity,
         header: 'GWP Intensity (kgCO₂eq/m²)',
         size: 50,
+        enableSorting: false,
+        enableColumnFilter: false,
+        enableColumnActions: false,
       },
       {
         accessorKey: 'breakdown',
@@ -264,6 +472,8 @@ export const PortfolioTable = ({ columnVisibility, onColumnVisibilityChange }: P
     enablePagination: false,
     enableGlobalFilter: false,
     enableColumnActions: true,
+    manualFiltering: true,
+    manualSorting: true,
     mantineToolbarAlertBannerProps: error
       ? {
           color: 'red',
@@ -275,6 +485,8 @@ export const PortfolioTable = ({ columnVisibility, onColumnVisibilityChange }: P
       showAlertBanner: !!error,
       showSkeletons: false,
       pagination,
+      sorting,
+      columnFilters,
       columnVisibility,
     },
     onPaginationChange: (newPagination) => {
@@ -292,6 +504,8 @@ export const PortfolioTable = ({ columnVisibility, onColumnVisibilityChange }: P
         onColumnVisibilityChange(updaterOrValue)
       }
     },
+    onSortingChange: setSorting,
+    onColumnFiltersChange: setColumnFilters,
     mantineTableContainerProps: {
       style: {
         maxWidth: '100%',

@@ -1,7 +1,7 @@
 import { Center, Loader } from '@mantine/core'
 
 export const Loading = () => (
-  <Center>
+  <Center style={{ height: '100%' }}>
     <Loader />
   </Center>
 )
