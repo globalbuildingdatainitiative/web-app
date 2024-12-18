@@ -44,6 +44,16 @@ export const PortfolioTable = (props: PortfolioTableProps) => {
   const { width: viewportWidth } = useViewportSize()
   const shouldHideColumns = viewportWidth < window.screen.width
 
+  const sortBy = useMemo(() => {
+    if (!sorting.length) return undefined
+    const [sort] = sorting
+
+    // Don't modify the field path, send it as is to match the backend mapping
+    return {
+      [sort.desc ? 'dsc' : 'asc']: sort.id,
+    }
+  }, [sorting])
+
   useEffect(() => {
     const baseFilters = { gt: { 'projectInfo.grossFloorArea.value': 0 }, notEqual: { results: null } }
     if (!columnFilters.length) {
@@ -141,6 +151,7 @@ export const PortfolioTable = (props: PortfolioTableProps) => {
       limit: pagination.pageSize,
       offset: pagination.pageIndex * pagination.pageSize,
       filters: filters,
+      sortBy: sortBy
     },
     fetchPolicy: 'network-only',
   })

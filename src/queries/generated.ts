@@ -3021,6 +3021,7 @@ export type GetProjectPortfolioQueryVariables = Exact<{
   limit?: InputMaybe<Scalars['Int']['input']>
   offset?: InputMaybe<Scalars['Int']['input']>
   filters?: InputMaybe<FilterBy>
+  sortBy?: InputMaybe<SortBy>
 }>
 
 export type GetProjectPortfolioQuery = {
@@ -4211,9 +4212,9 @@ export type GetProjectDataForBoxPlotQueryResult = Apollo.QueryResult<
   GetProjectDataForBoxPlotQueryVariables
 >
 export const GetProjectPortfolioDocument = gql`
-  query getProjectPortfolio($limit: Int, $offset: Int, $filters: FilterBy) {
+  query getProjectPortfolio($limit: Int, $offset: Int, $filters: FilterBy, $sortBy: SortBy) {
     projects {
-      items(limit: $limit, offset: $offset, filterBy: $filters) {
+      items(limit: $limit, offset: $offset, filterBy: $filters, sortBy: $sortBy) {
         id
         name
         location {
@@ -4298,6 +4299,7 @@ export const GetProjectPortfolioDocument = gql`
  *      limit: // value for 'limit'
  *      offset: // value for 'offset'
  *      filters: // value for 'filters'
+ *      sortBy: // value for 'sortBy'
  *   },
  * });
  */
