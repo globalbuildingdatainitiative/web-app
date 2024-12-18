@@ -202,9 +202,9 @@ query getProjectDataForBoxPlot($aggregation: JSON!) {
   }
 }
 
-query getProjectPortfolio($limit: Int, $offset: Int, $filters: FilterBy) {
+query getProjectPortfolio($limit: Int, $offset: Int, $filters: FilterBy, $sortBy: SortBy) {
   projects {
-    items(limit: $limit, offset: $offset, filterBy: $filters) {
+    items(limit: $limit, offset: $offset, filterBy: $filters, sortBy: $sortBy) {
       id
       name
       location {
@@ -569,5 +569,11 @@ query getProjectDetails($id: UUID!) {
         }
       }
     }
+  }
+}
+
+query getAggregatedProjectData($aggregation: JSON!) {
+  projects {
+    aggregation(apply: $aggregation)
   }
 }

@@ -28,7 +28,7 @@ exports[`MemberPaper 1`] = `
       </h2>
       <div
         class="m_4451eb3a mantine-Center-root"
-        style=""
+        style="height: 100%;"
       >
         <span
           class="m_b34414df m_5ae2e3c mantine-Loader-root"

@@ -7,10 +7,11 @@ import type { MRT_VisibilityState } from 'mantine-react-table'
 interface PortfolioChartsProps {
   className?: string
   visibleColumns: MRT_VisibilityState
+  filters: object
 }
 
 export const PortfolioCharts = (props: PortfolioChartsProps) => {
-  const { className, visibleColumns } = props
+  const { className, visibleColumns, filters } = props
   const { height } = useViewportSize()
 
   return (
@@ -23,12 +24,12 @@ export const PortfolioCharts = (props: PortfolioChartsProps) => {
 
         <Tabs.Panel value='attributes'>
           <div style={{ height: `${height * 0.7}px`, minHeight: '800px' }}>
-            <AttributeChart visibleColumns={visibleColumns} />
+            <AttributeChart visibleColumns={visibleColumns} filters={filters} />
           </div>
         </Tabs.Panel>
         <Tabs.Panel value='intensity'>
           <div style={{ height: `${height * 0.7}px`, minHeight: '800px' }}>
-            <CarbonIntensityChart />
+            <CarbonIntensityChart visibleColumns={visibleColumns} filters={filters} />
           </div>
         </Tabs.Panel>
       </Tabs>

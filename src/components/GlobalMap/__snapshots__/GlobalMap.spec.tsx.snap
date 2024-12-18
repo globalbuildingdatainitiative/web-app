@@ -21,7 +21,7 @@ exports[`GlobalMap > Snapshot 1`] = `
     >
       <div
         class="m_4451eb3a mantine-Center-root"
-        style=""
+        style="height: 100%;"
       >
         <span
           class="m_b34414df m_5ae2e3c mantine-Loader-root"

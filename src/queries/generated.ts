@@ -3021,6 +3021,7 @@ export type GetProjectPortfolioQueryVariables = Exact<{
   limit?: InputMaybe<Scalars['Int']['input']>
   offset?: InputMaybe<Scalars['Int']['input']>
   filters?: InputMaybe<FilterBy>
+  sortBy?: InputMaybe<SortBy>
 }>
 
 export type GetProjectPortfolioQuery = {
@@ -3320,6 +3321,15 @@ export type GetProjectDetailsQuery = {
       }
     }> | null
   }
+}
+
+export type GetAggregatedProjectDataQueryVariables = Exact<{
+  aggregation: Scalars['JSON']['input']
+}>
+
+export type GetAggregatedProjectDataQuery = {
+  __typename?: 'Query'
+  projects: { __typename?: 'ProjectGraphQLResponse'; aggregation: any }
 }
 
 export const AcceptInvitationDocument = gql`
@@ -4202,9 +4212,9 @@ export type GetProjectDataForBoxPlotQueryResult = Apollo.QueryResult<
   GetProjectDataForBoxPlotQueryVariables
 >
 export const GetProjectPortfolioDocument = gql`
-  query getProjectPortfolio($limit: Int, $offset: Int, $filters: FilterBy) {
+  query getProjectPortfolio($limit: Int, $offset: Int, $filters: FilterBy, $sortBy: SortBy) {
     projects {
-      items(limit: $limit, offset: $offset, filterBy: $filters) {
+      items(limit: $limit, offset: $offset, filterBy: $filters, sortBy: $sortBy) {
         id
         name
         location {
@@ -4289,6 +4299,7 @@ export const GetProjectPortfolioDocument = gql`
  *      limit: // value for 'limit'
  *      offset: // value for 'offset'
  *      filters: // value for 'filters'
+ *      sortBy: // value for 'sortBy'
  *   },
  * });
  */
@@ -4676,3 +4687,66 @@ export type GetProjectDetailsQueryHookResult = ReturnType<typeof useGetProjectDe
 export type GetProjectDetailsLazyQueryHookResult = ReturnType<typeof useGetProjectDetailsLazyQuery>
 export type GetProjectDetailsSuspenseQueryHookResult = ReturnType<typeof useGetProjectDetailsSuspenseQuery>
 export type GetProjectDetailsQueryResult = Apollo.QueryResult<GetProjectDetailsQuery, GetProjectDetailsQueryVariables>
+export const GetAggregatedProjectDataDocument = gql`
+  query getAggregatedProjectData($aggregation: JSON!) {
+    projects {
+      aggregation(apply: $aggregation)
+    }
+  }
+`
+
+/**
+ * __useGetAggregatedProjectDataQuery__
+ *
+ * To run a query within a React component, call `useGetAggregatedProjectDataQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetAggregatedProjectDataQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetAggregatedProjectDataQuery({
+ *   variables: {
+ *      aggregation: // value for 'aggregation'
+ *   },
+ * });
+ */
+export function useGetAggregatedProjectDataQuery(
+  baseOptions: Apollo.QueryHookOptions<GetAggregatedProjectDataQuery, GetAggregatedProjectDataQueryVariables> &
+    ({ variables: GetAggregatedProjectDataQueryVariables; skip?: boolean } | { skip: boolean }),
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<GetAggregatedProjectDataQuery, GetAggregatedProjectDataQueryVariables>(
+    GetAggregatedProjectDataDocument,
+    options,
+  )
+}
+export function useGetAggregatedProjectDataLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<GetAggregatedProjectDataQuery, GetAggregatedProjectDataQueryVariables>,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<GetAggregatedProjectDataQuery, GetAggregatedProjectDataQueryVariables>(
+    GetAggregatedProjectDataDocument,
+    options,
+  )
+}
+export function useGetAggregatedProjectDataSuspenseQuery(
+  baseOptions?:
+    | Apollo.SkipToken
+    | Apollo.SuspenseQueryHookOptions<GetAggregatedProjectDataQuery, GetAggregatedProjectDataQueryVariables>,
+) {
+  const options = baseOptions === Apollo.skipToken ? baseOptions : { ...defaultOptions, ...baseOptions }
+  return Apollo.useSuspenseQuery<GetAggregatedProjectDataQuery, GetAggregatedProjectDataQueryVariables>(
+    GetAggregatedProjectDataDocument,
+    options,
+  )
+}
+export type GetAggregatedProjectDataQueryHookResult = ReturnType<typeof useGetAggregatedProjectDataQuery>
+export type GetAggregatedProjectDataLazyQueryHookResult = ReturnType<typeof useGetAggregatedProjectDataLazyQuery>
+export type GetAggregatedProjectDataSuspenseQueryHookResult = ReturnType<
+  typeof useGetAggregatedProjectDataSuspenseQuery
+>
+export type GetAggregatedProjectDataQueryResult = Apollo.QueryResult<
+  GetAggregatedProjectDataQuery,
+  GetAggregatedProjectDataQueryVariables
+>
