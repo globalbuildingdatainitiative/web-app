@@ -2,10 +2,11 @@ import { useMemo } from 'react'
 import { useGetAggregatedProjectDataQuery } from '@queries'
 import { Alert, SimpleGrid } from '@mantine/core'
 import type { MRT_VisibilityState } from 'mantine-react-table'
-import { ChartContainer, ErrorMessage, Loading, SubBarChart, theme } from '@components'
+import { ChartContainer, ErrorMessage, Loading, SubBarChart } from '@components'
 import { IconExclamationCircle } from '@tabler/icons-react'
 import { camelCaseToHumanCase, snakeCaseToHumanCase } from '@lib'
 import { alpha3ToCountryName } from './countryCodesMapping.ts'
+import { useTheme } from '@emotion/react'
 
 const MAX_VISIBLE_COLUMNS = 9
 
@@ -14,31 +15,6 @@ const EXCLUDED_COLUMNS = ['name', 'breakdown', 'results']
 interface AttributeChartProps {
   visibleColumns: MRT_VisibilityState
   filters: object
-}
-
-const getColor = (colorName: string, shade: number, fallback: string): string => {
-  return theme.colors?.[colorName]?.[shade] || fallback
-}
-
-const chartColorMap: Record<string, string> = {
-  countryName: getColor('green', 6, '#40C057'),
-  buildingType: getColor('blue', 6, '#228BE6'),
-  lcaSoftware: getColor('light_green', 6, '#7950F2'),
-  buildingTypology: getColor('orange', 6, '#FF6B6B'),
-  source: getColor('light_orange', 6, '#20C997'),
-  generalEnergyClass: getColor('yellow', 6, '#FCC419'),
-  frameType: getColor('green', 4, '#BE4BDB'),
-  roofType: getColor('red', 6, '#FA5252'),
-  grossFloorArea: getColor('blue', 4, '#FA5252'),
-  buildingCompletionYear: getColor('light_green', 4, '#FD7E14'),
-  buildingFootprint: getColor('orange', 4, '#FF9F1C'),
-  buildingHeight: getColor('light_orange', 4, '#E63946'),
-  buildingMass: getColor('yellow', 4, '#2D3A8C'),
-  buildingPermitYear: getColor('green', 7, '#6C757D'),
-  buildingUsers: getColor('blue', 7, '#5C940D'),
-  floorsAboveGround: getColor('orange', 7, '#364FC7'),
-  floorsBelowGround: getColor('light_orange', 7, '#C92A2A'),
-  heatedFloorArea: getColor('yellow', 7, '#868E96'),
 }
 
 const columnTypeMap: Record<string, string> = {
@@ -73,6 +49,33 @@ const fixAggregationNames = (name: string) => {
 
 export const AttributeChart = (props: AttributeChartProps) => {
   const { visibleColumns, filters } = props
+  const theme = useTheme()
+
+  const getColor = (colorName: string, shade: number, fallback: string): string => {
+    // @ts-expect-error colors are there
+    return theme.colors?.[colorName]?.[shade] || fallback
+  }
+
+  const chartColorMap: Record<string, string> = {
+    countryName: getColor('green', 6, '#40C057'),
+    buildingType: getColor('blue', 6, '#228BE6'),
+    lcaSoftware: getColor('light_green', 6, '#7950F2'),
+    buildingTypology: getColor('orange', 6, '#FF6B6B'),
+    source: getColor('light_orange', 6, '#20C997'),
+    generalEnergyClass: getColor('yellow', 6, '#FCC419'),
+    frameType: getColor('green', 4, '#BE4BDB'),
+    roofType: getColor('red', 6, '#FA5252'),
+    grossFloorArea: getColor('blue', 4, '#FA5252'),
+    buildingCompletionYear: getColor('light_green', 4, '#FD7E14'),
+    buildingFootprint: getColor('orange', 4, '#FF9F1C'),
+    buildingHeight: getColor('light_orange', 4, '#E63946'),
+    buildingMass: getColor('yellow', 4, '#2D3A8C'),
+    buildingPermitYear: getColor('green', 7, '#6C757D'),
+    buildingUsers: getColor('blue', 7, '#5C940D'),
+    floorsAboveGround: getColor('orange', 7, '#364FC7'),
+    floorsBelowGround: getColor('light_orange', 7, '#C92A2A'),
+    heatedFloorArea: getColor('yellow', 7, '#868E96'),
+  }
 
   const transformedFilters = useMemo(() => {
     return Object.entries(filters).map(([key, value]) => {

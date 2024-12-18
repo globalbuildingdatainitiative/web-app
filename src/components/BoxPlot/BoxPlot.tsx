@@ -210,42 +210,44 @@ export const BoxPlot = (props: BoxPlotProps) => {
     },
   ]
   return (
-    <ResponsiveContainer width='100%' height='100%'>
-      <ComposedChart
-        layout={orientation}
-        data={chartData}
-        margin={{
-          left: orientation === 'vertical' ? 100 : 35,
-          right: 50,
-          bottom: orientation === 'vertical' ? 50 : 65,
-          top: 10,
-        }}
-      >
-        <CartesianGrid strokeDasharray='3 3' horizontal={orientation === 'horizontal'} />
-        {/* @ts-expect-error it is fine */}
-        {orientation === 'vertical' ? <XAxis {...axisProps[0]} /> : <XAxis {...axisProps[1]} />}
-        {/* @ts-expect-error it is fine */}
-        {orientation === 'vertical' ? <YAxis {...axisProps[1]} /> : <YAxis {...axisProps[0]} />}
-        <Tooltip content={CustomTooltip} />
-        {/* Invisible Bar for stacking */}
-        <Bar stackId='a' dataKey='min' fill='none' />
-        {/* Horizon Bar */}
-        <Bar stackId='a' dataKey='bar' shape={<HorizonBar color={lineColor} />} />
-        {/* Bottom Whisker */}
-        <Bar stackId='a' dataKey='bottomWhisker' shape={<Whisker color={lineColor} orientation={orientation} />} />
-        {/* Bottom Box */}
-        <Bar stackId='a' dataKey='bottomBox' fill={bottomBoxColor} />
-        {/* Median Bar */}
-        <Bar stackId='a' dataKey='bar' shape={<MedianBar color={medianColor} />} />
-        {/* Top Box */}
-        <Bar stackId='a' dataKey='topBox' fill={topBoxColor} />
-        {/* Top Whisker */}
-        <Bar stackId='a' dataKey='topWhisker' shape={<Whisker color={lineColor} orientation={orientation} />} />
-        {/* Horizon Bar */}
-        <Bar stackId='a' dataKey='bar' shape={<HorizonBar color={lineColor} />} />
-        <ZAxis type='number' dataKey='count' range={[0, 250]} />
-        <Scatter dataKey='avg' shape={<CustomDot />} />
-      </ComposedChart>
-    </ResponsiveContainer>
+    <div data-testid='BoxPlot'>
+      <ResponsiveContainer width='100%' height='100%'>
+        <ComposedChart
+          layout={orientation}
+          data={chartData}
+          margin={{
+            left: orientation === 'vertical' ? 100 : 35,
+            right: 50,
+            bottom: orientation === 'vertical' ? 50 : 65,
+            top: 10,
+          }}
+        >
+          <CartesianGrid strokeDasharray='3 3' horizontal={orientation === 'horizontal'} />
+          {/* @ts-expect-error it is fine */}
+          {orientation === 'vertical' ? <XAxis {...axisProps[0]} /> : <XAxis {...axisProps[1]} />}
+          {/* @ts-expect-error it is fine */}
+          {orientation === 'vertical' ? <YAxis {...axisProps[1]} /> : <YAxis {...axisProps[0]} />}
+          <Tooltip content={CustomTooltip} />
+          {/* Invisible Bar for stacking */}
+          <Bar stackId='a' dataKey='min' fill='none' />
+          {/* Horizon Bar */}
+          <Bar stackId='a' dataKey='bar' shape={<HorizonBar color={lineColor} />} />
+          {/* Bottom Whisker */}
+          <Bar stackId='a' dataKey='bottomWhisker' shape={<Whisker color={lineColor} orientation={orientation} />} />
+          {/* Bottom Box */}
+          <Bar stackId='a' dataKey='bottomBox' fill={bottomBoxColor} />
+          {/* Median Bar */}
+          <Bar stackId='a' dataKey='bar' shape={<MedianBar color={medianColor} />} />
+          {/* Top Box */}
+          <Bar stackId='a' dataKey='topBox' fill={topBoxColor} />
+          {/* Top Whisker */}
+          <Bar stackId='a' dataKey='topWhisker' shape={<Whisker color={lineColor} orientation={orientation} />} />
+          {/* Horizon Bar */}
+          <Bar stackId='a' dataKey='bar' shape={<HorizonBar color={lineColor} />} />
+          <ZAxis type='number' dataKey='count' range={[0, 250]} />
+          <Scatter dataKey='avg' shape={<CustomDot />} />
+        </ComposedChart>
+      </ResponsiveContainer>
+    </div>
   )
 }
