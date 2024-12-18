@@ -151,8 +151,9 @@ export const PortfolioTable = (props: PortfolioTableProps) => {
       limit: pagination.pageSize,
       offset: pagination.pageIndex * pagination.pageSize,
       filters: filters,
-      sortBy: sortBy
+      sortBy: sortBy,
     },
+    skip: !filters,
     fetchPolicy: 'network-only',
   })
 

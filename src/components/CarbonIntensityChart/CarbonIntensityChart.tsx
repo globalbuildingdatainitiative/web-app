@@ -1,8 +1,8 @@
 import type { MRT_VisibilityState } from 'mantine-react-table'
-import { Alert, Paper, SimpleGrid, Text, useMatches } from '@mantine/core'
-import { ReactNode, useMemo } from 'react'
+import { Alert, SimpleGrid, useMatches } from '@mantine/core'
+import { useMemo } from 'react'
 import { useGetAggregatedProjectDataQuery } from '@queries'
-import { BoxPlot, ErrorMessage, Loading } from '@components'
+import { BoxPlot, ChartContainer, ErrorMessage, Loading } from '@components'
 import { snakeCaseToHumanCase } from '@lib'
 import { IconExclamationCircle } from '@tabler/icons-react'
 
@@ -29,7 +29,6 @@ interface Phase {
 export const CarbonIntensityChart = (props: CarbonIntensityChartProps) => {
   const { visibleColumns, filters } = props
 
-  // const filters = [{ 'projectInfo.grossFloorArea.value': { $gt: 0 } }]
   const transformedFilters = useMemo(() => {
     return Object.entries(filters).map(([key, value]) => {
       const filterKey = Object.keys(value)[0]
@@ -56,7 +55,7 @@ export const CarbonIntensityChart = (props: CarbonIntensityChartProps) => {
     { name: 'other', stages: ['d'] },
   ]
 
-  const phase_stats = (phase: Phase) => ({
+  const phaseStats = (phase: Phase) => ({
     [`${phase.name}_minimum`]: {
       $min: { $divide: [divideAggregation(phase.stages), '$projectInfo.grossFloorArea.value'] },
     },
@@ -82,7 +81,7 @@ export const CarbonIntensityChart = (props: CarbonIntensityChartProps) => {
     [`${phase.name}_count`]: { $sum: 1 },
   })
 
-  const phase_projection = (phase: Phase) => ({
+  const phaseProjection = (phase: Phase) => ({
     [phase.name]: {
       minimum: `$${phase.name}_minimum`,
       percentile: `$${phase.name}_percentile`,
@@ -102,22 +101,22 @@ export const CarbonIntensityChart = (props: CarbonIntensityChartProps) => {
     {
       $group: {
         _id: `$${selectedColumns[0][0]}`,
-        ...phase_stats(phases[0]),
-        ...phase_stats(phases[1]),
-        ...phase_stats(phases[2]),
-        ...phase_stats(phases[3]),
-        ...phase_stats(phases[4]),
+        ...phaseStats(phases[0]),
+        ...phaseStats(phases[1]),
+        ...phaseStats(phases[2]),
+        ...phaseStats(phases[3]),
+        ...phaseStats(phases[4]),
       },
     },
     {
       $project: {
         _id: null,
         group: '$_id',
-        ...phase_projection(phases[0]),
-        ...phase_projection(phases[1]),
-        ...phase_projection(phases[2]),
-        ...phase_projection(phases[3]),
-        ...phase_projection(phases[4]),
+        ...phaseProjection(phases[0]),
+        ...phaseProjection(phases[1]),
+        ...phaseProjection(phases[2]),
+        ...phaseProjection(phases[3]),
+        ...phaseProjection(phases[4]),
       },
     },
   ]
@@ -153,8 +152,12 @@ export const CarbonIntensityChart = (props: CarbonIntensityChartProps) => {
 
   return (
     <SimpleGrid cols={gridColumns} spacing='md' style={{ height: '100%' }} verticalSpacing='md'>
-      {projectData?.projects.aggregation.map((group: any) => (
-        <ChartContainer title={snakeCaseToHumanCase(Array.isArray(group.group) ? group.group.join(', ') : group.group)}>
+      {/* @ts-expect-error not inferred types */}
+      {projectData?.projects.aggregation.map((group, index) => (
+        <ChartContainer
+          key={index}
+          title={snakeCaseToHumanCase(Array.isArray(group.group) ? group.group.join(', ') : group.group)}
+        >
           <BoxPlot
             orientation={'horizontal'}
             data={phases.map(({ name }) => ({
@@ -173,17 +176,3 @@ export const CarbonIntensityChart = (props: CarbonIntensityChartProps) => {
     </SimpleGrid>
   )
 }
-
-interface ChartContainerProps {
-  children: ReactNode
-  title: string
-}
-
-const ChartContainer = ({ children, title }: ChartContainerProps) => (
-  <Paper p='xs' shadow='sm' h='100%' style={{ minHeight: '250px' }}>
-    <Text size='sm' fw={500} mb='xs' ta='center'>
-      {title}
-    </Text>
-    <div style={{ height: 'calc(100% - 24px)' }}>{children}</div>
-  </Paper>
-)

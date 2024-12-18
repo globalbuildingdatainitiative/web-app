@@ -3,10 +3,10 @@ export const camelCaseToHumanCase = (value: string) => {
   return result.charAt(0).toUpperCase() + result.slice(1)
 }
 
-export const snakeCaseToHumanCase = (value: string) => (
-  value.split('_').map(word => capitalizeFirstLetter(word)).join(' ')
-)
+export const snakeCaseToHumanCase = (value: string) =>
+  value
+    .split('_')
+    .map((word) => capitalizeFirstLetter(word))
+    .join(' ')
 
-export const capitalizeFirstLetter = (value: string) => (
-  value.charAt(0).toUpperCase() + value.slice(1)
-)
+export const capitalizeFirstLetter = (value: string) => value.charAt(0).toUpperCase() + value.slice(1)
