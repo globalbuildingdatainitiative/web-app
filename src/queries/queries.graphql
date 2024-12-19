@@ -577,3 +577,13 @@ query getAggregatedProjectData($aggregation: JSON!) {
     aggregation(apply: $aggregation)
   }
 }
+
+mutation deleteContributions($contributions: [UUID!]!) {
+  deleteContributions(contributions: $contributions)
+}
+
+mutation updateContributions($contributions: [UpdateContribution!]!) {
+  updateContributions(contributions: $contributions) {
+    id
+  }
+}

@@ -809,6 +809,7 @@ export type FilterBy = {
   equal?: InputMaybe<Scalars['JSON']['input']>
   gt?: InputMaybe<Scalars['JSON']['input']>
   gte?: InputMaybe<Scalars['JSON']['input']>
+  in?: InputMaybe<Scalars['JSON']['input']>
   isTrue?: InputMaybe<Scalars['Boolean']['input']>
   lt?: InputMaybe<Scalars['JSON']['input']>
   lte?: InputMaybe<Scalars['JSON']['input']>
@@ -1108,6 +1109,8 @@ export type Mutation = {
   addContributions: Array<Contribution>
   /** Creates multiple organizations and associates them with the current user */
   createOrganizations: Array<Organization>
+  /** Deletes Contributions */
+  deleteContributions: Array<Scalars['UUID']['output']>
   /** Deletes a list of Organizations by their IDs and returns a list of deleted IDs */
   deleteOrganizations: Array<Scalars['UUID']['output']>
   /** Invite users to the organization */
@@ -1116,6 +1119,8 @@ export type Mutation = {
   rejectInvitation: Scalars['Boolean']['output']
   /** Resend an invitation */
   resendInvitation: InviteResult
+  /** Updates Contributions */
+  updateContributions: Array<Contribution>
   /** Updates an existing Organization */
   updateOrganizations: Array<Organization>
   /** Update user details */
@@ -1134,6 +1139,10 @@ export type MutationCreateOrganizationsArgs = {
   organizations: Array<InputOrganization>
 }
 
+export type MutationDeleteContributionsArgs = {
+  contributions: Array<Scalars['UUID']['input']>
+}
+
 export type MutationDeleteOrganizationsArgs = {
   ids: Array<Scalars['UUID']['input']>
 }
@@ -1148,6 +1157,10 @@ export type MutationRejectInvitationArgs = {
 
 export type MutationResendInvitationArgs = {
   userId: Scalars['String']['input']
+}
+
+export type MutationUpdateContributionsArgs = {
+  contributions: Array<UpdateContribution>
 }
 
 export type MutationUpdateOrganizationsArgs = {
@@ -1589,6 +1602,11 @@ export enum Unit {
   UNKNOWN = 'unknown',
 }
 
+export type UpdateContribution = {
+  id: Scalars['UUID']['input']
+  public?: InputMaybe<Scalars['Boolean']['input']>
+}
+
 export type UpdateUserInput = {
   currentPassword?: InputMaybe<Scalars['String']['input']>
   email?: InputMaybe<Scalars['String']['input']>
@@ -1818,6 +1836,7 @@ export type ResolversTypes = {
   TechFlow: ResolverTypeWrapper<TechFlow>
   UUID: ResolverTypeWrapper<Scalars['UUID']['output']>
   Unit: Unit
+  UpdateContribution: UpdateContribution
   UpdateUserInput: UpdateUserInput
   User: ResolverTypeWrapper<User>
   UserFilters: UserFilters
@@ -1905,6 +1924,7 @@ export type ResolversParentTypes = {
   Structural: Structural
   TechFlow: TechFlow
   UUID: Scalars['UUID']['output']
+  UpdateContribution: UpdateContribution
   UpdateUserInput: UpdateUserInput
   User: User
   UserFilters: UserFilters
@@ -2269,6 +2289,12 @@ export type MutationResolvers<
     ContextType,
     RequireFields<MutationCreateOrganizationsArgs, 'organizations'>
   >
+  deleteContributions?: Resolver<
+    Array<ResolversTypes['UUID']>,
+    ParentType,
+    ContextType,
+    RequireFields<MutationDeleteContributionsArgs, 'contributions'>
+  >
   deleteOrganizations?: Resolver<
     Array<ResolversTypes['UUID']>,
     ParentType,
@@ -2292,6 +2318,12 @@ export type MutationResolvers<
     ParentType,
     ContextType,
     RequireFields<MutationResendInvitationArgs, 'userId'>
+  >
+  updateContributions?: Resolver<
+    Array<ResolversTypes['Contribution']>,
+    ParentType,
+    ContextType,
+    RequireFields<MutationUpdateContributionsArgs, 'contributions'>
   >
   updateOrganizations?: Resolver<
     Array<ResolversTypes['Organization']>,
@@ -3330,6 +3362,21 @@ export type GetAggregatedProjectDataQueryVariables = Exact<{
 export type GetAggregatedProjectDataQuery = {
   __typename?: 'Query'
   projects: { __typename?: 'ProjectGraphQLResponse'; aggregation: any }
+}
+
+export type DeleteContributionsMutationVariables = Exact<{
+  contributions: Array<Scalars['UUID']['input']> | Scalars['UUID']['input']
+}>
+
+export type DeleteContributionsMutation = { __typename?: 'Mutation'; deleteContributions: Array<any> }
+
+export type UpdateContributionsMutationVariables = Exact<{
+  contributions: Array<UpdateContribution> | UpdateContribution
+}>
+
+export type UpdateContributionsMutation = {
+  __typename?: 'Mutation'
+  updateContributions: Array<{ __typename?: 'Contribution'; id: any }>
 }
 
 export const AcceptInvitationDocument = gql`
@@ -4749,4 +4796,90 @@ export type GetAggregatedProjectDataSuspenseQueryHookResult = ReturnType<
 export type GetAggregatedProjectDataQueryResult = Apollo.QueryResult<
   GetAggregatedProjectDataQuery,
   GetAggregatedProjectDataQueryVariables
+>
+export const DeleteContributionsDocument = gql`
+  mutation deleteContributions($contributions: [UUID!]!) {
+    deleteContributions(contributions: $contributions)
+  }
+`
+export type DeleteContributionsMutationFn = Apollo.MutationFunction<
+  DeleteContributionsMutation,
+  DeleteContributionsMutationVariables
+>
+
+/**
+ * __useDeleteContributionsMutation__
+ *
+ * To run a mutation, you first call `useDeleteContributionsMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteContributionsMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteContributionsMutation, { data, loading, error }] = useDeleteContributionsMutation({
+ *   variables: {
+ *      contributions: // value for 'contributions'
+ *   },
+ * });
+ */
+export function useDeleteContributionsMutation(
+  baseOptions?: Apollo.MutationHookOptions<DeleteContributionsMutation, DeleteContributionsMutationVariables>,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<DeleteContributionsMutation, DeleteContributionsMutationVariables>(
+    DeleteContributionsDocument,
+    options,
+  )
+}
+export type DeleteContributionsMutationHookResult = ReturnType<typeof useDeleteContributionsMutation>
+export type DeleteContributionsMutationResult = Apollo.MutationResult<DeleteContributionsMutation>
+export type DeleteContributionsMutationOptions = Apollo.BaseMutationOptions<
+  DeleteContributionsMutation,
+  DeleteContributionsMutationVariables
+>
+export const UpdateContributionsDocument = gql`
+  mutation updateContributions($contributions: [UpdateContribution!]!) {
+    updateContributions(contributions: $contributions) {
+      id
+    }
+  }
+`
+export type UpdateContributionsMutationFn = Apollo.MutationFunction<
+  UpdateContributionsMutation,
+  UpdateContributionsMutationVariables
+>
+
+/**
+ * __useUpdateContributionsMutation__
+ *
+ * To run a mutation, you first call `useUpdateContributionsMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateContributionsMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateContributionsMutation, { data, loading, error }] = useUpdateContributionsMutation({
+ *   variables: {
+ *      contributions: // value for 'contributions'
+ *   },
+ * });
+ */
+export function useUpdateContributionsMutation(
+  baseOptions?: Apollo.MutationHookOptions<UpdateContributionsMutation, UpdateContributionsMutationVariables>,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<UpdateContributionsMutation, UpdateContributionsMutationVariables>(
+    UpdateContributionsDocument,
+    options,
+  )
+}
+export type UpdateContributionsMutationHookResult = ReturnType<typeof useUpdateContributionsMutation>
+export type UpdateContributionsMutationResult = Apollo.MutationResult<UpdateContributionsMutation>
+export type UpdateContributionsMutationOptions = Apollo.BaseMutationOptions<
+  UpdateContributionsMutation,
+  UpdateContributionsMutationVariables
 >
