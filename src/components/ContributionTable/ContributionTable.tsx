@@ -1,18 +1,26 @@
-import { GetContributionsQuery, useGetContributionsQuery } from '@queries'
+import {
+  GetContributionsQuery,
+  useDeleteContributionsMutation,
+  useGetContributionsQuery,
+  useUpdateContributionsMutation,
+} from '@queries'
 import {
   MantineReactTable,
   MRT_ColumnDef,
   MRT_ColumnFiltersState,
   MRT_PaginationState,
+  MRT_Row,
   MRT_SortingState,
+  MRT_TableOptions,
   useMantineReactTable,
 } from 'mantine-react-table'
 import 'mantine-react-table/styles.css'
 import React, { useEffect, useMemo, useState } from 'react'
 import dayjs from 'dayjs'
-import { Group, Pagination, ScrollArea, Select, Text, Tooltip } from '@mantine/core'
+import { ActionIcon, Group, Pagination, ScrollArea, Select, Text, Tooltip } from '@mantine/core'
 import { ViewProjectDetails } from './viewProjectDetails.tsx'
 import { useViewportSize } from '@mantine/hooks'
+import { IconCircleCheck, IconCircleX, IconEdit, IconTrash } from '@tabler/icons-react'
 
 interface TruncatedTextWithTooltipProps {
   text: string
@@ -55,6 +63,7 @@ export const ContributionTable: React.FC = () => {
   const [columnFilters, setColumnFilters] = useState<MRT_ColumnFiltersState>([])
   const { width: viewportWidth } = useViewportSize()
   const [columnVisibility, setColumnVisibility] = useState({})
+  const [confirmDelete, setConfirmDelete] = useState<string | null>(null)
   const shouldHideColumns = viewportWidth < window.screen.width
 
   const getSortingVariables = () => {
@@ -114,7 +123,7 @@ export const ContributionTable: React.FC = () => {
     return Object.keys(result).length > 0 ? result : undefined
   }
 
-  const { loading, error, data } = useGetContributionsQuery({
+  const { loading, error, data, refetch } = useGetContributionsQuery({
     variables: {
       limit: pagination.pageSize,
       offset: pagination.pageIndex * pagination.pageSize,
@@ -123,14 +132,41 @@ export const ContributionTable: React.FC = () => {
     },
     fetchPolicy: 'network-only',
   })
+  const [deleteContributions, { error: deleteError }] = useDeleteContributionsMutation()
+  const [updateContributions, { error: updateError }] = useUpdateContributionsMutation()
 
   type ContributionItems = NonNullable<GetContributionsQuery['contributions']['items']>[number]
+
+  const handleRowDelete = (row: MRT_Row<ContributionItems>) => {
+    setConfirmDelete(row.id)
+  }
+
+  const handleConfirmDelete = async (row: MRT_Row<ContributionItems>, action: 'cancel' | 'accept') => {
+    if (action === 'accept') {
+      await deleteContributions({ variables: { contributions: [row.original.id] } })
+      await refetch()
+    }
+    setConfirmDelete(null)
+  }
+
+  const handleRowSave: MRT_TableOptions<ContributionItems>['onEditingRowSave'] = async ({ values, table, row }) => {
+    await updateContributions({
+      variables: { contributions: [{ id: row.original.id, public: values.public === 'true' }] },
+    })
+    table.setEditingRow(null)
+  }
 
   const columns = useMemo<MRT_ColumnDef<ContributionItems>[]>(
     () => [
       {
+        accessorKey: 'id',
+        header: 'ID',
+        enableEditing: false,
+      },
+      {
         accessorKey: 'project.name',
         header: 'Project Name',
+        enableEditing: false,
         Cell: ({ cell }) => {
           const project_name = cell.getValue<string>() || 'N/A'
           return <TruncatedTextWithTooltip text={project_name} />
@@ -139,6 +175,7 @@ export const ContributionTable: React.FC = () => {
       {
         accessorKey: 'project.location.countryName',
         header: 'Country',
+        enableEditing: false,
         Cell: ({ cell }) => {
           const country = cell.getValue<string>() || 'N/A'
           return <TruncatedTextWithTooltip text={country} />
@@ -147,6 +184,7 @@ export const ContributionTable: React.FC = () => {
       {
         accessorKey: 'project.projectInfo.buildingType',
         header: 'Building Type',
+        enableEditing: false,
         Cell: ({ cell }) => {
           const rawValue = cell.getValue<string>() || 'N/A'
           const formattedValue = rawValue.replace(/_/g, ' ').replace(/\b\w/g, (char) => char.toUpperCase())
@@ -156,6 +194,7 @@ export const ContributionTable: React.FC = () => {
       {
         accessorFn: (row) => `${row.user?.firstName ?? 'N/A'} ${row.user?.lastName ?? 'N/A'}`,
         header: 'User',
+        enableEditing: false,
         enableSorting: false,
         enableColumnFilter: false,
         Cell: ({ row }) => {
@@ -167,6 +206,7 @@ export const ContributionTable: React.FC = () => {
       {
         accessorKey: 'uploadedAt',
         header: 'Date',
+        enableEditing: false,
         Cell: ({ cell }) => <Text>{dayjs(cell.getValue<string>()).format('DD/MM/YYYY')}</Text>,
       },
       {
@@ -179,11 +219,19 @@ export const ContributionTable: React.FC = () => {
             { value: 'false', label: 'No' },
           ],
         },
+        editVariant: 'select',
+        mantineEditSelectProps: {
+          data: [
+            { value: 'true', label: 'Yes' },
+            { value: 'false', label: 'No' },
+          ],
+        },
         Cell: ({ cell }) => <Text>{cell.getValue<boolean>() ? 'Yes' : 'No'}</Text>,
       },
       {
         accessorKey: 'project.lifeCycleStages',
         header: 'Life Cycle Stages',
+        enableEditing: false,
         Cell: ({ cell }) => {
           const stages = cell.getValue<string[]>() || []
           const displayText = stages.length > 0 ? stages.join(', ') : 'N/A'
@@ -193,6 +241,7 @@ export const ContributionTable: React.FC = () => {
       {
         accessorKey: 'project.impactCategories',
         header: 'Impact Categories',
+        enableEditing: false,
         Cell: ({ cell }) => {
           const categories = cell.getValue<string[]>() || []
           const displayText = categories.length > 0 ? categories.join(', ') : 'N/A'
@@ -202,6 +251,7 @@ export const ContributionTable: React.FC = () => {
       {
         id: 'projectDetails',
         header: 'View Details',
+        enableEditing: false,
         Cell: ({ row }) => <ViewProjectDetails contributionId={row.original.id} />,
       },
     ],
@@ -211,13 +261,14 @@ export const ContributionTable: React.FC = () => {
   useEffect(() => {
     if (shouldHideColumns) {
       setColumnVisibility({
+        id: false,
         'project.projectInfo.buildingType': false,
         public: false,
         'project.lifeCycleStages': false,
         'project.impactCategories': false,
       })
     } else {
-      setColumnVisibility({})
+      setColumnVisibility({ id: false })
     }
   }, [shouldHideColumns])
 
@@ -234,16 +285,46 @@ export const ContributionTable: React.FC = () => {
     manualFiltering: true,
     manualSorting: true,
     manualPagination: true,
+    editDisplayMode: 'row',
+    enableEditing: true,
+    onEditingRowSave: handleRowSave,
     enableColumnActions: true,
-    mantineToolbarAlertBannerProps: error
-      ? {
-          color: 'red',
-          children: error.message,
-        }
-      : undefined,
+    enableRowActions: true,
+    positionActionsColumn: 'last',
+    renderRowActions: ({ row, table }) => {
+      if (confirmDelete === row.id) {
+        return (
+          <Group>
+            <ActionIcon onClick={() => handleConfirmDelete(row, 'cancel')} variant='transparent' color='red'>
+              <IconCircleX />
+            </ActionIcon>
+            <ActionIcon onClick={() => handleConfirmDelete(row, 'accept')} variant='transparent' color='green'>
+              <IconCircleCheck />
+            </ActionIcon>
+          </Group>
+        )
+      }
+      return (
+        <Group>
+          <ActionIcon onClick={() => table.setEditingRow(row)} variant='transparent' color='black'>
+            <IconEdit />
+          </ActionIcon>
+          <ActionIcon onClick={() => handleRowDelete(row)} variant='transparent' color='black'>
+            <IconTrash />
+          </ActionIcon>
+        </Group>
+      )
+    },
+    mantineToolbarAlertBannerProps:
+      error || deleteError || updateError
+        ? {
+            color: 'red',
+            children: error?.message || deleteError?.message || updateError?.message,
+          }
+        : undefined,
     state: {
       isLoading: loading,
-      showAlertBanner: !!error,
+      showAlertBanner: !(!error || !deleteError || !updateError),
       showSkeletons: false,
       pagination,
       sorting,
