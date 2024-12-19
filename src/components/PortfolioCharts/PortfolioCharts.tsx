@@ -1,8 +1,11 @@
 import { useViewportSize } from '@mantine/hooks'
-import { Tabs, Paper } from '@mantine/core'
+import { Paper, Tabs } from '@mantine/core'
 import { AttributeChart } from '../AttributeChart'
 import { CarbonIntensityChart } from '../CarbonIntensityChart'
 import type { MRT_VisibilityState } from 'mantine-react-table'
+import { IconPrinter } from '@tabler/icons-react'
+import { useState } from 'react'
+import domtoimage from 'dom-to-image'
 
 interface PortfolioChartsProps {
   className?: string
@@ -12,23 +15,40 @@ interface PortfolioChartsProps {
 
 export const PortfolioCharts = (props: PortfolioChartsProps) => {
   const { className, visibleColumns, filters } = props
+  const [activeTab, setActiveTab] = useState<string | null>('attributes')
   const { height } = useViewportSize()
+
+  const handleTabChange = async (value: string | null) => {
+    if (value !== 'print') {
+      setActiveTab(value)
+    } else {
+      const node = document.getElementById(activeTab!)
+      const dataUrl = await domtoimage.toPng(node!, { bgcolor: 'white' })
+      const link = document.createElement('a')
+      link.download = `${activeTab!}.png`
+      link.href = dataUrl
+      link.click()
+    }
+  }
 
   return (
     <Paper shadow='xs' p='md' mb='xl' className={className}>
-      <Tabs keepMounted={false} defaultValue='attributes'>
+      <Tabs keepMounted={false} value={activeTab} onChange={handleTabChange}>
         <Tabs.List mb='md'>
           <Tabs.Tab value='attributes'>Project Attributes</Tabs.Tab>
           <Tabs.Tab value='intensity'>Carbon Intensity</Tabs.Tab>
+          <Tabs.Tab value='print' ml='auto' leftSection={<IconPrinter />}>
+            Print Charts
+          </Tabs.Tab>
         </Tabs.List>
 
         <Tabs.Panel value='attributes'>
-          <div style={{ height: `${height * 0.7}px`, minHeight: '800px' }}>
+          <div style={{ height: `${height * 0.7}px`, minHeight: '800px' }} id='attributes'>
             <AttributeChart visibleColumns={visibleColumns} filters={filters} />
           </div>
         </Tabs.Panel>
         <Tabs.Panel value='intensity'>
-          <div style={{ height: `${height * 0.7}px`, minHeight: '800px' }}>
+          <div style={{ height: `${height * 0.7}px`, minHeight: '800px' }} id='intensity'>
             <CarbonIntensityChart visibleColumns={visibleColumns} filters={filters} />
           </div>
         </Tabs.Panel>
