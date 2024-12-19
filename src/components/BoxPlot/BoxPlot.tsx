@@ -65,10 +65,10 @@ const Whisker = ({ x, y, width, height, color, orientation }: RectangleProps & {
         />
         {/* Horizontal line connecting whiskers */}
         <line
-          x1={x + width / 2}
-          x2={x + width / 2}
-          y1={y + height}
-          y2={y}
+          x1={x}
+          x2={x + width}
+          y1={y + height / 2}
+          y2={y + height / 2}
           stroke={color}
           strokeWidth={1}
           strokeDasharray='3 3'
@@ -206,11 +206,12 @@ export const BoxPlot = (props: BoxPlotProps) => {
       type: 'category',
       dataKey: 'name',
       angle: orientation === 'vertical' ? 0 : 45,
-      textAnchor: orientation === 'vertical' ? 'center' : 'start',
+      textAnchor: orientation === 'vertical' ? 'end' : 'start',
     },
   ]
   return (
-    <div data-testid='BoxPlot'>
+    <>
+      <div data-testid='BoxPlot' />
       <ResponsiveContainer width='100%' height='100%'>
         <ComposedChart
           layout={orientation}
@@ -231,7 +232,7 @@ export const BoxPlot = (props: BoxPlotProps) => {
           {/* Invisible Bar for stacking */}
           <Bar stackId='a' dataKey='min' fill='none' />
           {/* Horizon Bar */}
-          <Bar stackId='a' dataKey='bar' shape={<HorizonBar color={lineColor} />} />
+          <Bar stackId='a' dataKey='bar' shape={<HorizonBar color={lineColor} orientation={orientation} />} />
           {/* Bottom Whisker */}
           <Bar stackId='a' dataKey='bottomWhisker' shape={<Whisker color={lineColor} orientation={orientation} />} />
           {/* Bottom Box */}
@@ -243,11 +244,11 @@ export const BoxPlot = (props: BoxPlotProps) => {
           {/* Top Whisker */}
           <Bar stackId='a' dataKey='topWhisker' shape={<Whisker color={lineColor} orientation={orientation} />} />
           {/* Horizon Bar */}
-          <Bar stackId='a' dataKey='bar' shape={<HorizonBar color={lineColor} />} />
+          <Bar stackId='a' dataKey='bar' shape={<HorizonBar color={lineColor} orientation={orientation} />} />
           <ZAxis type='number' dataKey='count' range={[0, 250]} />
           <Scatter dataKey='avg' shape={<CustomDot />} />
         </ComposedChart>
       </ResponsiveContainer>
-    </div>
+    </>
   )
 }

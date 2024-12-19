@@ -226,7 +226,7 @@ export const GlobalBoxPlot = (props: GlobalBoxPlotProps) => {
         </Grid.Col>
       </Grid>
       <div style={{ height: 'calc(100% - 24px)' }}>
-        <BoxPlot data={boxPlotData} />
+        <BoxPlot data={boxPlotData} orientation='vertical' />
       </div>
     </Stack>
   )

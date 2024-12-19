@@ -4,25 +4,24 @@ exports[`BoxPlot > matches snapshot 1`] = `
 <div>
   <div
     data-testid="BoxPlot"
+  />
+  <div
+    style="width: 800px; height: 600px;"
   >
-    <div
-      style="width: 800px; height: 600px;"
-    >
-      <svg>
+    <svg>
+      <text>
+        GWP Intensity (kgCO₂eq/m²)
+      </text>
+      <text>
+        name
         <text>
-          GWP Intensity (kgCO₂eq/m²)
+          Denmark
         </text>
         <text>
-          name
-          <text>
-            Denmark
-          </text>
-          <text>
-            Germany
-          </text>
+          Germany
         </text>
-      </svg>
-    </div>
+      </text>
+    </svg>
   </div>
 </div>
 `;

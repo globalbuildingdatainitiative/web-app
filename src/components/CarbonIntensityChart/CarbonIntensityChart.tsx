@@ -153,11 +153,8 @@ export const CarbonIntensityChart = (props: CarbonIntensityChartProps) => {
   return (
     <SimpleGrid cols={gridColumns} spacing='md' style={{ height: '100%' }} verticalSpacing='md'>
       {/* @ts-expect-error not inferred types */}
-      {projectData?.projects.aggregation.map((group, index) => (
-        <ChartContainer
-          key={index}
-          title={snakeCaseToHumanCase(Array.isArray(group.group) ? group.group.join(', ') : group.group)}
-        >
+      {projectData?.projects.aggregation.map((group) => (
+        <ChartContainer title={snakeCaseToHumanCase(Array.isArray(group.group) ? group.group.join(', ') : group.group)}>
           <BoxPlot
             orientation={'horizontal'}
             data={phases.map(({ name }) => ({
