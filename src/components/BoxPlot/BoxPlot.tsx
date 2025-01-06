@@ -219,7 +219,7 @@ export const BoxPlot = (props: BoxPlotProps) => {
           margin={{
             left: orientation === 'vertical' ? 100 : 35,
             right: 50,
-            bottom: orientation === 'vertical' ? 50 : 65,
+            bottom: orientation === 'vertical' ? 25 : 65,
             top: 10,
           }}
         >
