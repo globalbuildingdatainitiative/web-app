@@ -1,7 +1,8 @@
-import { Grid, MultiSelect, RangeSlider, Stack, Text } from '@mantine/core'
+import { Center, Grid, MultiSelect, RangeSlider, Skeleton, Stack, Text } from '@mantine/core'
 import { BoxPlot, BoxPlotData, FilterState, Loading } from '@components'
 import { BuildingTypology, GetProjectDataForBoxPlotQuery, LifeCycleStage } from '@queries'
 import { useMemo } from 'react'
+import { useElementSize, useViewportSize } from '@mantine/hooks'
 
 const formatEnumValue = (value: string): string => {
   return value
@@ -37,6 +38,8 @@ interface GlobalBoxPlotProps {
 export const GlobalBoxPlot = (props: GlobalBoxPlotProps) => {
   const { filters, onFiltersChange, loading, data } = props
   const { selectedTypologies, selectedLifeCycleStages, selectedCountries, selectedSoftware, gfaRange } = filters
+  const { height } = useViewportSize()
+  const { ref, height: gridHeight } = useElementSize()
 
   const handleTypologyChange = (value: string[]) => {
     onFiltersChange({ ...filters, selectedTypologies: value })
@@ -160,74 +163,82 @@ export const GlobalBoxPlot = (props: GlobalBoxPlotProps) => {
       .sort((a: BoxPlotData, b: BoxPlotData) => (a.name && b.name ? a.name.localeCompare(b.name) : 0))
   }, [data])
 
-  if (loading) return <Loading />
-
   return (
-    <Stack data-testid='GlobalBoxPlot' style={{ height: '100%' }}>
-      <Grid>
+    <Stack data-testid='GlobalBoxPlot' style={{ height: height * 0.9 }}>
+      <Grid ref={ref}>
         <Grid.Col span={4}>
-          <MultiSelect
-            data={typologyOptions}
-            value={selectedTypologies}
-            onChange={handleTypologyChange}
-            label='Building Typology'
-            placeholder='Select building typologies'
-          />
+          <Skeleton visible={loading}>
+            <MultiSelect
+              data={typologyOptions}
+              value={selectedTypologies}
+              onChange={handleTypologyChange}
+              label='Building Typology'
+              placeholder='Select building typologies'
+            />
+          </Skeleton>
         </Grid.Col>
         <Grid.Col span={4}>
-          <MultiSelect
-            data={lifeCycleOptions}
-            value={selectedLifeCycleStages}
-            onChange={handleLifeCycleStageChange}
-            label='Life Cycle Stage'
-            placeholder='Select life cycle stages'
-          />
+          <Skeleton visible={loading}>
+            <MultiSelect
+              data={lifeCycleOptions}
+              value={selectedLifeCycleStages}
+              onChange={handleLifeCycleStageChange}
+              label='Life Cycle Stage'
+              placeholder='Select life cycle stages'
+            />
+          </Skeleton>
         </Grid.Col>
         <Grid.Col span={4}>
-          <MultiSelect
-            data={countryOptions}
-            value={selectedCountries}
-            onChange={handleCountryChange}
-            label='Country'
-            placeholder='Select countries'
-            searchable
-            clearable
-          />
+          <Skeleton visible={loading}>
+            <MultiSelect
+              data={countryOptions}
+              value={selectedCountries}
+              onChange={handleCountryChange}
+              label='Country'
+              placeholder='Select countries'
+              searchable
+              clearable
+            />
+          </Skeleton>
         </Grid.Col>
         <Grid.Col span={4}>
-          <MultiSelect
-            data={softwareOptions}
-            value={selectedSoftware}
-            onChange={handleSoftwareChange}
-            label='LCA Software'
-            placeholder='Select LCA software'
-            searchable
-            clearable
-          />
+          <Skeleton visible={loading}>
+            <MultiSelect
+              data={softwareOptions}
+              value={selectedSoftware}
+              onChange={handleSoftwareChange}
+              label='LCA Software'
+              placeholder='Select LCA software'
+              searchable
+              clearable
+            />
+          </Skeleton>
         </Grid.Col>
         <Grid.Col span={4}>
-          <Text size='sm' fw={500} style={{ marginBottom: '0.5rem' }}>
-            Gross Floor Area Range
-          </Text>
-          <RangeSlider
-            min={0}
-            max={5000}
-            step={100}
-            value={gfaRange}
-            onChange={handleRangeChange}
-            onChangeEnd={handleRangeConfirm}
-            label={formatGfaValue}
-            marks={[
-              { value: 0, label: '0 m²' },
-              { value: 2500, label: '2500 m²' },
-              { value: 5000, label: '5000 m²' },
-            ]}
-          />
+          <Skeleton visible={loading}>
+            <Text size='sm' fw={500} style={{ marginBottom: '0.5rem' }}>
+              Gross Floor Area Range
+            </Text>
+            <RangeSlider
+              min={0}
+              max={5000}
+              step={100}
+              value={gfaRange}
+              onChange={handleRangeChange}
+              onChangeEnd={handleRangeConfirm}
+              label={formatGfaValue}
+              marks={[
+                { value: 0, label: '0 m²' },
+                { value: 2500, label: '2500 m²' },
+                { value: 5000, label: '5000 m²' },
+              ]}
+            />
+          </Skeleton>
         </Grid.Col>
       </Grid>
-      <div style={{ height: 'calc(100% - 24px)' }}>
-        <BoxPlot data={boxPlotData} orientation='vertical' />
-      </div>
+      <Center style={{ height: height * 0.9 - gridHeight }}>
+        {loading ? <Loading /> : <BoxPlot data={boxPlotData} orientation='vertical' />}
+      </Center>
     </Stack>
   )
 }
