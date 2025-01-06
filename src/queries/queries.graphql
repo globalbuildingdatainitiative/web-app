@@ -54,6 +54,10 @@ query getContributions($limit: Int, $offset: Int, $sortBy: SortBy, $filterBy: Fi
         id
         firstName
         lastName
+        organization {
+          id
+          name
+        }
       }
       project {
         name
@@ -81,12 +85,6 @@ query getOrganizations {
   organizations {
     id
     name
-    address
-    city
-    country
-    metaData {
-      stakeholders
-    }
   }
 }
 

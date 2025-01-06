@@ -1,5 +1,6 @@
 export * from './ActionButton'
 export * from './AddMembersPaper'
+export * from './AdminPaper'
 export * from './App'
 export * from './AppRouter'
 export * from './AppLayout'
