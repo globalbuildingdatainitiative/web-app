@@ -53,7 +53,7 @@ export const MemberTable: React.FC<MemberTableProps> = ({ organizationId }) => {
     }
   }
 
-  const getFilterVariables = () => {
+  const filters = useMemo(() => {
     if (!columnFilters.length) return undefined
 
     const filters: Record<string, { contains?: string; equal?: string; is_true?: boolean }> = {
@@ -76,7 +76,7 @@ export const MemberTable: React.FC<MemberTableProps> = ({ organizationId }) => {
     })
 
     return filters
-  }
+  }, [columnFilters, organizationId])
 
   const [pagination, setPagination] = useState({
     pageIndex: 0,
@@ -90,7 +90,7 @@ export const MemberTable: React.FC<MemberTableProps> = ({ organizationId }) => {
     refetch: refetchUsers,
   } = useGetUsersQuery({
     variables: {
-      filters: getFilterVariables(),
+      filters,
       sortBy: getSortingVariables(),
     },
   })

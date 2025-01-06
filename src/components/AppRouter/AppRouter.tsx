@@ -4,6 +4,7 @@ import { AppLayout, Loading } from '@components'
 import { Center } from '@mantine/core'
 import { useUserContext } from '@context'
 import { useLocation } from 'react-router-dom'
+import { AdminRoute } from './AdminRoute.tsx'
 
 const AddMembersPage = lazy(() => import('../../pages/AddMembersPage'))
 const ContributionPage = lazy(() => import('../../pages/ContributionPage'))
@@ -16,6 +17,7 @@ const EditProfilePage = lazy(() => import('../../pages/EditProfilePage'))
 const EditOrganizationPage = lazy(() => import('../../pages/EditOrganizationPage'))
 const Page404 = lazy(() => import('../../pages/404Page'))
 const ProjectDetailsPage = lazy(() => import('../../pages/ProjectDetailsPage'))
+const AdminPage = lazy(() => import('../../pages/AdminPage'))
 
 export const AppRouter = () => {
   const { user } = useUserContext()
@@ -40,6 +42,14 @@ export const AppRouter = () => {
       <Routes>
         <Route element={<AppLayout />}>
           <Route path='/' element={<DashboardPage />} />
+          <Route
+            path='/admin'
+            element={
+              <AdminRoute>
+                <AdminPage />
+              </AdminRoute>
+            }
+          />
           <Route path='/organization' element={<OrganizationPage />} />
           <Route path='/organization/new' element={<CreateOrganizationPage />} />
           <Route path='/organization/edit' element={<EditOrganizationPage />} />

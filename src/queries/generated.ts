@@ -818,8 +818,11 @@ export type FilterBy = {
 }
 
 export type FilterOptions = {
+  contains?: InputMaybe<Scalars['String']['input']>
+  endsWith?: InputMaybe<Scalars['String']['input']>
   equal?: InputMaybe<Scalars['String']['input']>
   isTrue?: InputMaybe<Scalars['Boolean']['input']>
+  startsWith?: InputMaybe<Scalars['String']['input']>
 }
 
 export enum GeneralEnergyClass {
@@ -2871,7 +2874,13 @@ export type GetContributionsQuery = {
       id: any
       uploadedAt: any
       public: boolean
-      user: { __typename?: 'User'; id: any; firstName?: string | null; lastName?: string | null }
+      user: {
+        __typename?: 'User'
+        id: any
+        firstName?: string | null
+        lastName?: string | null
+        organization?: { __typename?: 'Organization'; id: any; name: string } | null
+      }
       project: {
         __typename?: 'Project'
         name: string
@@ -2897,15 +2906,7 @@ export type GetOrganizationsQueryVariables = Exact<{ [key: string]: never }>
 
 export type GetOrganizationsQuery = {
   __typename?: 'Query'
-  organizations: Array<{
-    __typename?: 'Organization'
-    id: any
-    name: string
-    address: string
-    city: string
-    country: CountryCodes
-    metaData: { __typename?: 'OrganizationMetaData'; stakeholders: Array<StakeholderEnum> }
-  }>
+  organizations: Array<{ __typename?: 'Organization'; id: any; name: string }>
 }
 
 export type CreateOrganizationsMutationVariables = Exact<{
@@ -3689,6 +3690,10 @@ export const GetContributionsDocument = gql`
           id
           firstName
           lastName
+          organization {
+            id
+            name
+          }
         }
         project {
           name
@@ -3799,12 +3804,6 @@ export const GetOrganizationsDocument = gql`
     organizations {
       id
       name
-      address
-      city
-      country
-      metaData {
-        stakeholders
-      }
     }
   }
 `
