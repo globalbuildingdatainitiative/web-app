@@ -24,8 +24,7 @@ import { Dispatch, SetStateAction, useEffect, useMemo, useState } from 'react'
 import { Group, Pagination, Progress, Select, Text, Tooltip } from '@mantine/core'
 import { TruncatedTextWithTooltip } from '@components'
 import { useViewportSize } from '@mantine/hooks'
-import { snakeCaseToHumanCase } from '@lib'
-import { alpha3ToCountryName } from '../AttributeChart/countryCodesMapping.ts'
+import { alpha3ToCountryName, snakeCaseToHumanCase } from '@lib'
 
 interface PortfolioTableProps {
   columnVisibility: MRT_VisibilityState
@@ -37,7 +36,10 @@ interface PortfolioTableProps {
 export const PortfolioTable = (props: PortfolioTableProps) => {
   const { columnVisibility, onColumnVisibilityChange, filters, setFilters } = props
 
-  const [pagination, setPagination] = useState<MRT_PaginationState>({ pageIndex: 0, pageSize: 20 })
+  const [pagination, setPagination] = useState<MRT_PaginationState>({
+    pageIndex: 0,
+    pageSize: 10,
+  })
   const [sorting, setSorting] = useState<MRT_SortingState>([])
   const [columnFilters, setColumnFilters] = useState<MRT_ColumnFiltersState>([])
 

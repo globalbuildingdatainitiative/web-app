@@ -275,10 +275,12 @@ query getProjectDetails($id: UUID!) {
   contributions {
     items(filterBy: { equal: { id: $id } }) {
       project {
+        id
         name
         location {
           countryName
         }
+        lifeCycleStages
         projectInfo {
           buildingCompletionYear
           buildingFootprint {
@@ -326,6 +328,7 @@ query getProjectDetails($id: UUID!) {
           }
           productClassificationSystem
           climateZone
+          image
           owner {
             contact
             web

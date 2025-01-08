@@ -7,4 +7,5 @@ export type BoxPlotData = {
   max: number
   avg: number
   count: number
+  extra?: number
 }
