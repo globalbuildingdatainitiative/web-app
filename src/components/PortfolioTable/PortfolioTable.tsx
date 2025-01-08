@@ -68,39 +68,49 @@ export const PortfolioTable = (props: PortfolioTableProps) => {
     // 2. Extract headers
     const headers = exportColumns.map((col) => col.header as string)
 
-    // 3. Build row data
+    // 3. Build row data with headers as object keys
     const rowData = rows.map((row) => {
-      return exportColumns.map((column) => {
+      const rowObj: { [key: string]: string | number } = {}
+      exportColumns.forEach((column, index) => {
+        const header = headers[index]
         const value = row.getValue(column.accessorKey as string)
+
         if (column.accessorKey === 'results') {
           const results = value as Results | null
           const gwp = results?.gwp || {}
           const footprint = row.getValue('projectInfo.grossFloorArea.value') as number
           const total = gwp.total || 0
-          return footprint ? Number(total / footprint).toFixed(2) : 'N/A'
+          rowObj[header] = footprint ? Number(total / footprint).toFixed(2) : 'N/A'
+          return
         }
 
         if (value === null || value === undefined) {
-          return 'N/A'
+          rowObj[header] = 'N/A'
+          return
         }
 
         if (typeof value === 'object') {
           // handle numeric sub-fields like "value"
           if ('value' in value) {
-            return (value as { value: number }).value
+            rowObj[header] = (value as { value: number }).value
+          } else {
+            rowObj[header] = JSON.stringify(value)
           }
-          return JSON.stringify(value)
+          return
         }
 
-        return value
+        rowObj[header] = typeof value === 'number' ? value : String(value)
       })
+      return rowObj
     })
 
-    // 4. Generate and download CSV
-    const csvData = [headers, ...rowData]
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const csv = generateCsv(csvConfig)(csvData as any)
-    download(csvConfig)(csv)
+    const csvConfigWithHeader = {
+      ...csvConfig,
+      useKeysAsHeaders: true, // Enable automatic header generation
+    }
+
+    const csv = generateCsv(csvConfigWithHeader)(rowData)
+    download(csvConfigWithHeader)(csv)
   }
 
   const handleExportAllData = (rows: MRT_Row<Pick<Contribution, 'id'>>[]) =>
