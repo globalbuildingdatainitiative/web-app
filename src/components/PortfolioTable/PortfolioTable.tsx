@@ -21,11 +21,13 @@ import {
   useMantineReactTable,
 } from 'mantine-react-table'
 import { Dispatch, SetStateAction, useEffect, useMemo, useState } from 'react'
-import { Group, Pagination, Progress, Select, Text, Tooltip } from '@mantine/core'
+import { Group, Pagination, Progress, Select, Text, Tooltip, Button, Box } from '@mantine/core'
 import { TruncatedTextWithTooltip } from '@components'
 import { useViewportSize } from '@mantine/hooks'
 import { snakeCaseToHumanCase } from '@lib'
 import { alpha3ToCountryName } from '../AttributeChart/countryCodesMapping.ts'
+import { IconDownload } from '@tabler/icons-react'
+import { mkConfig, generateCsv, download } from 'export-to-csv'
 
 interface PortfolioTableProps {
   columnVisibility: MRT_VisibilityState
@@ -33,6 +35,12 @@ interface PortfolioTableProps {
   filters: object
   setFilters: Dispatch<SetStateAction<object>>
 }
+
+const csvConfig = mkConfig({
+  fieldSeparator: ',',
+  decimalSeparator: '.',
+  useKeysAsHeaders: true,
+})
 
 export const PortfolioTable = (props: PortfolioTableProps) => {
   const { columnVisibility, onColumnVisibilityChange, filters, setFilters } = props
@@ -44,6 +52,63 @@ export const PortfolioTable = (props: PortfolioTableProps) => {
   const { width: viewportWidth } = useViewportSize()
   const shouldHideColumns = viewportWidth < window.screen.width
 
+  const exportCsv = ({
+    rows,
+    onlyVisibleColumns = false,
+  }: {
+    rows: MRT_Row<Pick<Contribution, 'id'>>[]
+    onlyVisibleColumns?: boolean
+  }) => {
+    // 1. Determine which columns to export (exclude 'breakdown' from CSV)
+    let exportColumns = columns.filter((col) => col.accessorKey !== 'breakdown')
+    if (onlyVisibleColumns) {
+      exportColumns = exportColumns.filter((col) => columnVisibility[col.accessorKey as string])
+    }
+
+    // 2. Extract headers
+    const headers = exportColumns.map((col) => col.header as string)
+
+    // 3. Build row data
+    const rowData = rows.map((row) => {
+      return exportColumns.map((column) => {
+        const value = row.getValue(column.accessorKey as string)
+        if (column.accessorKey === 'results') {
+          const results = value as Results | null
+          const gwp = results?.gwp || {}
+          const footprint = row.getValue('projectInfo.grossFloorArea.value') as number
+          const total = gwp.total || 0
+          return footprint ? Number(total / footprint).toFixed(2) : 'N/A'
+        }
+
+        if (value === null || value === undefined) {
+          return 'N/A'
+        }
+
+        if (typeof value === 'object') {
+          // handle numeric sub-fields like "value"
+          if ('value' in value) {
+            return (value as { value: number }).value
+          }
+          return JSON.stringify(value)
+        }
+
+        return value
+      })
+    })
+
+    // 4. Generate and download CSV
+    const csvData = [headers, ...rowData]
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const csv = generateCsv(csvConfig)(csvData as any)
+    download(csvConfig)(csv)
+  }
+
+  const handleExportAllData = (rows: MRT_Row<Pick<Contribution, 'id'>>[]) =>
+    exportCsv({ rows, onlyVisibleColumns: false })
+
+  const handleExportVisibleData = (rows: MRT_Row<Pick<Contribution, 'id'>>[]) =>
+    exportCsv({ rows, onlyVisibleColumns: true })
+
   const sortBy = useMemo(() => {
     if (!sorting.length) return undefined
     const [sort] = sorting
@@ -53,109 +118,6 @@ export const PortfolioTable = (props: PortfolioTableProps) => {
       [sort.desc ? 'dsc' : 'asc']: sort.id,
     }
   }, [sorting])
-
-  useEffect(() => {
-    const baseFilters = { gt: { 'projectInfo.grossFloorArea.value': 0 }, notEqual: { results: null } }
-    if (!columnFilters.length) {
-      setFilters(baseFilters)
-      return
-    }
-
-    interface FilterAccumulator {
-      contains: Record<string, unknown>
-      equal: Record<string, unknown>
-      notEqual: Record<string, unknown>
-      in: Record<string, unknown>
-      gt: Record<string, unknown>
-      lt: Record<string, unknown>
-    }
-
-    const filters = columnFilters.reduce<FilterAccumulator>(
-      (acc, filter) => {
-        let fieldName = filter.id
-
-        const fieldColumn = columns.find((column) => column.accessorKey === fieldName)
-        if (fieldName == 'location.countryName') {
-          fieldName = 'location.country'
-        }
-
-        if (fieldColumn?.filterVariant === 'multi-select') {
-          return {
-            ...acc,
-            equal: acc.equal,
-            gt: acc.gt,
-            lt: acc.lt,
-            in: {
-              ...acc.in,
-              [fieldName]: filter.value,
-            },
-          }
-        } else if (fieldColumn?.filterVariant === 'range-slider') {
-          return {
-            ...acc,
-            equal: acc.equal,
-            gt: {
-              ...acc.gt,
-              // @ts-expect-error filter.value is unknown
-              [fieldName]: filter.value[0],
-            },
-            lt: {
-              ...acc.lt,
-              // @ts-expect-error filter.value is unknown
-              [fieldName]: filter.value[1],
-            },
-            in: acc.in,
-          }
-        }
-        return {
-          ...acc,
-          equal: acc.equal,
-          in: acc.in,
-          gt: acc.gt,
-          lt: acc.lt,
-          contains: {
-            ...acc.contains,
-            [fieldName]: filter.value,
-          },
-        }
-      },
-      { contains: {}, equal: {}, in: {}, lt: {}, ...baseFilters },
-    )
-
-    // Only return non-empty filter objects
-    const result: Record<string, Record<string, unknown>> = {}
-    if (Object.keys(filters.contains).length > 0) {
-      result.contains = filters.contains
-    }
-    if (Object.keys(filters.equal).length > 0) {
-      result.equal = filters.equal
-    }
-    if (Object.keys(filters.notEqual).length > 0) {
-      result.notEqual = filters.notEqual
-    }
-    if (Object.keys(filters.in).length > 0) {
-      result.in = filters.in
-    }
-    if (Object.keys(filters.gt).length > 0) {
-      result.gt = filters.gt
-    }
-    if (Object.keys(filters.lt).length > 0) {
-      result.lt = filters.lt
-    }
-
-    setFilters(result)
-  }, [columnFilters, setFilters])
-
-  const { loading, error, data } = useGetProjectPortfolioQuery({
-    variables: {
-      limit: pagination.pageSize,
-      offset: pagination.pageIndex * pagination.pageSize,
-      filters: filters,
-      sortBy: sortBy,
-    },
-    skip: !filters,
-    fetchPolicy: 'network-only',
-  })
 
   const columns = useMemo<MRT_ColumnDef<Pick<Contribution, 'id'>>[]>(
     () => [
@@ -445,6 +407,109 @@ export const PortfolioTable = (props: PortfolioTableProps) => {
   )
 
   useEffect(() => {
+    const baseFilters = { gt: { 'projectInfo.grossFloorArea.value': 0 }, notEqual: { results: null } }
+    if (!columnFilters.length) {
+      setFilters(baseFilters)
+      return
+    }
+
+    interface FilterAccumulator {
+      contains: Record<string, unknown>
+      equal: Record<string, unknown>
+      notEqual: Record<string, unknown>
+      in: Record<string, unknown>
+      gt: Record<string, unknown>
+      lt: Record<string, unknown>
+    }
+
+    const filters = columnFilters.reduce<FilterAccumulator>(
+      (acc, filter) => {
+        let fieldName = filter.id
+
+        const fieldColumn = columns.find((column) => column.accessorKey === fieldName)
+        if (fieldName == 'location.countryName') {
+          fieldName = 'location.country'
+        }
+
+        if (fieldColumn?.filterVariant === 'multi-select') {
+          return {
+            ...acc,
+            equal: acc.equal,
+            gt: acc.gt,
+            lt: acc.lt,
+            in: {
+              ...acc.in,
+              [fieldName]: filter.value,
+            },
+          }
+        } else if (fieldColumn?.filterVariant === 'range-slider') {
+          return {
+            ...acc,
+            equal: acc.equal,
+            gt: {
+              ...acc.gt,
+              // @ts-expect-error filter.value is unknown
+              [fieldName]: filter.value[0],
+            },
+            lt: {
+              ...acc.lt,
+              // @ts-expect-error filter.value is unknown
+              [fieldName]: filter.value[1],
+            },
+            in: acc.in,
+          }
+        }
+        return {
+          ...acc,
+          equal: acc.equal,
+          in: acc.in,
+          gt: acc.gt,
+          lt: acc.lt,
+          contains: {
+            ...acc.contains,
+            [fieldName]: filter.value,
+          },
+        }
+      },
+      { contains: {}, equal: {}, in: {}, lt: {}, ...baseFilters },
+    )
+
+    // Only return non-empty filter objects
+    const result: Record<string, Record<string, unknown>> = {}
+    if (Object.keys(filters.contains).length > 0) {
+      result.contains = filters.contains
+    }
+    if (Object.keys(filters.equal).length > 0) {
+      result.equal = filters.equal
+    }
+    if (Object.keys(filters.notEqual).length > 0) {
+      result.notEqual = filters.notEqual
+    }
+    if (Object.keys(filters.in).length > 0) {
+      result.in = filters.in
+    }
+    if (Object.keys(filters.gt).length > 0) {
+      result.gt = filters.gt
+    }
+    if (Object.keys(filters.lt).length > 0) {
+      result.lt = filters.lt
+    }
+
+    setFilters(result)
+  }, [columnFilters, setFilters, columns])
+
+  const { loading, error, data } = useGetProjectPortfolioQuery({
+    variables: {
+      limit: pagination.pageSize,
+      offset: pagination.pageIndex * pagination.pageSize,
+      filters: filters,
+      sortBy: sortBy,
+    },
+    skip: !filters,
+    fetchPolicy: 'network-only',
+  })
+
+  useEffect(() => {
     if (shouldHideColumns) {
       // Show only essential columns on small screens
       onColumnVisibilityChange({
@@ -486,6 +551,7 @@ export const PortfolioTable = (props: PortfolioTableProps) => {
     enableColumnActions: true,
     manualFiltering: true,
     manualSorting: true,
+    enableRowSelection: true,
     mantineToolbarAlertBannerProps: error
       ? {
           color: 'red',
@@ -524,7 +590,43 @@ export const PortfolioTable = (props: PortfolioTableProps) => {
         overflowX: 'auto',
       },
     },
+    renderTopToolbarCustomActions: ({ table }) => (
+      <Box
+        style={{
+          display: 'flex',
+          gap: '16px',
+          padding: '8px',
+          flexWrap: 'wrap',
+        }}
+      >
+        <Button
+          onClick={() => handleExportAllData(table.getPrePaginationRowModel().rows)}
+          leftSection={<IconDownload />}
+          variant='filled'
+          disabled={rowData.length === 0}
+        >
+          Export All Data
+        </Button>
+        <Button
+          onClick={() => handleExportVisibleData(table.getRowModel().rows)}
+          leftSection={<IconDownload />}
+          variant='filled'
+          disabled={table.getRowModel().rows.length === 0}
+        >
+          Export Page Rows
+        </Button>
+        <Button
+          onClick={() => handleExportVisibleData(table.getSelectedRowModel().rows)}
+          leftSection={<IconDownload />}
+          variant='filled'
+          disabled={!table.getIsSomeRowsSelected() && !table.getIsAllRowsSelected()}
+        >
+          Export Selected Rows
+        </Button>
+      </Box>
+    ),
   })
+
   return (
     <div data-testid='ContributionTable'>
       <MantineReactTable table={table} />
