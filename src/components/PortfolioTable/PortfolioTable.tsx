@@ -89,6 +89,12 @@ export const PortfolioTable = (props: PortfolioTableProps) => {
           return
         }
 
+        // Join building typology elements with commas and wrap in quotes
+        if (column.accessorKey === 'projectInfo.buildingTypology' && Array.isArray(value)) {
+          rowObj[header] = `"${value.join(', ')}"`
+          return
+        }
+
         if (typeof value === 'object') {
           // handle numeric sub-fields like "value"
           if ('value' in value) {
