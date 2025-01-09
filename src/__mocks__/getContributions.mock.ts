@@ -7,7 +7,7 @@ export const getContributionsMock: MockedResponse[] = [
     request: {
       query: GetContributionsDocument,
       variables: {
-        limit: 10,
+        limit: 20,
         offset: 0,
       },
     },
@@ -17,8 +17,8 @@ export const getContributionsMock: MockedResponse[] = [
     request: {
       query: GetContributionsDocument,
       variables: {
-        limit: 10,
-        offset: 10, // The second page of contributions
+        limit: 20,
+        offset: 20, // The second page of contributions
       },
     },
     result: {
