@@ -89,7 +89,7 @@ export const ProjectDetailsPaper = (props: ProjectDetailsPaperProps) => {
       <ErrorBoundary>
         <ProjectMetadataTable project={project} loading={loading} />
       </ErrorBoundary>
-      <ErrorMessage error={error || printError} mt='lg'/>
+      <ErrorMessage error={error || printError} mt='lg' />
     </Paper>
   )
 }

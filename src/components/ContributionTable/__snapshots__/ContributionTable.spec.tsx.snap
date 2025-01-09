@@ -563,15 +563,15 @@ exports[`ContributionTable > Snapshot 1`] = `
                       style="min-width: max(calc(var(--header-project_projectInfo_buildingType-size) * 1px), 40px);"
                     >
                       <div
-                        class="mrt-table-head-cell-content MRT_TableHeadCell-module_content__-pzSK m_8bffd616 mantine-Flex-root __m__-rko"
+                        class="mrt-table-head-cell-content MRT_TableHeadCell-module_content__-pzSK m_8bffd616 mantine-Flex-root __m__-rt6"
                         style=""
                       >
                         <div
-                          class="mrt-table-head-cell-labels MRT_TableHeadCell-module_labels__oiMSr MRT_TableHeadCell-module_labels-sortable__tyuLr MRT_TableHeadCell-module_labels-data__PvFGO m_8bffd616 mantine-Flex-root __m__-rkq"
+                          class="mrt-table-head-cell-labels MRT_TableHeadCell-module_labels__oiMSr MRT_TableHeadCell-module_labels-sortable__tyuLr MRT_TableHeadCell-module_labels-data__PvFGO m_8bffd616 mantine-Flex-root __m__-rt8"
                           style="--mrt-table-head-cell-labels-padding-left: 2.75;"
                         >
                           <div
-                            class="mrt-table-head-cell-content-wrapper MRT_TableHeadCell-module_content-wrapper__py6aJ MRT_TableHeadCell-module_content-wrapper-hidden-overflow__QY40r MRT_TableHeadCell-module_content-wrapper-nowrap__-4aIg m_8bffd616 mantine-Flex-root __m__-rks"
+                            class="mrt-table-head-cell-content-wrapper MRT_TableHeadCell-module_content-wrapper__py6aJ MRT_TableHeadCell-module_content-wrapper-hidden-overflow__QY40r MRT_TableHeadCell-module_content-wrapper-nowrap__-4aIg m_8bffd616 mantine-Flex-root __m__-rta"
                             style=""
                           >
                             Building Type
@@ -609,7 +609,7 @@ exports[`ContributionTable > Snapshot 1`] = `
                           </button>
                         </div>
                         <div
-                          class="mrt-table-head-cell-content-actions MRT_TableHeadCell-module_content-actions__utxbm m_8bffd616 mantine-Flex-root __m__-rl5"
+                          class="mrt-table-head-cell-content-actions MRT_TableHeadCell-module_content-actions__utxbm m_8bffd616 mantine-Flex-root __m__-rtj"
                           style=""
                         >
                           <button
@@ -660,11 +660,11 @@ exports[`ContributionTable > Snapshot 1`] = `
                         style="box-sizing: border-box; opacity: 0; transition: opacity 200ms ease; display: none; height: 0px; overflow: hidden;"
                       >
                         <div
-                          class="m_8bffd616 mantine-Flex-root __m__-rlf"
+                          class="m_8bffd616 mantine-Flex-root __m__-rtt"
                           style="flex-direction: column;"
                         >
                           <div
-                            class="m_8bffd616 mantine-Flex-root __m__-rlh"
+                            class="m_8bffd616 mantine-Flex-root __m__-rtv"
                             style="align-items: flex-end;"
                           >
                             <div
@@ -914,15 +914,15 @@ exports[`ContributionTable > Snapshot 1`] = `
                       style="min-width: max(calc(var(--header-public-size) * 1px), 40px);"
                     >
                       <div
-                        class="mrt-table-head-cell-content MRT_TableHeadCell-module_content__-pzSK m_8bffd616 mantine-Flex-root __m__-rlo"
+                        class="mrt-table-head-cell-content MRT_TableHeadCell-module_content__-pzSK m_8bffd616 mantine-Flex-root __m__-ru6"
                         style=""
                       >
                         <div
-                          class="mrt-table-head-cell-labels MRT_TableHeadCell-module_labels__oiMSr MRT_TableHeadCell-module_labels-sortable__tyuLr MRT_TableHeadCell-module_labels-data__PvFGO m_8bffd616 mantine-Flex-root __m__-rlq"
+                          class="mrt-table-head-cell-labels MRT_TableHeadCell-module_labels__oiMSr MRT_TableHeadCell-module_labels-sortable__tyuLr MRT_TableHeadCell-module_labels-data__PvFGO m_8bffd616 mantine-Flex-root __m__-ru8"
                           style="--mrt-table-head-cell-labels-padding-left: 2.75;"
                         >
                           <div
-                            class="mrt-table-head-cell-content-wrapper MRT_TableHeadCell-module_content-wrapper__py6aJ MRT_TableHeadCell-module_content-wrapper-hidden-overflow__QY40r MRT_TableHeadCell-module_content-wrapper-nowrap__-4aIg m_8bffd616 mantine-Flex-root __m__-rls"
+                            class="mrt-table-head-cell-content-wrapper MRT_TableHeadCell-module_content-wrapper__py6aJ MRT_TableHeadCell-module_content-wrapper-hidden-overflow__QY40r MRT_TableHeadCell-module_content-wrapper-nowrap__-4aIg m_8bffd616 mantine-Flex-root __m__-rua"
                             style=""
                           >
                             Public
@@ -960,7 +960,7 @@ exports[`ContributionTable > Snapshot 1`] = `
                           </button>
                         </div>
                         <div
-                          class="mrt-table-head-cell-content-actions MRT_TableHeadCell-module_content-actions__utxbm m_8bffd616 mantine-Flex-root __m__-rm5"
+                          class="mrt-table-head-cell-content-actions MRT_TableHeadCell-module_content-actions__utxbm m_8bffd616 mantine-Flex-root __m__-ruj"
                           style=""
                         >
                           <button
@@ -1011,11 +1011,11 @@ exports[`ContributionTable > Snapshot 1`] = `
                         style="box-sizing: border-box; opacity: 0; transition: opacity 200ms ease; display: none; height: 0px; overflow: hidden;"
                       >
                         <div
-                          class="m_8bffd616 mantine-Flex-root __m__-rmf"
+                          class="m_8bffd616 mantine-Flex-root __m__-rut"
                           style="flex-direction: column;"
                         >
                           <div
-                            class="m_8bffd616 mantine-Flex-root __m__-rmh"
+                            class="m_8bffd616 mantine-Flex-root __m__-ruv"
                             style="align-items: flex-end;"
                           >
                             <div
@@ -1084,15 +1084,15 @@ exports[`ContributionTable > Snapshot 1`] = `
                       style="min-width: max(calc(var(--header-project_lifeCycleStages-size) * 1px), 40px);"
                     >
                       <div
-                        class="mrt-table-head-cell-content MRT_TableHeadCell-module_content__-pzSK m_8bffd616 mantine-Flex-root __m__-rms"
+                        class="mrt-table-head-cell-content MRT_TableHeadCell-module_content__-pzSK m_8bffd616 mantine-Flex-root __m__-rva"
                         style=""
                       >
                         <div
-                          class="mrt-table-head-cell-labels MRT_TableHeadCell-module_labels__oiMSr MRT_TableHeadCell-module_labels-sortable__tyuLr MRT_TableHeadCell-module_labels-data__PvFGO m_8bffd616 mantine-Flex-root __m__-rmu"
+                          class="mrt-table-head-cell-labels MRT_TableHeadCell-module_labels__oiMSr MRT_TableHeadCell-module_labels-sortable__tyuLr MRT_TableHeadCell-module_labels-data__PvFGO m_8bffd616 mantine-Flex-root __m__-rvc"
                           style="--mrt-table-head-cell-labels-padding-left: 2.75;"
                         >
                           <div
-                            class="mrt-table-head-cell-content-wrapper MRT_TableHeadCell-module_content-wrapper__py6aJ MRT_TableHeadCell-module_content-wrapper-hidden-overflow__QY40r MRT_TableHeadCell-module_content-wrapper-nowrap__-4aIg m_8bffd616 mantine-Flex-root __m__-rn0"
+                            class="mrt-table-head-cell-content-wrapper MRT_TableHeadCell-module_content-wrapper__py6aJ MRT_TableHeadCell-module_content-wrapper-hidden-overflow__QY40r MRT_TableHeadCell-module_content-wrapper-nowrap__-4aIg m_8bffd616 mantine-Flex-root __m__-rve"
                             style=""
                           >
                             Life Cycle Stages
@@ -1130,7 +1130,7 @@ exports[`ContributionTable > Snapshot 1`] = `
                           </button>
                         </div>
                         <div
-                          class="mrt-table-head-cell-content-actions MRT_TableHeadCell-module_content-actions__utxbm m_8bffd616 mantine-Flex-root __m__-rn9"
+                          class="mrt-table-head-cell-content-actions MRT_TableHeadCell-module_content-actions__utxbm m_8bffd616 mantine-Flex-root __m__-rvn"
                           style=""
                         >
                           <button
@@ -1181,11 +1181,11 @@ exports[`ContributionTable > Snapshot 1`] = `
                         style="box-sizing: border-box; opacity: 0; transition: opacity 200ms ease; display: none; height: 0px; overflow: hidden;"
                       >
                         <div
-                          class="m_8bffd616 mantine-Flex-root __m__-rnj"
+                          class="m_8bffd616 mantine-Flex-root __m__-r101"
                           style="flex-direction: column;"
                         >
                           <div
-                            class="m_8bffd616 mantine-Flex-root __m__-rnl"
+                            class="m_8bffd616 mantine-Flex-root __m__-r103"
                             style="align-items: flex-end;"
                           >
                             <div
@@ -1225,15 +1225,15 @@ exports[`ContributionTable > Snapshot 1`] = `
                       style="min-width: max(calc(var(--header-project_impactCategories-size) * 1px), 40px);"
                     >
                       <div
-                        class="mrt-table-head-cell-content MRT_TableHeadCell-module_content__-pzSK m_8bffd616 mantine-Flex-root __m__-rns"
+                        class="mrt-table-head-cell-content MRT_TableHeadCell-module_content__-pzSK m_8bffd616 mantine-Flex-root __m__-r10a"
                         style=""
                       >
                         <div
-                          class="mrt-table-head-cell-labels MRT_TableHeadCell-module_labels__oiMSr MRT_TableHeadCell-module_labels-sortable__tyuLr MRT_TableHeadCell-module_labels-data__PvFGO m_8bffd616 mantine-Flex-root __m__-rnu"
+                          class="mrt-table-head-cell-labels MRT_TableHeadCell-module_labels__oiMSr MRT_TableHeadCell-module_labels-sortable__tyuLr MRT_TableHeadCell-module_labels-data__PvFGO m_8bffd616 mantine-Flex-root __m__-r10c"
                           style="--mrt-table-head-cell-labels-padding-left: 2.75;"
                         >
                           <div
-                            class="mrt-table-head-cell-content-wrapper MRT_TableHeadCell-module_content-wrapper__py6aJ MRT_TableHeadCell-module_content-wrapper-hidden-overflow__QY40r MRT_TableHeadCell-module_content-wrapper-nowrap__-4aIg m_8bffd616 mantine-Flex-root __m__-ro0"
+                            class="mrt-table-head-cell-content-wrapper MRT_TableHeadCell-module_content-wrapper__py6aJ MRT_TableHeadCell-module_content-wrapper-hidden-overflow__QY40r MRT_TableHeadCell-module_content-wrapper-nowrap__-4aIg m_8bffd616 mantine-Flex-root __m__-r10e"
                             style=""
                           >
                             Impact Categories
@@ -1271,7 +1271,7 @@ exports[`ContributionTable > Snapshot 1`] = `
                           </button>
                         </div>
                         <div
-                          class="mrt-table-head-cell-content-actions MRT_TableHeadCell-module_content-actions__utxbm m_8bffd616 mantine-Flex-root __m__-ro9"
+                          class="mrt-table-head-cell-content-actions MRT_TableHeadCell-module_content-actions__utxbm m_8bffd616 mantine-Flex-root __m__-r10n"
                           style=""
                         >
                           <button
@@ -1322,11 +1322,11 @@ exports[`ContributionTable > Snapshot 1`] = `
                         style="box-sizing: border-box; opacity: 0; transition: opacity 200ms ease; display: none; height: 0px; overflow: hidden;"
                       >
                         <div
-                          class="m_8bffd616 mantine-Flex-root __m__-roj"
+                          class="m_8bffd616 mantine-Flex-root __m__-r111"
                           style="flex-direction: column;"
                         >
                           <div
-                            class="m_8bffd616 mantine-Flex-root __m__-rol"
+                            class="m_8bffd616 mantine-Flex-root __m__-r113"
                             style="align-items: flex-end;"
                           >
                             <div
@@ -3532,6 +3532,2296 @@ exports[`ContributionTable > Snapshot 1`] = `
                     <td
                       class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
                       data-index="0"
+                      style="min-width: max(calc(var(--col-project_name-size) * 1px), 40px); --mrt-cell-align: left;"
+                    >
+                      <p
+                        class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
+                        style=""
+                      >
+                        N/A
+                      </p>
+                    </td>
+                    <td
+                      class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
+                      data-index="1"
+                      style="min-width: max(calc(var(--col-project_location_countryName-size) * 1px), 40px); --mrt-cell-align: left;"
+                    >
+                      <p
+                        class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
+                        style=""
+                      >
+                        N/A
+                      </p>
+                    </td>
+                    <td
+                      class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
+                      data-index="2"
+                      style="min-width: max(calc(var(--col-project_projectInfo_buildingType-size) * 1px), 40px); --mrt-cell-align: left;"
+                    >
+                      <p
+                        class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
+                        style=""
+                      >
+                        N/A
+                      </p>
+                    </td>
+                    <td
+                      class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
+                      data-index="3"
+                      style="min-width: max(calc(var(--col-User-size) * 1px), 40px); --mrt-cell-align: left;"
+                    >
+                      <p
+                        class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
+                        style=""
+                      >
+                        N/A N/A
+                      </p>
+                    </td>
+                    <td
+                      class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
+                      data-index="4"
+                      style="min-width: max(calc(var(--col-uploadedAt-size) * 1px), 40px); --mrt-cell-align: left;"
+                    >
+                      <p
+                        class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
+                        style=""
+                      >
+                        Invalid Date
+                      </p>
+                    </td>
+                    <td
+                      class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
+                      data-index="5"
+                      style="min-width: max(calc(var(--col-public-size) * 1px), 40px); --mrt-cell-align: left;"
+                    >
+                      <p
+                        class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
+                        style=""
+                      >
+                        No
+                      </p>
+                    </td>
+                    <td
+                      class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
+                      data-index="6"
+                      style="min-width: max(calc(var(--col-project_lifeCycleStages-size) * 1px), 40px); --mrt-cell-align: left;"
+                    >
+                      <p
+                        class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
+                        style=""
+                      >
+                        N/A
+                      </p>
+                    </td>
+                    <td
+                      class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
+                      data-index="7"
+                      style="min-width: max(calc(var(--col-project_impactCategories-size) * 1px), 40px); --mrt-cell-align: left;"
+                    >
+                      <p
+                        class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
+                        style=""
+                      >
+                        N/A
+                      </p>
+                    </td>
+                    <td
+                      class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
+                      data-index="8"
+                      style="min-width: max(calc(var(--col-projectDetails-size) * 1px), 40px); --mrt-cell-align: left;"
+                    >
+                      <a
+                        class="mantine-focus-auto mantine-active m_8d3f4000 mantine-ActionIcon-root m_87cf2631 mantine-UnstyledButton-root"
+                        data-variant="transparent"
+                        href="/contributions/null/project"
+                        style="--ai-bg: transparent; --ai-hover: transparent; --ai-color: var(--mantine-color-green-light-color); --ai-bd: calc(0.0625rem * var(--mantine-scale)) solid transparent; color: var(--mantine-color-black);"
+                      >
+                        <span
+                          class="m_8d3afb97 mantine-ActionIcon-icon"
+                          style=""
+                        >
+                          <svg
+                            class="tabler-icon tabler-icon-external-link "
+                            fill="none"
+                            height="24"
+                            stroke="currentColor"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            viewBox="0 0 24 24"
+                            width="24"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              d="M12 6h-6a2 2 0 0 0 -2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-6"
+                            />
+                            <path
+                              d="M11 13l9 -9"
+                            />
+                            <path
+                              d="M15 4h5v5"
+                            />
+                          </svg>
+                        </span>
+                      </a>
+                    </td>
+                    <td
+                      class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi"
+                      data-index="9"
+                      style="min-width: max(calc(var(--col-mrt_row_actions-size) * 1px), 40px); --mrt-cell-align: left;"
+                    >
+                      <div
+                        class="m_4081bf90 mantine-Group-root"
+                        style="--group-gap: var(--mantine-spacing-md); --group-align: center; --group-justify: flex-start; --group-wrap: wrap;"
+                      >
+                        <button
+                          class="mantine-focus-auto mantine-active m_8d3f4000 mantine-ActionIcon-root m_87cf2631 mantine-UnstyledButton-root"
+                          data-variant="transparent"
+                          style="--ai-bg: transparent; --ai-hover: transparent; --ai-color: black; --ai-bd: calc(0.0625rem * var(--mantine-scale)) solid transparent;"
+                          type="button"
+                        >
+                          <span
+                            class="m_8d3afb97 mantine-ActionIcon-icon"
+                            style=""
+                          >
+                            <svg
+                              class="tabler-icon tabler-icon-edit "
+                              fill="none"
+                              height="24"
+                              stroke="currentColor"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              stroke-width="2"
+                              viewBox="0 0 24 24"
+                              width="24"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1"
+                              />
+                              <path
+                                d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z"
+                              />
+                              <path
+                                d="M16 5l3 3"
+                              />
+                            </svg>
+                          </span>
+                        </button>
+                        <button
+                          class="mantine-focus-auto mantine-active m_8d3f4000 mantine-ActionIcon-root m_87cf2631 mantine-UnstyledButton-root"
+                          data-variant="transparent"
+                          style="--ai-bg: transparent; --ai-hover: transparent; --ai-color: black; --ai-bd: calc(0.0625rem * var(--mantine-scale)) solid transparent;"
+                          type="button"
+                        >
+                          <span
+                            class="m_8d3afb97 mantine-ActionIcon-icon"
+                            style=""
+                          >
+                            <svg
+                              class="tabler-icon tabler-icon-trash "
+                              fill="none"
+                              height="24"
+                              stroke="currentColor"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              stroke-width="2"
+                              viewBox="0 0 24 24"
+                              width="24"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                d="M4 7l16 0"
+                              />
+                              <path
+                                d="M10 11l0 6"
+                              />
+                              <path
+                                d="M14 11l0 6"
+                              />
+                              <path
+                                d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12"
+                              />
+                              <path
+                                d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3"
+                              />
+                            </svg>
+                          </span>
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr
+                    class="m_4e7aa4fd mantine-Table-tr MRT_TableBodyRow-module_root__2c3D4"
+                    data-hover="true"
+                    data-index="10"
+                    data-with-row-border="true"
+                    style=""
+                  >
+                    <td
+                      class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
+                      data-index="0"
+                      style="min-width: max(calc(var(--col-project_name-size) * 1px), 40px); --mrt-cell-align: left;"
+                    >
+                      <p
+                        class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
+                        style=""
+                      >
+                        N/A
+                      </p>
+                    </td>
+                    <td
+                      class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
+                      data-index="1"
+                      style="min-width: max(calc(var(--col-project_location_countryName-size) * 1px), 40px); --mrt-cell-align: left;"
+                    >
+                      <p
+                        class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
+                        style=""
+                      >
+                        N/A
+                      </p>
+                    </td>
+                    <td
+                      class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
+                      data-index="2"
+                      style="min-width: max(calc(var(--col-project_projectInfo_buildingType-size) * 1px), 40px); --mrt-cell-align: left;"
+                    >
+                      <p
+                        class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
+                        style=""
+                      >
+                        N/A
+                      </p>
+                    </td>
+                    <td
+                      class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
+                      data-index="3"
+                      style="min-width: max(calc(var(--col-User-size) * 1px), 40px); --mrt-cell-align: left;"
+                    >
+                      <p
+                        class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
+                        style=""
+                      >
+                        N/A N/A
+                      </p>
+                    </td>
+                    <td
+                      class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
+                      data-index="4"
+                      style="min-width: max(calc(var(--col-uploadedAt-size) * 1px), 40px); --mrt-cell-align: left;"
+                    >
+                      <p
+                        class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
+                        style=""
+                      >
+                        Invalid Date
+                      </p>
+                    </td>
+                    <td
+                      class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
+                      data-index="5"
+                      style="min-width: max(calc(var(--col-public-size) * 1px), 40px); --mrt-cell-align: left;"
+                    >
+                      <p
+                        class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
+                        style=""
+                      >
+                        No
+                      </p>
+                    </td>
+                    <td
+                      class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
+                      data-index="6"
+                      style="min-width: max(calc(var(--col-project_lifeCycleStages-size) * 1px), 40px); --mrt-cell-align: left;"
+                    >
+                      <p
+                        class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
+                        style=""
+                      >
+                        N/A
+                      </p>
+                    </td>
+                    <td
+                      class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
+                      data-index="7"
+                      style="min-width: max(calc(var(--col-project_impactCategories-size) * 1px), 40px); --mrt-cell-align: left;"
+                    >
+                      <p
+                        class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
+                        style=""
+                      >
+                        N/A
+                      </p>
+                    </td>
+                    <td
+                      class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
+                      data-index="8"
+                      style="min-width: max(calc(var(--col-projectDetails-size) * 1px), 40px); --mrt-cell-align: left;"
+                    >
+                      <a
+                        class="mantine-focus-auto mantine-active m_8d3f4000 mantine-ActionIcon-root m_87cf2631 mantine-UnstyledButton-root"
+                        data-variant="transparent"
+                        href="/contributions/null/project"
+                        style="--ai-bg: transparent; --ai-hover: transparent; --ai-color: var(--mantine-color-green-light-color); --ai-bd: calc(0.0625rem * var(--mantine-scale)) solid transparent; color: var(--mantine-color-black);"
+                      >
+                        <span
+                          class="m_8d3afb97 mantine-ActionIcon-icon"
+                          style=""
+                        >
+                          <svg
+                            class="tabler-icon tabler-icon-external-link "
+                            fill="none"
+                            height="24"
+                            stroke="currentColor"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            viewBox="0 0 24 24"
+                            width="24"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              d="M12 6h-6a2 2 0 0 0 -2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-6"
+                            />
+                            <path
+                              d="M11 13l9 -9"
+                            />
+                            <path
+                              d="M15 4h5v5"
+                            />
+                          </svg>
+                        </span>
+                      </a>
+                    </td>
+                    <td
+                      class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi"
+                      data-index="9"
+                      style="min-width: max(calc(var(--col-mrt_row_actions-size) * 1px), 40px); --mrt-cell-align: left;"
+                    >
+                      <div
+                        class="m_4081bf90 mantine-Group-root"
+                        style="--group-gap: var(--mantine-spacing-md); --group-align: center; --group-justify: flex-start; --group-wrap: wrap;"
+                      >
+                        <button
+                          class="mantine-focus-auto mantine-active m_8d3f4000 mantine-ActionIcon-root m_87cf2631 mantine-UnstyledButton-root"
+                          data-variant="transparent"
+                          style="--ai-bg: transparent; --ai-hover: transparent; --ai-color: black; --ai-bd: calc(0.0625rem * var(--mantine-scale)) solid transparent;"
+                          type="button"
+                        >
+                          <span
+                            class="m_8d3afb97 mantine-ActionIcon-icon"
+                            style=""
+                          >
+                            <svg
+                              class="tabler-icon tabler-icon-edit "
+                              fill="none"
+                              height="24"
+                              stroke="currentColor"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              stroke-width="2"
+                              viewBox="0 0 24 24"
+                              width="24"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1"
+                              />
+                              <path
+                                d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z"
+                              />
+                              <path
+                                d="M16 5l3 3"
+                              />
+                            </svg>
+                          </span>
+                        </button>
+                        <button
+                          class="mantine-focus-auto mantine-active m_8d3f4000 mantine-ActionIcon-root m_87cf2631 mantine-UnstyledButton-root"
+                          data-variant="transparent"
+                          style="--ai-bg: transparent; --ai-hover: transparent; --ai-color: black; --ai-bd: calc(0.0625rem * var(--mantine-scale)) solid transparent;"
+                          type="button"
+                        >
+                          <span
+                            class="m_8d3afb97 mantine-ActionIcon-icon"
+                            style=""
+                          >
+                            <svg
+                              class="tabler-icon tabler-icon-trash "
+                              fill="none"
+                              height="24"
+                              stroke="currentColor"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              stroke-width="2"
+                              viewBox="0 0 24 24"
+                              width="24"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                d="M4 7l16 0"
+                              />
+                              <path
+                                d="M10 11l0 6"
+                              />
+                              <path
+                                d="M14 11l0 6"
+                              />
+                              <path
+                                d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12"
+                              />
+                              <path
+                                d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3"
+                              />
+                            </svg>
+                          </span>
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr
+                    class="m_4e7aa4fd mantine-Table-tr MRT_TableBodyRow-module_root__2c3D4"
+                    data-hover="true"
+                    data-index="11"
+                    data-with-row-border="true"
+                    style=""
+                  >
+                    <td
+                      class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
+                      data-index="0"
+                      style="min-width: max(calc(var(--col-project_name-size) * 1px), 40px); --mrt-cell-align: left;"
+                    >
+                      <p
+                        class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
+                        style=""
+                      >
+                        N/A
+                      </p>
+                    </td>
+                    <td
+                      class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
+                      data-index="1"
+                      style="min-width: max(calc(var(--col-project_location_countryName-size) * 1px), 40px); --mrt-cell-align: left;"
+                    >
+                      <p
+                        class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
+                        style=""
+                      >
+                        N/A
+                      </p>
+                    </td>
+                    <td
+                      class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
+                      data-index="2"
+                      style="min-width: max(calc(var(--col-project_projectInfo_buildingType-size) * 1px), 40px); --mrt-cell-align: left;"
+                    >
+                      <p
+                        class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
+                        style=""
+                      >
+                        N/A
+                      </p>
+                    </td>
+                    <td
+                      class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
+                      data-index="3"
+                      style="min-width: max(calc(var(--col-User-size) * 1px), 40px); --mrt-cell-align: left;"
+                    >
+                      <p
+                        class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
+                        style=""
+                      >
+                        N/A N/A
+                      </p>
+                    </td>
+                    <td
+                      class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
+                      data-index="4"
+                      style="min-width: max(calc(var(--col-uploadedAt-size) * 1px), 40px); --mrt-cell-align: left;"
+                    >
+                      <p
+                        class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
+                        style=""
+                      >
+                        Invalid Date
+                      </p>
+                    </td>
+                    <td
+                      class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
+                      data-index="5"
+                      style="min-width: max(calc(var(--col-public-size) * 1px), 40px); --mrt-cell-align: left;"
+                    >
+                      <p
+                        class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
+                        style=""
+                      >
+                        No
+                      </p>
+                    </td>
+                    <td
+                      class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
+                      data-index="6"
+                      style="min-width: max(calc(var(--col-project_lifeCycleStages-size) * 1px), 40px); --mrt-cell-align: left;"
+                    >
+                      <p
+                        class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
+                        style=""
+                      >
+                        N/A
+                      </p>
+                    </td>
+                    <td
+                      class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
+                      data-index="7"
+                      style="min-width: max(calc(var(--col-project_impactCategories-size) * 1px), 40px); --mrt-cell-align: left;"
+                    >
+                      <p
+                        class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
+                        style=""
+                      >
+                        N/A
+                      </p>
+                    </td>
+                    <td
+                      class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
+                      data-index="8"
+                      style="min-width: max(calc(var(--col-projectDetails-size) * 1px), 40px); --mrt-cell-align: left;"
+                    >
+                      <a
+                        class="mantine-focus-auto mantine-active m_8d3f4000 mantine-ActionIcon-root m_87cf2631 mantine-UnstyledButton-root"
+                        data-variant="transparent"
+                        href="/contributions/null/project"
+                        style="--ai-bg: transparent; --ai-hover: transparent; --ai-color: var(--mantine-color-green-light-color); --ai-bd: calc(0.0625rem * var(--mantine-scale)) solid transparent; color: var(--mantine-color-black);"
+                      >
+                        <span
+                          class="m_8d3afb97 mantine-ActionIcon-icon"
+                          style=""
+                        >
+                          <svg
+                            class="tabler-icon tabler-icon-external-link "
+                            fill="none"
+                            height="24"
+                            stroke="currentColor"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            viewBox="0 0 24 24"
+                            width="24"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              d="M12 6h-6a2 2 0 0 0 -2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-6"
+                            />
+                            <path
+                              d="M11 13l9 -9"
+                            />
+                            <path
+                              d="M15 4h5v5"
+                            />
+                          </svg>
+                        </span>
+                      </a>
+                    </td>
+                    <td
+                      class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi"
+                      data-index="9"
+                      style="min-width: max(calc(var(--col-mrt_row_actions-size) * 1px), 40px); --mrt-cell-align: left;"
+                    >
+                      <div
+                        class="m_4081bf90 mantine-Group-root"
+                        style="--group-gap: var(--mantine-spacing-md); --group-align: center; --group-justify: flex-start; --group-wrap: wrap;"
+                      >
+                        <button
+                          class="mantine-focus-auto mantine-active m_8d3f4000 mantine-ActionIcon-root m_87cf2631 mantine-UnstyledButton-root"
+                          data-variant="transparent"
+                          style="--ai-bg: transparent; --ai-hover: transparent; --ai-color: black; --ai-bd: calc(0.0625rem * var(--mantine-scale)) solid transparent;"
+                          type="button"
+                        >
+                          <span
+                            class="m_8d3afb97 mantine-ActionIcon-icon"
+                            style=""
+                          >
+                            <svg
+                              class="tabler-icon tabler-icon-edit "
+                              fill="none"
+                              height="24"
+                              stroke="currentColor"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              stroke-width="2"
+                              viewBox="0 0 24 24"
+                              width="24"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1"
+                              />
+                              <path
+                                d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z"
+                              />
+                              <path
+                                d="M16 5l3 3"
+                              />
+                            </svg>
+                          </span>
+                        </button>
+                        <button
+                          class="mantine-focus-auto mantine-active m_8d3f4000 mantine-ActionIcon-root m_87cf2631 mantine-UnstyledButton-root"
+                          data-variant="transparent"
+                          style="--ai-bg: transparent; --ai-hover: transparent; --ai-color: black; --ai-bd: calc(0.0625rem * var(--mantine-scale)) solid transparent;"
+                          type="button"
+                        >
+                          <span
+                            class="m_8d3afb97 mantine-ActionIcon-icon"
+                            style=""
+                          >
+                            <svg
+                              class="tabler-icon tabler-icon-trash "
+                              fill="none"
+                              height="24"
+                              stroke="currentColor"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              stroke-width="2"
+                              viewBox="0 0 24 24"
+                              width="24"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                d="M4 7l16 0"
+                              />
+                              <path
+                                d="M10 11l0 6"
+                              />
+                              <path
+                                d="M14 11l0 6"
+                              />
+                              <path
+                                d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12"
+                              />
+                              <path
+                                d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3"
+                              />
+                            </svg>
+                          </span>
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr
+                    class="m_4e7aa4fd mantine-Table-tr MRT_TableBodyRow-module_root__2c3D4"
+                    data-hover="true"
+                    data-index="12"
+                    data-with-row-border="true"
+                    style=""
+                  >
+                    <td
+                      class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
+                      data-index="0"
+                      style="min-width: max(calc(var(--col-project_name-size) * 1px), 40px); --mrt-cell-align: left;"
+                    >
+                      <p
+                        class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
+                        style=""
+                      >
+                        N/A
+                      </p>
+                    </td>
+                    <td
+                      class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
+                      data-index="1"
+                      style="min-width: max(calc(var(--col-project_location_countryName-size) * 1px), 40px); --mrt-cell-align: left;"
+                    >
+                      <p
+                        class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
+                        style=""
+                      >
+                        N/A
+                      </p>
+                    </td>
+                    <td
+                      class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
+                      data-index="2"
+                      style="min-width: max(calc(var(--col-project_projectInfo_buildingType-size) * 1px), 40px); --mrt-cell-align: left;"
+                    >
+                      <p
+                        class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
+                        style=""
+                      >
+                        N/A
+                      </p>
+                    </td>
+                    <td
+                      class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
+                      data-index="3"
+                      style="min-width: max(calc(var(--col-User-size) * 1px), 40px); --mrt-cell-align: left;"
+                    >
+                      <p
+                        class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
+                        style=""
+                      >
+                        N/A N/A
+                      </p>
+                    </td>
+                    <td
+                      class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
+                      data-index="4"
+                      style="min-width: max(calc(var(--col-uploadedAt-size) * 1px), 40px); --mrt-cell-align: left;"
+                    >
+                      <p
+                        class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
+                        style=""
+                      >
+                        Invalid Date
+                      </p>
+                    </td>
+                    <td
+                      class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
+                      data-index="5"
+                      style="min-width: max(calc(var(--col-public-size) * 1px), 40px); --mrt-cell-align: left;"
+                    >
+                      <p
+                        class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
+                        style=""
+                      >
+                        No
+                      </p>
+                    </td>
+                    <td
+                      class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
+                      data-index="6"
+                      style="min-width: max(calc(var(--col-project_lifeCycleStages-size) * 1px), 40px); --mrt-cell-align: left;"
+                    >
+                      <p
+                        class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
+                        style=""
+                      >
+                        N/A
+                      </p>
+                    </td>
+                    <td
+                      class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
+                      data-index="7"
+                      style="min-width: max(calc(var(--col-project_impactCategories-size) * 1px), 40px); --mrt-cell-align: left;"
+                    >
+                      <p
+                        class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
+                        style=""
+                      >
+                        N/A
+                      </p>
+                    </td>
+                    <td
+                      class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
+                      data-index="8"
+                      style="min-width: max(calc(var(--col-projectDetails-size) * 1px), 40px); --mrt-cell-align: left;"
+                    >
+                      <a
+                        class="mantine-focus-auto mantine-active m_8d3f4000 mantine-ActionIcon-root m_87cf2631 mantine-UnstyledButton-root"
+                        data-variant="transparent"
+                        href="/contributions/null/project"
+                        style="--ai-bg: transparent; --ai-hover: transparent; --ai-color: var(--mantine-color-green-light-color); --ai-bd: calc(0.0625rem * var(--mantine-scale)) solid transparent; color: var(--mantine-color-black);"
+                      >
+                        <span
+                          class="m_8d3afb97 mantine-ActionIcon-icon"
+                          style=""
+                        >
+                          <svg
+                            class="tabler-icon tabler-icon-external-link "
+                            fill="none"
+                            height="24"
+                            stroke="currentColor"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            viewBox="0 0 24 24"
+                            width="24"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              d="M12 6h-6a2 2 0 0 0 -2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-6"
+                            />
+                            <path
+                              d="M11 13l9 -9"
+                            />
+                            <path
+                              d="M15 4h5v5"
+                            />
+                          </svg>
+                        </span>
+                      </a>
+                    </td>
+                    <td
+                      class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi"
+                      data-index="9"
+                      style="min-width: max(calc(var(--col-mrt_row_actions-size) * 1px), 40px); --mrt-cell-align: left;"
+                    >
+                      <div
+                        class="m_4081bf90 mantine-Group-root"
+                        style="--group-gap: var(--mantine-spacing-md); --group-align: center; --group-justify: flex-start; --group-wrap: wrap;"
+                      >
+                        <button
+                          class="mantine-focus-auto mantine-active m_8d3f4000 mantine-ActionIcon-root m_87cf2631 mantine-UnstyledButton-root"
+                          data-variant="transparent"
+                          style="--ai-bg: transparent; --ai-hover: transparent; --ai-color: black; --ai-bd: calc(0.0625rem * var(--mantine-scale)) solid transparent;"
+                          type="button"
+                        >
+                          <span
+                            class="m_8d3afb97 mantine-ActionIcon-icon"
+                            style=""
+                          >
+                            <svg
+                              class="tabler-icon tabler-icon-edit "
+                              fill="none"
+                              height="24"
+                              stroke="currentColor"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              stroke-width="2"
+                              viewBox="0 0 24 24"
+                              width="24"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1"
+                              />
+                              <path
+                                d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z"
+                              />
+                              <path
+                                d="M16 5l3 3"
+                              />
+                            </svg>
+                          </span>
+                        </button>
+                        <button
+                          class="mantine-focus-auto mantine-active m_8d3f4000 mantine-ActionIcon-root m_87cf2631 mantine-UnstyledButton-root"
+                          data-variant="transparent"
+                          style="--ai-bg: transparent; --ai-hover: transparent; --ai-color: black; --ai-bd: calc(0.0625rem * var(--mantine-scale)) solid transparent;"
+                          type="button"
+                        >
+                          <span
+                            class="m_8d3afb97 mantine-ActionIcon-icon"
+                            style=""
+                          >
+                            <svg
+                              class="tabler-icon tabler-icon-trash "
+                              fill="none"
+                              height="24"
+                              stroke="currentColor"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              stroke-width="2"
+                              viewBox="0 0 24 24"
+                              width="24"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                d="M4 7l16 0"
+                              />
+                              <path
+                                d="M10 11l0 6"
+                              />
+                              <path
+                                d="M14 11l0 6"
+                              />
+                              <path
+                                d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12"
+                              />
+                              <path
+                                d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3"
+                              />
+                            </svg>
+                          </span>
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr
+                    class="m_4e7aa4fd mantine-Table-tr MRT_TableBodyRow-module_root__2c3D4"
+                    data-hover="true"
+                    data-index="13"
+                    data-with-row-border="true"
+                    style=""
+                  >
+                    <td
+                      class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
+                      data-index="0"
+                      style="min-width: max(calc(var(--col-project_name-size) * 1px), 40px); --mrt-cell-align: left;"
+                    >
+                      <p
+                        class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
+                        style=""
+                      >
+                        N/A
+                      </p>
+                    </td>
+                    <td
+                      class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
+                      data-index="1"
+                      style="min-width: max(calc(var(--col-project_location_countryName-size) * 1px), 40px); --mrt-cell-align: left;"
+                    >
+                      <p
+                        class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
+                        style=""
+                      >
+                        N/A
+                      </p>
+                    </td>
+                    <td
+                      class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
+                      data-index="2"
+                      style="min-width: max(calc(var(--col-project_projectInfo_buildingType-size) * 1px), 40px); --mrt-cell-align: left;"
+                    >
+                      <p
+                        class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
+                        style=""
+                      >
+                        N/A
+                      </p>
+                    </td>
+                    <td
+                      class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
+                      data-index="3"
+                      style="min-width: max(calc(var(--col-User-size) * 1px), 40px); --mrt-cell-align: left;"
+                    >
+                      <p
+                        class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
+                        style=""
+                      >
+                        N/A N/A
+                      </p>
+                    </td>
+                    <td
+                      class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
+                      data-index="4"
+                      style="min-width: max(calc(var(--col-uploadedAt-size) * 1px), 40px); --mrt-cell-align: left;"
+                    >
+                      <p
+                        class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
+                        style=""
+                      >
+                        Invalid Date
+                      </p>
+                    </td>
+                    <td
+                      class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
+                      data-index="5"
+                      style="min-width: max(calc(var(--col-public-size) * 1px), 40px); --mrt-cell-align: left;"
+                    >
+                      <p
+                        class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
+                        style=""
+                      >
+                        No
+                      </p>
+                    </td>
+                    <td
+                      class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
+                      data-index="6"
+                      style="min-width: max(calc(var(--col-project_lifeCycleStages-size) * 1px), 40px); --mrt-cell-align: left;"
+                    >
+                      <p
+                        class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
+                        style=""
+                      >
+                        N/A
+                      </p>
+                    </td>
+                    <td
+                      class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
+                      data-index="7"
+                      style="min-width: max(calc(var(--col-project_impactCategories-size) * 1px), 40px); --mrt-cell-align: left;"
+                    >
+                      <p
+                        class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
+                        style=""
+                      >
+                        N/A
+                      </p>
+                    </td>
+                    <td
+                      class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
+                      data-index="8"
+                      style="min-width: max(calc(var(--col-projectDetails-size) * 1px), 40px); --mrt-cell-align: left;"
+                    >
+                      <a
+                        class="mantine-focus-auto mantine-active m_8d3f4000 mantine-ActionIcon-root m_87cf2631 mantine-UnstyledButton-root"
+                        data-variant="transparent"
+                        href="/contributions/null/project"
+                        style="--ai-bg: transparent; --ai-hover: transparent; --ai-color: var(--mantine-color-green-light-color); --ai-bd: calc(0.0625rem * var(--mantine-scale)) solid transparent; color: var(--mantine-color-black);"
+                      >
+                        <span
+                          class="m_8d3afb97 mantine-ActionIcon-icon"
+                          style=""
+                        >
+                          <svg
+                            class="tabler-icon tabler-icon-external-link "
+                            fill="none"
+                            height="24"
+                            stroke="currentColor"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            viewBox="0 0 24 24"
+                            width="24"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              d="M12 6h-6a2 2 0 0 0 -2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-6"
+                            />
+                            <path
+                              d="M11 13l9 -9"
+                            />
+                            <path
+                              d="M15 4h5v5"
+                            />
+                          </svg>
+                        </span>
+                      </a>
+                    </td>
+                    <td
+                      class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi"
+                      data-index="9"
+                      style="min-width: max(calc(var(--col-mrt_row_actions-size) * 1px), 40px); --mrt-cell-align: left;"
+                    >
+                      <div
+                        class="m_4081bf90 mantine-Group-root"
+                        style="--group-gap: var(--mantine-spacing-md); --group-align: center; --group-justify: flex-start; --group-wrap: wrap;"
+                      >
+                        <button
+                          class="mantine-focus-auto mantine-active m_8d3f4000 mantine-ActionIcon-root m_87cf2631 mantine-UnstyledButton-root"
+                          data-variant="transparent"
+                          style="--ai-bg: transparent; --ai-hover: transparent; --ai-color: black; --ai-bd: calc(0.0625rem * var(--mantine-scale)) solid transparent;"
+                          type="button"
+                        >
+                          <span
+                            class="m_8d3afb97 mantine-ActionIcon-icon"
+                            style=""
+                          >
+                            <svg
+                              class="tabler-icon tabler-icon-edit "
+                              fill="none"
+                              height="24"
+                              stroke="currentColor"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              stroke-width="2"
+                              viewBox="0 0 24 24"
+                              width="24"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1"
+                              />
+                              <path
+                                d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z"
+                              />
+                              <path
+                                d="M16 5l3 3"
+                              />
+                            </svg>
+                          </span>
+                        </button>
+                        <button
+                          class="mantine-focus-auto mantine-active m_8d3f4000 mantine-ActionIcon-root m_87cf2631 mantine-UnstyledButton-root"
+                          data-variant="transparent"
+                          style="--ai-bg: transparent; --ai-hover: transparent; --ai-color: black; --ai-bd: calc(0.0625rem * var(--mantine-scale)) solid transparent;"
+                          type="button"
+                        >
+                          <span
+                            class="m_8d3afb97 mantine-ActionIcon-icon"
+                            style=""
+                          >
+                            <svg
+                              class="tabler-icon tabler-icon-trash "
+                              fill="none"
+                              height="24"
+                              stroke="currentColor"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              stroke-width="2"
+                              viewBox="0 0 24 24"
+                              width="24"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                d="M4 7l16 0"
+                              />
+                              <path
+                                d="M10 11l0 6"
+                              />
+                              <path
+                                d="M14 11l0 6"
+                              />
+                              <path
+                                d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12"
+                              />
+                              <path
+                                d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3"
+                              />
+                            </svg>
+                          </span>
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr
+                    class="m_4e7aa4fd mantine-Table-tr MRT_TableBodyRow-module_root__2c3D4"
+                    data-hover="true"
+                    data-index="14"
+                    data-with-row-border="true"
+                    style=""
+                  >
+                    <td
+                      class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
+                      data-index="0"
+                      style="min-width: max(calc(var(--col-project_name-size) * 1px), 40px); --mrt-cell-align: left;"
+                    >
+                      <p
+                        class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
+                        style=""
+                      >
+                        N/A
+                      </p>
+                    </td>
+                    <td
+                      class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
+                      data-index="1"
+                      style="min-width: max(calc(var(--col-project_location_countryName-size) * 1px), 40px); --mrt-cell-align: left;"
+                    >
+                      <p
+                        class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
+                        style=""
+                      >
+                        N/A
+                      </p>
+                    </td>
+                    <td
+                      class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
+                      data-index="2"
+                      style="min-width: max(calc(var(--col-project_projectInfo_buildingType-size) * 1px), 40px); --mrt-cell-align: left;"
+                    >
+                      <p
+                        class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
+                        style=""
+                      >
+                        N/A
+                      </p>
+                    </td>
+                    <td
+                      class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
+                      data-index="3"
+                      style="min-width: max(calc(var(--col-User-size) * 1px), 40px); --mrt-cell-align: left;"
+                    >
+                      <p
+                        class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
+                        style=""
+                      >
+                        N/A N/A
+                      </p>
+                    </td>
+                    <td
+                      class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
+                      data-index="4"
+                      style="min-width: max(calc(var(--col-uploadedAt-size) * 1px), 40px); --mrt-cell-align: left;"
+                    >
+                      <p
+                        class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
+                        style=""
+                      >
+                        Invalid Date
+                      </p>
+                    </td>
+                    <td
+                      class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
+                      data-index="5"
+                      style="min-width: max(calc(var(--col-public-size) * 1px), 40px); --mrt-cell-align: left;"
+                    >
+                      <p
+                        class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
+                        style=""
+                      >
+                        No
+                      </p>
+                    </td>
+                    <td
+                      class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
+                      data-index="6"
+                      style="min-width: max(calc(var(--col-project_lifeCycleStages-size) * 1px), 40px); --mrt-cell-align: left;"
+                    >
+                      <p
+                        class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
+                        style=""
+                      >
+                        N/A
+                      </p>
+                    </td>
+                    <td
+                      class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
+                      data-index="7"
+                      style="min-width: max(calc(var(--col-project_impactCategories-size) * 1px), 40px); --mrt-cell-align: left;"
+                    >
+                      <p
+                        class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
+                        style=""
+                      >
+                        N/A
+                      </p>
+                    </td>
+                    <td
+                      class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
+                      data-index="8"
+                      style="min-width: max(calc(var(--col-projectDetails-size) * 1px), 40px); --mrt-cell-align: left;"
+                    >
+                      <a
+                        class="mantine-focus-auto mantine-active m_8d3f4000 mantine-ActionIcon-root m_87cf2631 mantine-UnstyledButton-root"
+                        data-variant="transparent"
+                        href="/contributions/null/project"
+                        style="--ai-bg: transparent; --ai-hover: transparent; --ai-color: var(--mantine-color-green-light-color); --ai-bd: calc(0.0625rem * var(--mantine-scale)) solid transparent; color: var(--mantine-color-black);"
+                      >
+                        <span
+                          class="m_8d3afb97 mantine-ActionIcon-icon"
+                          style=""
+                        >
+                          <svg
+                            class="tabler-icon tabler-icon-external-link "
+                            fill="none"
+                            height="24"
+                            stroke="currentColor"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            viewBox="0 0 24 24"
+                            width="24"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              d="M12 6h-6a2 2 0 0 0 -2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-6"
+                            />
+                            <path
+                              d="M11 13l9 -9"
+                            />
+                            <path
+                              d="M15 4h5v5"
+                            />
+                          </svg>
+                        </span>
+                      </a>
+                    </td>
+                    <td
+                      class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi"
+                      data-index="9"
+                      style="min-width: max(calc(var(--col-mrt_row_actions-size) * 1px), 40px); --mrt-cell-align: left;"
+                    >
+                      <div
+                        class="m_4081bf90 mantine-Group-root"
+                        style="--group-gap: var(--mantine-spacing-md); --group-align: center; --group-justify: flex-start; --group-wrap: wrap;"
+                      >
+                        <button
+                          class="mantine-focus-auto mantine-active m_8d3f4000 mantine-ActionIcon-root m_87cf2631 mantine-UnstyledButton-root"
+                          data-variant="transparent"
+                          style="--ai-bg: transparent; --ai-hover: transparent; --ai-color: black; --ai-bd: calc(0.0625rem * var(--mantine-scale)) solid transparent;"
+                          type="button"
+                        >
+                          <span
+                            class="m_8d3afb97 mantine-ActionIcon-icon"
+                            style=""
+                          >
+                            <svg
+                              class="tabler-icon tabler-icon-edit "
+                              fill="none"
+                              height="24"
+                              stroke="currentColor"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              stroke-width="2"
+                              viewBox="0 0 24 24"
+                              width="24"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1"
+                              />
+                              <path
+                                d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z"
+                              />
+                              <path
+                                d="M16 5l3 3"
+                              />
+                            </svg>
+                          </span>
+                        </button>
+                        <button
+                          class="mantine-focus-auto mantine-active m_8d3f4000 mantine-ActionIcon-root m_87cf2631 mantine-UnstyledButton-root"
+                          data-variant="transparent"
+                          style="--ai-bg: transparent; --ai-hover: transparent; --ai-color: black; --ai-bd: calc(0.0625rem * var(--mantine-scale)) solid transparent;"
+                          type="button"
+                        >
+                          <span
+                            class="m_8d3afb97 mantine-ActionIcon-icon"
+                            style=""
+                          >
+                            <svg
+                              class="tabler-icon tabler-icon-trash "
+                              fill="none"
+                              height="24"
+                              stroke="currentColor"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              stroke-width="2"
+                              viewBox="0 0 24 24"
+                              width="24"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                d="M4 7l16 0"
+                              />
+                              <path
+                                d="M10 11l0 6"
+                              />
+                              <path
+                                d="M14 11l0 6"
+                              />
+                              <path
+                                d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12"
+                              />
+                              <path
+                                d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3"
+                              />
+                            </svg>
+                          </span>
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr
+                    class="m_4e7aa4fd mantine-Table-tr MRT_TableBodyRow-module_root__2c3D4"
+                    data-hover="true"
+                    data-index="15"
+                    data-with-row-border="true"
+                    style=""
+                  >
+                    <td
+                      class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
+                      data-index="0"
+                      style="min-width: max(calc(var(--col-project_name-size) * 1px), 40px); --mrt-cell-align: left;"
+                    >
+                      <p
+                        class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
+                        style=""
+                      >
+                        N/A
+                      </p>
+                    </td>
+                    <td
+                      class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
+                      data-index="1"
+                      style="min-width: max(calc(var(--col-project_location_countryName-size) * 1px), 40px); --mrt-cell-align: left;"
+                    >
+                      <p
+                        class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
+                        style=""
+                      >
+                        N/A
+                      </p>
+                    </td>
+                    <td
+                      class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
+                      data-index="2"
+                      style="min-width: max(calc(var(--col-project_projectInfo_buildingType-size) * 1px), 40px); --mrt-cell-align: left;"
+                    >
+                      <p
+                        class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
+                        style=""
+                      >
+                        N/A
+                      </p>
+                    </td>
+                    <td
+                      class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
+                      data-index="3"
+                      style="min-width: max(calc(var(--col-User-size) * 1px), 40px); --mrt-cell-align: left;"
+                    >
+                      <p
+                        class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
+                        style=""
+                      >
+                        N/A N/A
+                      </p>
+                    </td>
+                    <td
+                      class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
+                      data-index="4"
+                      style="min-width: max(calc(var(--col-uploadedAt-size) * 1px), 40px); --mrt-cell-align: left;"
+                    >
+                      <p
+                        class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
+                        style=""
+                      >
+                        Invalid Date
+                      </p>
+                    </td>
+                    <td
+                      class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
+                      data-index="5"
+                      style="min-width: max(calc(var(--col-public-size) * 1px), 40px); --mrt-cell-align: left;"
+                    >
+                      <p
+                        class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
+                        style=""
+                      >
+                        No
+                      </p>
+                    </td>
+                    <td
+                      class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
+                      data-index="6"
+                      style="min-width: max(calc(var(--col-project_lifeCycleStages-size) * 1px), 40px); --mrt-cell-align: left;"
+                    >
+                      <p
+                        class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
+                        style=""
+                      >
+                        N/A
+                      </p>
+                    </td>
+                    <td
+                      class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
+                      data-index="7"
+                      style="min-width: max(calc(var(--col-project_impactCategories-size) * 1px), 40px); --mrt-cell-align: left;"
+                    >
+                      <p
+                        class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
+                        style=""
+                      >
+                        N/A
+                      </p>
+                    </td>
+                    <td
+                      class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
+                      data-index="8"
+                      style="min-width: max(calc(var(--col-projectDetails-size) * 1px), 40px); --mrt-cell-align: left;"
+                    >
+                      <a
+                        class="mantine-focus-auto mantine-active m_8d3f4000 mantine-ActionIcon-root m_87cf2631 mantine-UnstyledButton-root"
+                        data-variant="transparent"
+                        href="/contributions/null/project"
+                        style="--ai-bg: transparent; --ai-hover: transparent; --ai-color: var(--mantine-color-green-light-color); --ai-bd: calc(0.0625rem * var(--mantine-scale)) solid transparent; color: var(--mantine-color-black);"
+                      >
+                        <span
+                          class="m_8d3afb97 mantine-ActionIcon-icon"
+                          style=""
+                        >
+                          <svg
+                            class="tabler-icon tabler-icon-external-link "
+                            fill="none"
+                            height="24"
+                            stroke="currentColor"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            viewBox="0 0 24 24"
+                            width="24"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              d="M12 6h-6a2 2 0 0 0 -2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-6"
+                            />
+                            <path
+                              d="M11 13l9 -9"
+                            />
+                            <path
+                              d="M15 4h5v5"
+                            />
+                          </svg>
+                        </span>
+                      </a>
+                    </td>
+                    <td
+                      class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi"
+                      data-index="9"
+                      style="min-width: max(calc(var(--col-mrt_row_actions-size) * 1px), 40px); --mrt-cell-align: left;"
+                    >
+                      <div
+                        class="m_4081bf90 mantine-Group-root"
+                        style="--group-gap: var(--mantine-spacing-md); --group-align: center; --group-justify: flex-start; --group-wrap: wrap;"
+                      >
+                        <button
+                          class="mantine-focus-auto mantine-active m_8d3f4000 mantine-ActionIcon-root m_87cf2631 mantine-UnstyledButton-root"
+                          data-variant="transparent"
+                          style="--ai-bg: transparent; --ai-hover: transparent; --ai-color: black; --ai-bd: calc(0.0625rem * var(--mantine-scale)) solid transparent;"
+                          type="button"
+                        >
+                          <span
+                            class="m_8d3afb97 mantine-ActionIcon-icon"
+                            style=""
+                          >
+                            <svg
+                              class="tabler-icon tabler-icon-edit "
+                              fill="none"
+                              height="24"
+                              stroke="currentColor"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              stroke-width="2"
+                              viewBox="0 0 24 24"
+                              width="24"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1"
+                              />
+                              <path
+                                d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z"
+                              />
+                              <path
+                                d="M16 5l3 3"
+                              />
+                            </svg>
+                          </span>
+                        </button>
+                        <button
+                          class="mantine-focus-auto mantine-active m_8d3f4000 mantine-ActionIcon-root m_87cf2631 mantine-UnstyledButton-root"
+                          data-variant="transparent"
+                          style="--ai-bg: transparent; --ai-hover: transparent; --ai-color: black; --ai-bd: calc(0.0625rem * var(--mantine-scale)) solid transparent;"
+                          type="button"
+                        >
+                          <span
+                            class="m_8d3afb97 mantine-ActionIcon-icon"
+                            style=""
+                          >
+                            <svg
+                              class="tabler-icon tabler-icon-trash "
+                              fill="none"
+                              height="24"
+                              stroke="currentColor"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              stroke-width="2"
+                              viewBox="0 0 24 24"
+                              width="24"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                d="M4 7l16 0"
+                              />
+                              <path
+                                d="M10 11l0 6"
+                              />
+                              <path
+                                d="M14 11l0 6"
+                              />
+                              <path
+                                d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12"
+                              />
+                              <path
+                                d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3"
+                              />
+                            </svg>
+                          </span>
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr
+                    class="m_4e7aa4fd mantine-Table-tr MRT_TableBodyRow-module_root__2c3D4"
+                    data-hover="true"
+                    data-index="16"
+                    data-with-row-border="true"
+                    style=""
+                  >
+                    <td
+                      class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
+                      data-index="0"
+                      style="min-width: max(calc(var(--col-project_name-size) * 1px), 40px); --mrt-cell-align: left;"
+                    >
+                      <p
+                        class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
+                        style=""
+                      >
+                        N/A
+                      </p>
+                    </td>
+                    <td
+                      class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
+                      data-index="1"
+                      style="min-width: max(calc(var(--col-project_location_countryName-size) * 1px), 40px); --mrt-cell-align: left;"
+                    >
+                      <p
+                        class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
+                        style=""
+                      >
+                        N/A
+                      </p>
+                    </td>
+                    <td
+                      class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
+                      data-index="2"
+                      style="min-width: max(calc(var(--col-project_projectInfo_buildingType-size) * 1px), 40px); --mrt-cell-align: left;"
+                    >
+                      <p
+                        class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
+                        style=""
+                      >
+                        N/A
+                      </p>
+                    </td>
+                    <td
+                      class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
+                      data-index="3"
+                      style="min-width: max(calc(var(--col-User-size) * 1px), 40px); --mrt-cell-align: left;"
+                    >
+                      <p
+                        class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
+                        style=""
+                      >
+                        N/A N/A
+                      </p>
+                    </td>
+                    <td
+                      class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
+                      data-index="4"
+                      style="min-width: max(calc(var(--col-uploadedAt-size) * 1px), 40px); --mrt-cell-align: left;"
+                    >
+                      <p
+                        class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
+                        style=""
+                      >
+                        Invalid Date
+                      </p>
+                    </td>
+                    <td
+                      class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
+                      data-index="5"
+                      style="min-width: max(calc(var(--col-public-size) * 1px), 40px); --mrt-cell-align: left;"
+                    >
+                      <p
+                        class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
+                        style=""
+                      >
+                        No
+                      </p>
+                    </td>
+                    <td
+                      class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
+                      data-index="6"
+                      style="min-width: max(calc(var(--col-project_lifeCycleStages-size) * 1px), 40px); --mrt-cell-align: left;"
+                    >
+                      <p
+                        class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
+                        style=""
+                      >
+                        N/A
+                      </p>
+                    </td>
+                    <td
+                      class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
+                      data-index="7"
+                      style="min-width: max(calc(var(--col-project_impactCategories-size) * 1px), 40px); --mrt-cell-align: left;"
+                    >
+                      <p
+                        class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
+                        style=""
+                      >
+                        N/A
+                      </p>
+                    </td>
+                    <td
+                      class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
+                      data-index="8"
+                      style="min-width: max(calc(var(--col-projectDetails-size) * 1px), 40px); --mrt-cell-align: left;"
+                    >
+                      <a
+                        class="mantine-focus-auto mantine-active m_8d3f4000 mantine-ActionIcon-root m_87cf2631 mantine-UnstyledButton-root"
+                        data-variant="transparent"
+                        href="/contributions/null/project"
+                        style="--ai-bg: transparent; --ai-hover: transparent; --ai-color: var(--mantine-color-green-light-color); --ai-bd: calc(0.0625rem * var(--mantine-scale)) solid transparent; color: var(--mantine-color-black);"
+                      >
+                        <span
+                          class="m_8d3afb97 mantine-ActionIcon-icon"
+                          style=""
+                        >
+                          <svg
+                            class="tabler-icon tabler-icon-external-link "
+                            fill="none"
+                            height="24"
+                            stroke="currentColor"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            viewBox="0 0 24 24"
+                            width="24"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              d="M12 6h-6a2 2 0 0 0 -2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-6"
+                            />
+                            <path
+                              d="M11 13l9 -9"
+                            />
+                            <path
+                              d="M15 4h5v5"
+                            />
+                          </svg>
+                        </span>
+                      </a>
+                    </td>
+                    <td
+                      class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi"
+                      data-index="9"
+                      style="min-width: max(calc(var(--col-mrt_row_actions-size) * 1px), 40px); --mrt-cell-align: left;"
+                    >
+                      <div
+                        class="m_4081bf90 mantine-Group-root"
+                        style="--group-gap: var(--mantine-spacing-md); --group-align: center; --group-justify: flex-start; --group-wrap: wrap;"
+                      >
+                        <button
+                          class="mantine-focus-auto mantine-active m_8d3f4000 mantine-ActionIcon-root m_87cf2631 mantine-UnstyledButton-root"
+                          data-variant="transparent"
+                          style="--ai-bg: transparent; --ai-hover: transparent; --ai-color: black; --ai-bd: calc(0.0625rem * var(--mantine-scale)) solid transparent;"
+                          type="button"
+                        >
+                          <span
+                            class="m_8d3afb97 mantine-ActionIcon-icon"
+                            style=""
+                          >
+                            <svg
+                              class="tabler-icon tabler-icon-edit "
+                              fill="none"
+                              height="24"
+                              stroke="currentColor"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              stroke-width="2"
+                              viewBox="0 0 24 24"
+                              width="24"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1"
+                              />
+                              <path
+                                d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z"
+                              />
+                              <path
+                                d="M16 5l3 3"
+                              />
+                            </svg>
+                          </span>
+                        </button>
+                        <button
+                          class="mantine-focus-auto mantine-active m_8d3f4000 mantine-ActionIcon-root m_87cf2631 mantine-UnstyledButton-root"
+                          data-variant="transparent"
+                          style="--ai-bg: transparent; --ai-hover: transparent; --ai-color: black; --ai-bd: calc(0.0625rem * var(--mantine-scale)) solid transparent;"
+                          type="button"
+                        >
+                          <span
+                            class="m_8d3afb97 mantine-ActionIcon-icon"
+                            style=""
+                          >
+                            <svg
+                              class="tabler-icon tabler-icon-trash "
+                              fill="none"
+                              height="24"
+                              stroke="currentColor"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              stroke-width="2"
+                              viewBox="0 0 24 24"
+                              width="24"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                d="M4 7l16 0"
+                              />
+                              <path
+                                d="M10 11l0 6"
+                              />
+                              <path
+                                d="M14 11l0 6"
+                              />
+                              <path
+                                d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12"
+                              />
+                              <path
+                                d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3"
+                              />
+                            </svg>
+                          </span>
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr
+                    class="m_4e7aa4fd mantine-Table-tr MRT_TableBodyRow-module_root__2c3D4"
+                    data-hover="true"
+                    data-index="17"
+                    data-with-row-border="true"
+                    style=""
+                  >
+                    <td
+                      class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
+                      data-index="0"
+                      style="min-width: max(calc(var(--col-project_name-size) * 1px), 40px); --mrt-cell-align: left;"
+                    >
+                      <p
+                        class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
+                        style=""
+                      >
+                        N/A
+                      </p>
+                    </td>
+                    <td
+                      class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
+                      data-index="1"
+                      style="min-width: max(calc(var(--col-project_location_countryName-size) * 1px), 40px); --mrt-cell-align: left;"
+                    >
+                      <p
+                        class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
+                        style=""
+                      >
+                        N/A
+                      </p>
+                    </td>
+                    <td
+                      class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
+                      data-index="2"
+                      style="min-width: max(calc(var(--col-project_projectInfo_buildingType-size) * 1px), 40px); --mrt-cell-align: left;"
+                    >
+                      <p
+                        class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
+                        style=""
+                      >
+                        N/A
+                      </p>
+                    </td>
+                    <td
+                      class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
+                      data-index="3"
+                      style="min-width: max(calc(var(--col-User-size) * 1px), 40px); --mrt-cell-align: left;"
+                    >
+                      <p
+                        class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
+                        style=""
+                      >
+                        N/A N/A
+                      </p>
+                    </td>
+                    <td
+                      class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
+                      data-index="4"
+                      style="min-width: max(calc(var(--col-uploadedAt-size) * 1px), 40px); --mrt-cell-align: left;"
+                    >
+                      <p
+                        class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
+                        style=""
+                      >
+                        Invalid Date
+                      </p>
+                    </td>
+                    <td
+                      class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
+                      data-index="5"
+                      style="min-width: max(calc(var(--col-public-size) * 1px), 40px); --mrt-cell-align: left;"
+                    >
+                      <p
+                        class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
+                        style=""
+                      >
+                        No
+                      </p>
+                    </td>
+                    <td
+                      class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
+                      data-index="6"
+                      style="min-width: max(calc(var(--col-project_lifeCycleStages-size) * 1px), 40px); --mrt-cell-align: left;"
+                    >
+                      <p
+                        class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
+                        style=""
+                      >
+                        N/A
+                      </p>
+                    </td>
+                    <td
+                      class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
+                      data-index="7"
+                      style="min-width: max(calc(var(--col-project_impactCategories-size) * 1px), 40px); --mrt-cell-align: left;"
+                    >
+                      <p
+                        class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
+                        style=""
+                      >
+                        N/A
+                      </p>
+                    </td>
+                    <td
+                      class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
+                      data-index="8"
+                      style="min-width: max(calc(var(--col-projectDetails-size) * 1px), 40px); --mrt-cell-align: left;"
+                    >
+                      <a
+                        class="mantine-focus-auto mantine-active m_8d3f4000 mantine-ActionIcon-root m_87cf2631 mantine-UnstyledButton-root"
+                        data-variant="transparent"
+                        href="/contributions/null/project"
+                        style="--ai-bg: transparent; --ai-hover: transparent; --ai-color: var(--mantine-color-green-light-color); --ai-bd: calc(0.0625rem * var(--mantine-scale)) solid transparent; color: var(--mantine-color-black);"
+                      >
+                        <span
+                          class="m_8d3afb97 mantine-ActionIcon-icon"
+                          style=""
+                        >
+                          <svg
+                            class="tabler-icon tabler-icon-external-link "
+                            fill="none"
+                            height="24"
+                            stroke="currentColor"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            viewBox="0 0 24 24"
+                            width="24"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              d="M12 6h-6a2 2 0 0 0 -2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-6"
+                            />
+                            <path
+                              d="M11 13l9 -9"
+                            />
+                            <path
+                              d="M15 4h5v5"
+                            />
+                          </svg>
+                        </span>
+                      </a>
+                    </td>
+                    <td
+                      class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi"
+                      data-index="9"
+                      style="min-width: max(calc(var(--col-mrt_row_actions-size) * 1px), 40px); --mrt-cell-align: left;"
+                    >
+                      <div
+                        class="m_4081bf90 mantine-Group-root"
+                        style="--group-gap: var(--mantine-spacing-md); --group-align: center; --group-justify: flex-start; --group-wrap: wrap;"
+                      >
+                        <button
+                          class="mantine-focus-auto mantine-active m_8d3f4000 mantine-ActionIcon-root m_87cf2631 mantine-UnstyledButton-root"
+                          data-variant="transparent"
+                          style="--ai-bg: transparent; --ai-hover: transparent; --ai-color: black; --ai-bd: calc(0.0625rem * var(--mantine-scale)) solid transparent;"
+                          type="button"
+                        >
+                          <span
+                            class="m_8d3afb97 mantine-ActionIcon-icon"
+                            style=""
+                          >
+                            <svg
+                              class="tabler-icon tabler-icon-edit "
+                              fill="none"
+                              height="24"
+                              stroke="currentColor"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              stroke-width="2"
+                              viewBox="0 0 24 24"
+                              width="24"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1"
+                              />
+                              <path
+                                d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z"
+                              />
+                              <path
+                                d="M16 5l3 3"
+                              />
+                            </svg>
+                          </span>
+                        </button>
+                        <button
+                          class="mantine-focus-auto mantine-active m_8d3f4000 mantine-ActionIcon-root m_87cf2631 mantine-UnstyledButton-root"
+                          data-variant="transparent"
+                          style="--ai-bg: transparent; --ai-hover: transparent; --ai-color: black; --ai-bd: calc(0.0625rem * var(--mantine-scale)) solid transparent;"
+                          type="button"
+                        >
+                          <span
+                            class="m_8d3afb97 mantine-ActionIcon-icon"
+                            style=""
+                          >
+                            <svg
+                              class="tabler-icon tabler-icon-trash "
+                              fill="none"
+                              height="24"
+                              stroke="currentColor"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              stroke-width="2"
+                              viewBox="0 0 24 24"
+                              width="24"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                d="M4 7l16 0"
+                              />
+                              <path
+                                d="M10 11l0 6"
+                              />
+                              <path
+                                d="M14 11l0 6"
+                              />
+                              <path
+                                d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12"
+                              />
+                              <path
+                                d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3"
+                              />
+                            </svg>
+                          </span>
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr
+                    class="m_4e7aa4fd mantine-Table-tr MRT_TableBodyRow-module_root__2c3D4"
+                    data-hover="true"
+                    data-index="18"
+                    data-with-row-border="true"
+                    style=""
+                  >
+                    <td
+                      class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
+                      data-index="0"
+                      style="min-width: max(calc(var(--col-project_name-size) * 1px), 40px); --mrt-cell-align: left;"
+                    >
+                      <p
+                        class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
+                        style=""
+                      >
+                        N/A
+                      </p>
+                    </td>
+                    <td
+                      class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
+                      data-index="1"
+                      style="min-width: max(calc(var(--col-project_location_countryName-size) * 1px), 40px); --mrt-cell-align: left;"
+                    >
+                      <p
+                        class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
+                        style=""
+                      >
+                        N/A
+                      </p>
+                    </td>
+                    <td
+                      class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
+                      data-index="2"
+                      style="min-width: max(calc(var(--col-project_projectInfo_buildingType-size) * 1px), 40px); --mrt-cell-align: left;"
+                    >
+                      <p
+                        class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
+                        style=""
+                      >
+                        N/A
+                      </p>
+                    </td>
+                    <td
+                      class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
+                      data-index="3"
+                      style="min-width: max(calc(var(--col-User-size) * 1px), 40px); --mrt-cell-align: left;"
+                    >
+                      <p
+                        class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
+                        style=""
+                      >
+                        N/A N/A
+                      </p>
+                    </td>
+                    <td
+                      class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
+                      data-index="4"
+                      style="min-width: max(calc(var(--col-uploadedAt-size) * 1px), 40px); --mrt-cell-align: left;"
+                    >
+                      <p
+                        class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
+                        style=""
+                      >
+                        Invalid Date
+                      </p>
+                    </td>
+                    <td
+                      class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
+                      data-index="5"
+                      style="min-width: max(calc(var(--col-public-size) * 1px), 40px); --mrt-cell-align: left;"
+                    >
+                      <p
+                        class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
+                        style=""
+                      >
+                        No
+                      </p>
+                    </td>
+                    <td
+                      class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
+                      data-index="6"
+                      style="min-width: max(calc(var(--col-project_lifeCycleStages-size) * 1px), 40px); --mrt-cell-align: left;"
+                    >
+                      <p
+                        class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
+                        style=""
+                      >
+                        N/A
+                      </p>
+                    </td>
+                    <td
+                      class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
+                      data-index="7"
+                      style="min-width: max(calc(var(--col-project_impactCategories-size) * 1px), 40px); --mrt-cell-align: left;"
+                    >
+                      <p
+                        class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
+                        style=""
+                      >
+                        N/A
+                      </p>
+                    </td>
+                    <td
+                      class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
+                      data-index="8"
+                      style="min-width: max(calc(var(--col-projectDetails-size) * 1px), 40px); --mrt-cell-align: left;"
+                    >
+                      <a
+                        class="mantine-focus-auto mantine-active m_8d3f4000 mantine-ActionIcon-root m_87cf2631 mantine-UnstyledButton-root"
+                        data-variant="transparent"
+                        href="/contributions/null/project"
+                        style="--ai-bg: transparent; --ai-hover: transparent; --ai-color: var(--mantine-color-green-light-color); --ai-bd: calc(0.0625rem * var(--mantine-scale)) solid transparent; color: var(--mantine-color-black);"
+                      >
+                        <span
+                          class="m_8d3afb97 mantine-ActionIcon-icon"
+                          style=""
+                        >
+                          <svg
+                            class="tabler-icon tabler-icon-external-link "
+                            fill="none"
+                            height="24"
+                            stroke="currentColor"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            viewBox="0 0 24 24"
+                            width="24"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              d="M12 6h-6a2 2 0 0 0 -2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-6"
+                            />
+                            <path
+                              d="M11 13l9 -9"
+                            />
+                            <path
+                              d="M15 4h5v5"
+                            />
+                          </svg>
+                        </span>
+                      </a>
+                    </td>
+                    <td
+                      class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi"
+                      data-index="9"
+                      style="min-width: max(calc(var(--col-mrt_row_actions-size) * 1px), 40px); --mrt-cell-align: left;"
+                    >
+                      <div
+                        class="m_4081bf90 mantine-Group-root"
+                        style="--group-gap: var(--mantine-spacing-md); --group-align: center; --group-justify: flex-start; --group-wrap: wrap;"
+                      >
+                        <button
+                          class="mantine-focus-auto mantine-active m_8d3f4000 mantine-ActionIcon-root m_87cf2631 mantine-UnstyledButton-root"
+                          data-variant="transparent"
+                          style="--ai-bg: transparent; --ai-hover: transparent; --ai-color: black; --ai-bd: calc(0.0625rem * var(--mantine-scale)) solid transparent;"
+                          type="button"
+                        >
+                          <span
+                            class="m_8d3afb97 mantine-ActionIcon-icon"
+                            style=""
+                          >
+                            <svg
+                              class="tabler-icon tabler-icon-edit "
+                              fill="none"
+                              height="24"
+                              stroke="currentColor"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              stroke-width="2"
+                              viewBox="0 0 24 24"
+                              width="24"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1"
+                              />
+                              <path
+                                d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z"
+                              />
+                              <path
+                                d="M16 5l3 3"
+                              />
+                            </svg>
+                          </span>
+                        </button>
+                        <button
+                          class="mantine-focus-auto mantine-active m_8d3f4000 mantine-ActionIcon-root m_87cf2631 mantine-UnstyledButton-root"
+                          data-variant="transparent"
+                          style="--ai-bg: transparent; --ai-hover: transparent; --ai-color: black; --ai-bd: calc(0.0625rem * var(--mantine-scale)) solid transparent;"
+                          type="button"
+                        >
+                          <span
+                            class="m_8d3afb97 mantine-ActionIcon-icon"
+                            style=""
+                          >
+                            <svg
+                              class="tabler-icon tabler-icon-trash "
+                              fill="none"
+                              height="24"
+                              stroke="currentColor"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              stroke-width="2"
+                              viewBox="0 0 24 24"
+                              width="24"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                d="M4 7l16 0"
+                              />
+                              <path
+                                d="M10 11l0 6"
+                              />
+                              <path
+                                d="M14 11l0 6"
+                              />
+                              <path
+                                d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12"
+                              />
+                              <path
+                                d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3"
+                              />
+                            </svg>
+                          </span>
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr
+                    class="m_4e7aa4fd mantine-Table-tr MRT_TableBodyRow-module_root__2c3D4"
+                    data-hover="true"
+                    data-index="19"
+                    data-with-row-border="true"
+                    style=""
+                  >
+                    <td
+                      class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
+                      data-index="0"
                       data-last-row="true"
                       style="min-width: max(calc(var(--col-project_name-size) * 1px), 40px); --mrt-cell-align: left;"
                     >
@@ -3847,7 +6137,7 @@ exports[`ContributionTable > Snapshot 1`] = `
             id=""
             readonly=""
             style=""
-            value="10"
+            value="20"
           />
           <div
             class="m_82577fc2 mantine-Input-section mantine-Select-section"
@@ -3875,7 +6165,7 @@ exports[`ContributionTable > Snapshot 1`] = `
         formaction="http://localhost:3000/"
         formmethod=""
         type="hidden"
-        value="10"
+        value="20"
       />
     </div>
   </div>

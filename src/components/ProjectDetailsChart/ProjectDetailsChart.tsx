@@ -68,7 +68,7 @@ export const ProjectDetailsChart = (props: ProjectDetailsChartProps) => {
             >
               <CartesianGrid strokeDasharray='3 3' />
               <XAxis dataKey={'_id'} hide={true} />
-              <YAxis label={{ value: 'kgCO₂eq/m²', angle: -90, offset: -10, position: 'insideLeft'}} />
+              <YAxis label={{ value: 'kgCO₂eq/m²', angle: -90, offset: -10, position: 'insideLeft' }} />
               <Tooltip content={(props) => <TooltipContent {...props} projectId={project?.id || ''} />} />
               <Bar dataKey='results'>
                 <LabelList
@@ -107,7 +107,7 @@ const renderProjectLabel = (props: LabelProps, projectId: string, color: string)
     return null
   }
 
-  const cy = height < 0? y + 2 * radius : y - 2 * radius
+  const cy = height < 0 ? y + 2 * radius : y - 2 * radius
 
   return (
     <g>

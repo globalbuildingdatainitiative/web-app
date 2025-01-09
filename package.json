@@ -31,6 +31,7 @@
     "clsx": "^2.1.1",
     "dayjs": "^1.11.10",
     "dom-to-image": "^2.6.0",
+    "export-to-csv": "^1.4.0",
     "lcax": "^2.6.1",
     "leaflet": "^1.9.4",
     "mantine-react-table": "^2.0.0-beta.7",

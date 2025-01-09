@@ -16,14 +16,13 @@ import { useMemo } from 'react'
 import { BoxPlotData } from './types.ts'
 import { Stack, Text, useMantineTheme } from '@mantine/core'
 
-
 interface CustomDotProps extends ScatterProps {
   color: string
 }
 
 // Custom dot component to control size
 const CustomDot = (props: CustomDotProps) => {
-  const { cx, cy, color, stroke='#fff', strokeWidth=1 } = props
+  const { cx, cy, color, stroke = '#fff', strokeWidth = 1 } = props
 
   return (
     <circle
@@ -131,13 +130,29 @@ const CustomTooltip = ({ active, payload, label }: TooltipProps<number, string>)
     return (
       <Stack bg={'white'} style={{ border: '1px solid #ccc', borderRadius: '4px', padding: '10px' }} gap='xs'>
         <Text fw={700}>{label}</Text>
-        {data.extra? <Text span>This Project: {formatNumber(data.extra)} {unit}</Text>: null}
-        <Text span>Minimum: {formatNumber(data.min)} {unit}</Text>
-        <Text span>25th Percentile: {formatNumber(data.pct25)} {unit}</Text>
-        <Text span>Average: {formatNumber(data.avg)} {unit}</Text>
-        <Text span>Median: {formatNumber(data.median)} {unit}</Text>
-        <Text span>75th Percentile: {formatNumber(data.pct75)} {unit}</Text>
-        <Text span>Maximum: {formatNumber(data.max)} {unit}</Text>
+        {data.extra ? (
+          <Text span>
+            This Project: {formatNumber(data.extra)} {unit}
+          </Text>
+        ) : null}
+        <Text span>
+          Minimum: {formatNumber(data.min)} {unit}
+        </Text>
+        <Text span>
+          25th Percentile: {formatNumber(data.pct25)} {unit}
+        </Text>
+        <Text span>
+          Average: {formatNumber(data.avg)} {unit}
+        </Text>
+        <Text span>
+          Median: {formatNumber(data.median)} {unit}
+        </Text>
+        <Text span>
+          75th Percentile: {formatNumber(data.pct75)} {unit}
+        </Text>
+        <Text span>
+          Maximum: {formatNumber(data.max)} {unit}
+        </Text>
         <Text span>Count: {data.count}</Text>
       </Stack>
     )
@@ -245,8 +260,8 @@ export const BoxPlot = (props: BoxPlotProps) => {
           {/* Horizon Bar */}
           <Bar stackId='a' dataKey='bar' shape={<HorizonBar color={lineColor} orientation={orientation} />} />
           <ZAxis type='number' dataKey='count' range={[0, 250]} />
-          <Scatter dataKey='avg' shape={<CustomDot color={theme.colors.blue[6]}/>} />
-          {data[0].extra? <Scatter dataKey='extra' shape={<CustomDot color={theme.colors.red[6]}/>} />: null}
+          <Scatter dataKey='avg' shape={<CustomDot color={theme.colors.blue[6]} />} />
+          {data[0]?.extra ? <Scatter dataKey='extra' shape={<CustomDot color={theme.colors.red[6]} />} /> : null}
         </ComposedChart>
       </ResponsiveContainer>
     </>
