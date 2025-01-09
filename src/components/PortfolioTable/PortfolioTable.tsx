@@ -181,6 +181,11 @@ export const PortfolioTable = (props: PortfolioTableProps) => {
   const columns = useMemo<MRT_ColumnDef<Pick<Contribution, 'id'>>[]>(
     () => [
       {
+        accessorKey: 'id',
+        header: 'ID',
+        enableEditing: false,
+      },
+      {
         accessorKey: 'name',
         header: 'Project Name',
         Cell: ({ cell }) => {
@@ -572,6 +577,7 @@ export const PortfolioTable = (props: PortfolioTableProps) => {
     if (shouldHideColumns) {
       // Show only essential columns on small screens
       onColumnVisibilityChange({
+        id: false,
         name: true,
         'location.countryName': true,
         'projectInfo.buildingType': true,
