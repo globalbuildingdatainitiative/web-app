@@ -54,111 +54,13 @@ export const PortfolioTable = (props: PortfolioTableProps) => {
     }
   }, [sorting])
 
-  useEffect(() => {
-    const baseFilters = { gt: { 'projectInfo.grossFloorArea.value': 0 }, notEqual: { results: null } }
-    if (!columnFilters.length) {
-      setFilters(baseFilters)
-      return
-    }
-
-    interface FilterAccumulator {
-      contains: Record<string, unknown>
-      equal: Record<string, unknown>
-      notEqual: Record<string, unknown>
-      in: Record<string, unknown>
-      gt: Record<string, unknown>
-      lt: Record<string, unknown>
-    }
-
-    const filters = columnFilters.reduce<FilterAccumulator>(
-      (acc, filter) => {
-        let fieldName = filter.id
-
-        const fieldColumn = columns.find((column) => column.accessorKey === fieldName)
-        if (fieldName == 'location.countryName') {
-          fieldName = 'location.country'
-        }
-
-        if (fieldColumn?.filterVariant === 'multi-select') {
-          return {
-            ...acc,
-            equal: acc.equal,
-            gt: acc.gt,
-            lt: acc.lt,
-            in: {
-              ...acc.in,
-              [fieldName]: filter.value,
-            },
-          }
-        } else if (fieldColumn?.filterVariant === 'range-slider') {
-          return {
-            ...acc,
-            equal: acc.equal,
-            gt: {
-              ...acc.gt,
-              // @ts-expect-error filter.value is unknown
-              [fieldName]: filter.value[0],
-            },
-            lt: {
-              ...acc.lt,
-              // @ts-expect-error filter.value is unknown
-              [fieldName]: filter.value[1],
-            },
-            in: acc.in,
-          }
-        }
-        return {
-          ...acc,
-          equal: acc.equal,
-          in: acc.in,
-          gt: acc.gt,
-          lt: acc.lt,
-          contains: {
-            ...acc.contains,
-            [fieldName]: filter.value,
-          },
-        }
-      },
-      { contains: {}, equal: {}, in: {}, lt: {}, ...baseFilters },
-    )
-
-    // Only return non-empty filter objects
-    const result: Record<string, Record<string, unknown>> = {}
-    if (Object.keys(filters.contains).length > 0) {
-      result.contains = filters.contains
-    }
-    if (Object.keys(filters.equal).length > 0) {
-      result.equal = filters.equal
-    }
-    if (Object.keys(filters.notEqual).length > 0) {
-      result.notEqual = filters.notEqual
-    }
-    if (Object.keys(filters.in).length > 0) {
-      result.in = filters.in
-    }
-    if (Object.keys(filters.gt).length > 0) {
-      result.gt = filters.gt
-    }
-    if (Object.keys(filters.lt).length > 0) {
-      result.lt = filters.lt
-    }
-
-    setFilters(result)
-  }, [columnFilters, setFilters])
-
-  const { loading, error, data } = useGetProjectPortfolioQuery({
-    variables: {
-      limit: pagination.pageSize,
-      offset: pagination.pageIndex * pagination.pageSize,
-      filters: filters,
-      sortBy: sortBy,
-    },
-    skip: !filters,
-    fetchPolicy: 'network-only',
-  })
-
   const columns = useMemo<MRT_ColumnDef<Pick<Contribution, 'id'>>[]>(
     () => [
+      {
+        accessorKey: 'id',
+        header: 'ID',
+        enableEditing: false,
+      },
       {
         accessorKey: 'name',
         header: 'Project Name',
@@ -445,9 +347,113 @@ export const PortfolioTable = (props: PortfolioTableProps) => {
   )
 
   useEffect(() => {
+    const baseFilters = { gt: { 'projectInfo.grossFloorArea.value': 0 }, notEqual: { results: null } }
+    if (!columnFilters.length) {
+      setFilters(baseFilters)
+      return
+    }
+
+    interface FilterAccumulator {
+      contains: Record<string, unknown>
+      equal: Record<string, unknown>
+      notEqual: Record<string, unknown>
+      in: Record<string, unknown>
+      gt: Record<string, unknown>
+      lt: Record<string, unknown>
+    }
+
+    const filters = columnFilters.reduce<FilterAccumulator>(
+      (acc, filter) => {
+        let fieldName = filter.id
+
+        const fieldColumn = columns.find((column) => column.accessorKey === fieldName)
+        if (fieldName == 'location.countryName') {
+          fieldName = 'location.country'
+        }
+
+        if (fieldColumn?.filterVariant === 'multi-select') {
+          return {
+            ...acc,
+            equal: acc.equal,
+            gt: acc.gt,
+            lt: acc.lt,
+            in: {
+              ...acc.in,
+              [fieldName]: filter.value,
+            },
+          }
+        } else if (fieldColumn?.filterVariant === 'range-slider') {
+          return {
+            ...acc,
+            equal: acc.equal,
+            gt: {
+              ...acc.gt,
+              // @ts-expect-error filter.value is unknown
+              [fieldName]: filter.value[0],
+            },
+            lt: {
+              ...acc.lt,
+              // @ts-expect-error filter.value is unknown
+              [fieldName]: filter.value[1],
+            },
+            in: acc.in,
+          }
+        }
+        return {
+          ...acc,
+          equal: acc.equal,
+          in: acc.in,
+          gt: acc.gt,
+          lt: acc.lt,
+          contains: {
+            ...acc.contains,
+            [fieldName]: filter.value,
+          },
+        }
+      },
+      { contains: {}, equal: {}, in: {}, lt: {}, ...baseFilters },
+    )
+
+    // Only return non-empty filter objects
+    const result: Record<string, Record<string, unknown>> = {}
+    if (Object.keys(filters.contains).length > 0) {
+      result.contains = filters.contains
+    }
+    if (Object.keys(filters.equal).length > 0) {
+      result.equal = filters.equal
+    }
+    if (Object.keys(filters.notEqual).length > 0) {
+      result.notEqual = filters.notEqual
+    }
+    if (Object.keys(filters.in).length > 0) {
+      result.in = filters.in
+    }
+    if (Object.keys(filters.gt).length > 0) {
+      result.gt = filters.gt
+    }
+    if (Object.keys(filters.lt).length > 0) {
+      result.lt = filters.lt
+    }
+
+    setFilters(result)
+  }, [columnFilters, setFilters, columns])
+
+  const { loading, error, data } = useGetProjectPortfolioQuery({
+    variables: {
+      limit: pagination.pageSize,
+      offset: pagination.pageIndex * pagination.pageSize,
+      filters: filters,
+      sortBy: sortBy,
+    },
+    skip: !filters,
+    fetchPolicy: 'network-only',
+  })
+
+  useEffect(() => {
     if (shouldHideColumns) {
       // Show only essential columns on small screens
       onColumnVisibilityChange({
+        id: false,
         name: true,
         'location.countryName': true,
         'projectInfo.buildingType': true,
