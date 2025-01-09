@@ -51,7 +51,7 @@ export const PortfolioTable = (props: PortfolioTableProps) => {
   })
   const [sorting, setSorting] = useState<MRT_SortingState>([])
   const [columnFilters, setColumnFilters] = useState<MRT_ColumnFiltersState>([])
-  const [fetchAllData, { loading: loadingExportingAll}] = useGetProjectPortfolioLazyQuery()
+  const [fetchAllData, { loading: loadingExportingAll }] = useGetProjectPortfolioLazyQuery()
 
   const { width: viewportWidth } = useViewportSize()
   const shouldHideColumns = viewportWidth < window.screen.width
@@ -160,6 +160,7 @@ export const PortfolioTable = (props: PortfolioTableProps) => {
       })
     } catch (error) {
       console.error('Error exporting all data:', error)
+    }
   }
 
   const handleExportVisibleData = (rows: MRT_Row<Pick<Contribution, 'id'>>[]) =>
