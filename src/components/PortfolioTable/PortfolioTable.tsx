@@ -8,6 +8,7 @@ import {
   Results,
   RoofType,
   useGetProjectPortfolioQuery,
+  useGetProjectPortfolioLazyQuery,
 } from '@queries'
 import {
   MantineReactTable,
@@ -48,6 +49,7 @@ export const PortfolioTable = (props: PortfolioTableProps) => {
   const [pagination, setPagination] = useState<MRT_PaginationState>({ pageIndex: 0, pageSize: 20 })
   const [sorting, setSorting] = useState<MRT_SortingState>([])
   const [columnFilters, setColumnFilters] = useState<MRT_ColumnFiltersState>([])
+  const [fetchAllData] = useGetProjectPortfolioLazyQuery()
 
   const { width: viewportWidth } = useViewportSize()
   const shouldHideColumns = viewportWidth < window.screen.width
@@ -119,8 +121,44 @@ export const PortfolioTable = (props: PortfolioTableProps) => {
     download(csvConfigWithHeader)(csv)
   }
 
-  const handleExportAllData = (rows: MRT_Row<Pick<Contribution, 'id'>>[]) =>
-    exportCsv({ rows, onlyVisibleColumns: false })
+  const handleExportAllData = async () => {
+    try {
+      const { data } = await fetchAllData({
+        variables: {
+          limit: null,
+          offset: 0,
+          filters,
+          sortBy,
+        },
+        fetchPolicy: 'network-only',
+      })
+
+      // If the items array is missing or null, just return or handle it gracefully
+      if (!data?.projects?.items) {
+        console.warn('No items found to export')
+        return
+      }
+
+      const allRows = data.projects.items.map((item) => ({
+        id: item.id,
+        getValue: (accessorKey: string) => {
+          return accessorKey.split('.').reduce((acc: unknown, key: string) => {
+            if (acc && typeof acc === 'object' && key in acc) {
+              return (acc as Record<string, unknown>)[key]
+            }
+            return undefined
+          }, item)
+        },
+      })) as unknown as MRT_Row<Pick<Contribution, 'id'>>[]
+
+      exportCsv({
+        rows: allRows,
+        onlyVisibleColumns: false,
+      })
+    } catch (error) {
+      console.error('Error exporting all data:', error)
+    }
+  }
 
   const handleExportVisibleData = (rows: MRT_Row<Pick<Contribution, 'id'>>[]) =>
     exportCsv({ rows, onlyVisibleColumns: true })
@@ -616,7 +654,7 @@ export const PortfolioTable = (props: PortfolioTableProps) => {
         }}
       >
         <Button
-          onClick={() => handleExportAllData(table.getPrePaginationRowModel().rows)}
+          onClick={handleExportAllData}
           leftSection={<IconDownload />}
           variant='filled'
           disabled={rowData.length === 0}
