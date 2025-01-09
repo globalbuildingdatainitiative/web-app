@@ -115,6 +115,7 @@ export const PortfolioTable = (props: PortfolioTableProps) => {
     const csvConfigWithHeader = {
       ...csvConfig,
       useKeysAsHeaders: true, // Enable automatic header generation
+      filename: 'project_portfolio',
     }
 
     const csv = generateCsv(csvConfigWithHeader)(rowData)
