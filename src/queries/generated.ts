@@ -3045,6 +3045,7 @@ export type GetProjectDataForBoxPlotQuery = {
         id: any
         location: { __typename?: 'Location'; countryName: string }
         softwareInfo: { __typename?: 'SoftwareInfo'; lcaSoftware: string }
+        metaData?: { __typename?: 'ProjectMetaData'; source?: { __typename?: 'Source'; name: string } | null } | null
       }>
     }>
   }
@@ -4194,6 +4195,11 @@ export const GetProjectDataForBoxPlotDocument = gql`
           }
           softwareInfo {
             lcaSoftware
+          }
+          metaData {
+            source {
+              name
+            }
           }
         }
       }
