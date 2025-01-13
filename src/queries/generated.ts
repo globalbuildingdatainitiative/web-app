@@ -1116,6 +1116,8 @@ export type Mutation = {
   deleteContributions: Array<Scalars['UUID']['output']>
   /** Deletes a list of Organizations by their IDs and returns a list of deleted IDs */
   deleteOrganizations: Array<Scalars['UUID']['output']>
+  /** Impersonate a different user */
+  impersonate: Scalars['Boolean']['output']
   /** Invite users to the organization */
   inviteUsers: Array<InviteResult>
   /** Reject an invitation */
@@ -1148,6 +1150,10 @@ export type MutationDeleteContributionsArgs = {
 
 export type MutationDeleteOrganizationsArgs = {
   ids: Array<Scalars['UUID']['input']>
+}
+
+export type MutationImpersonateArgs = {
+  userId: Scalars['String']['input']
 }
 
 export type MutationInviteUsersArgs = {
@@ -2304,6 +2310,12 @@ export type MutationResolvers<
     ContextType,
     RequireFields<MutationDeleteOrganizationsArgs, 'ids'>
   >
+  impersonate?: Resolver<
+    ResolversTypes['Boolean'],
+    ParentType,
+    ContextType,
+    RequireFields<MutationImpersonateArgs, 'userId'>
+  >
   inviteUsers?: Resolver<
     Array<ResolversTypes['InviteResult']>,
     ParentType,
@@ -3379,6 +3391,12 @@ export type UpdateContributionsMutation = {
   __typename?: 'Mutation'
   updateContributions: Array<{ __typename?: 'Contribution'; id: any }>
 }
+
+export type ImpersonateUserMutationVariables = Exact<{
+  userId: Scalars['String']['input']
+}>
+
+export type ImpersonateUserMutation = { __typename?: 'Mutation'; impersonate: boolean }
 
 export const AcceptInvitationDocument = gql`
   mutation acceptInvitation($user: AcceptInvitationInput!) {
@@ -4881,4 +4899,43 @@ export type UpdateContributionsMutationResult = Apollo.MutationResult<UpdateCont
 export type UpdateContributionsMutationOptions = Apollo.BaseMutationOptions<
   UpdateContributionsMutation,
   UpdateContributionsMutationVariables
+>
+export const ImpersonateUserDocument = gql`
+  mutation impersonateUser($userId: String!) {
+    impersonate(userId: $userId)
+  }
+`
+export type ImpersonateUserMutationFn = Apollo.MutationFunction<
+  ImpersonateUserMutation,
+  ImpersonateUserMutationVariables
+>
+
+/**
+ * __useImpersonateUserMutation__
+ *
+ * To run a mutation, you first call `useImpersonateUserMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useImpersonateUserMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [impersonateUserMutation, { data, loading, error }] = useImpersonateUserMutation({
+ *   variables: {
+ *      userId: // value for 'userId'
+ *   },
+ * });
+ */
+export function useImpersonateUserMutation(
+  baseOptions?: Apollo.MutationHookOptions<ImpersonateUserMutation, ImpersonateUserMutationVariables>,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<ImpersonateUserMutation, ImpersonateUserMutationVariables>(ImpersonateUserDocument, options)
+}
+export type ImpersonateUserMutationHookResult = ReturnType<typeof useImpersonateUserMutation>
+export type ImpersonateUserMutationResult = Apollo.MutationResult<ImpersonateUserMutation>
+export type ImpersonateUserMutationOptions = Apollo.BaseMutationOptions<
+  ImpersonateUserMutation,
+  ImpersonateUserMutationVariables
 >

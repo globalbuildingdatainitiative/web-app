@@ -585,3 +585,7 @@ mutation updateContributions($contributions: [UpdateContribution!]!) {
     id
   }
 }
+
+mutation impersonateUser($userId: String!) {
+  impersonate(userId: $userId)
+}

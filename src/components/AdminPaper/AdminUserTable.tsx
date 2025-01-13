@@ -1,13 +1,17 @@
-import { GetUsersQuery, useGetUsersQuery } from '@queries'
+import { GetUsersQuery, useGetUsersQuery, useImpersonateUserMutation } from '@queries'
 import { useMemo } from 'react'
 import { MantineReactTable, MRT_ColumnDef, MRT_Row, useMantineReactTable } from 'mantine-react-table'
 import { ActionIcon, Group, Tooltip, Text } from '@mantine/core'
-import { IconUser } from '@tabler/icons-react'
+import { IconUserBolt, IconUserStar } from '@tabler/icons-react'
+import { useNavigate } from 'react-router-dom'
 
+import Session, { SessionAuth } from "supertokens-auth-react/recipe/session";
 type User = NonNullable<GetUsersQuery['users']>[number]
 
 export const AdminUserTable = () => {
+  const navigate = useNavigate()
   const { data, loading, error } = useGetUsersQuery()
+  const [impersonate, { loading: impersonateLoading }] = useImpersonateUserMutation()
 
   const columns = useMemo<MRT_ColumnDef<User>[]>(
     () => [
@@ -47,7 +51,17 @@ export const AdminUserTable = () => {
   )
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const handleUserImpersonation = (row: MRT_Row<User>) => {}
+  const handleUserImpersonation = async (row: MRT_Row<User>) => {
+    console.log('before', await Session.getUserId())
+    const { data } = await impersonate({ variables: { userId: row.original.id } })
+    if (data?.impersonate === true) {
+      console.log('after', await Session.getUserId())
+      debugger
+      navigate('/')
+    }
+  }
+
+  const handleUserAdmin = (row: MRT_Row<User>) => {}
 
   const rowData = useMemo(() => data?.users || [], [data])
   const totalRowCount = useMemo(() => data?.users.length || 0, [data])
@@ -63,8 +77,13 @@ export const AdminUserTable = () => {
       return (
         <Group>
           <Tooltip label={'Impersonate User'} position='left'>
-            <ActionIcon onClick={() => handleUserImpersonation(row)} variant='transparent' color='black'>
-              <IconUser />
+            <ActionIcon onClick={() => handleUserImpersonation(row)} variant='transparent' color='black' loading={impersonateLoading}>
+              <IconUserBolt />
+            </ActionIcon>
+          </Tooltip>
+          <Tooltip label={'Make User Admin'} position='left'>
+            <ActionIcon onClick={() => handleUserAdmin(row)} variant='transparent' color='black'>
+              <IconUserStar />
             </ActionIcon>
           </Tooltip>
         </Group>

@@ -1,8 +1,6 @@
-import { GetCurrentUserQuery } from '@queries'
 import { createContext } from 'react'
 import { ApolloError } from '@apollo/client'
-
-export type User = GetCurrentUserQuery['users'][number]
+import { User } from './types.ts'
 
 interface UserContextProps {
   user: User | null
