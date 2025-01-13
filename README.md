@@ -1,8 +1,6 @@
 # GBDI Web App
 
-The [GBDI Web App](https://app.gbdi.io) collects building component and whole building LCA data on a global scale to
-provide benchmarks and
-analytics of whole building LCA across the globe.
+The [GBDI Web App](https://app.gbdi.io) enables collection and analysis of building material data, including for component and whole building LCA data on a global scale to provide benchmarks and analytics of whole life cycle carbon (CO2e) emissions of buildings.
 
 ## Features
 
