@@ -3,7 +3,7 @@ import { Center, Group, Image, Stack } from '@mantine/core'
 import logoImage from '../../assets/logo_square.png'
 import { BoxPlot, ErrorBoundary, ErrorMessage, Loading, SpiderChart } from '@components'
 import { useMemo } from 'react'
-import { snakeCaseToHumanCase, useAggregatedProjectStatistics } from '@lib'
+import { formatStages, phases, snakeCaseToHumanCase, useAggregatedProjectStatistics } from '@lib'
 import { useViewportSize } from '@mantine/hooks'
 
 type Project = NonNullable<GetProjectDetailsQuery['contributions']['items']>[number]['project']
@@ -129,7 +129,7 @@ export const ProjectDetailsReference = (props: ProjectDetailsReferenceProps) => 
                 data={Object.entries(aggregatedData || {})
                   .filter((value) => ['_id', 'group'].indexOf(value[0]) < 0)
                   .map(([name, group]) => ({
-                    name: snakeCaseToHumanCase(name),
+                    name: `${snakeCaseToHumanCase(name)} ${formatStages(phases.find((p) => p.name === name)!.stages)}`,
                     min: group?.minimum,
                     pct25: group?.percentile[0],
                     median: group?.median,

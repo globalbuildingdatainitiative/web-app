@@ -2,7 +2,7 @@ import type { MRT_VisibilityState } from 'mantine-react-table'
 import { Alert, SimpleGrid, useMatches } from '@mantine/core'
 import { useMemo } from 'react'
 import { BoxPlot, ChartContainer, ErrorMessage, Loading } from '@components'
-import { phases, snakeCaseToHumanCase, useAggregatedProjectStatistics } from '@lib'
+import { formatStages, phases, snakeCaseToHumanCase, useAggregatedProjectStatistics } from '@lib'
 import { IconExclamationCircle } from '@tabler/icons-react'
 
 const SUPPORTED_COLUMNS = [
@@ -40,21 +40,6 @@ export const CarbonIntensityChart = (props: CarbonIntensityChartProps) => {
     [visibleColumns],
   )
   const showError = useMemo(() => selectedColumns.length !== 1, [selectedColumns])
-
-  const formatStages = (stages: string[]) => {
-    // if there's only one stage (like "a1a3"), handle that edge case
-    if (stages.length === 1) {
-      if (stages[0].toLowerCase() === 'a1a3') {
-        return '(A1A3)'
-      }
-      return `(${stages[0].toUpperCase()})`
-    }
-
-    // if multiple stages, assume they’re consecutive and do something like B1-B7
-    const first = stages[0].toUpperCase()
-    const last = stages[stages.length - 1].toUpperCase()
-    return `(${first}-${last})`
-  }
 
   const {
     data: projectData,
