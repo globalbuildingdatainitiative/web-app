@@ -194,6 +194,11 @@ query getProjectDataForBoxPlot($aggregation: JSON!) {
         softwareInfo {
           lcaSoftware
         }
+        metaData {
+          source {
+            name
+          }
+        }
       }
     }
     aggregation(apply: $aggregation)
