@@ -4,24 +4,25 @@ import { AttributeChart } from '../AttributeChart'
 import { CarbonIntensityChart } from '../CarbonIntensityChart'
 import type { MRT_VisibilityState } from 'mantine-react-table'
 import { IconPrinter } from '@tabler/icons-react'
-import { useState } from 'react'
+import { ChartTab } from '@components'
 import domtoimage from 'dom-to-image'
 
 interface PortfolioChartsProps {
   className?: string
   visibleColumns: MRT_VisibilityState
   filters: object
+  activeTab: ChartTab
+  onTabChange: (tab: ChartTab) => void
 }
 
 export const PortfolioCharts = (props: PortfolioChartsProps) => {
-  const { className, visibleColumns, filters } = props
-  const [activeTab, setActiveTab] = useState<string | null>('attributes')
+  const { className, visibleColumns, filters, activeTab, onTabChange } = props
   const { height } = useViewportSize()
 
   const handleTabChange = async (value: string | null) => {
-    if (value !== 'print') {
-      setActiveTab(value)
-    } else {
+    if (value === 'attributes' || value === 'intensity') {
+      onTabChange(value as ChartTab)
+    } else if (value === 'print') {
       const node = document.getElementById(activeTab!)
       const dataUrl = await domtoimage.toPng(node!, { bgcolor: 'white' })
       const link = document.createElement('a')
@@ -44,12 +45,12 @@ export const PortfolioCharts = (props: PortfolioChartsProps) => {
 
         <Tabs.Panel value='attributes'>
           <div style={{ height: `${height * 0.7}px`, minHeight: '800px' }} id='attributes'>
-            <AttributeChart visibleColumns={visibleColumns} filters={filters} />
+            <AttributeChart visibleColumns={visibleColumns} filters={filters} activeTab={activeTab} />
           </div>
         </Tabs.Panel>
         <Tabs.Panel value='intensity'>
           <div style={{ height: `${height * 0.7}px`, minHeight: '800px' }} id='intensity'>
-            <CarbonIntensityChart visibleColumns={visibleColumns} filters={filters} />
+            <CarbonIntensityChart visibleColumns={visibleColumns} filters={filters} activeTab={activeTab} />
           </div>
         </Tabs.Panel>
       </Tabs>

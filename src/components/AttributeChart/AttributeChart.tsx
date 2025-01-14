@@ -2,7 +2,7 @@ import { useMemo } from 'react'
 import { useGetAggregatedProjectDataQuery } from '@queries'
 import { Alert, SimpleGrid } from '@mantine/core'
 import type { MRT_VisibilityState } from 'mantine-react-table'
-import { ChartContainer, ErrorMessage, Loading, SubBarChart } from '@components'
+import { ChartContainer, ErrorMessage, Loading, SubBarChart, ChartTab } from '@components'
 import { IconExclamationCircle } from '@tabler/icons-react'
 import { camelCaseToHumanCase, snakeCaseToHumanCase } from '@lib'
 import { alpha3ToCountryName } from './countryCodesMapping.ts'
@@ -15,6 +15,7 @@ const EXCLUDED_COLUMNS = ['name', 'breakdown', 'results']
 interface AttributeChartProps {
   visibleColumns: MRT_VisibilityState
   filters: object
+  activeTab: ChartTab
 }
 
 const columnTypeMap: Record<string, string> = {

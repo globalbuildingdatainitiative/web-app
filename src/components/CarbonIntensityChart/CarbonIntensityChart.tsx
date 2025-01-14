@@ -2,23 +2,15 @@ import type { MRT_VisibilityState } from 'mantine-react-table'
 import { Alert, SimpleGrid, useMatches } from '@mantine/core'
 import { useMemo } from 'react'
 import { useGetAggregatedProjectDataQuery } from '@queries'
-import { BoxPlot, ChartContainer, ErrorMessage, Loading } from '@components'
+import { BoxPlot, ChartContainer, ErrorMessage, Loading, SUPPORTED_COLUMNS } from '@components'
 import { snakeCaseToHumanCase } from '@lib'
 import { IconExclamationCircle } from '@tabler/icons-react'
-
-const SUPPORTED_COLUMNS = [
-  'projectInfo.buildingType',
-  'metaData.source.name',
-  'softwareInfo.lcaSoftware',
-  'projectInfo.buildingTypology',
-  'projectInfo.generalEnergyClass',
-  'projectInfo.roofType',
-  'projectInfo.frameType',
-]
+import { ChartTab } from '@components'
 
 interface CarbonIntensityChartProps {
   visibleColumns: MRT_VisibilityState
   filters: object
+  activeTab: ChartTab
 }
 
 interface Phase {

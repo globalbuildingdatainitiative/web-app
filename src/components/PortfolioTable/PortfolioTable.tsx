@@ -23,7 +23,7 @@ import {
 } from 'mantine-react-table'
 import { Dispatch, SetStateAction, useEffect, useMemo, useState } from 'react'
 import { Group, Pagination, Progress, Select, Text, Tooltip, Button, Box } from '@mantine/core'
-import { TruncatedTextWithTooltip, HighlightedHeader } from '@components'
+import { TruncatedTextWithTooltip, HighlightedHeader, ChartTab, SUPPORTED_COLUMNS } from '@components'
 import { useViewportSize } from '@mantine/hooks'
 import { snakeCaseToHumanCase } from '@lib'
 import { alpha3ToCountryName } from '../AttributeChart/countryCodesMapping.ts'
@@ -35,6 +35,7 @@ interface PortfolioTableProps {
   onColumnVisibilityChange: (visibility: MRT_VisibilityState) => void
   filters: object
   setFilters: Dispatch<SetStateAction<object>>
+  activeTab: ChartTab
 }
 
 const csvConfig = mkConfig({
@@ -64,9 +65,15 @@ const CHARTABLE_COLUMNS = [
   'projectInfo.grossFloorArea.value',
 ]
 
-export const PortfolioTable = (props: PortfolioTableProps) => {
-  const { columnVisibility, onColumnVisibilityChange, filters, setFilters } = props
+const isColumnChartable = (columnId: string, activeTab: ChartTab) => {
+  if (activeTab === 'attributes') {
+    return CHARTABLE_COLUMNS.includes(columnId)
+  }
+  return SUPPORTED_COLUMNS.includes(columnId)
+}
 
+export const PortfolioTable = (props: PortfolioTableProps) => {
+  const { columnVisibility, onColumnVisibilityChange, filters, setFilters, activeTab } = props
   const [pagination, setPagination] = useState<MRT_PaginationState>({ pageIndex: 0, pageSize: 20 })
   const [sorting, setSorting] = useState<MRT_SortingState>([])
   const [columnFilters, setColumnFilters] = useState<MRT_ColumnFiltersState>([])
@@ -208,7 +215,9 @@ export const PortfolioTable = (props: PortfolioTableProps) => {
           <HighlightedHeader
             column='ID'
             isVisible={columnVisibility[column.id]}
-            isChartable={CHARTABLE_COLUMNS.includes(column.id)}
+            isChartable={isColumnChartable(column.id, activeTab)}
+            activeTab={activeTab}
+            columnId={column.id}
           />
         ),
         enableEditing: false,
@@ -220,7 +229,9 @@ export const PortfolioTable = (props: PortfolioTableProps) => {
           <HighlightedHeader
             column='Project Name'
             isVisible={columnVisibility[column.id]}
-            isChartable={CHARTABLE_COLUMNS.includes(column.id)}
+            isChartable={isColumnChartable(column.id, activeTab)}
+            activeTab={activeTab}
+            columnId={column.id}
           />
         ),
         Cell: ({ cell }) => {
@@ -236,7 +247,9 @@ export const PortfolioTable = (props: PortfolioTableProps) => {
           <HighlightedHeader
             column='Country'
             isVisible={columnVisibility[column.id]}
-            isChartable={CHARTABLE_COLUMNS.includes(column.id)}
+            isChartable={isColumnChartable(column.id, activeTab)}
+            activeTab={activeTab}
+            columnId={column.id}
           />
         ),
         Cell: ({ cell }) => {
@@ -257,7 +270,9 @@ export const PortfolioTable = (props: PortfolioTableProps) => {
           <HighlightedHeader
             column='Building Type'
             isVisible={columnVisibility[column.id]}
-            isChartable={CHARTABLE_COLUMNS.includes(column.id)}
+            isChartable={isColumnChartable(column.id, activeTab)}
+            activeTab={activeTab}
+            columnId={column.id}
           />
         ),
         Cell: ({ cell }) => {
@@ -278,7 +293,9 @@ export const PortfolioTable = (props: PortfolioTableProps) => {
           <HighlightedHeader
             column='LCA Software'
             isVisible={columnVisibility[column.id]}
-            isChartable={CHARTABLE_COLUMNS.includes(column.id)}
+            isChartable={isColumnChartable(column.id, activeTab)}
+            activeTab={activeTab}
+            columnId={column.id}
           />
         ),
         Cell: ({ cell }) => {
@@ -294,7 +311,9 @@ export const PortfolioTable = (props: PortfolioTableProps) => {
           <HighlightedHeader
             column='Source'
             isVisible={columnVisibility[column.id]}
-            isChartable={CHARTABLE_COLUMNS.includes(column.id)}
+            isChartable={isColumnChartable(column.id, activeTab)}
+            activeTab={activeTab}
+            columnId={column.id}
           />
         ),
         Cell: ({ cell }) => {
@@ -310,7 +329,9 @@ export const PortfolioTable = (props: PortfolioTableProps) => {
           <HighlightedHeader
             column='Completion Year'
             isVisible={columnVisibility[column.id]}
-            isChartable={CHARTABLE_COLUMNS.includes(column.id)}
+            isChartable={isColumnChartable(column.id, activeTab)}
+            activeTab={activeTab}
+            columnId={column.id}
           />
         ),
         Cell: ({ cell }) => {
@@ -333,7 +354,9 @@ export const PortfolioTable = (props: PortfolioTableProps) => {
           <HighlightedHeader
             column='Building Footprint (m²)'
             isVisible={columnVisibility[column.id]}
-            isChartable={CHARTABLE_COLUMNS.includes(column.id)}
+            isChartable={isColumnChartable(column.id, activeTab)}
+            activeTab={activeTab}
+            columnId={column.id}
           />
         ),
         Cell: ({ cell }) => {
@@ -356,7 +379,9 @@ export const PortfolioTable = (props: PortfolioTableProps) => {
           <HighlightedHeader
             column='Building Height (m)'
             isVisible={columnVisibility[column.id]}
-            isChartable={CHARTABLE_COLUMNS.includes(column.id)}
+            isChartable={isColumnChartable(column.id, activeTab)}
+            activeTab={activeTab}
+            columnId={column.id}
           />
         ),
         Cell: ({ cell }) => {
@@ -379,7 +404,9 @@ export const PortfolioTable = (props: PortfolioTableProps) => {
           <HighlightedHeader
             column='Building Mass (kg)'
             isVisible={columnVisibility[column.id]}
-            isChartable={CHARTABLE_COLUMNS.includes(column.id)}
+            isChartable={isColumnChartable(column.id, activeTab)}
+            activeTab={activeTab}
+            columnId={column.id}
           />
         ),
         Cell: ({ cell }) => {
@@ -402,7 +429,9 @@ export const PortfolioTable = (props: PortfolioTableProps) => {
           <HighlightedHeader
             column='Permit Year'
             isVisible={columnVisibility[column.id]}
-            isChartable={CHARTABLE_COLUMNS.includes(column.id)}
+            isChartable={isColumnChartable(column.id, activeTab)}
+            activeTab={activeTab}
+            columnId={column.id}
           />
         ),
         Cell: ({ cell }) => {
@@ -425,7 +454,9 @@ export const PortfolioTable = (props: PortfolioTableProps) => {
           <HighlightedHeader
             column='Building Typology'
             isVisible={columnVisibility[column.id]}
-            isChartable={CHARTABLE_COLUMNS.includes(column.id)}
+            isChartable={isColumnChartable(column.id, activeTab)}
+            activeTab={activeTab}
+            columnId={column.id}
           />
         ),
         Cell: ({ cell }) => {
@@ -445,7 +476,9 @@ export const PortfolioTable = (props: PortfolioTableProps) => {
           <HighlightedHeader
             column='Building Users'
             isVisible={columnVisibility[column.id]}
-            isChartable={CHARTABLE_COLUMNS.includes(column.id)}
+            isChartable={isColumnChartable(column.id, activeTab)}
+            activeTab={activeTab}
+            columnId={column.id}
           />
         ),
         Cell: ({ cell }) => {
@@ -468,7 +501,9 @@ export const PortfolioTable = (props: PortfolioTableProps) => {
           <HighlightedHeader
             column='Floors Above Ground'
             isVisible={columnVisibility[column.id]}
-            isChartable={CHARTABLE_COLUMNS.includes(column.id)}
+            isChartable={isColumnChartable(column.id, activeTab)}
+            activeTab={activeTab}
+            columnId={column.id}
           />
         ),
         Cell: ({ cell }) => {
@@ -491,7 +526,9 @@ export const PortfolioTable = (props: PortfolioTableProps) => {
           <HighlightedHeader
             column='Floors Below Ground'
             isVisible={columnVisibility[column.id]}
-            isChartable={CHARTABLE_COLUMNS.includes(column.id)}
+            isChartable={isColumnChartable(column.id, activeTab)}
+            activeTab={activeTab}
+            columnId={column.id}
           />
         ),
         Cell: ({ cell }) => {
@@ -514,7 +551,9 @@ export const PortfolioTable = (props: PortfolioTableProps) => {
           <HighlightedHeader
             column='Energy Class'
             isVisible={columnVisibility[column.id]}
-            isChartable={CHARTABLE_COLUMNS.includes(column.id)}
+            isChartable={isColumnChartable(column.id, activeTab)}
+            activeTab={activeTab}
+            columnId={column.id}
           />
         ),
         Cell: ({ cell }) => {
@@ -534,7 +573,9 @@ export const PortfolioTable = (props: PortfolioTableProps) => {
           <HighlightedHeader
             column='Heated Floor Area (m²)'
             isVisible={columnVisibility[column.id]}
-            isChartable={CHARTABLE_COLUMNS.includes(column.id)}
+            isChartable={isColumnChartable(column.id, activeTab)}
+            activeTab={activeTab}
+            columnId={column.id}
           />
         ),
         Cell: ({ cell }) => {
@@ -557,7 +598,9 @@ export const PortfolioTable = (props: PortfolioTableProps) => {
           <HighlightedHeader
             column='Roof Type'
             isVisible={columnVisibility[column.id]}
-            isChartable={CHARTABLE_COLUMNS.includes(column.id)}
+            isChartable={isColumnChartable(column.id, activeTab)}
+            activeTab={activeTab}
+            columnId={column.id}
           />
         ),
         Cell: ({ cell }) => {
@@ -577,7 +620,9 @@ export const PortfolioTable = (props: PortfolioTableProps) => {
           <HighlightedHeader
             column='Frame Type'
             isVisible={columnVisibility[column.id]}
-            isChartable={CHARTABLE_COLUMNS.includes(column.id)}
+            isChartable={isColumnChartable(column.id, activeTab)}
+            activeTab={activeTab}
+            columnId={column.id}
           />
         ),
         Cell: ({ cell }) => {
@@ -593,7 +638,9 @@ export const PortfolioTable = (props: PortfolioTableProps) => {
           <HighlightedHeader
             column='Gross Floor Area (m²)'
             isVisible={columnVisibility[column.id]}
-            isChartable={CHARTABLE_COLUMNS.includes(column.id)}
+            isChartable={isColumnChartable(column.id, activeTab)}
+            activeTab={activeTab}
+            columnId={column.id}
           />
         ),
         Cell: ({ cell }) => {
@@ -616,7 +663,9 @@ export const PortfolioTable = (props: PortfolioTableProps) => {
           <HighlightedHeader
             column='GWP Intensity (kgCO₂eq/m²)'
             isVisible={columnVisibility[column.id]}
-            isChartable={CHARTABLE_COLUMNS.includes(column.id)}
+            isChartable={isColumnChartable(column.id, activeTab)}
+            activeTab={activeTab}
+            columnId={column.id}
           />
         ),
         Cell: getGWPIntensity,
@@ -632,7 +681,9 @@ export const PortfolioTable = (props: PortfolioTableProps) => {
           <HighlightedHeader
             column='GWP by Life Cycle Stage'
             isVisible={columnVisibility[column.id]}
-            isChartable={CHARTABLE_COLUMNS.includes(column.id)}
+            isChartable={isColumnChartable(column.id, activeTab)}
+            activeTab={activeTab}
+            columnId={column.id}
           />
         ),
         Cell: getGWPBreakdown,
@@ -642,7 +693,7 @@ export const PortfolioTable = (props: PortfolioTableProps) => {
         enableColumnActions: false,
       },
     ],
-    [columnVisibility],
+    [columnVisibility, activeTab],
   )
 
   useEffect(() => {

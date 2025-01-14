@@ -2,8 +2,10 @@ import { Title } from '@mantine/core'
 import { ErrorBoundary, Paper, PortfolioCharts, PortfolioTable } from '@components'
 import { useCallback, useState } from 'react'
 import type { MRT_VisibilityState } from 'mantine-react-table'
+import { ChartTab } from '@components'
 
 export const PortfolioPaper = () => {
+  const [activeTab, setActiveTab] = useState<ChartTab>('attributes')
   const [columnVisibility, setColumnVisibility] = useState<MRT_VisibilityState>({
     name: true,
     'location.countryName': true,
@@ -34,12 +36,22 @@ export const PortfolioPaper = () => {
     setColumnVisibility(updatedVisibility)
   }, [])
 
+  // Handler for tab changes
+  const handleTabChange = useCallback((newTab: ChartTab) => {
+    setActiveTab(newTab)
+  }, [])
+
   return (
     <Paper data-testid='PortfolioPaper'>
       <ErrorBoundary>
         <Title order={2}>Portfolio Analysis</Title>
         <ErrorBoundary>
-          <PortfolioCharts visibleColumns={columnVisibility} filters={filters} />
+          <PortfolioCharts
+            visibleColumns={columnVisibility}
+            filters={filters}
+            activeTab={activeTab}
+            onTabChange={handleTabChange}
+          />
         </ErrorBoundary>
         <ErrorBoundary>
           <PortfolioTable
@@ -47,6 +59,7 @@ export const PortfolioPaper = () => {
             onColumnVisibilityChange={handleColumnVisibilityChange}
             filters={filters}
             setFilters={setFilters}
+            activeTab={activeTab}
           />
         </ErrorBoundary>
       </ErrorBoundary>
