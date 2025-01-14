@@ -41,6 +41,21 @@ export const CarbonIntensityChart = (props: CarbonIntensityChartProps) => {
   )
   const showError = useMemo(() => selectedColumns.length !== 1, [selectedColumns])
 
+  const formatStages = (stages: string[]) => {
+    // if there's only one stage (like "a1a3"), handle that edge case
+    if (stages.length === 1) {
+      if (stages[0].toLowerCase() === 'a1a3') {
+        return '(A1A3)'
+      }
+      return `(${stages[0].toUpperCase()})`
+    }
+
+    // if multiple stages, assume they’re consecutive and do something like B1-B7
+    const first = stages[0].toUpperCase()
+    const last = stages[stages.length - 1].toUpperCase()
+    return `(${first}-${last})`
+  }
+
   const {
     data: projectData,
     loading: projectLoading,
@@ -81,8 +96,8 @@ export const CarbonIntensityChart = (props: CarbonIntensityChartProps) => {
         <ChartContainer title={snakeCaseToHumanCase(Array.isArray(group.group) ? group.group.join(', ') : group.group)}>
           <BoxPlot
             orientation={'horizontal'}
-            data={phases.map(({ name }) => ({
-              name: snakeCaseToHumanCase(name),
+            data={phases.map(({ name, stages }) => ({
+              name: `${snakeCaseToHumanCase(name)} ${formatStages(stages)}`,
               min: group[name].minimum,
               pct25: group[name].percentile[0],
               median: group[name].median,
