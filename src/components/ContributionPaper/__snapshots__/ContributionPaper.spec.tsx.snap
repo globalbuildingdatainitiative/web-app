@@ -24,6 +24,7 @@ exports[`ContributionPaper 1`] = `
       >
         <div
           class="m_4451eb3a mantine-Center-root"
+          error="TypeError: Cannot destructure property 'basename' of 'React__namespace.useContext(...)' as it is null."
           style=""
         >
           <div

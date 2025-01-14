@@ -1,16 +1,16 @@
 import { Paper } from '@components'
-import { Button, Group, Stack, TextInput, Title, Autocomplete, MultiSelect, Text } from '@mantine/core'
+import { Autocomplete, Button, Group, MultiSelect, Stack, Text, TextInput, Title } from '@mantine/core'
 import { useForm } from '@mantine/form'
 import {
+  CountryCodes,
   GetCurrentUserDocument,
   GetOrganizationsDocument,
-  useUpdateOrganizationsMutation,
-  CountryCodes,
   StakeholderEnum,
+  useUpdateOrganizationsMutation,
 } from '@queries'
 import { useUserContext } from '@context'
 import { useNavigate } from 'react-router-dom'
-import { countryNameToAlpha3 } from './countryCodesMapping'
+import { countryNameToAlpha3 } from '@lib'
 import { useApolloClient } from '@apollo/client'
 import logo from 'assets/logo.png'
 

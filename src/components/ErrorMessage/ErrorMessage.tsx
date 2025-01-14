@@ -1,15 +1,18 @@
-import { Alert, Center } from '@mantine/core'
+import { Alert, Center, CenterProps } from '@mantine/core'
 import { IconAlertCircle } from '@tabler/icons-react'
 
-interface ErrorMessageProps {
+interface ErrorMessageProps extends CenterProps {
   error?: { message: string } | null
 }
-export const ErrorMessage = ({ error }: ErrorMessageProps) => {
+
+export const ErrorMessage = (props: ErrorMessageProps) => {
+  const { error } = props
+
   if (!error) {
     return null
   }
   return (
-    <Center>
+    <Center {...props}>
       <Alert icon={<IconAlertCircle size='1rem' />} title='Bummer!' color='red'>
         {error.message}
       </Alert>

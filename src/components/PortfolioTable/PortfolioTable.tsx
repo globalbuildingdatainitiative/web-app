@@ -13,7 +13,6 @@ import {
 import {
   MantineReactTable,
   MRT_Cell,
-  MRT_Column,
   MRT_ColumnDef,
   MRT_ColumnFiltersState,
   MRT_PaginationState,
@@ -23,36 +22,18 @@ import {
   useMantineReactTable,
 } from 'mantine-react-table'
 import { Dispatch, SetStateAction, useEffect, useMemo, useState } from 'react'
-import { Group, Pagination, Progress, Select, Text, Tooltip, Button, Box, Menu, Divider } from '@mantine/core'
-import { TruncatedTextWithTooltip, HighlightedHeader, ChartTab, SUPPORTED_COLUMNS } from '@components'
+import { Group, Pagination, Progress, Select, Text, Tooltip, Button, Box } from '@mantine/core'
+import { TruncatedTextWithTooltip } from '@components'
 import { useViewportSize } from '@mantine/hooks'
-import { snakeCaseToHumanCase } from '@lib'
-import { alpha3ToCountryName } from '../AttributeChart/countryCodesMapping.ts'
 import { IconDownload } from '@tabler/icons-react'
 import { mkConfig, generateCsv, download } from 'export-to-csv'
+import { alpha3ToCountryName, snakeCaseToHumanCase } from '@lib'
 
 interface PortfolioTableProps {
   columnVisibility: MRT_VisibilityState
   onColumnVisibilityChange: (visibility: MRT_VisibilityState) => void
-  chartVisibility: MRT_VisibilityState
-  onChartVisibilityChange: (visibility: MRT_VisibilityState) => void
   filters: object
   setFilters: Dispatch<SetStateAction<object>>
-  activeTab: ChartTab
-}
-
-interface FilterAccumulator {
-  contains: Record<string, unknown>
-  equal: Record<string, unknown>
-  notEqual: Record<string, unknown>
-  in: Record<string, unknown>
-  gt: Record<string, unknown>
-  lt: Record<string, unknown>
-}
-
-interface GWPIntensity {
-  cell: MRT_Cell<Pick<Contribution, 'id'>, unknown>
-  row: MRT_Row<Pick<Contribution, 'id'>>
 }
 
 const csvConfig = mkConfig({
@@ -61,49 +42,16 @@ const csvConfig = mkConfig({
   useKeysAsHeaders: true,
 })
 
-const CHARTABLE_COLUMNS = [
-  'location.countryName',
-  'projectInfo.buildingType',
-  'softwareInfo.lcaSoftware',
-  'metaData.source.name',
-  'projectInfo.buildingCompletionYear',
-  'projectInfo.buildingFootprint.value',
-  'projectInfo.buildingHeight.value',
-  'projectInfo.buildingMass.value',
-  'projectInfo.buildingPermitYear',
-  'projectInfo.buildingTypology',
-  'projectInfo.buildingUsers',
-  'projectInfo.floorsAboveGround',
-  'projectInfo.floorsBelowGround',
-  'projectInfo.generalEnergyClass',
-  'projectInfo.heatedFloorArea.value',
-  'projectInfo.roofType',
-  'projectInfo.frameType',
-  'projectInfo.grossFloorArea.value',
-]
-
-const isColumnChartable = (columnId: string, activeTab: ChartTab) => {
-  if (activeTab === 'attributes') {
-    return CHARTABLE_COLUMNS.includes(columnId)
-  }
-  return SUPPORTED_COLUMNS.includes(columnId)
-}
-
 export const PortfolioTable = (props: PortfolioTableProps) => {
-  const {
-    columnVisibility,
-    onColumnVisibilityChange,
-    chartVisibility,
-    onChartVisibilityChange,
-    filters,
-    setFilters,
-    activeTab,
-  } = props
-  const [pagination, setPagination] = useState<MRT_PaginationState>({ pageIndex: 0, pageSize: 20 })
+  const { columnVisibility, onColumnVisibilityChange, filters, setFilters } = props
+
+  const [pagination, setPagination] = useState<MRT_PaginationState>({
+    pageIndex: 0,
+    pageSize: 10,
+  })
   const [sorting, setSorting] = useState<MRT_SortingState>([])
   const [columnFilters, setColumnFilters] = useState<MRT_ColumnFiltersState>([])
-  const [fetchAllData] = useGetProjectPortfolioLazyQuery()
-  const [isExportingAll, setIsExportingAll] = useState(false)
+  const [fetchAllData, { loading: loadingExportingAll }] = useGetProjectPortfolioLazyQuery()
 
   const { width: viewportWidth } = useViewportSize()
   const shouldHideColumns = viewportWidth < window.screen.width
@@ -178,7 +126,6 @@ export const PortfolioTable = (props: PortfolioTableProps) => {
 
   const handleExportAllData = async () => {
     try {
-      setIsExportingAll(true)
       const { data } = await fetchAllData({
         variables: {
           limit: null,
@@ -213,8 +160,6 @@ export const PortfolioTable = (props: PortfolioTableProps) => {
       })
     } catch (error) {
       console.error('Error exporting all data:', error)
-    } finally {
-      setIsExportingAll(false)
     }
   }
 
@@ -231,176 +176,153 @@ export const PortfolioTable = (props: PortfolioTableProps) => {
     }
   }, [sorting])
 
-  const columns = useMemo<MRT_ColumnDef<Pick<Contribution, 'id'>>[]>(() => {
-    const createColumnDef = (
-      accessorKey: string,
-      header: string,
-      otherProps = {},
-    ): MRT_ColumnDef<Pick<Contribution, 'id'>> => ({
-      accessorKey,
-      header,
-      Header: ({ column }: { column: MRT_Column<Pick<Contribution, 'id'>> }) => (
-        <HighlightedHeader
-          column={header}
-          isVisible={chartVisibility[column.id]}
-          isChartable={isColumnChartable(column.id, activeTab)}
-          activeTab={activeTab}
-          columnId={column.id}
-        />
-      ),
-      renderColumnActionsMenuItems: ({ internalColumnMenuItems }: { internalColumnMenuItems: React.ReactNode }) => {
-        const isChartable = isColumnChartable(accessorKey, activeTab)
-        const isVisible = chartVisibility[accessorKey]
-
-        return (
-          <>
-            {internalColumnMenuItems}
-            {isChartable && (
-              <>
-                <Divider />
-                <Menu.Item
-                  onClick={() => {
-                    const newChartVisibility = { ...chartVisibility }
-                    if (isVisible) {
-                      delete newChartVisibility[accessorKey]
-                    } else {
-                      newChartVisibility[accessorKey] = true
-                    }
-                    onChartVisibilityChange(newChartVisibility)
-                  }}
-                >
-                  {isVisible ? 'Hide in Charts' : 'Show in Charts'}
-                </Menu.Item>
-              </>
-            )}
-          </>
-        )
-      },
-      ...otherProps,
-    })
-
-    return [
-      createColumnDef('id', 'ID', {
+  const columns = useMemo<MRT_ColumnDef<Pick<Contribution, 'id'>>[]>(
+    () => [
+      {
+        accessorKey: 'id',
+        header: 'ID',
         enableEditing: false,
-      }),
-      createColumnDef('name', 'Project Name', {
-        Cell: ({ cell }: { cell: MRT_Cell<Pick<Contribution, 'id'>> }) => {
-          const project_name = (cell.getValue() as string) || 'N/A'
+      },
+      {
+        accessorKey: 'name',
+        header: 'Project Name',
+        Cell: ({ cell }) => {
+          const project_name = cell.getValue<string>() || 'N/A'
           return <TruncatedTextWithTooltip text={project_name} />
         },
         size: 100,
-      }),
-      createColumnDef('location.countryName', 'Country', {
-        Cell: ({ cell }: { cell: MRT_Cell<Pick<Contribution, 'id'>> }) => {
-          const country = (cell.getValue() as string) || 'N/A'
+      },
+      {
+        accessorKey: 'location.countryName',
+        header: 'Country',
+        Cell: ({ cell }) => {
+          const country = cell.getValue<string>() || 'N/A'
           return <TruncatedTextWithTooltip text={country} />
         },
         size: 150,
         filterVariant: 'multi-select',
         mantineFilterMultiSelectProps: {
           data: Object.values(Country) as string[],
-          renderOption: (item: { option: { value: string } }) => alpha3ToCountryName()[item.option.value],
+          renderOption: (item) => alpha3ToCountryName()[item.option.value],
         },
-      }),
-      createColumnDef('projectInfo.buildingType', 'Building Type', {
-        Cell: ({ cell }: { cell: MRT_Cell<Pick<Contribution, 'id'>> }) => {
-          const rawValue = (cell.getValue() as string) || 'N/A'
+      },
+      {
+        accessorKey: 'projectInfo.buildingType',
+        header: 'Building Type',
+        Cell: ({ cell }) => {
+          const rawValue = cell.getValue<string>() || 'N/A'
           return <Text>{snakeCaseToHumanCase(rawValue)}</Text>
         },
         size: 50,
         filterVariant: 'multi-select',
         mantineFilterMultiSelectProps: {
           data: Object.values(BuildingType) as string[],
-          renderOption: (item: { option: { value: string } }) => snakeCaseToHumanCase(item.option.value),
+          renderOption: (item) => snakeCaseToHumanCase(item.option.value),
         },
-      }),
-      createColumnDef('softwareInfo.lcaSoftware', 'LCA Software', {
-        Cell: ({ cell }: { cell: MRT_Cell<Pick<Contribution, 'id'>> }) => {
-          const software = (cell.getValue() as string) || 'N/A'
+      },
+      {
+        accessorKey: 'softwareInfo.lcaSoftware',
+        header: 'LCA Software',
+        Cell: ({ cell }) => {
+          const software = cell.getValue<string>() || 'N/A'
           return <TruncatedTextWithTooltip text={software} />
         },
         size: 100,
-      }),
-      createColumnDef('metaData.source.name', 'Source', {
-        Cell: ({ cell }: { cell: MRT_Cell<Pick<Contribution, 'id'>> }) => {
-          const source = (cell.getValue() as string) || 'N/A'
+      },
+      {
+        accessorKey: 'metaData.source.name',
+        header: 'Source',
+        Cell: ({ cell }) => {
+          const source = cell.getValue<string>() || 'N/A'
           return <TruncatedTextWithTooltip text={source} />
         },
         size: 100,
-      }),
-      createColumnDef('projectInfo.buildingCompletionYear', 'Completion Year', {
-        Cell: ({ cell }: { cell: MRT_Cell<Pick<Contribution, 'id'>> }) => {
-          const completion_year = (cell.getValue() as string) || 'N/A'
+      },
+      {
+        accessorKey: 'projectInfo.buildingCompletionYear',
+        header: 'Completion Year',
+        Cell: ({ cell }) => {
+          const completion_year = cell.getValue<string>() || 'N/A'
           return <TruncatedTextWithTooltip text={completion_year} />
         },
         size: 50,
         filterVariant: 'range-slider',
         filterFn: 'between',
         mantineFilterRangeSliderProps: {
-          max: 2040,
-          min: 1900,
+          max: 2040, //custom max (as opposed to faceted max)
+          min: 1900, //custom min (as opposed to faceted min)
           step: 5,
         },
-      }),
-      createColumnDef('projectInfo.buildingFootprint.value', 'Building Footprint (m²)', {
-        Cell: ({ cell }: { cell: MRT_Cell<Pick<Contribution, 'id'>> }) => {
-          const building_footprint = (cell.getValue() as string) || 'N/A'
+      },
+      {
+        accessorKey: 'projectInfo.buildingFootprint.value',
+        header: 'Building Footprint (m²)',
+        Cell: ({ cell }) => {
+          const building_footprint = cell.getValue<string>() || 'N/A'
           return <TruncatedTextWithTooltip text={building_footprint} />
         },
         size: 50,
         filterVariant: 'range-slider',
         filterFn: 'between',
         mantineFilterRangeSliderProps: {
-          max: 30_000,
-          min: 0,
+          max: 30_000, //custom max (as opposed to faceted max)
+          min: 0, //custom min (as opposed to faceted min)
           step: 500,
         },
-      }),
-      createColumnDef('projectInfo.buildingHeight.value', 'Building Height (m)', {
-        Cell: ({ cell }: { cell: MRT_Cell<Pick<Contribution, 'id'>> }) => {
-          const building_height = (cell.getValue() as string) || 'N/A'
+      },
+      {
+        accessorKey: 'projectInfo.buildingHeight.value',
+        header: 'Building Height (m)',
+        Cell: ({ cell }) => {
+          const building_height = cell.getValue<string>() || 'N/A'
           return <TruncatedTextWithTooltip text={building_height} />
         },
         size: 50,
         filterVariant: 'range-slider',
         filterFn: 'between',
         mantineFilterRangeSliderProps: {
-          max: 500,
-          min: 0,
+          max: 500, //custom max (as opposed to faceted max)
+          min: 0, //custom min (as opposed to faceted min)
           step: 25,
         },
-      }),
-      createColumnDef('projectInfo.buildingMass.value', 'Building Mass (kg)', {
-        Cell: ({ cell }: { cell: MRT_Cell<Pick<Contribution, 'id'>> }) => {
-          const building_mass = (cell.getValue() as string) || 'N/A'
+      },
+      {
+        accessorKey: 'projectInfo.buildingMass.value',
+        header: 'Building Mass (kg)',
+        Cell: ({ cell }) => {
+          const building_mass = cell.getValue<string>() || 'N/A'
           return <TruncatedTextWithTooltip text={building_mass} />
         },
         size: 50,
         filterVariant: 'range-slider',
         filterFn: 'between',
         mantineFilterRangeSliderProps: {
-          max: 30_000,
-          min: 0,
+          max: 30_000, //custom max (as opposed to faceted max)
+          min: 0, //custom min (as opposed to faceted min)
           step: 500,
         },
-      }),
-      createColumnDef('projectInfo.buildingPermitYear', 'Permit Year', {
-        Cell: ({ cell }: { cell: MRT_Cell<Pick<Contribution, 'id'>> }) => {
-          const permit_year = (cell.getValue() as string) || 'N/A'
+      },
+      {
+        accessorKey: 'projectInfo.buildingPermitYear',
+        header: 'Permit Year',
+        Cell: ({ cell }) => {
+          const permit_year = cell.getValue<string>() || 'N/A'
           return <TruncatedTextWithTooltip text={permit_year} />
         },
         size: 50,
         filterVariant: 'range-slider',
         filterFn: 'between',
         mantineFilterRangeSliderProps: {
-          max: 2030,
-          min: 1900,
+          max: 2030, //custom max (as opposed to faceted max)
+          min: 1900, //custom min (as opposed to faceted min)
           step: 5,
         },
-      }),
-      createColumnDef('projectInfo.buildingTypology', 'Building Typology', {
-        Cell: ({ cell }: { cell: MRT_Cell<Pick<Contribution, 'id'>> }) => {
-          const building_typology = (cell.getValue() as string) || 'N/A'
+      },
+      {
+        accessorKey: 'projectInfo.buildingTypology',
+        header: 'Building Typology',
+        Cell: ({ cell }) => {
+          const building_typology = cell.getValue<string>() || 'N/A'
           return <TruncatedTextWithTooltip text={building_typology} />
         },
         size: 100,
@@ -408,52 +330,60 @@ export const PortfolioTable = (props: PortfolioTableProps) => {
         mantineFilterMultiSelectProps: {
           data: Object.values(BuildingTypology) as string[],
         },
-      }),
-      createColumnDef('projectInfo.buildingUsers', 'Building Users', {
-        Cell: ({ cell }: { cell: MRT_Cell<Pick<Contribution, 'id'>> }) => {
-          const building_users = (cell.getValue() as string) || 'N/A'
+      },
+      {
+        accessorKey: 'projectInfo.buildingUsers',
+        header: 'Building Users',
+        Cell: ({ cell }) => {
+          const building_users = cell.getValue<string>() || 'N/A'
           return <TruncatedTextWithTooltip text={building_users} />
         },
         size: 50,
         filterVariant: 'range-slider',
         filterFn: 'between',
         mantineFilterRangeSliderProps: {
-          max: 5000,
-          min: 0,
+          max: 5000, //custom max (as opposed to faceted max)
+          min: 0, //custom min (as opposed to faceted min)
           step: 50,
         },
-      }),
-      createColumnDef('projectInfo.floorsAboveGround', 'Floors Above Ground', {
-        Cell: ({ cell }: { cell: MRT_Cell<Pick<Contribution, 'id'>> }) => {
-          const floors_above_ground = (cell.getValue() as string) || 'N/A'
+      },
+      {
+        accessorKey: 'projectInfo.floorsAboveGround',
+        header: 'Floors Above Ground',
+        Cell: ({ cell }) => {
+          const floors_above_ground = cell.getValue<string>() || 'N/A'
           return <TruncatedTextWithTooltip text={floors_above_ground} />
         },
         size: 50,
         filterVariant: 'range-slider',
         filterFn: 'between',
         mantineFilterRangeSliderProps: {
-          max: 150,
-          min: 0,
+          max: 150, //custom max (as opposed to faceted max)
+          min: 0, //custom min (as opposed to faceted min)
           step: 1,
         },
-      }),
-      createColumnDef('projectInfo.floorsBelowGround', 'Floors Below Ground', {
-        Cell: ({ cell }: { cell: MRT_Cell<Pick<Contribution, 'id'>> }) => {
-          const floors_below_ground = (cell.getValue() as string) || 'N/A'
+      },
+      {
+        accessorKey: 'projectInfo.floorsBelowGround',
+        header: 'Floors Below Ground',
+        Cell: ({ cell }) => {
+          const floors_below_ground = cell.getValue<string>() || 'N/A'
           return <TruncatedTextWithTooltip text={floors_below_ground} />
         },
         size: 50,
         filterVariant: 'range-slider',
         filterFn: 'between',
         mantineFilterRangeSliderProps: {
-          max: 20,
-          min: 0,
+          max: 20, //custom max (as opposed to faceted max)
+          min: 0, //custom min (as opposed to faceted min)
           step: 1,
         },
-      }),
-      createColumnDef('projectInfo.generalEnergyClass', 'Energy Class', {
-        Cell: ({ cell }: { cell: MRT_Cell<Pick<Contribution, 'id'>> }) => {
-          const energy_class = (cell.getValue() as string) || 'N/A'
+      },
+      {
+        accessorKey: 'projectInfo.generalEnergyClass',
+        header: 'Energy Class',
+        Cell: ({ cell }) => {
+          const energy_class = cell.getValue<string>() || 'N/A'
           return <TruncatedTextWithTooltip text={energy_class} />
         },
         size: 50,
@@ -461,24 +391,28 @@ export const PortfolioTable = (props: PortfolioTableProps) => {
         mantineFilterMultiSelectProps: {
           data: Object.values(GeneralEnergyClass) as string[],
         },
-      }),
-      createColumnDef('projectInfo.heatedFloorArea.value', 'Heated Floor Area (m²)', {
-        Cell: ({ cell }: { cell: MRT_Cell<Pick<Contribution, 'id'>> }) => {
-          const value = cell.getValue() as number
+      },
+      {
+        accessorKey: 'projectInfo.heatedFloorArea.value',
+        header: 'Heated Floor Area (m²)',
+        Cell: ({ cell }) => {
+          const value = cell.getValue<number>()
           return value ? value.toFixed(2) : 'N/A'
         },
         size: 50,
         filterVariant: 'range-slider',
         filterFn: 'between',
         mantineFilterRangeSliderProps: {
-          max: 30_000,
-          min: 0,
+          max: 30_000, //custom max (as opposed to faceted max)
+          min: 0, //custom min (as opposed to faceted min)
           step: 500,
         },
-      }),
-      createColumnDef('projectInfo.roofType', 'Roof Type', {
-        Cell: ({ cell }: { cell: MRT_Cell<Pick<Contribution, 'id'>> }) => {
-          const roofType = (cell.getValue() as string) || 'N/A'
+      },
+      {
+        accessorKey: 'projectInfo.roofType',
+        header: 'Roof Type',
+        Cell: ({ cell }) => {
+          const roofType = cell.getValue<string>() || 'N/A'
           return <TruncatedTextWithTooltip text={roofType} />
         },
         size: 50,
@@ -486,50 +420,68 @@ export const PortfolioTable = (props: PortfolioTableProps) => {
         mantineFilterMultiSelectProps: {
           data: Object.values(RoofType) as string[],
         },
-      }),
-      createColumnDef('projectInfo.frameType', 'Frame Type', {
-        Cell: ({ cell }: { cell: MRT_Cell<Pick<Contribution, 'id'>> }) => {
-          const frameType = (cell.getValue() as string) || 'N/A'
+      },
+      {
+        accessorKey: 'projectInfo.frameType',
+        header: 'Frame Type',
+        Cell: ({ cell }) => {
+          const frameType = cell.getValue<string>() || 'N/A'
           return <TruncatedTextWithTooltip text={frameType} />
         },
         size: 50,
-      }),
-      createColumnDef('projectInfo.grossFloorArea.value', 'Gross Floor Area (m²)', {
-        Cell: ({ cell }: { cell: MRT_Cell<Pick<Contribution, 'id'>> }) => {
-          const gross_floor_area = (cell.getValue() as string) || 'N/A'
+      },
+      {
+        accessorKey: 'projectInfo.grossFloorArea.value',
+        header: 'Gross Floor Area (m²)',
+        Cell: ({ cell }) => {
+          const gross_floor_area = cell.getValue<string>() || 'N/A'
           return <TruncatedTextWithTooltip text={gross_floor_area} />
         },
         size: 50,
         filterVariant: 'range-slider',
         filterFn: 'between',
         mantineFilterRangeSliderProps: {
-          max: 30_000,
-          min: 0,
+          max: 30_000, //custom max (as opposed to faceted max)
+          min: 0, //custom min (as opposed to faceted min)
           step: 500,
         },
-      }),
-      createColumnDef('results', 'GWP Intensity (kgCO₂eq/m²)', {
+      },
+      {
+        accessorKey: 'results',
         Cell: getGWPIntensity,
+        header: 'GWP Intensity (kgCO₂eq/m²)',
         size: 50,
         enableSorting: false,
         enableColumnFilter: false,
         enableColumnActions: false,
-      }),
-      createColumnDef('breakdown', 'GWP by Life Cycle Stage', {
+      },
+      {
+        accessorKey: 'breakdown',
         Cell: getGWPBreakdown,
+        header: 'GWP by Life Cycle Stage',
         grow: true,
         enableSorting: false,
         enableColumnFilter: false,
         enableColumnActions: false,
-      }),
-    ]
-  }, [chartVisibility, activeTab, onChartVisibilityChange])
+      },
+    ],
+    [],
+  )
 
   useEffect(() => {
     const baseFilters = { gt: { 'projectInfo.grossFloorArea.value': 0 }, notEqual: { results: null } }
     if (!columnFilters.length) {
       setFilters(baseFilters)
       return
+    }
+
+    interface FilterAccumulator {
+      contains: Record<string, unknown>
+      equal: Record<string, unknown>
+      notEqual: Record<string, unknown>
+      in: Record<string, unknown>
+      gt: Record<string, unknown>
+      lt: Record<string, unknown>
     }
 
     const filters = columnFilters.reduce<FilterAccumulator>(
@@ -715,7 +667,7 @@ export const PortfolioTable = (props: PortfolioTableProps) => {
           leftSection={<IconDownload />}
           variant='filled'
           disabled={rowData.length === 0}
-          loading={isExportingAll}
+          loading={loadingExportingAll}
         >
           Export All Data
         </Button>
@@ -757,6 +709,11 @@ export const PortfolioTable = (props: PortfolioTableProps) => {
       </Group>
     </div>
   )
+}
+
+interface GWPIntensity {
+  cell: MRT_Cell<Pick<Contribution, 'id'>, unknown>
+  row: MRT_Row<Pick<Contribution, 'id'>>
 }
 
 const getGWPIntensity = ({ cell, row }: GWPIntensity) => {

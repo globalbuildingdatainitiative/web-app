@@ -4,8 +4,7 @@ import { Alert, SimpleGrid } from '@mantine/core'
 import type { MRT_VisibilityState } from 'mantine-react-table'
 import { ChartContainer, ErrorMessage, Loading, SubBarChart, ChartTab } from '@components'
 import { IconExclamationCircle } from '@tabler/icons-react'
-import { camelCaseToHumanCase, snakeCaseToHumanCase } from '@lib'
-import { alpha3ToCountryName } from './countryCodesMapping.ts'
+import { alpha3ToCountryName, camelCaseToHumanCase, snakeCaseToHumanCase } from '@lib'
 import { useTheme } from '@emotion/react'
 
 const MAX_VISIBLE_COLUMNS = 9
@@ -145,21 +144,26 @@ export const AttributeChart = (props: AttributeChartProps) => {
 
   const transformedProjectData = useMemo(() => {
     if (!projectData) return []
-    const data = Object.entries(projectData.projects.aggregation[0])
-    if (!data) return []
+
+    // Define the type for the aggregation results
+    type AggregationResult = {
+      _id: { min: number; max: number } | string | null
+      count: number
+    }
+
+    const data = Object.entries(projectData.projects.aggregation[0]) as [string, AggregationResult[]][]
 
     return data.map(([name, values]) => ({
       name,
-      // @ts-expect-error complicated types
       values: values.map((item) => ({
-        name: snakeCaseToHumanCase(
-          typeof item._id === 'object'
-            ? `${item._id.min}-${item._id.max}`
+        name: item._id
+          ? typeof item._id === 'object' && 'min' in item._id && 'max' in item._id
+            ? `${item._id.min}-${item._id.max}` // Handle range values
             : name === 'countryName'
-              ? alpha3ToCountryName()[item._id]
-              : item._id,
-        ),
-        count: item.count,
+              ? alpha3ToCountryName()[item._id] || snakeCaseToHumanCase(String(item._id)) // Using alpha3ToCountryName for countries
+              : snakeCaseToHumanCase(String(item._id)) // Handle regular string values
+          : 'Unknown', // Handle undefined or null _id
+        count: item.count || 0, // Default count to 0 if undefined
       })),
     }))
   }, [projectData])

@@ -26,7 +26,7 @@ SuperTokens.init({
         }
         [data-supertokens~=container]:before {
             content: '';
-            background-image: url('/src/assets/logo.png');
+            background-image: url('/favicon.png');
             background-size: contain;
             background-repeat: no-repeat;
             background-position: center;
