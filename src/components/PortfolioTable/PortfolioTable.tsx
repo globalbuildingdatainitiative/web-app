@@ -23,7 +23,7 @@ import {
 } from 'mantine-react-table'
 import { Dispatch, SetStateAction, useEffect, useMemo, useState } from 'react'
 import { Group, Pagination, Progress, Select, Text, Tooltip, Button, Box } from '@mantine/core'
-import { TruncatedTextWithTooltip } from '@components'
+import { TruncatedTextWithTooltip, HighlightedHeader } from '@components'
 import { useViewportSize } from '@mantine/hooks'
 import { snakeCaseToHumanCase } from '@lib'
 import { alpha3ToCountryName } from '../AttributeChart/countryCodesMapping.ts'
@@ -42,6 +42,27 @@ const csvConfig = mkConfig({
   decimalSeparator: '.',
   useKeysAsHeaders: true,
 })
+
+const CHARTABLE_COLUMNS = [
+  'location.countryName',
+  'projectInfo.buildingType',
+  'softwareInfo.lcaSoftware',
+  'metaData.source.name',
+  'projectInfo.buildingCompletionYear',
+  'projectInfo.buildingFootprint.value',
+  'projectInfo.buildingHeight.value',
+  'projectInfo.buildingMass.value',
+  'projectInfo.buildingPermitYear',
+  'projectInfo.buildingTypology',
+  'projectInfo.buildingUsers',
+  'projectInfo.floorsAboveGround',
+  'projectInfo.floorsBelowGround',
+  'projectInfo.generalEnergyClass',
+  'projectInfo.heatedFloorArea.value',
+  'projectInfo.roofType',
+  'projectInfo.frameType',
+  'projectInfo.grossFloorArea.value',
+]
 
 export const PortfolioTable = (props: PortfolioTableProps) => {
   const { columnVisibility, onColumnVisibilityChange, filters, setFilters } = props
@@ -183,11 +204,25 @@ export const PortfolioTable = (props: PortfolioTableProps) => {
       {
         accessorKey: 'id',
         header: 'ID',
+        Header: ({ column }) => (
+          <HighlightedHeader
+            column='ID'
+            isVisible={columnVisibility[column.id]}
+            isChartable={CHARTABLE_COLUMNS.includes(column.id)}
+          />
+        ),
         enableEditing: false,
       },
       {
         accessorKey: 'name',
         header: 'Project Name',
+        Header: ({ column }) => (
+          <HighlightedHeader
+            column='Project Name'
+            isVisible={columnVisibility[column.id]}
+            isChartable={CHARTABLE_COLUMNS.includes(column.id)}
+          />
+        ),
         Cell: ({ cell }) => {
           const project_name = cell.getValue<string>() || 'N/A'
           return <TruncatedTextWithTooltip text={project_name} />
@@ -197,6 +232,13 @@ export const PortfolioTable = (props: PortfolioTableProps) => {
       {
         accessorKey: 'location.countryName',
         header: 'Country',
+        Header: ({ column }) => (
+          <HighlightedHeader
+            column='Country'
+            isVisible={columnVisibility[column.id]}
+            isChartable={CHARTABLE_COLUMNS.includes(column.id)}
+          />
+        ),
         Cell: ({ cell }) => {
           const country = cell.getValue<string>() || 'N/A'
           return <TruncatedTextWithTooltip text={country} />
@@ -211,6 +253,13 @@ export const PortfolioTable = (props: PortfolioTableProps) => {
       {
         accessorKey: 'projectInfo.buildingType',
         header: 'Building Type',
+        Header: ({ column }) => (
+          <HighlightedHeader
+            column='Building Type'
+            isVisible={columnVisibility[column.id]}
+            isChartable={CHARTABLE_COLUMNS.includes(column.id)}
+          />
+        ),
         Cell: ({ cell }) => {
           const rawValue = cell.getValue<string>() || 'N/A'
           return <Text>{snakeCaseToHumanCase(rawValue)}</Text>
@@ -225,6 +274,13 @@ export const PortfolioTable = (props: PortfolioTableProps) => {
       {
         accessorKey: 'softwareInfo.lcaSoftware',
         header: 'LCA Software',
+        Header: ({ column }) => (
+          <HighlightedHeader
+            column='LCA Software'
+            isVisible={columnVisibility[column.id]}
+            isChartable={CHARTABLE_COLUMNS.includes(column.id)}
+          />
+        ),
         Cell: ({ cell }) => {
           const software = cell.getValue<string>() || 'N/A'
           return <TruncatedTextWithTooltip text={software} />
@@ -234,6 +290,13 @@ export const PortfolioTable = (props: PortfolioTableProps) => {
       {
         accessorKey: 'metaData.source.name',
         header: 'Source',
+        Header: ({ column }) => (
+          <HighlightedHeader
+            column='Source'
+            isVisible={columnVisibility[column.id]}
+            isChartable={CHARTABLE_COLUMNS.includes(column.id)}
+          />
+        ),
         Cell: ({ cell }) => {
           const source = cell.getValue<string>() || 'N/A'
           return <TruncatedTextWithTooltip text={source} />
@@ -243,6 +306,13 @@ export const PortfolioTable = (props: PortfolioTableProps) => {
       {
         accessorKey: 'projectInfo.buildingCompletionYear',
         header: 'Completion Year',
+        Header: ({ column }) => (
+          <HighlightedHeader
+            column='Completion Year'
+            isVisible={columnVisibility[column.id]}
+            isChartable={CHARTABLE_COLUMNS.includes(column.id)}
+          />
+        ),
         Cell: ({ cell }) => {
           const completion_year = cell.getValue<string>() || 'N/A'
           return <TruncatedTextWithTooltip text={completion_year} />
@@ -251,14 +321,21 @@ export const PortfolioTable = (props: PortfolioTableProps) => {
         filterVariant: 'range-slider',
         filterFn: 'between',
         mantineFilterRangeSliderProps: {
-          max: 2040, //custom max (as opposed to faceted max)
-          min: 1900, //custom min (as opposed to faceted min)
+          max: 2040,
+          min: 1900,
           step: 5,
         },
       },
       {
         accessorKey: 'projectInfo.buildingFootprint.value',
         header: 'Building Footprint (m²)',
+        Header: ({ column }) => (
+          <HighlightedHeader
+            column='Building Footprint (m²)'
+            isVisible={columnVisibility[column.id]}
+            isChartable={CHARTABLE_COLUMNS.includes(column.id)}
+          />
+        ),
         Cell: ({ cell }) => {
           const building_footprint = cell.getValue<string>() || 'N/A'
           return <TruncatedTextWithTooltip text={building_footprint} />
@@ -267,14 +344,21 @@ export const PortfolioTable = (props: PortfolioTableProps) => {
         filterVariant: 'range-slider',
         filterFn: 'between',
         mantineFilterRangeSliderProps: {
-          max: 30_000, //custom max (as opposed to faceted max)
-          min: 0, //custom min (as opposed to faceted min)
+          max: 30_000,
+          min: 0,
           step: 500,
         },
       },
       {
         accessorKey: 'projectInfo.buildingHeight.value',
         header: 'Building Height (m)',
+        Header: ({ column }) => (
+          <HighlightedHeader
+            column='Building Height (m)'
+            isVisible={columnVisibility[column.id]}
+            isChartable={CHARTABLE_COLUMNS.includes(column.id)}
+          />
+        ),
         Cell: ({ cell }) => {
           const building_height = cell.getValue<string>() || 'N/A'
           return <TruncatedTextWithTooltip text={building_height} />
@@ -283,14 +367,21 @@ export const PortfolioTable = (props: PortfolioTableProps) => {
         filterVariant: 'range-slider',
         filterFn: 'between',
         mantineFilterRangeSliderProps: {
-          max: 500, //custom max (as opposed to faceted max)
-          min: 0, //custom min (as opposed to faceted min)
+          max: 500,
+          min: 0,
           step: 25,
         },
       },
       {
         accessorKey: 'projectInfo.buildingMass.value',
         header: 'Building Mass (kg)',
+        Header: ({ column }) => (
+          <HighlightedHeader
+            column='Building Mass (kg)'
+            isVisible={columnVisibility[column.id]}
+            isChartable={CHARTABLE_COLUMNS.includes(column.id)}
+          />
+        ),
         Cell: ({ cell }) => {
           const building_mass = cell.getValue<string>() || 'N/A'
           return <TruncatedTextWithTooltip text={building_mass} />
@@ -299,14 +390,21 @@ export const PortfolioTable = (props: PortfolioTableProps) => {
         filterVariant: 'range-slider',
         filterFn: 'between',
         mantineFilterRangeSliderProps: {
-          max: 30_000, //custom max (as opposed to faceted max)
-          min: 0, //custom min (as opposed to faceted min)
+          max: 30_000,
+          min: 0,
           step: 500,
         },
       },
       {
         accessorKey: 'projectInfo.buildingPermitYear',
         header: 'Permit Year',
+        Header: ({ column }) => (
+          <HighlightedHeader
+            column='Permit Year'
+            isVisible={columnVisibility[column.id]}
+            isChartable={CHARTABLE_COLUMNS.includes(column.id)}
+          />
+        ),
         Cell: ({ cell }) => {
           const permit_year = cell.getValue<string>() || 'N/A'
           return <TruncatedTextWithTooltip text={permit_year} />
@@ -315,14 +413,21 @@ export const PortfolioTable = (props: PortfolioTableProps) => {
         filterVariant: 'range-slider',
         filterFn: 'between',
         mantineFilterRangeSliderProps: {
-          max: 2030, //custom max (as opposed to faceted max)
-          min: 1900, //custom min (as opposed to faceted min)
+          max: 2030,
+          min: 1900,
           step: 5,
         },
       },
       {
         accessorKey: 'projectInfo.buildingTypology',
         header: 'Building Typology',
+        Header: ({ column }) => (
+          <HighlightedHeader
+            column='Building Typology'
+            isVisible={columnVisibility[column.id]}
+            isChartable={CHARTABLE_COLUMNS.includes(column.id)}
+          />
+        ),
         Cell: ({ cell }) => {
           const building_typology = cell.getValue<string>() || 'N/A'
           return <TruncatedTextWithTooltip text={building_typology} />
@@ -336,6 +441,13 @@ export const PortfolioTable = (props: PortfolioTableProps) => {
       {
         accessorKey: 'projectInfo.buildingUsers',
         header: 'Building Users',
+        Header: ({ column }) => (
+          <HighlightedHeader
+            column='Building Users'
+            isVisible={columnVisibility[column.id]}
+            isChartable={CHARTABLE_COLUMNS.includes(column.id)}
+          />
+        ),
         Cell: ({ cell }) => {
           const building_users = cell.getValue<string>() || 'N/A'
           return <TruncatedTextWithTooltip text={building_users} />
@@ -344,14 +456,21 @@ export const PortfolioTable = (props: PortfolioTableProps) => {
         filterVariant: 'range-slider',
         filterFn: 'between',
         mantineFilterRangeSliderProps: {
-          max: 5000, //custom max (as opposed to faceted max)
-          min: 0, //custom min (as opposed to faceted min)
+          max: 5000,
+          min: 0,
           step: 50,
         },
       },
       {
         accessorKey: 'projectInfo.floorsAboveGround',
         header: 'Floors Above Ground',
+        Header: ({ column }) => (
+          <HighlightedHeader
+            column='Floors Above Ground'
+            isVisible={columnVisibility[column.id]}
+            isChartable={CHARTABLE_COLUMNS.includes(column.id)}
+          />
+        ),
         Cell: ({ cell }) => {
           const floors_above_ground = cell.getValue<string>() || 'N/A'
           return <TruncatedTextWithTooltip text={floors_above_ground} />
@@ -360,14 +479,21 @@ export const PortfolioTable = (props: PortfolioTableProps) => {
         filterVariant: 'range-slider',
         filterFn: 'between',
         mantineFilterRangeSliderProps: {
-          max: 150, //custom max (as opposed to faceted max)
-          min: 0, //custom min (as opposed to faceted min)
+          max: 150,
+          min: 0,
           step: 1,
         },
       },
       {
         accessorKey: 'projectInfo.floorsBelowGround',
         header: 'Floors Below Ground',
+        Header: ({ column }) => (
+          <HighlightedHeader
+            column='Floors Below Ground'
+            isVisible={columnVisibility[column.id]}
+            isChartable={CHARTABLE_COLUMNS.includes(column.id)}
+          />
+        ),
         Cell: ({ cell }) => {
           const floors_below_ground = cell.getValue<string>() || 'N/A'
           return <TruncatedTextWithTooltip text={floors_below_ground} />
@@ -376,14 +502,21 @@ export const PortfolioTable = (props: PortfolioTableProps) => {
         filterVariant: 'range-slider',
         filterFn: 'between',
         mantineFilterRangeSliderProps: {
-          max: 20, //custom max (as opposed to faceted max)
-          min: 0, //custom min (as opposed to faceted min)
+          max: 20,
+          min: 0,
           step: 1,
         },
       },
       {
         accessorKey: 'projectInfo.generalEnergyClass',
         header: 'Energy Class',
+        Header: ({ column }) => (
+          <HighlightedHeader
+            column='Energy Class'
+            isVisible={columnVisibility[column.id]}
+            isChartable={CHARTABLE_COLUMNS.includes(column.id)}
+          />
+        ),
         Cell: ({ cell }) => {
           const energy_class = cell.getValue<string>() || 'N/A'
           return <TruncatedTextWithTooltip text={energy_class} />
@@ -397,6 +530,13 @@ export const PortfolioTable = (props: PortfolioTableProps) => {
       {
         accessorKey: 'projectInfo.heatedFloorArea.value',
         header: 'Heated Floor Area (m²)',
+        Header: ({ column }) => (
+          <HighlightedHeader
+            column='Heated Floor Area (m²)'
+            isVisible={columnVisibility[column.id]}
+            isChartable={CHARTABLE_COLUMNS.includes(column.id)}
+          />
+        ),
         Cell: ({ cell }) => {
           const value = cell.getValue<number>()
           return value ? value.toFixed(2) : 'N/A'
@@ -405,14 +545,21 @@ export const PortfolioTable = (props: PortfolioTableProps) => {
         filterVariant: 'range-slider',
         filterFn: 'between',
         mantineFilterRangeSliderProps: {
-          max: 30_000, //custom max (as opposed to faceted max)
-          min: 0, //custom min (as opposed to faceted min)
+          max: 30_000,
+          min: 0,
           step: 500,
         },
       },
       {
         accessorKey: 'projectInfo.roofType',
         header: 'Roof Type',
+        Header: ({ column }) => (
+          <HighlightedHeader
+            column='Roof Type'
+            isVisible={columnVisibility[column.id]}
+            isChartable={CHARTABLE_COLUMNS.includes(column.id)}
+          />
+        ),
         Cell: ({ cell }) => {
           const roofType = cell.getValue<string>() || 'N/A'
           return <TruncatedTextWithTooltip text={roofType} />
@@ -426,6 +573,13 @@ export const PortfolioTable = (props: PortfolioTableProps) => {
       {
         accessorKey: 'projectInfo.frameType',
         header: 'Frame Type',
+        Header: ({ column }) => (
+          <HighlightedHeader
+            column='Frame Type'
+            isVisible={columnVisibility[column.id]}
+            isChartable={CHARTABLE_COLUMNS.includes(column.id)}
+          />
+        ),
         Cell: ({ cell }) => {
           const frameType = cell.getValue<string>() || 'N/A'
           return <TruncatedTextWithTooltip text={frameType} />
@@ -435,6 +589,13 @@ export const PortfolioTable = (props: PortfolioTableProps) => {
       {
         accessorKey: 'projectInfo.grossFloorArea.value',
         header: 'Gross Floor Area (m²)',
+        Header: ({ column }) => (
+          <HighlightedHeader
+            column='Gross Floor Area (m²)'
+            isVisible={columnVisibility[column.id]}
+            isChartable={CHARTABLE_COLUMNS.includes(column.id)}
+          />
+        ),
         Cell: ({ cell }) => {
           const gross_floor_area = cell.getValue<string>() || 'N/A'
           return <TruncatedTextWithTooltip text={gross_floor_area} />
@@ -443,15 +604,22 @@ export const PortfolioTable = (props: PortfolioTableProps) => {
         filterVariant: 'range-slider',
         filterFn: 'between',
         mantineFilterRangeSliderProps: {
-          max: 30_000, //custom max (as opposed to faceted max)
-          min: 0, //custom min (as opposed to faceted min)
+          max: 30_000,
+          min: 0,
           step: 500,
         },
       },
       {
         accessorKey: 'results',
-        Cell: getGWPIntensity,
         header: 'GWP Intensity (kgCO₂eq/m²)',
+        Header: ({ column }) => (
+          <HighlightedHeader
+            column='GWP Intensity (kgCO₂eq/m²)'
+            isVisible={columnVisibility[column.id]}
+            isChartable={CHARTABLE_COLUMNS.includes(column.id)}
+          />
+        ),
+        Cell: getGWPIntensity,
         size: 50,
         enableSorting: false,
         enableColumnFilter: false,
@@ -459,15 +627,22 @@ export const PortfolioTable = (props: PortfolioTableProps) => {
       },
       {
         accessorKey: 'breakdown',
-        Cell: getGWPBreakdown,
         header: 'GWP by Life Cycle Stage',
+        Header: ({ column }) => (
+          <HighlightedHeader
+            column='GWP by Life Cycle Stage'
+            isVisible={columnVisibility[column.id]}
+            isChartable={CHARTABLE_COLUMNS.includes(column.id)}
+          />
+        ),
+        Cell: getGWPBreakdown,
         grow: true,
         enableSorting: false,
         enableColumnFilter: false,
         enableColumnActions: false,
       },
     ],
-    [],
+    [columnVisibility],
   )
 
   useEffect(() => {
