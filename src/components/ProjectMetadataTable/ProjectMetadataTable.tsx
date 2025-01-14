@@ -1,9 +1,11 @@
 import { GetProjectDetailsQuery } from '@queries'
 import { useMemo, useState } from 'react'
 import { MantineReactTable, MRT_ColumnDef, MRT_PaginationState, useMantineReactTable } from 'mantine-react-table'
-import { Group, Pagination, Select } from '@mantine/core'
-import { camelCaseToHumanCase } from '@lib'
+import { Button, Group, Pagination, Select } from '@mantine/core'
+import { camelCaseToHumanCase, capitalizeFirstLetter, snakeCaseToHumanCase } from '@lib'
 import { ErrorBoundary } from '../ErrorBoundary'
+import { IconDownload } from '@tabler/icons-react'
+import { download, generateCsv, mkConfig } from 'export-to-csv'
 
 type Project = NonNullable<GetProjectDetailsQuery['contributions']['items']>[number]['project']
 
@@ -12,9 +14,16 @@ interface ProjectMetadataTableProps {
   loading: boolean
 }
 
-interface MetaData {
+export type AcceptedData = number | string | boolean | null | undefined
+
+interface CsvRow {
+  [p: string]: AcceptedData
+  [p: number]: AcceptedData
+}
+
+interface MetaData extends CsvRow {
   name: string
-  value: string | number | string[]
+  value: string | number
   unit?: string
 }
 
@@ -34,25 +43,17 @@ const formatUnit = (unit?: string): string => {
   return unit.replace('m2', 'm²').replace('m3', 'm³').replace('kg/m2', 'kg/m²').replace('kWh/m2', 'kWh/m²')
 }
 
-// Formatting enum values by capitalizing first letter and replacing underscores with spaces
-const formatEnumValue = (value: string): string => {
-  return value
-    .split('_')
-    .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
-    .join(' ')
-}
-
-// Formatting cell value based on its type and unit
 const formatCellValue = (value: string | number | string[]): string => {
   let formattedValue: string
   if (typeof value === 'number') {
     formattedValue = formatNumber(value)
   } else if (typeof value === 'string' && value.includes('_')) {
-    formattedValue = formatEnumValue(value)
-  } else {
+    formattedValue = snakeCaseToHumanCase(value)
+  } else if (value === 'N/A') {
     formattedValue = String(value)
+  } else {
+    formattedValue = capitalizeFirstLetter(String(value))
   }
-
   return formattedValue
 }
 
@@ -70,6 +71,7 @@ const prettifyMetadata = (key: string, value: MetadataValue) => {
     return {
       name,
       value: 'N/A',
+      unit: undefined,
     }
   }
 
@@ -84,6 +86,7 @@ const prettifyMetadata = (key: string, value: MetadataValue) => {
     return {
       name,
       value: value.join(', '),
+      unit: undefined,
     }
   }
   // Handle nested objects (like source, owner, etc.)
@@ -99,6 +102,7 @@ const prettifyMetadata = (key: string, value: MetadataValue) => {
   return {
     name,
     value: String(value),
+    unit: undefined,
   }
 }
 
@@ -150,6 +154,29 @@ export const ProjectMetadataTable = (props: ProjectMetadataTableProps) => {
     [],
   )
 
+  const csvConfig = useMemo(
+    () =>
+      mkConfig({
+        fieldSeparator: ',',
+        decimalSeparator: '.',
+        columnHeaders: [
+          { key: 'name', displayLabel: 'Name' },
+          { key: 'value', displayLabel: 'Value' },
+          {
+            key: 'unit',
+            displayLabel: 'Unit',
+          },
+        ],
+        filename: `${project?.name}_metadata` || 'project_metadata',
+      }),
+    [project],
+  )
+
+  const handleExportAllData = (rows: MetaData[]) => {
+    const csv = generateCsv(csvConfig)(rows)
+    download(csvConfig)(csv)
+  }
+
   const rowData = useMemo(
     () => metaData.slice(pagination.pageIndex * pagination.pageSize, (pagination.pageIndex + 1) * pagination.pageSize),
     [metaData, pagination],
@@ -182,6 +209,16 @@ export const ProjectMetadataTable = (props: ProjectMetadataTableProps) => {
         setPagination(newPagination)
       }
     },
+    renderTopToolbarCustomActions: () => (
+      <Button
+        onClick={() => handleExportAllData(metaData)}
+        leftSection={<IconDownload />}
+        variant='filled'
+        disabled={metaData.length === 0}
+      >
+        Export All Metadata
+      </Button>
+    ),
   })
 
   return (

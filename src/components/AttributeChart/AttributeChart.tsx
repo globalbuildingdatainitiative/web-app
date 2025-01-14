@@ -4,8 +4,7 @@ import { Alert, SimpleGrid } from '@mantine/core'
 import type { MRT_VisibilityState } from 'mantine-react-table'
 import { ChartContainer, ErrorMessage, Loading, SubBarChart } from '@components'
 import { IconExclamationCircle } from '@tabler/icons-react'
-import { camelCaseToHumanCase, snakeCaseToHumanCase } from '@lib'
-import { alpha3ToCountryName } from './countryCodesMapping.ts'
+import { alpha3ToCountryName, camelCaseToHumanCase, snakeCaseToHumanCase } from '@lib'
 import { useTheme } from '@emotion/react'
 
 const MAX_VISIBLE_COLUMNS = 9

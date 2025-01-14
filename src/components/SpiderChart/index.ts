@@ -1,0 +1,1 @@
+export { SpiderChart } from './SpiderChart'

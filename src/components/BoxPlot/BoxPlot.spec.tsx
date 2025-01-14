@@ -2,9 +2,10 @@ import '@testing-library/jest-dom'
 import { render, screen, waitFor } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
 import { MockSessionProvider } from '@mocks'
-import { BoxPlot, BoxPlotData } from '@components'
+import { BoxPlot, BoxPlotData, theme } from '@components'
 import { vi, describe, it, expect } from 'vitest'
 import React from 'react'
+import { MantineProvider } from '@mantine/core'
 
 const mockData: BoxPlotData[] = [
   {
@@ -92,9 +93,11 @@ const renderBoxPlot = () => {
         accessTokenPayload: {},
       }}
     >
-      <MemoryRouter>
-        <BoxPlot data={mockData} />
-      </MemoryRouter>
+      <MantineProvider theme={theme}>
+        <MemoryRouter>
+          <BoxPlot data={mockData} />
+        </MemoryRouter>
+      </MantineProvider>
     </MockSessionProvider>,
   )
 }
@@ -111,9 +114,11 @@ describe('BoxPlot', () => {
           accessTokenPayload: {},
         }}
       >
-        <MemoryRouter>
-          <BoxPlot data={mockData} />
-        </MemoryRouter>
+        <MantineProvider theme={theme}>
+          <MemoryRouter>
+            <BoxPlot data={mockData} />
+          </MemoryRouter>
+        </MantineProvider>
       </MockSessionProvider>,
     )
     expect(container).toMatchSnapshot()
