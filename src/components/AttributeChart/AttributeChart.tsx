@@ -1,11 +1,10 @@
 import { useMemo } from 'react'
 import { useGetAggregatedProjectDataQuery } from '@queries'
-import { Alert, SimpleGrid } from '@mantine/core'
+import { Alert, SimpleGrid, useMantineTheme } from '@mantine/core'
 import type { MRT_VisibilityState } from 'mantine-react-table'
 import { ChartContainer, ErrorMessage, Loading, SubBarChart } from '@components'
 import { IconExclamationCircle } from '@tabler/icons-react'
 import { alpha3ToCountryName, camelCaseToHumanCase, snakeCaseToHumanCase } from '@lib'
-import { useTheme } from '@emotion/react'
 
 const MAX_VISIBLE_COLUMNS = 9
 
@@ -48,10 +47,9 @@ const fixAggregationNames = (name: string) => {
 
 export const AttributeChart = (props: AttributeChartProps) => {
   const { visibleColumns, filters } = props
-  const theme = useTheme()
+  const theme = useMantineTheme()
 
   const getColor = (colorName: string, shade: number, fallback: string): string => {
-    // @ts-expect-error colors are there
     return theme.colors?.[colorName]?.[shade] || fallback
   }
 
