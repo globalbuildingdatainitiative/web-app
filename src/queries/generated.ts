@@ -24,6 +24,7 @@ export type Scalars = {
   Date: { input: any; output: any }
   /** Date with time (isoformat) */
   DateTime: { input: any; output: any }
+  EmailAddress: { input: any; output: any }
   /** The `JSON` scalar type represents JSON values as specified by [ECMA-404](https://ecma-international.org/wp-content/uploads/ECMA-404_2nd_edition_december_2017.pdf). */
   JSON: { input: any; output: any }
   UUID: { input: any; output: any }
@@ -1120,6 +1121,8 @@ export type Mutation = {
   impersonate: Scalars['Boolean']['output']
   /** Invite users to the organization */
   inviteUsers: Array<InviteResult>
+  /** Assign admin role to a user */
+  makeAdmin: Scalars['Boolean']['output']
   /** Reject an invitation */
   rejectInvitation: Scalars['Boolean']['output']
   /** Resend an invitation */
@@ -1158,6 +1161,10 @@ export type MutationImpersonateArgs = {
 
 export type MutationInviteUsersArgs = {
   input: InviteUsersInput
+}
+
+export type MutationMakeAdminArgs = {
+  userId: Scalars['String']['input']
 }
 
 export type MutationRejectInvitationArgs = {
@@ -1618,7 +1625,7 @@ export type UpdateContribution = {
 
 export type UpdateUserInput = {
   currentPassword?: InputMaybe<Scalars['String']['input']>
-  email?: InputMaybe<Scalars['String']['input']>
+  email?: InputMaybe<Scalars['EmailAddress']['input']>
   firstName?: InputMaybe<Scalars['String']['input']>
   id: Scalars['UUID']['input']
   inviteStatus?: InputMaybe<InviteStatus>
@@ -1781,6 +1788,7 @@ export type ResolversTypes = {
   DateTime: ResolverTypeWrapper<Scalars['DateTime']['output']>
   EPD: ResolverTypeWrapper<Epd>
   EPDTechFlow: ResolverTypeWrapper<ResolversUnionTypes<ResolversTypes>['EPDTechFlow']>
+  EmailAddress: ResolverTypeWrapper<Scalars['EmailAddress']['output']>
   Energy: ResolverTypeWrapper<Energy>
   FilterBy: FilterBy
   FilterOptions: FilterOptions
@@ -1882,6 +1890,7 @@ export type ResolversParentTypes = {
   DateTime: Scalars['DateTime']['output']
   EPD: Epd
   EPDTechFlow: ResolversUnionTypes<ResolversParentTypes>['EPDTechFlow']
+  EmailAddress: Scalars['EmailAddress']['output']
   Energy: Energy
   FilterBy: FilterBy
   FilterOptions: FilterOptions
@@ -2208,6 +2217,10 @@ export type EpdTechFlowResolvers<
   __resolveType: TypeResolveFn<'EPD' | 'TechFlow', ParentType, ContextType>
 }
 
+export interface EmailAddressScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['EmailAddress'], any> {
+  name: 'EmailAddress'
+}
+
 export type EnergyResolvers<
   ContextType = any,
   ParentType extends ResolversParentTypes['Energy'] = ResolversParentTypes['Energy'],
@@ -2321,6 +2334,12 @@ export type MutationResolvers<
     ParentType,
     ContextType,
     RequireFields<MutationInviteUsersArgs, 'input'>
+  >
+  makeAdmin?: Resolver<
+    ResolversTypes['Boolean'],
+    ParentType,
+    ContextType,
+    RequireFields<MutationMakeAdminArgs, 'userId'>
   >
   rejectInvitation?: Resolver<
     ResolversTypes['Boolean'],
@@ -2785,6 +2804,7 @@ export type Resolvers<ContextType = any> = {
   DateTime?: GraphQLScalarType
   EPD?: EpdResolvers<ContextType>
   EPDTechFlow?: EpdTechFlowResolvers<ContextType>
+  EmailAddress?: GraphQLScalarType
   Energy?: EnergyResolvers<ContextType>
   ImpactCategoryResults?: ImpactCategoryResultsResolvers<ContextType>
   InviteResult?: InviteResultResolvers<ContextType>
@@ -3397,6 +3417,12 @@ export type ImpersonateUserMutationVariables = Exact<{
 }>
 
 export type ImpersonateUserMutation = { __typename?: 'Mutation'; impersonate: boolean }
+
+export type MakeUserAdminMutationVariables = Exact<{
+  userId: Scalars['String']['input']
+}>
+
+export type MakeUserAdminMutation = { __typename?: 'Mutation'; makeAdmin: boolean }
 
 export const AcceptInvitationDocument = gql`
   mutation acceptInvitation($user: AcceptInvitationInput!) {
@@ -4938,4 +4964,40 @@ export type ImpersonateUserMutationResult = Apollo.MutationResult<ImpersonateUse
 export type ImpersonateUserMutationOptions = Apollo.BaseMutationOptions<
   ImpersonateUserMutation,
   ImpersonateUserMutationVariables
+>
+export const MakeUserAdminDocument = gql`
+  mutation makeUserAdmin($userId: String!) {
+    makeAdmin(userId: $userId)
+  }
+`
+export type MakeUserAdminMutationFn = Apollo.MutationFunction<MakeUserAdminMutation, MakeUserAdminMutationVariables>
+
+/**
+ * __useMakeUserAdminMutation__
+ *
+ * To run a mutation, you first call `useMakeUserAdminMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useMakeUserAdminMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [makeUserAdminMutation, { data, loading, error }] = useMakeUserAdminMutation({
+ *   variables: {
+ *      userId: // value for 'userId'
+ *   },
+ * });
+ */
+export function useMakeUserAdminMutation(
+  baseOptions?: Apollo.MutationHookOptions<MakeUserAdminMutation, MakeUserAdminMutationVariables>,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<MakeUserAdminMutation, MakeUserAdminMutationVariables>(MakeUserAdminDocument, options)
+}
+export type MakeUserAdminMutationHookResult = ReturnType<typeof useMakeUserAdminMutation>
+export type MakeUserAdminMutationResult = Apollo.MutationResult<MakeUserAdminMutation>
+export type MakeUserAdminMutationOptions = Apollo.BaseMutationOptions<
+  MakeUserAdminMutation,
+  MakeUserAdminMutationVariables
 >

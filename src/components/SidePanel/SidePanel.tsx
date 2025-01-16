@@ -46,7 +46,6 @@ export const SidePanel = ({ collapsed, toggleCollapsed }: SidePanelProps) => {
   const onCurrentPage = (link: string) =>
     (location.pathname.startsWith(link) && link !== '/') || location.pathname === link
 
-  // debugger
   return (
     <div
       style={{

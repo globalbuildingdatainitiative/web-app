@@ -40,7 +40,7 @@
     "react-leaflet": "^4.2.1",
     "react-router-dom": "^6.22.3",
     "recharts": "2.12.7",
-    "supertokens-auth-react": "^0.47.1",
+    "supertokens-auth-react": "^0.48.0",
     "xlsx": "^0.18.5"
   },
   "devDependencies": {

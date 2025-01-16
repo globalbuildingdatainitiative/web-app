@@ -589,3 +589,7 @@ mutation updateContributions($contributions: [UpdateContribution!]!) {
 mutation impersonateUser($userId: String!) {
   impersonate(userId: $userId)
 }
+
+mutation makeUserAdmin($userId: String!) {
+  makeAdmin(userId: $userId)
+}

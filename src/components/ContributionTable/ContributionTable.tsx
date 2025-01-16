@@ -17,7 +17,7 @@ import {
 import 'mantine-react-table/styles.css'
 import React, { useEffect, useMemo, useState } from 'react'
 import dayjs from 'dayjs'
-import { ActionIcon, Group, Pagination, ScrollArea, Select, Text, Tooltip } from '@mantine/core'
+import { ActionIcon, Group, MantineSize, Pagination, ScrollArea, Select, Text, Tooltip } from '@mantine/core'
 import { ViewProjectDetails } from './viewProjectDetails.tsx'
 import { useViewportSize } from '@mantine/hooks'
 import { IconCircleCheck, IconCircleX, IconEdit, IconTrash } from '@tabler/icons-react'
@@ -25,14 +25,15 @@ import { IconCircleCheck, IconCircleX, IconEdit, IconTrash } from '@tabler/icons
 interface TruncatedTextWithTooltipProps {
   text: string
   maxLength?: number
+  size?: MantineSize
 }
 
-export const TruncatedTextWithTooltip: React.FC<TruncatedTextWithTooltipProps> = ({ text, maxLength = 25 }) => {
+export const TruncatedTextWithTooltip = ({ text, maxLength = 25, size = 'md' }: TruncatedTextWithTooltipProps) => {
   const isTruncated = text.length > maxLength
   const truncatedText = isTruncated ? `${text.substring(0, maxLength)}...` : text
 
   if (!text) {
-    return <Text>N/A</Text>
+    return <Text size={size}>N/A</Text>
   }
 
   return isTruncated ? (
@@ -50,7 +51,9 @@ export const TruncatedTextWithTooltip: React.FC<TruncatedTextWithTooltipProps> =
         },
       }}
     >
-      <Text style={{ cursor: 'pointer' }}>{truncatedText}</Text>
+      <Text style={{ cursor: 'pointer' }} size={size}>
+        {truncatedText}
+      </Text>
     </Tooltip>
   ) : (
     <Text>{text}</Text>

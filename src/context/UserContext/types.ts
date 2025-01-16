@@ -11,4 +11,5 @@ export const ROLES = {
 
 export interface User extends GraphQLUser {
   roles: Role[]
+  isImpersonation: boolean
 }
