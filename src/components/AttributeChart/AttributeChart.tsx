@@ -39,11 +39,14 @@ const columnTypeMap: Record<string, string> = {
 
 const fixAggregationNames = (name: string) => {
   const splitNames = name.split('.')
-  if (splitNames.length >= 2) {
-    return splitNames[1]
-  } else {
-    return splitNames[0]
+  return splitNames.length >= 2 ? splitNames[1] : splitNames[0]
+}
+
+const normalizeValue = (value: unknown): string => {
+  if (value === null || value === undefined || value === '' || value === 'N/A') {
+    return 'null'
   }
+  return String(value)
 }
 
 export const AttributeChart = (props: AttributeChartProps) => {
@@ -114,6 +117,24 @@ export const AttributeChart = (props: AttributeChartProps) => {
       .map((column) => ({
         [fixAggregationNames(column[0])]: [
           {
+            $addFields: {
+              [column[0]]: {
+                $cond: {
+                  if: {
+                    $or: [
+                      { $eq: [`$${column[0]}`, null] },
+                      { $eq: [`$${column[0]}`, ''] },
+                      { $eq: [`$${column[0]}`, 'N/A'] },
+                      { $eq: [{ $type: `$${column[0]}` }, 'missing'] },
+                    ],
+                  },
+                  then: 'null',
+                  else: { $ifNull: [`$${column[0]}`, 'null'] },
+                },
+              },
+            },
+          },
+          {
             $group: {
               _id: `$${column[0] === 'location.countryName' ? 'location.country' : column[0]}`,
               count: { $sum: 1 },
@@ -157,12 +178,12 @@ export const AttributeChart = (props: AttributeChartProps) => {
       values: values.map((item) => ({
         name: item._id
           ? typeof item._id === 'object' && 'min' in item._id && 'max' in item._id
-            ? `${item._id.min}-${item._id.max}` // Handle range values
+            ? `${item._id.min}-${item._id.max}`
             : name === 'countryName'
-              ? alpha3ToCountryName()[item._id] || snakeCaseToHumanCase(String(item._id)) // Using alpha3ToCountryName for countries
-              : snakeCaseToHumanCase(String(item._id)) // Handle regular string values
-          : 'Unknown', // Handle undefined or null _id
-        count: item.count || 0, // Default count to 0 if undefined
+              ? alpha3ToCountryName()[item._id] || snakeCaseToHumanCase(normalizeValue(item._id))
+              : snakeCaseToHumanCase(normalizeValue(item._id))
+          : 'null',
+        count: item.count || 0,
       })),
     }))
   }, [projectData])
