@@ -1,9 +1,9 @@
 import { createTheme, MantineColorsTuple, rem } from '@mantine/core'
 
 export const theme = createTheme({
-  fontFamily: 'Outfit, sans-serif',
+  fontFamily: 'Plus Jakarta Sans, sans-serif',
   headings: {
-    fontFamily: 'Outfit, sans-serif',
+    fontFamily: 'Plus Jakarta Sans, sans-serif',
     fontWeight: '700',
   },
   fontSizes: {
@@ -23,52 +23,52 @@ export const theme = createTheme({
   },
   colors: {
     green: [
-      '#eefcf8',
-      '#ddf5ef',
-      '#b5edde',
-      '#8ce5cb',
-      '#6addbc',
-      '#57d8b1',
-      '#4bd6ac',
-      '#3dbd97',
-      '#31a985',
-      '#1d9a78',
+      '#EAFAF0', // [0] Pastel
+      '#A6DBC9', // [1] Light
+      '#8ED3BC',
+      '#76CCAF',
+      '#5EC4A2',
+      '#1B9D7E', // [5] Bright
+      '#1B8E73',
+      '#1C7F68',
+      '#206D59', // [8] Dark
+      '#1B9D7E', // [9] Primary Green
     ] as MantineColorsTuple,
-    light_green: [
-      '#e6fcf7',
-      '#d9f1eb',
-      '#b8e0d6',
-      '#94cfbf',
-      '#76c1ab',
-      '#61b89f',
-      '#55b399',
-      '#449d85',
-      '#378c75',
-      '#237a64',
+    blue: [
+      '#E9F7FE', // [0] Pastel
+      '#9DD2F3', // [1] Light
+      '#89C7EF',
+      '#75BCEB',
+      '#61B1E7',
+      '#3592E3', // [5] Bright
+      '#3485D4',
+      '#3378C5',
+      '#326BB6',
+      '#31658D', // [9] Dark
+    ] as MantineColorsTuple,
+    purple: [
+      '#EFECFE', // [0] Pastel
+      '#BAAEF6', // [1] Light
+      '#ACA0F4',
+      '#9E92F2',
+      '#9084F0',
+      '#8671EF', // [5] Bright
+      '#7B6AE0',
+      '#7063D1',
+      '#6560C2',
+      '#5C5CAE', // [9] Dark
     ] as MantineColorsTuple,
     orange: [
-      '#fff1e2',
-      '#ffe2ce',
-      '#f9c4a2',
-      '#f4a570',
-      '#ef8a46',
-      '#ec792b',
-      '#ec701b',
-      '#d25e0e',
-      '#bb5307',
-      '#a34600',
-    ] as MantineColorsTuple,
-    light_orange: [
-      '#fffae1',
-      '#fff3cc',
-      '#ffe69b',
-      '#ffd964',
-      '#ffcd38',
-      '#ffc61c',
-      '#ffc209',
-      '#e3ab00',
-      '#ca9800',
-      '#ae8300',
+      '#FEE6C8', // [0] Pastel
+      '#FBCA94', // [1] Light
+      '#FAC082',
+      '#F8B670',
+      '#F7AC5E',
+      '#F59B3A', // [5] Bright
+      '#E68E32',
+      '#D7812A',
+      '#C8741E',
+      '#CC7212', // [9] Dark
     ] as MantineColorsTuple,
     red: [
       '#ffeeea',
@@ -82,21 +82,9 @@ export const theme = createTheme({
       '#ac341d',
       '#972a16',
     ] as MantineColorsTuple,
-    blue: [
-      '#eaf9fb',
-      '#dfedef',
-      '#bfd7dc',
-      '#9dc2ca',
-      '#80b0ba',
-      '#6da4b0',
-      '#619ead',
-      '#4f8a97',
-      '#427b88',
-      '#2e6b78',
-    ] as MantineColorsTuple,
     yellow: [
       '#fffae5',
-      '#fff3d0', //  Light yellow
+      '#fff3d0',
       '#fee69f',
       '#fed869',
       '#fecc3f',
