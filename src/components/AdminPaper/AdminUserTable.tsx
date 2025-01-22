@@ -6,6 +6,7 @@ import { ActionIcon, Group, Tooltip } from '@mantine/core'
 import { IconUserBolt, IconUserStar } from '@tabler/icons-react'
 import { useNavigate } from 'react-router-dom'
 import { TruncatedTextWithTooltip } from '@components'
+import { capitalizeFirstLetter } from '@lib'
 
 type User = NonNullable<GetUsersQuery['users']>[number]
 
@@ -13,7 +14,9 @@ export const AdminUserTable = () => {
   const navigate = useNavigate()
   const { data, loading, error } = useGetUsersQuery()
   const [impersonate, { loading: impersonateLoading, error: impersonateError }] = useImpersonateUserMutation()
-  const [makeAdmin, { loading: makeAdminLoading, error: makeAdminError }] = useMakeUserAdminMutation()
+  const [makeAdmin, { loading: makeAdminLoading, error: makeAdminError }] = useMakeUserAdminMutation({
+    refetchQueries: ['getUsers'],
+  })
 
   const columns = useMemo<MRT_ColumnDef<User>[]>(
     () => [
@@ -41,7 +44,17 @@ export const AdminUserTable = () => {
       {
         accessorKey: 'roles',
         header: 'Roles',
-        Cell: ({ cell }) => <TruncatedTextWithTooltip text={cell.getValue<string[]>()?.join(', ') || ''} size='sm' />,
+        Cell: ({ cell }) => (
+          <TruncatedTextWithTooltip
+            text={
+              cell
+                .getValue<string[]>()
+                ?.map((role) => capitalizeFirstLetter(role.toLowerCase()))
+                .join(', ') || ''
+            }
+            size='sm'
+          />
+        ),
       },
       {
         accessorKey: 'organization.name',
@@ -110,7 +123,7 @@ export const AdminUserTable = () => {
     state: {
       isLoading: loading,
       showAlertBanner: !!error || !!impersonateError || !!makeAdminError,
-      showSkeletons: false,
+      showSkeletons: loading,
     },
   })
 

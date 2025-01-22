@@ -1475,7 +1475,8 @@ exports[`ContributionTable > Snapshot 1`] = `
                     >
                       <p
                         class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
-                        style=""
+                        data-size="md"
+                        style="--text-fz: var(--mantine-font-size-md); --text-lh: var(--mantine-line-height-md);"
                       >
                         N/A
                       </p>
@@ -1487,7 +1488,8 @@ exports[`ContributionTable > Snapshot 1`] = `
                     >
                       <p
                         class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
-                        style=""
+                        data-size="md"
+                        style="--text-fz: var(--mantine-font-size-md); --text-lh: var(--mantine-line-height-md);"
                       >
                         N/A
                       </p>
@@ -1511,7 +1513,8 @@ exports[`ContributionTable > Snapshot 1`] = `
                     >
                       <p
                         class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
-                        style=""
+                        data-size="md"
+                        style="--text-fz: var(--mantine-font-size-md); --text-lh: var(--mantine-line-height-md);"
                       >
                         N/A N/A
                       </p>
@@ -1547,7 +1550,8 @@ exports[`ContributionTable > Snapshot 1`] = `
                     >
                       <p
                         class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
-                        style=""
+                        data-size="md"
+                        style="--text-fz: var(--mantine-font-size-md); --text-lh: var(--mantine-line-height-md);"
                       >
                         N/A
                       </p>
@@ -1559,7 +1563,8 @@ exports[`ContributionTable > Snapshot 1`] = `
                     >
                       <p
                         class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
-                        style=""
+                        data-size="md"
+                        style="--text-fz: var(--mantine-font-size-md); --text-lh: var(--mantine-line-height-md);"
                       >
                         N/A
                       </p>
@@ -1704,7 +1709,8 @@ exports[`ContributionTable > Snapshot 1`] = `
                     >
                       <p
                         class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
-                        style=""
+                        data-size="md"
+                        style="--text-fz: var(--mantine-font-size-md); --text-lh: var(--mantine-line-height-md);"
                       >
                         N/A
                       </p>
@@ -1716,7 +1722,8 @@ exports[`ContributionTable > Snapshot 1`] = `
                     >
                       <p
                         class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
-                        style=""
+                        data-size="md"
+                        style="--text-fz: var(--mantine-font-size-md); --text-lh: var(--mantine-line-height-md);"
                       >
                         N/A
                       </p>
@@ -1740,7 +1747,8 @@ exports[`ContributionTable > Snapshot 1`] = `
                     >
                       <p
                         class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
-                        style=""
+                        data-size="md"
+                        style="--text-fz: var(--mantine-font-size-md); --text-lh: var(--mantine-line-height-md);"
                       >
                         N/A N/A
                       </p>
@@ -1776,7 +1784,8 @@ exports[`ContributionTable > Snapshot 1`] = `
                     >
                       <p
                         class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
-                        style=""
+                        data-size="md"
+                        style="--text-fz: var(--mantine-font-size-md); --text-lh: var(--mantine-line-height-md);"
                       >
                         N/A
                       </p>
@@ -1788,7 +1797,8 @@ exports[`ContributionTable > Snapshot 1`] = `
                     >
                       <p
                         class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
-                        style=""
+                        data-size="md"
+                        style="--text-fz: var(--mantine-font-size-md); --text-lh: var(--mantine-line-height-md);"
                       >
                         N/A
                       </p>
@@ -1933,7 +1943,8 @@ exports[`ContributionTable > Snapshot 1`] = `
                     >
                       <p
                         class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
-                        style=""
+                        data-size="md"
+                        style="--text-fz: var(--mantine-font-size-md); --text-lh: var(--mantine-line-height-md);"
                       >
                         N/A
                       </p>
@@ -1945,7 +1956,8 @@ exports[`ContributionTable > Snapshot 1`] = `
                     >
                       <p
                         class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
-                        style=""
+                        data-size="md"
+                        style="--text-fz: var(--mantine-font-size-md); --text-lh: var(--mantine-line-height-md);"
                       >
                         N/A
                       </p>
@@ -1969,7 +1981,8 @@ exports[`ContributionTable > Snapshot 1`] = `
                     >
                       <p
                         class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
-                        style=""
+                        data-size="md"
+                        style="--text-fz: var(--mantine-font-size-md); --text-lh: var(--mantine-line-height-md);"
                       >
                         N/A N/A
                       </p>
@@ -2005,7 +2018,8 @@ exports[`ContributionTable > Snapshot 1`] = `
                     >
                       <p
                         class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
-                        style=""
+                        data-size="md"
+                        style="--text-fz: var(--mantine-font-size-md); --text-lh: var(--mantine-line-height-md);"
                       >
                         N/A
                       </p>
@@ -2017,7 +2031,8 @@ exports[`ContributionTable > Snapshot 1`] = `
                     >
                       <p
                         class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
-                        style=""
+                        data-size="md"
+                        style="--text-fz: var(--mantine-font-size-md); --text-lh: var(--mantine-line-height-md);"
                       >
                         N/A
                       </p>
@@ -2162,7 +2177,8 @@ exports[`ContributionTable > Snapshot 1`] = `
                     >
                       <p
                         class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
-                        style=""
+                        data-size="md"
+                        style="--text-fz: var(--mantine-font-size-md); --text-lh: var(--mantine-line-height-md);"
                       >
                         N/A
                       </p>
@@ -2174,7 +2190,8 @@ exports[`ContributionTable > Snapshot 1`] = `
                     >
                       <p
                         class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
-                        style=""
+                        data-size="md"
+                        style="--text-fz: var(--mantine-font-size-md); --text-lh: var(--mantine-line-height-md);"
                       >
                         N/A
                       </p>
@@ -2198,7 +2215,8 @@ exports[`ContributionTable > Snapshot 1`] = `
                     >
                       <p
                         class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
-                        style=""
+                        data-size="md"
+                        style="--text-fz: var(--mantine-font-size-md); --text-lh: var(--mantine-line-height-md);"
                       >
                         N/A N/A
                       </p>
@@ -2234,7 +2252,8 @@ exports[`ContributionTable > Snapshot 1`] = `
                     >
                       <p
                         class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
-                        style=""
+                        data-size="md"
+                        style="--text-fz: var(--mantine-font-size-md); --text-lh: var(--mantine-line-height-md);"
                       >
                         N/A
                       </p>
@@ -2246,7 +2265,8 @@ exports[`ContributionTable > Snapshot 1`] = `
                     >
                       <p
                         class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
-                        style=""
+                        data-size="md"
+                        style="--text-fz: var(--mantine-font-size-md); --text-lh: var(--mantine-line-height-md);"
                       >
                         N/A
                       </p>
@@ -2391,7 +2411,8 @@ exports[`ContributionTable > Snapshot 1`] = `
                     >
                       <p
                         class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
-                        style=""
+                        data-size="md"
+                        style="--text-fz: var(--mantine-font-size-md); --text-lh: var(--mantine-line-height-md);"
                       >
                         N/A
                       </p>
@@ -2403,7 +2424,8 @@ exports[`ContributionTable > Snapshot 1`] = `
                     >
                       <p
                         class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
-                        style=""
+                        data-size="md"
+                        style="--text-fz: var(--mantine-font-size-md); --text-lh: var(--mantine-line-height-md);"
                       >
                         N/A
                       </p>
@@ -2427,7 +2449,8 @@ exports[`ContributionTable > Snapshot 1`] = `
                     >
                       <p
                         class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
-                        style=""
+                        data-size="md"
+                        style="--text-fz: var(--mantine-font-size-md); --text-lh: var(--mantine-line-height-md);"
                       >
                         N/A N/A
                       </p>
@@ -2463,7 +2486,8 @@ exports[`ContributionTable > Snapshot 1`] = `
                     >
                       <p
                         class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
-                        style=""
+                        data-size="md"
+                        style="--text-fz: var(--mantine-font-size-md); --text-lh: var(--mantine-line-height-md);"
                       >
                         N/A
                       </p>
@@ -2475,7 +2499,8 @@ exports[`ContributionTable > Snapshot 1`] = `
                     >
                       <p
                         class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
-                        style=""
+                        data-size="md"
+                        style="--text-fz: var(--mantine-font-size-md); --text-lh: var(--mantine-line-height-md);"
                       >
                         N/A
                       </p>
@@ -2620,7 +2645,8 @@ exports[`ContributionTable > Snapshot 1`] = `
                     >
                       <p
                         class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
-                        style=""
+                        data-size="md"
+                        style="--text-fz: var(--mantine-font-size-md); --text-lh: var(--mantine-line-height-md);"
                       >
                         N/A
                       </p>
@@ -2632,7 +2658,8 @@ exports[`ContributionTable > Snapshot 1`] = `
                     >
                       <p
                         class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
-                        style=""
+                        data-size="md"
+                        style="--text-fz: var(--mantine-font-size-md); --text-lh: var(--mantine-line-height-md);"
                       >
                         N/A
                       </p>
@@ -2656,7 +2683,8 @@ exports[`ContributionTable > Snapshot 1`] = `
                     >
                       <p
                         class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
-                        style=""
+                        data-size="md"
+                        style="--text-fz: var(--mantine-font-size-md); --text-lh: var(--mantine-line-height-md);"
                       >
                         N/A N/A
                       </p>
@@ -2692,7 +2720,8 @@ exports[`ContributionTable > Snapshot 1`] = `
                     >
                       <p
                         class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
-                        style=""
+                        data-size="md"
+                        style="--text-fz: var(--mantine-font-size-md); --text-lh: var(--mantine-line-height-md);"
                       >
                         N/A
                       </p>
@@ -2704,7 +2733,8 @@ exports[`ContributionTable > Snapshot 1`] = `
                     >
                       <p
                         class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
-                        style=""
+                        data-size="md"
+                        style="--text-fz: var(--mantine-font-size-md); --text-lh: var(--mantine-line-height-md);"
                       >
                         N/A
                       </p>
@@ -2849,7 +2879,8 @@ exports[`ContributionTable > Snapshot 1`] = `
                     >
                       <p
                         class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
-                        style=""
+                        data-size="md"
+                        style="--text-fz: var(--mantine-font-size-md); --text-lh: var(--mantine-line-height-md);"
                       >
                         N/A
                       </p>
@@ -2861,7 +2892,8 @@ exports[`ContributionTable > Snapshot 1`] = `
                     >
                       <p
                         class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
-                        style=""
+                        data-size="md"
+                        style="--text-fz: var(--mantine-font-size-md); --text-lh: var(--mantine-line-height-md);"
                       >
                         N/A
                       </p>
@@ -2885,7 +2917,8 @@ exports[`ContributionTable > Snapshot 1`] = `
                     >
                       <p
                         class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
-                        style=""
+                        data-size="md"
+                        style="--text-fz: var(--mantine-font-size-md); --text-lh: var(--mantine-line-height-md);"
                       >
                         N/A N/A
                       </p>
@@ -2921,7 +2954,8 @@ exports[`ContributionTable > Snapshot 1`] = `
                     >
                       <p
                         class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
-                        style=""
+                        data-size="md"
+                        style="--text-fz: var(--mantine-font-size-md); --text-lh: var(--mantine-line-height-md);"
                       >
                         N/A
                       </p>
@@ -2933,7 +2967,8 @@ exports[`ContributionTable > Snapshot 1`] = `
                     >
                       <p
                         class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
-                        style=""
+                        data-size="md"
+                        style="--text-fz: var(--mantine-font-size-md); --text-lh: var(--mantine-line-height-md);"
                       >
                         N/A
                       </p>
@@ -3078,7 +3113,8 @@ exports[`ContributionTable > Snapshot 1`] = `
                     >
                       <p
                         class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
-                        style=""
+                        data-size="md"
+                        style="--text-fz: var(--mantine-font-size-md); --text-lh: var(--mantine-line-height-md);"
                       >
                         N/A
                       </p>
@@ -3090,7 +3126,8 @@ exports[`ContributionTable > Snapshot 1`] = `
                     >
                       <p
                         class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
-                        style=""
+                        data-size="md"
+                        style="--text-fz: var(--mantine-font-size-md); --text-lh: var(--mantine-line-height-md);"
                       >
                         N/A
                       </p>
@@ -3114,7 +3151,8 @@ exports[`ContributionTable > Snapshot 1`] = `
                     >
                       <p
                         class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
-                        style=""
+                        data-size="md"
+                        style="--text-fz: var(--mantine-font-size-md); --text-lh: var(--mantine-line-height-md);"
                       >
                         N/A N/A
                       </p>
@@ -3150,7 +3188,8 @@ exports[`ContributionTable > Snapshot 1`] = `
                     >
                       <p
                         class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
-                        style=""
+                        data-size="md"
+                        style="--text-fz: var(--mantine-font-size-md); --text-lh: var(--mantine-line-height-md);"
                       >
                         N/A
                       </p>
@@ -3162,7 +3201,8 @@ exports[`ContributionTable > Snapshot 1`] = `
                     >
                       <p
                         class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
-                        style=""
+                        data-size="md"
+                        style="--text-fz: var(--mantine-font-size-md); --text-lh: var(--mantine-line-height-md);"
                       >
                         N/A
                       </p>
@@ -3307,7 +3347,8 @@ exports[`ContributionTable > Snapshot 1`] = `
                     >
                       <p
                         class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
-                        style=""
+                        data-size="md"
+                        style="--text-fz: var(--mantine-font-size-md); --text-lh: var(--mantine-line-height-md);"
                       >
                         N/A
                       </p>
@@ -3319,7 +3360,8 @@ exports[`ContributionTable > Snapshot 1`] = `
                     >
                       <p
                         class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
-                        style=""
+                        data-size="md"
+                        style="--text-fz: var(--mantine-font-size-md); --text-lh: var(--mantine-line-height-md);"
                       >
                         N/A
                       </p>
@@ -3343,7 +3385,8 @@ exports[`ContributionTable > Snapshot 1`] = `
                     >
                       <p
                         class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
-                        style=""
+                        data-size="md"
+                        style="--text-fz: var(--mantine-font-size-md); --text-lh: var(--mantine-line-height-md);"
                       >
                         N/A N/A
                       </p>
@@ -3379,7 +3422,8 @@ exports[`ContributionTable > Snapshot 1`] = `
                     >
                       <p
                         class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
-                        style=""
+                        data-size="md"
+                        style="--text-fz: var(--mantine-font-size-md); --text-lh: var(--mantine-line-height-md);"
                       >
                         N/A
                       </p>
@@ -3391,7 +3435,8 @@ exports[`ContributionTable > Snapshot 1`] = `
                     >
                       <p
                         class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
-                        style=""
+                        data-size="md"
+                        style="--text-fz: var(--mantine-font-size-md); --text-lh: var(--mantine-line-height-md);"
                       >
                         N/A
                       </p>
@@ -3537,7 +3582,8 @@ exports[`ContributionTable > Snapshot 1`] = `
                     >
                       <p
                         class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
-                        style=""
+                        data-size="md"
+                        style="--text-fz: var(--mantine-font-size-md); --text-lh: var(--mantine-line-height-md);"
                       >
                         N/A
                       </p>
@@ -3550,7 +3596,8 @@ exports[`ContributionTable > Snapshot 1`] = `
                     >
                       <p
                         class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
-                        style=""
+                        data-size="md"
+                        style="--text-fz: var(--mantine-font-size-md); --text-lh: var(--mantine-line-height-md);"
                       >
                         N/A
                       </p>
@@ -3576,7 +3623,8 @@ exports[`ContributionTable > Snapshot 1`] = `
                     >
                       <p
                         class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
-                        style=""
+                        data-size="md"
+                        style="--text-fz: var(--mantine-font-size-md); --text-lh: var(--mantine-line-height-md);"
                       >
                         N/A N/A
                       </p>
@@ -3615,7 +3663,8 @@ exports[`ContributionTable > Snapshot 1`] = `
                     >
                       <p
                         class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
-                        style=""
+                        data-size="md"
+                        style="--text-fz: var(--mantine-font-size-md); --text-lh: var(--mantine-line-height-md);"
                       >
                         N/A
                       </p>
@@ -3628,7 +3677,8 @@ exports[`ContributionTable > Snapshot 1`] = `
                     >
                       <p
                         class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
-                        style=""
+                        data-size="md"
+                        style="--text-fz: var(--mantine-font-size-md); --text-lh: var(--mantine-line-height-md);"
                       >
                         N/A
                       </p>

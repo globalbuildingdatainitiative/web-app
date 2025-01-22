@@ -1,9 +1,9 @@
 import { ReactNode, useMemo } from 'react'
-import { useGetCurrentUserQuery } from '@queries'
+import { Role, useGetCurrentUserQuery } from '@queries'
 import { UserContext } from './UserContext.tsx'
 import Session from 'supertokens-auth-react/recipe/session'
 import { UserRoleClaim } from 'supertokens-auth-react/recipe/userroles'
-import { Role, User } from './types.ts'
+import { User } from './types.ts'
 
 type UserProviderProps = {
   children: ReactNode
@@ -33,7 +33,7 @@ export const UserProvider = ({ children }: UserProviderProps) => {
       return user
     }
 
-    user.roles = claimValue.value ? (claimValue.value as Role[]) : []
+    user.roles = claimValue.value ? (claimValue.value.map((role) => role.toUpperCase()) as Role[]) : []
 
     return user
   }, [loading, error, data, claimValue, sessionContext])

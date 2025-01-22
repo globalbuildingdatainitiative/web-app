@@ -11,10 +11,10 @@ import {
   IconUserStar,
 } from '@tabler/icons-react'
 import { useLocation, useNavigate } from 'react-router-dom'
-import { SignOut } from '../SignOut'
-import { theme } from '@components'
-import { hasRole } from '../../lib/permissions.ts'
-import { Role, useUserContext } from '@context'
+import { theme, SignOut } from '@components'
+import { hasRole } from '@lib'
+import { useUserContext } from '@context'
+import { Role } from '@queries'
 
 interface ButtonProps {
   name: string
@@ -39,7 +39,7 @@ export const SidePanel = ({ collapsed, toggleCollapsed }: SidePanelProps) => {
     { name: 'Contributions', Logo: IconUpload, link: '/contributions', roles: [] },
     { name: 'Organization', Logo: IconAffiliate, link: '/organization', roles: [] },
     { name: 'Profile', Logo: IconUser, link: '/profile', roles: [] },
-    { name: 'Admin', Logo: IconUserStar, link: '/admin', roles: ['admin'] },
+    { name: 'Admin', Logo: IconUserStar, link: '/admin', roles: [Role.ADMIN] },
   ]
 
   const currentPage = buttons.find(({ link }) => link === location.pathname) || buttons[0]

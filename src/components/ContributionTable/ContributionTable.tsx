@@ -56,7 +56,7 @@ export const TruncatedTextWithTooltip = ({ text, maxLength = 25, size = 'md' }: 
       </Text>
     </Tooltip>
   ) : (
-    <Text>{text}</Text>
+    <Text size={size}>{text}</Text>
   )
 }
 

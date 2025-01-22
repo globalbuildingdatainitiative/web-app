@@ -17,6 +17,7 @@ SuperTokens.init({
     apiBasePath: import.meta.env.VITE_AUTH_API_PATH,
     websiteBasePath: import.meta.env.VITE_AUTH_WEB_PATH,
   },
+  useShadowDom: false,
   style: `
         [data-supertokens~=container] {
             box-shadow: #1d9a78;

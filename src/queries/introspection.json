@@ -4866,6 +4866,30 @@
         "possibleTypes": null
       },
       {
+        "kind": "ENUM",
+        "name": "Permission",
+        "description": null,
+        "isOneOf": null,
+        "fields": null,
+        "inputFields": null,
+        "interfaces": null,
+        "enumValues": [
+          { "name": "CONTRIBUTIONS_CREATE", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "CONTRIBUTIONS_DELETE", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "CONTRIBUTIONS_READ", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "CONTRIBUTIONS_UPDATE", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "MEMBERS_CREATE", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "MEMBERS_DELETE", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "MEMBERS_READ", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "MEMBERS_UPDATE", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "ORGANIZATIONS_CREATE", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "ORGANIZATIONS_DELETE", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "ORGANIZATIONS_READ", "description": null, "isDeprecated": false, "deprecationReason": null },
+          { "name": "ORGANIZATIONS_UPDATE", "description": null, "isDeprecated": false, "deprecationReason": null }
+        ],
+        "possibleTypes": null
+      },
+      {
         "kind": "OBJECT",
         "name": "Product",
         "description": null,
@@ -6430,6 +6454,26 @@
             "deprecationReason": null
           },
           {
+            "name": "roles",
+            "description": "Returns all Roles and their permissions",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": { "kind": "OBJECT", "name": "RolePermission", "ofType": null }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "users",
             "description": "Returns all Users",
             "args": [
@@ -6797,9 +6841,50 @@
         "inputFields": null,
         "interfaces": null,
         "enumValues": [
+          { "name": "ADMIN", "description": null, "isDeprecated": false, "deprecationReason": null },
           { "name": "MEMBER", "description": null, "isDeprecated": false, "deprecationReason": null },
           { "name": "OWNER", "description": null, "isDeprecated": false, "deprecationReason": null }
         ],
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "RolePermission",
+        "description": null,
+        "isOneOf": null,
+        "fields": [
+          {
+            "name": "name",
+            "description": null,
+            "args": [],
+            "type": { "kind": "NON_NULL", "name": null, "ofType": { "kind": "ENUM", "name": "Role", "ofType": null } },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "permissions",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": { "kind": "ENUM", "name": "Permission", "ofType": null }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
         "possibleTypes": null
       },
       {
@@ -7554,10 +7639,18 @@
             "deprecationReason": null
           },
           {
-            "name": "role",
+            "name": "roles",
             "description": null,
             "args": [],
-            "type": { "kind": "ENUM", "name": "Role", "ofType": null },
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": { "kind": "ENUM", "name": "Role", "ofType": null }
+              }
+            },
             "isDeprecated": false,
             "deprecationReason": null
           },
@@ -7644,14 +7737,6 @@
           },
           {
             "name": "organizationId",
-            "description": null,
-            "type": { "kind": "INPUT_OBJECT", "name": "FilterOptions", "ofType": null },
-            "defaultValue": "null",
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "role",
             "description": null,
             "type": { "kind": "INPUT_OBJECT", "name": "FilterOptions", "ofType": null },
             "defaultValue": "null",

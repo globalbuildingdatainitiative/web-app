@@ -124,11 +124,11 @@ query getUsers($filters: UserFilters, $sortBy: UserSort) {
     invited
     inviteStatus
     inviterName
+    roles
     organization {
       id
       name
     }
-    role
   }
 }
 
@@ -138,7 +138,7 @@ query getCurrentUser($id: String!) {
     firstName
     lastName
     email
-    role
+    roles
     organization {
       id
       name
@@ -160,7 +160,7 @@ mutation updateUser($userInput: UpdateUserInput!) {
     lastName
     email
     timeJoined
-    role
+    roles
     organizationId
   }
 }
@@ -592,4 +592,11 @@ mutation impersonateUser($userId: String!) {
 
 mutation makeUserAdmin($userId: String!) {
   makeAdmin(userId: $userId)
+}
+
+query getRolesAndPermissions {
+  roles {
+    name
+    permissions
+  }
 }
