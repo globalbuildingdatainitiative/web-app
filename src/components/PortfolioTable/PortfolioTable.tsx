@@ -425,8 +425,10 @@ export const PortfolioTable = (props: PortfolioTableProps) => {
         accessorKey: 'projectInfo.frameType',
         header: 'Frame Type',
         Cell: ({ cell }) => {
-          const frameType = cell.getValue<string>() || 'N/A'
-          return <TruncatedTextWithTooltip text={frameType} />
+          const frameType = cell.getValue<string>()
+          // Convert null, undefined, empty string, or "N/A" to "Unknown"
+          const displayValue = !frameType || frameType === '' || frameType === 'N/A' ? 'null' : frameType
+          return <TruncatedTextWithTooltip text={displayValue} />
         },
         size: 50,
       },
