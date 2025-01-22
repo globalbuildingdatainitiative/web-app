@@ -95,8 +95,12 @@ export const AddMembersPaper = () => {
   return (
     <Paper data-testid='AddMembersPaper'>
       <form onSubmit={handleSubmit}>
-        <Group>
-          <img src={logo} alt='Company Logo' style={{ maxWidth: '400px' }} />
+        <Group gap='xl'>
+          <img
+            src={logo}
+            alt='Company Logo'
+            style={{ maxWidth: '800px', paddingLeft: '200px', paddingRight: '200px' }}
+          />
           <Stack align='center' gap='xl'>
             <Title order={2}>Add Members</Title>
             <Stack gap='xs' style={{ width: '500px' }}>

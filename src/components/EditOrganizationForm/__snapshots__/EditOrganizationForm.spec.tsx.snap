@@ -25,7 +25,7 @@ exports[`EditOrganizationForm > Snapshot 1`] = `
       <img
         alt="Company Logo"
         src="/src/assets/logo.png"
-        style="max-width: 500px;"
+        style="max-width: 700px; padding-left: 200px;"
       />
       <form
         style="flex-grow: 1; flex-shrink: 1; flex-basis: 0%;"
