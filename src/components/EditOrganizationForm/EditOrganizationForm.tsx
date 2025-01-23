@@ -5,6 +5,7 @@ import {
   CountryCodes,
   GetCurrentUserDocument,
   GetOrganizationsDocument,
+  Permission,
   StakeholderEnum,
   useUpdateOrganizationsMutation,
 } from '@queries'
@@ -13,6 +14,7 @@ import { useNavigate } from 'react-router-dom'
 import { countryNameToAlpha3 } from '@lib'
 import { useApolloClient } from '@apollo/client'
 import logo from 'assets/logo.png'
+import { useHasPermission } from '@lib'
 
 const formatEnumValue = (value: string): string => {
   return value
@@ -31,14 +33,13 @@ export const EditOrganizationForm = () => {
       { query: GetCurrentUserDocument, variables: { id: user?.id } },
     ],
   })
+  const { hasPermission } = useHasPermission({ permission: Permission.ORGANIZATIONS_UPDATE })
 
   const countryNames = Object.keys(countryNameToAlpha3)
   const stakeholderOptions = Object.values(StakeholderEnum).map((value) => ({
     value,
     label: formatEnumValue(value),
   }))
-
-  const isOwner = user?.role?.toLowerCase() === 'owner'
 
   const form = useForm({
     initialValues: {
@@ -60,7 +61,7 @@ export const EditOrganizationForm = () => {
   })
 
   const handleSubmit = async (values: typeof form.values) => {
-    if (!isOwner) {
+    if (!hasPermission) {
       return
     }
 
@@ -112,8 +113,8 @@ export const EditOrganizationForm = () => {
         <img src={logo} alt='Company Logo' style={{ maxWidth: '500px' }} />
         <form onSubmit={form.onSubmit(handleSubmit)} style={{ flex: 1 }}>
           <Stack align='center' gap='xl'>
-            <Title order={2}>{isOwner ? 'Edit Organization' : 'Organization Details'}</Title>
-            {!isOwner && (
+            <Title order={2}>{hasPermission ? 'Edit Organization' : 'Organization Details'}</Title>
+            {!hasPermission && (
               <Text c='dimmed' mb='md'>
                 You are viewing this information in read-only mode as a member.
               </Text>
@@ -125,7 +126,7 @@ export const EditOrganizationForm = () => {
               placeholder='Enter Name'
               style={{ width: '500px' }}
               {...form.getInputProps('name')}
-              disabled={!isOwner}
+              disabled={!hasPermission}
               required
             />
             <TextInput
@@ -135,7 +136,7 @@ export const EditOrganizationForm = () => {
               placeholder='Enter Address'
               style={{ width: '500px' }}
               {...form.getInputProps('address')}
-              disabled={!isOwner}
+              disabled={!hasPermission}
               required
             />
             <TextInput
@@ -145,7 +146,7 @@ export const EditOrganizationForm = () => {
               placeholder='Enter City'
               style={{ width: '500px' }}
               {...form.getInputProps('city')}
-              disabled={!isOwner}
+              disabled={!hasPermission}
               required
             />
             <Autocomplete
@@ -156,7 +157,7 @@ export const EditOrganizationForm = () => {
               style={{ width: '500px' }}
               data={countryNames}
               {...form.getInputProps('country')}
-              disabled={!isOwner}
+              disabled={!hasPermission}
               required
               aria-label='Country'
             />
@@ -171,7 +172,7 @@ export const EditOrganizationForm = () => {
               searchable
               nothingFoundMessage='No stakeholders found'
               clearable
-              disabled={!isOwner}
+              disabled={!hasPermission}
               required
               aria-label='Stakeholders'
             />
@@ -180,8 +181,16 @@ export const EditOrganizationForm = () => {
               <Button variant='default' radius='lg' px={16} size='md' onClick={() => navigate('/organization')}>
                 Go Back
               </Button>
-              {isOwner ? (
-                <Button color='green' radius='lg' px={16} size='md' type='submit' loading={loading} disabled={!isOwner}>
+              {hasPermission ? (
+                <Button
+                  color='green'
+                  radius='lg'
+                  px={16}
+                  size='md'
+                  type='submit'
+                  loading={loading}
+                  disabled={!hasPermission}
+                >
                   Save Changes
                 </Button>
               ) : null}

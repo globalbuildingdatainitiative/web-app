@@ -8,15 +8,19 @@ import {
   IconLayoutSidebarLeftExpand,
   IconLayoutSidebarLeftCollapse,
   IconChartHistogram,
+  IconUserStar,
 } from '@tabler/icons-react'
 import { useLocation, useNavigate } from 'react-router-dom'
-import { SignOut } from '../SignOut'
-import { theme } from '@components'
+import { theme, SignOut } from '@components'
+import { hasRole } from '@lib'
+import { useUserContext } from '@context'
+import { Role } from '@queries'
 
 interface ButtonProps {
   name: string
   Logo: typeof IconAffiliate
   link: string
+  roles: Role[]
 }
 
 interface SidePanelProps {
@@ -27,13 +31,15 @@ interface SidePanelProps {
 export const SidePanel = ({ collapsed, toggleCollapsed }: SidePanelProps) => {
   const location = useLocation()
   const navigate = useNavigate()
+  const { user } = useUserContext()
 
   const buttons: ButtonProps[] = [
-    { name: 'Dashboard', Logo: IconDashboard, link: '/' },
-    { name: 'Portfolio', Logo: IconChartHistogram, link: '/portfolio' },
-    { name: 'Contributions', Logo: IconUpload, link: '/contributions' },
-    { name: 'Organization', Logo: IconAffiliate, link: '/organization' },
-    { name: 'Profile', Logo: IconUser, link: '/profile' },
+    { name: 'Dashboard', Logo: IconDashboard, link: '/', roles: [] },
+    { name: 'Portfolio', Logo: IconChartHistogram, link: '/portfolio', roles: [] },
+    { name: 'Contributions', Logo: IconUpload, link: '/contributions', roles: [] },
+    { name: 'Organization', Logo: IconAffiliate, link: '/organization', roles: [] },
+    { name: 'Profile', Logo: IconUser, link: '/profile', roles: [] },
+    { name: 'Admin', Logo: IconUserStar, link: '/admin', roles: [Role.ADMIN] },
   ]
 
   const currentPage = buttons.find(({ link }) => link === location.pathname) || buttons[0]
@@ -68,20 +74,22 @@ export const SidePanel = ({ collapsed, toggleCollapsed }: SidePanelProps) => {
 
       <AppShell.Section grow mt={30}>
         <Stack style={{ marginTop: 5 }}>
-          {buttons.map(({ name, Logo, link }, index) => (
-            <Button
-              key={index}
-              variant={onCurrentPage(link) ? 'filled' : 'transparent'}
-              color={onCurrentPage(link) ? theme?.primaryColor : 'gray'}
-              leftSection={<Logo stroke={2} size={collapsed ? 28 : 24} />}
-              rightSection={!collapsed && <IconChevronRight size={16} />}
-              onClick={() => navigate(link)}
-              justify={collapsed ? 'center' : 'space-between'}
-              style={{ paddingLeft: collapsed ? '15px' : '20px' }}
-            >
-              {!collapsed && name}
-            </Button>
-          ))}
+          {buttons
+            .filter(({ roles }) => roles.length === 0 || roles.some((role) => hasRole(user!, role)))
+            .map(({ name, Logo, link }, index) => (
+              <Button
+                key={index}
+                variant={onCurrentPage(link) ? 'filled' : 'transparent'}
+                color={onCurrentPage(link) ? theme?.primaryColor : 'gray'}
+                leftSection={<Logo stroke={2} size={collapsed ? 28 : 24} />}
+                rightSection={!collapsed && <IconChevronRight size={16} />}
+                onClick={() => navigate(link)}
+                justify={collapsed ? 'center' : 'space-between'}
+                style={{ paddingLeft: collapsed ? '15px' : '20px' }}
+              >
+                {!collapsed && name}
+              </Button>
+            ))}
         </Stack>
       </AppShell.Section>
 
