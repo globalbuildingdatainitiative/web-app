@@ -27,14 +27,15 @@ SuperTokens.init({
         }
         [data-supertokens~=container]:before {
             content: '';
-            background-image: url('/favicon.png');
+            background-image: url('/logo.png');
             background-size: contain;
             background-repeat: no-repeat;
             background-position: center;
-            width: 120px;
-            height: 120px;
+            width: 200px;
+            height: 200px;
             position: absolute;
-            top: 20px;
+            top: 10px;
+            bottom: 50px;
             left: 50%;
             transform: translateX(-50%);
         }

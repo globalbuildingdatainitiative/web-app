@@ -1,6 +1,6 @@
 import { GetProjectDetailsQuery } from '@queries'
 import { Center, Group, Image, Stack } from '@mantine/core'
-import logoImage from '../../assets/logo_square.png'
+import logoImage from '../../assets/logo.png'
 import { BoxPlot, ErrorBoundary, ErrorMessage, Loading, SpiderChart } from '@components'
 import { useMemo } from 'react'
 import { formatStages, phases, snakeCaseToHumanCase, useAggregatedProjectStatistics } from '@lib'
