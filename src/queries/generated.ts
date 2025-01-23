@@ -3114,6 +3114,7 @@ export type GetProjectDataForBoxPlotQuery = {
         id: any
         location: { __typename?: 'Location'; countryName: string }
         softwareInfo: { __typename?: 'SoftwareInfo'; lcaSoftware: string }
+        metaData?: { __typename?: 'ProjectMetaData'; source?: { __typename?: 'Source'; name: string } | null } | null
       }>
     }>
   }
@@ -3199,7 +3200,9 @@ export type GetProjectDetailsQuery = {
       __typename?: 'Contribution'
       project: {
         __typename?: 'Project'
+        id: any
         name: string
+        lifeCycleStages: Array<LifeCycleStage>
         location: { __typename?: 'Location'; countryName: string }
         projectInfo: {
           __typename?: 'ProjectInfo'
@@ -3231,6 +3234,7 @@ export type GetProjectDetailsQuery = {
           __typename?: 'ProjectMetaData'
           productClassificationSystem?: string | null
           climateZone?: string | null
+          image?: any | null
           lcaSoftwareVersion?: string | null
           lcaDatabase?: string | null
           lcaDatabaseVersion?: string | null
@@ -4283,6 +4287,11 @@ export const GetProjectDataForBoxPlotDocument = gql`
           softwareInfo {
             lcaSoftware
           }
+          metaData {
+            source {
+              name
+            }
+          }
         }
       }
       aggregation(apply: $aggregation)
@@ -4478,10 +4487,12 @@ export const GetProjectDetailsDocument = gql`
     contributions {
       items(filterBy: { equal: { id: $id } }) {
         project {
+          id
           name
           location {
             countryName
           }
+          lifeCycleStages
           projectInfo {
             buildingCompletionYear
             buildingFootprint {
@@ -4529,6 +4540,7 @@ export const GetProjectDetailsDocument = gql`
             }
             productClassificationSystem
             climateZone
+            image
             owner {
               contact
               web

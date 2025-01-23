@@ -5,7 +5,7 @@ import { GetCurrentUserDocument, useCreateOrganizationsMutation, CountryCodes, S
 import logo from 'assets/logo.png'
 import { useNavigate } from 'react-router-dom'
 import { useUserContext } from '@context'
-import { countryNameToAlpha3 } from './countryCodesMapping'
+import { countryNameToAlpha3 } from '@lib'
 import { useApolloClient } from '@apollo/client'
 
 const formatEnumValue = (value: string): string => {

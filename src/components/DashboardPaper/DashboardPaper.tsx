@@ -8,6 +8,7 @@ export interface FilterState {
   selectedLifeCycleStages: string[]
   selectedCountries: string[]
   selectedSoftware: string[]
+  selectedSources: string[]
   gfaRange: [number, number]
   confirmedGfaRange: [number, number]
 }
@@ -20,6 +21,7 @@ export const DashboardPaper = () => {
     selectedLifeCycleStages: [LifeCycleStage.A1A3],
     selectedCountries: [],
     selectedSoftware: [],
+    selectedSources: [],
     gfaRange: [0, 5000],
     confirmedGfaRange: [0, 5000],
   })
@@ -55,6 +57,11 @@ export const DashboardPaper = () => {
       filters.selectedSoftware.length > 0 ? { 'softwareInfo.lcaSoftware': { $in: filters.selectedSoftware } } : {}
     if (softwareFilter) {
       filtersToApply.push(softwareFilter)
+    }
+    const sourceFilter =
+      filters.selectedSources.length > 0 ? { 'metaData.source.name': { $in: filters.selectedSources } } : {}
+    if (sourceFilter) {
+      filtersToApply.push(sourceFilter)
     }
 
     return [

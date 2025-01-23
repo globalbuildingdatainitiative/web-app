@@ -37,9 +37,42 @@ interface GlobalBoxPlotProps {
 
 export const GlobalBoxPlot = (props: GlobalBoxPlotProps) => {
   const { filters, onFiltersChange, loading, data } = props
-  const { selectedTypologies, selectedLifeCycleStages, selectedCountries, selectedSoftware, gfaRange } = filters
+  const {
+    selectedTypologies,
+    selectedLifeCycleStages,
+    selectedCountries,
+    selectedSoftware,
+    selectedSources,
+    gfaRange,
+  } = filters
   const { height } = useViewportSize()
   const { ref, height: gridHeight } = useElementSize()
+
+  const handleSourceChange = (value: string[]) => {
+    if (value.includes('all')) {
+      const allSources = sourceOptions.filter((option) => option.value !== 'all').map((option) => option.value)
+      onFiltersChange({ ...filters, selectedSources: allSources })
+    } else {
+      onFiltersChange({ ...filters, selectedSources: value })
+    }
+  }
+
+  const sourceOptions = useMemo(() => {
+    if (!data) return []
+    const sourceSet = new Set<string>()
+    data.projects.groups.forEach((group) => {
+      // We need to access each project's metaData.source.name
+      const sourceName = group.items[0].metaData?.source?.name
+      if (sourceName) sourceSet.add(sourceName)
+    })
+
+    const options = Array.from(sourceSet).map((source) => ({
+      value: source,
+      label: source,
+    }))
+
+    return [{ value: 'all', label: 'Select All' }, ...options.sort((a, b) => a.label.localeCompare(b.label))]
+  }, [data])
 
   const handleTypologyChange = (value: string[]) => {
     onFiltersChange({ ...filters, selectedTypologies: value })
@@ -209,6 +242,19 @@ export const GlobalBoxPlot = (props: GlobalBoxPlotProps) => {
               onChange={handleSoftwareChange}
               label='LCA Software'
               placeholder='Select LCA software'
+              searchable
+              clearable
+            />
+          </Skeleton>
+        </Grid.Col>
+        <Grid.Col span={4}>
+          <Skeleton visible={loading}>
+            <MultiSelect
+              data={sourceOptions}
+              value={selectedSources}
+              onChange={handleSourceChange}
+              label='Source'
+              placeholder='Select sources'
               searchable
               clearable
             />

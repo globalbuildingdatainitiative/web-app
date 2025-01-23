@@ -25,10 +25,9 @@ import { Dispatch, SetStateAction, useEffect, useMemo, useState } from 'react'
 import { Group, Pagination, Progress, Select, Text, Tooltip, Button, Box } from '@mantine/core'
 import { TruncatedTextWithTooltip } from '@components'
 import { useViewportSize } from '@mantine/hooks'
-import { snakeCaseToHumanCase } from '@lib'
-import { alpha3ToCountryName } from '../AttributeChart/countryCodesMapping.ts'
 import { IconDownload } from '@tabler/icons-react'
 import { mkConfig, generateCsv, download } from 'export-to-csv'
+import { alpha3ToCountryName, snakeCaseToHumanCase } from '@lib'
 
 interface PortfolioTableProps {
   columnVisibility: MRT_VisibilityState
@@ -46,11 +45,13 @@ const csvConfig = mkConfig({
 export const PortfolioTable = (props: PortfolioTableProps) => {
   const { columnVisibility, onColumnVisibilityChange, filters, setFilters } = props
 
-  const [pagination, setPagination] = useState<MRT_PaginationState>({ pageIndex: 0, pageSize: 20 })
+  const [pagination, setPagination] = useState<MRT_PaginationState>({
+    pageIndex: 0,
+    pageSize: 10,
+  })
   const [sorting, setSorting] = useState<MRT_SortingState>([])
   const [columnFilters, setColumnFilters] = useState<MRT_ColumnFiltersState>([])
-  const [fetchAllData] = useGetProjectPortfolioLazyQuery()
-  const [isExportingAll, setIsExportingAll] = useState(false)
+  const [fetchAllData, { loading: loadingExportingAll }] = useGetProjectPortfolioLazyQuery()
 
   const { width: viewportWidth } = useViewportSize()
   const shouldHideColumns = viewportWidth < window.screen.width
@@ -125,7 +126,6 @@ export const PortfolioTable = (props: PortfolioTableProps) => {
 
   const handleExportAllData = async () => {
     try {
-      setIsExportingAll(true)
       const { data } = await fetchAllData({
         variables: {
           limit: null,
@@ -160,8 +160,6 @@ export const PortfolioTable = (props: PortfolioTableProps) => {
       })
     } catch (error) {
       console.error('Error exporting all data:', error)
-    } finally {
-      setIsExportingAll(false)
     }
   }
 
@@ -427,8 +425,10 @@ export const PortfolioTable = (props: PortfolioTableProps) => {
         accessorKey: 'projectInfo.frameType',
         header: 'Frame Type',
         Cell: ({ cell }) => {
-          const frameType = cell.getValue<string>() || 'N/A'
-          return <TruncatedTextWithTooltip text={frameType} />
+          const frameType = cell.getValue<string>()
+          // Convert null, undefined, empty string, or "N/A" to "Unknown"
+          const displayValue = !frameType || frameType === '' || frameType === 'N/A' ? 'null' : frameType
+          return <TruncatedTextWithTooltip text={displayValue} />
         },
         size: 50,
       },
@@ -669,7 +669,7 @@ export const PortfolioTable = (props: PortfolioTableProps) => {
           leftSection={<IconDownload />}
           variant='filled'
           disabled={rowData.length === 0}
-          loading={isExportingAll}
+          loading={loadingExportingAll}
         >
           Export All Data
         </Button>

@@ -1,12 +1,10 @@
 import { useMemo } from 'react'
 import { useGetAggregatedProjectDataQuery } from '@queries'
-import { Alert, SimpleGrid } from '@mantine/core'
+import { Alert, SimpleGrid, useMantineTheme } from '@mantine/core'
 import type { MRT_VisibilityState } from 'mantine-react-table'
 import { ChartContainer, ErrorMessage, Loading, SubBarChart } from '@components'
 import { IconExclamationCircle } from '@tabler/icons-react'
-import { camelCaseToHumanCase, snakeCaseToHumanCase } from '@lib'
-import { alpha3ToCountryName } from './countryCodesMapping.ts'
-import { useTheme } from '@emotion/react'
+import { alpha3ToCountryName, camelCaseToHumanCase, snakeCaseToHumanCase } from '@lib'
 
 const MAX_VISIBLE_COLUMNS = 9
 
@@ -40,19 +38,21 @@ const columnTypeMap: Record<string, string> = {
 
 const fixAggregationNames = (name: string) => {
   const splitNames = name.split('.')
-  if (splitNames.length >= 2) {
-    return splitNames[1]
-  } else {
-    return splitNames[0]
+  return splitNames.length >= 2 ? splitNames[1] : splitNames[0]
+}
+
+const normalizeValue = (value: unknown): string => {
+  if (value === null || value === undefined || value === '' || value === 'N/A') {
+    return 'null'
   }
+  return String(value)
 }
 
 export const AttributeChart = (props: AttributeChartProps) => {
   const { visibleColumns, filters } = props
-  const theme = useTheme()
+  const theme = useMantineTheme()
 
   const getColor = (colorName: string, shade: number, fallback: string): string => {
-    // @ts-expect-error colors are there
     return theme.colors?.[colorName]?.[shade] || fallback
   }
 
@@ -115,6 +115,24 @@ export const AttributeChart = (props: AttributeChartProps) => {
       .map((column) => ({
         [fixAggregationNames(column[0])]: [
           {
+            $addFields: {
+              [column[0]]: {
+                $cond: {
+                  if: {
+                    $or: [
+                      { $eq: [`$${column[0]}`, null] },
+                      { $eq: [`$${column[0]}`, ''] },
+                      { $eq: [`$${column[0]}`, 'N/A'] },
+                      { $eq: [{ $type: `$${column[0]}` }, 'missing'] },
+                    ],
+                  },
+                  then: 'null',
+                  else: { $ifNull: [`$${column[0]}`, 'null'] },
+                },
+              },
+            },
+          },
+          {
             $group: {
               _id: `$${column[0] === 'location.countryName' ? 'location.country' : column[0]}`,
               count: { $sum: 1 },
@@ -144,21 +162,26 @@ export const AttributeChart = (props: AttributeChartProps) => {
 
   const transformedProjectData = useMemo(() => {
     if (!projectData) return []
-    const data = Object.entries(projectData.projects.aggregation[0])
-    if (!data) return []
+
+    // Define the type for the aggregation results
+    type AggregationResult = {
+      _id: { min: number; max: number } | string | null
+      count: number
+    }
+
+    const data = Object.entries(projectData.projects.aggregation[0]) as [string, AggregationResult[]][]
 
     return data.map(([name, values]) => ({
       name,
-      // @ts-expect-error complicated types
       values: values.map((item) => ({
-        name: snakeCaseToHumanCase(
-          typeof item._id === 'object'
+        name: item._id
+          ? typeof item._id === 'object' && 'min' in item._id && 'max' in item._id
             ? `${item._id.min}-${item._id.max}`
             : name === 'countryName'
-              ? alpha3ToCountryName()[item._id]
-              : item._id,
-        ),
-        count: item.count,
+              ? alpha3ToCountryName()[item._id] || snakeCaseToHumanCase(normalizeValue(item._id))
+              : snakeCaseToHumanCase(normalizeValue(item._id))
+          : 'null',
+        count: item.count || 0,
       })),
     }))
   }, [projectData])

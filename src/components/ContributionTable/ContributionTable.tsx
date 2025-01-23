@@ -60,8 +60,8 @@ export const TruncatedTextWithTooltip = ({ text, maxLength = 25, size = 'md' }: 
   )
 }
 
-export const ContributionTable: React.FC = () => {
-  const [pagination, setPagination] = useState<MRT_PaginationState>({ pageIndex: 0, pageSize: 10 })
+export const ContributionTable = () => {
+  const [pagination, setPagination] = useState<MRT_PaginationState>({ pageIndex: 0, pageSize: 20 })
   const [sorting, setSorting] = useState<MRT_SortingState>([])
   const [columnFilters, setColumnFilters] = useState<MRT_ColumnFiltersState>([])
   const { width: viewportWidth } = useViewportSize()
