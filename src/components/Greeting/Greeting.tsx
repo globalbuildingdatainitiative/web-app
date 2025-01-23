@@ -1,12 +1,18 @@
-import { Title } from '@mantine/core'
+import { Group, Title } from '@mantine/core'
 import { useUserContext } from '@context'
 
 export const Greeting = () => {
   const { user } = useUserContext()
 
   return (
-    <Title order={3} style={{ paddingTop: 16 }}>
-      Hello {user?.firstName} 👋🏼
-    </Title>
+    <Group pt='md'>
+      <Title order={3}>Hello {user?.firstName} 👋🏼</Title>
+      {user?.isImpersonation && (
+        <Title order={3} c='red'>
+          {' '}
+          (Impersonating as Admin)
+        </Title>
+      )}
+    </Group>
   )
 }

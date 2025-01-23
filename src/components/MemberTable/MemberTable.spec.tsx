@@ -1,6 +1,6 @@
 import { MemberTable } from '@components'
 import { MockedProvider } from '@apollo/client/testing'
-import { getUsersMock, getOrganizationsMock, MockSessionProvider } from '@mocks'
+import { getUsersMock, getOrganizationsMock, getRolesAndPermissionsMock, MockSessionProvider } from '@mocks'
 import { expect, render, screen, test, waitFor } from '@test'
 import { MemoryRouter } from 'react-router-dom'
 
@@ -15,7 +15,10 @@ describe('MemberTable', () => {
 
   test('Snapshot', () => {
     const { container } = render(
-      <MockedProvider mocks={[...getUsersMock, ...getOrganizationsMock]} addTypename={false}>
+      <MockedProvider
+        mocks={[...getUsersMock, ...getOrganizationsMock, ...getRolesAndPermissionsMock]}
+        addTypename={false}
+      >
         <MockSessionProvider sessionContext={mockSessionContext}>
           <MemoryRouter>
             <MemberTable organizationId='1' />
@@ -28,7 +31,10 @@ describe('MemberTable', () => {
 
   test('Render Correctly', async () => {
     render(
-      <MockedProvider mocks={[...getUsersMock, ...getOrganizationsMock]} addTypename={false}>
+      <MockedProvider
+        mocks={[...getUsersMock, ...getOrganizationsMock, ...getRolesAndPermissionsMock]}
+        addTypename={false}
+      >
         <MockSessionProvider sessionContext={mockSessionContext}>
           <MemoryRouter>
             <MemberTable organizationId='1' />
@@ -41,7 +47,10 @@ describe('MemberTable', () => {
 
   test('Render Rows for Non-invited and Accepted Users', async () => {
     render(
-      <MockedProvider mocks={[...getUsersMock, ...getOrganizationsMock]} addTypename={false}>
+      <MockedProvider
+        mocks={[...getUsersMock, ...getOrganizationsMock, ...getRolesAndPermissionsMock]}
+        addTypename={false}
+      >
         <MockSessionProvider sessionContext={mockSessionContext}>
           <MemoryRouter>
             <MemberTable organizationId='1' />
@@ -66,7 +75,10 @@ describe('MemberTable', () => {
 
   test('Render Correct Number of Rows', async () => {
     render(
-      <MockedProvider mocks={[...getUsersMock, ...getOrganizationsMock]} addTypename={false}>
+      <MockedProvider
+        mocks={[...getUsersMock, ...getOrganizationsMock, ...getRolesAndPermissionsMock]}
+        addTypename={false}
+      >
         <MockSessionProvider sessionContext={mockSessionContext}>
           <MemoryRouter>
             <MemberTable organizationId='1' />

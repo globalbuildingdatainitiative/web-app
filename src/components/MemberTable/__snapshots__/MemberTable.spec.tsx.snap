@@ -261,7 +261,7 @@ exports[`MemberTable > Snapshot 1`] = `
               </div>
               <table
                 class="mrt-table MRT_Table-module_root__ms2uS m_b23fa0ef mantine-Table-table"
-                style="--table-horizontal-spacing: var(--mantine-spacing-md); --table-vertical-spacing: var(--mantine-spacing-md); --header-name-size: 150; --col-name-size: 150; --header-email-size: 200; --col-email-size: 200; --header-timeJoined-size: 100; --col-timeJoined-size: 100; --header-role-size: 100; --col-role-size: 100; --header-action-size: 200; --col-action-size: 200;"
+                style="--table-horizontal-spacing: var(--mantine-spacing-md); --table-vertical-spacing: var(--mantine-spacing-md); --header-name-size: 150; --col-name-size: 150; --header-email-size: 200; --col-email-size: 200; --header-timeJoined-size: 100; --col-timeJoined-size: 100; --header-role-size: 100; --col-role-size: 100; --header-mrt_row_actions-size: 70; --col-mrt_row_actions-size: 70;"
               >
                 <thead
                   class="m_b242d975 mantine-Table-thead MRT_TableHead-module_root__j9NkO MRT_TableHead-module_root-table-row-group__d9FO4"
@@ -871,66 +871,27 @@ exports[`MemberTable > Snapshot 1`] = `
                       class="m_4e7aa4f3 mantine-Table-th MRT_TableHeadCell-module_root__6y50a"
                       colspan="1"
                       data-index="4"
-                      style="min-width: max(calc(var(--header-action-size) * 1px), 40px);"
+                      style="min-width: max(calc(var(--header-mrt_row_actions-size) * 1px), 40px);"
                     >
                       <div
                         class="mrt-table-head-cell-content MRT_TableHeadCell-module_content__-pzSK m_8bffd616 mantine-Flex-root __m__-r5h"
                         style=""
                       >
                         <div
-                          class="mrt-table-head-cell-labels MRT_TableHeadCell-module_labels__oiMSr MRT_TableHeadCell-module_labels-data__PvFGO m_8bffd616 mantine-Flex-root __m__-r5j"
+                          class="mrt-table-head-cell-labels MRT_TableHeadCell-module_labels__oiMSr m_8bffd616 mantine-Flex-root __m__-r5j"
                           style="--mrt-table-head-cell-labels-padding-left: 1.75;"
                         >
                           <div
-                            class="mrt-table-head-cell-content-wrapper MRT_TableHeadCell-module_content-wrapper__py6aJ MRT_TableHeadCell-module_content-wrapper-hidden-overflow__QY40r MRT_TableHeadCell-module_content-wrapper-nowrap__-4aIg m_8bffd616 mantine-Flex-root __m__-r5l"
+                            class="mrt-table-head-cell-content-wrapper MRT_TableHeadCell-module_content-wrapper__py6aJ MRT_TableHeadCell-module_content-wrapper-nowrap__-4aIg m_8bffd616 mantine-Flex-root __m__-r5l"
                             style=""
-                          />
+                          >
+                            Actions
+                          </div>
                         </div>
                         <div
                           class="mrt-table-head-cell-content-actions MRT_TableHeadCell-module_content-actions__utxbm m_8bffd616 mantine-Flex-root __m__-r5n"
                           style=""
-                        >
-                          <button
-                            aria-controls=""
-                            aria-expanded="false"
-                            aria-haspopup="menu"
-                            aria-label="Column Actions"
-                            class="mantine-focus-auto mantine-active m_8d3f4000 mantine-ActionIcon-root m_87cf2631 mantine-UnstyledButton-root"
-                            data-size="sm"
-                            data-variant="subtle"
-                            id=""
-                            style="--ai-size: var(--ai-size-sm); --ai-bg: transparent; --ai-hover: var(--mantine-color-gray-light-hover); --ai-color: var(--mantine-color-gray-light-color); --ai-bd: calc(0.0625rem * var(--mantine-scale)) solid transparent;"
-                            type="button"
-                          >
-                            <span
-                              class="m_8d3afb97 mantine-ActionIcon-icon"
-                              style=""
-                            >
-                              <svg
-                                class="tabler-icon tabler-icon-dots-vertical "
-                                fill="none"
-                                height="100%"
-                                stroke="currentColor"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                stroke-width="2"
-                                viewBox="0 0 24 24"
-                                width="100%"
-                                xmlns="http://www.w3.org/2000/svg"
-                              >
-                                <path
-                                  d="M12 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"
-                                />
-                                <path
-                                  d="M12 19m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"
-                                />
-                                <path
-                                  d="M12 5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"
-                                />
-                              </svg>
-                            </span>
-                          </button>
-                        </div>
+                        />
                       </div>
                     </th>
                   </tr>
@@ -971,25 +932,45 @@ exports[`MemberTable > Snapshot 1`] = `
                       style="min-width: max(calc(var(--col-role-size) * 1px), 40px); --mrt-cell-align: left;"
                     />
                     <td
-                      class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
+                      class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi"
                       data-index="4"
-                      style="min-width: max(calc(var(--col-action-size) * 1px), 40px); --mrt-cell-align: left;"
+                      style="min-width: max(calc(var(--col-mrt_row_actions-size) * 1px), 40px); --mrt-cell-align: left;"
                     >
                       <button
-                        class="mantine-focus-auto mantine-active m_77c9d27d mantine-Button-root m_87cf2631 mantine-UnstyledButton-root"
-                        style="--button-bg: #d84c30; --button-hover: rgba(194, 68, 43, 1); --button-color: var(--mantine-color-white); --button-bd: calc(0.0625rem * var(--mantine-scale)) solid transparent;"
+                        class="mantine-focus-auto mantine-active m_8d3f4000 mantine-ActionIcon-root m_87cf2631 mantine-UnstyledButton-root"
+                        data-variant="transparent"
+                        style="--ai-bg: transparent; --ai-hover: transparent; --ai-color: black; --ai-bd: calc(0.0625rem * var(--mantine-scale)) solid transparent;"
                         type="button"
                       >
                         <span
-                          class="m_80f1301b mantine-Button-inner"
+                          class="m_8d3afb97 mantine-ActionIcon-icon"
                           style=""
                         >
-                          <span
-                            class="m_811560b9 mantine-Button-label"
-                            style=""
+                          <svg
+                            class="tabler-icon tabler-icon-door-exit "
+                            fill="none"
+                            height="24"
+                            stroke="currentColor"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            viewBox="0 0 24 24"
+                            width="24"
+                            xmlns="http://www.w3.org/2000/svg"
                           >
-                            Leave Organization
-                          </span>
+                            <path
+                              d="M13 12v.01"
+                            />
+                            <path
+                              d="M3 21h18"
+                            />
+                            <path
+                              d="M5 21v-16a2 2 0 0 1 2 -2h7.5m2.5 10.5v7.5"
+                            />
+                            <path
+                              d="M14 7h7m-3 -3l3 3l-3 3"
+                            />
+                          </svg>
                         </span>
                       </button>
                     </td>
@@ -1026,25 +1007,45 @@ exports[`MemberTable > Snapshot 1`] = `
                       style="min-width: max(calc(var(--col-role-size) * 1px), 40px); --mrt-cell-align: left;"
                     />
                     <td
-                      class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
+                      class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi"
                       data-index="4"
-                      style="min-width: max(calc(var(--col-action-size) * 1px), 40px); --mrt-cell-align: left;"
+                      style="min-width: max(calc(var(--col-mrt_row_actions-size) * 1px), 40px); --mrt-cell-align: left;"
                     >
                       <button
-                        class="mantine-focus-auto mantine-active m_77c9d27d mantine-Button-root m_87cf2631 mantine-UnstyledButton-root"
-                        style="--button-bg: #d84c30; --button-hover: rgba(194, 68, 43, 1); --button-color: var(--mantine-color-white); --button-bd: calc(0.0625rem * var(--mantine-scale)) solid transparent;"
+                        class="mantine-focus-auto mantine-active m_8d3f4000 mantine-ActionIcon-root m_87cf2631 mantine-UnstyledButton-root"
+                        data-variant="transparent"
+                        style="--ai-bg: transparent; --ai-hover: transparent; --ai-color: black; --ai-bd: calc(0.0625rem * var(--mantine-scale)) solid transparent;"
                         type="button"
                       >
                         <span
-                          class="m_80f1301b mantine-Button-inner"
+                          class="m_8d3afb97 mantine-ActionIcon-icon"
                           style=""
                         >
-                          <span
-                            class="m_811560b9 mantine-Button-label"
-                            style=""
+                          <svg
+                            class="tabler-icon tabler-icon-door-exit "
+                            fill="none"
+                            height="24"
+                            stroke="currentColor"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            viewBox="0 0 24 24"
+                            width="24"
+                            xmlns="http://www.w3.org/2000/svg"
                           >
-                            Leave Organization
-                          </span>
+                            <path
+                              d="M13 12v.01"
+                            />
+                            <path
+                              d="M3 21h18"
+                            />
+                            <path
+                              d="M5 21v-16a2 2 0 0 1 2 -2h7.5m2.5 10.5v7.5"
+                            />
+                            <path
+                              d="M14 7h7m-3 -3l3 3l-3 3"
+                            />
+                          </svg>
                         </span>
                       </button>
                     </td>
@@ -1081,25 +1082,45 @@ exports[`MemberTable > Snapshot 1`] = `
                       style="min-width: max(calc(var(--col-role-size) * 1px), 40px); --mrt-cell-align: left;"
                     />
                     <td
-                      class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
+                      class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi"
                       data-index="4"
-                      style="min-width: max(calc(var(--col-action-size) * 1px), 40px); --mrt-cell-align: left;"
+                      style="min-width: max(calc(var(--col-mrt_row_actions-size) * 1px), 40px); --mrt-cell-align: left;"
                     >
                       <button
-                        class="mantine-focus-auto mantine-active m_77c9d27d mantine-Button-root m_87cf2631 mantine-UnstyledButton-root"
-                        style="--button-bg: #d84c30; --button-hover: rgba(194, 68, 43, 1); --button-color: var(--mantine-color-white); --button-bd: calc(0.0625rem * var(--mantine-scale)) solid transparent;"
+                        class="mantine-focus-auto mantine-active m_8d3f4000 mantine-ActionIcon-root m_87cf2631 mantine-UnstyledButton-root"
+                        data-variant="transparent"
+                        style="--ai-bg: transparent; --ai-hover: transparent; --ai-color: black; --ai-bd: calc(0.0625rem * var(--mantine-scale)) solid transparent;"
                         type="button"
                       >
                         <span
-                          class="m_80f1301b mantine-Button-inner"
+                          class="m_8d3afb97 mantine-ActionIcon-icon"
                           style=""
                         >
-                          <span
-                            class="m_811560b9 mantine-Button-label"
-                            style=""
+                          <svg
+                            class="tabler-icon tabler-icon-door-exit "
+                            fill="none"
+                            height="24"
+                            stroke="currentColor"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            viewBox="0 0 24 24"
+                            width="24"
+                            xmlns="http://www.w3.org/2000/svg"
                           >
-                            Leave Organization
-                          </span>
+                            <path
+                              d="M13 12v.01"
+                            />
+                            <path
+                              d="M3 21h18"
+                            />
+                            <path
+                              d="M5 21v-16a2 2 0 0 1 2 -2h7.5m2.5 10.5v7.5"
+                            />
+                            <path
+                              d="M14 7h7m-3 -3l3 3l-3 3"
+                            />
+                          </svg>
                         </span>
                       </button>
                     </td>
@@ -1136,25 +1157,45 @@ exports[`MemberTable > Snapshot 1`] = `
                       style="min-width: max(calc(var(--col-role-size) * 1px), 40px); --mrt-cell-align: left;"
                     />
                     <td
-                      class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
+                      class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi"
                       data-index="4"
-                      style="min-width: max(calc(var(--col-action-size) * 1px), 40px); --mrt-cell-align: left;"
+                      style="min-width: max(calc(var(--col-mrt_row_actions-size) * 1px), 40px); --mrt-cell-align: left;"
                     >
                       <button
-                        class="mantine-focus-auto mantine-active m_77c9d27d mantine-Button-root m_87cf2631 mantine-UnstyledButton-root"
-                        style="--button-bg: #d84c30; --button-hover: rgba(194, 68, 43, 1); --button-color: var(--mantine-color-white); --button-bd: calc(0.0625rem * var(--mantine-scale)) solid transparent;"
+                        class="mantine-focus-auto mantine-active m_8d3f4000 mantine-ActionIcon-root m_87cf2631 mantine-UnstyledButton-root"
+                        data-variant="transparent"
+                        style="--ai-bg: transparent; --ai-hover: transparent; --ai-color: black; --ai-bd: calc(0.0625rem * var(--mantine-scale)) solid transparent;"
                         type="button"
                       >
                         <span
-                          class="m_80f1301b mantine-Button-inner"
+                          class="m_8d3afb97 mantine-ActionIcon-icon"
                           style=""
                         >
-                          <span
-                            class="m_811560b9 mantine-Button-label"
-                            style=""
+                          <svg
+                            class="tabler-icon tabler-icon-door-exit "
+                            fill="none"
+                            height="24"
+                            stroke="currentColor"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            viewBox="0 0 24 24"
+                            width="24"
+                            xmlns="http://www.w3.org/2000/svg"
                           >
-                            Leave Organization
-                          </span>
+                            <path
+                              d="M13 12v.01"
+                            />
+                            <path
+                              d="M3 21h18"
+                            />
+                            <path
+                              d="M5 21v-16a2 2 0 0 1 2 -2h7.5m2.5 10.5v7.5"
+                            />
+                            <path
+                              d="M14 7h7m-3 -3l3 3l-3 3"
+                            />
+                          </svg>
                         </span>
                       </button>
                     </td>
@@ -1191,25 +1232,45 @@ exports[`MemberTable > Snapshot 1`] = `
                       style="min-width: max(calc(var(--col-role-size) * 1px), 40px); --mrt-cell-align: left;"
                     />
                     <td
-                      class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
+                      class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi"
                       data-index="4"
-                      style="min-width: max(calc(var(--col-action-size) * 1px), 40px); --mrt-cell-align: left;"
+                      style="min-width: max(calc(var(--col-mrt_row_actions-size) * 1px), 40px); --mrt-cell-align: left;"
                     >
                       <button
-                        class="mantine-focus-auto mantine-active m_77c9d27d mantine-Button-root m_87cf2631 mantine-UnstyledButton-root"
-                        style="--button-bg: #d84c30; --button-hover: rgba(194, 68, 43, 1); --button-color: var(--mantine-color-white); --button-bd: calc(0.0625rem * var(--mantine-scale)) solid transparent;"
+                        class="mantine-focus-auto mantine-active m_8d3f4000 mantine-ActionIcon-root m_87cf2631 mantine-UnstyledButton-root"
+                        data-variant="transparent"
+                        style="--ai-bg: transparent; --ai-hover: transparent; --ai-color: black; --ai-bd: calc(0.0625rem * var(--mantine-scale)) solid transparent;"
                         type="button"
                       >
                         <span
-                          class="m_80f1301b mantine-Button-inner"
+                          class="m_8d3afb97 mantine-ActionIcon-icon"
                           style=""
                         >
-                          <span
-                            class="m_811560b9 mantine-Button-label"
-                            style=""
+                          <svg
+                            class="tabler-icon tabler-icon-door-exit "
+                            fill="none"
+                            height="24"
+                            stroke="currentColor"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            viewBox="0 0 24 24"
+                            width="24"
+                            xmlns="http://www.w3.org/2000/svg"
                           >
-                            Leave Organization
-                          </span>
+                            <path
+                              d="M13 12v.01"
+                            />
+                            <path
+                              d="M3 21h18"
+                            />
+                            <path
+                              d="M5 21v-16a2 2 0 0 1 2 -2h7.5m2.5 10.5v7.5"
+                            />
+                            <path
+                              d="M14 7h7m-3 -3l3 3l-3 3"
+                            />
+                          </svg>
                         </span>
                       </button>
                     </td>
@@ -1246,25 +1307,45 @@ exports[`MemberTable > Snapshot 1`] = `
                       style="min-width: max(calc(var(--col-role-size) * 1px), 40px); --mrt-cell-align: left;"
                     />
                     <td
-                      class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
+                      class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi"
                       data-index="4"
-                      style="min-width: max(calc(var(--col-action-size) * 1px), 40px); --mrt-cell-align: left;"
+                      style="min-width: max(calc(var(--col-mrt_row_actions-size) * 1px), 40px); --mrt-cell-align: left;"
                     >
                       <button
-                        class="mantine-focus-auto mantine-active m_77c9d27d mantine-Button-root m_87cf2631 mantine-UnstyledButton-root"
-                        style="--button-bg: #d84c30; --button-hover: rgba(194, 68, 43, 1); --button-color: var(--mantine-color-white); --button-bd: calc(0.0625rem * var(--mantine-scale)) solid transparent;"
+                        class="mantine-focus-auto mantine-active m_8d3f4000 mantine-ActionIcon-root m_87cf2631 mantine-UnstyledButton-root"
+                        data-variant="transparent"
+                        style="--ai-bg: transparent; --ai-hover: transparent; --ai-color: black; --ai-bd: calc(0.0625rem * var(--mantine-scale)) solid transparent;"
                         type="button"
                       >
                         <span
-                          class="m_80f1301b mantine-Button-inner"
+                          class="m_8d3afb97 mantine-ActionIcon-icon"
                           style=""
                         >
-                          <span
-                            class="m_811560b9 mantine-Button-label"
-                            style=""
+                          <svg
+                            class="tabler-icon tabler-icon-door-exit "
+                            fill="none"
+                            height="24"
+                            stroke="currentColor"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            viewBox="0 0 24 24"
+                            width="24"
+                            xmlns="http://www.w3.org/2000/svg"
                           >
-                            Leave Organization
-                          </span>
+                            <path
+                              d="M13 12v.01"
+                            />
+                            <path
+                              d="M3 21h18"
+                            />
+                            <path
+                              d="M5 21v-16a2 2 0 0 1 2 -2h7.5m2.5 10.5v7.5"
+                            />
+                            <path
+                              d="M14 7h7m-3 -3l3 3l-3 3"
+                            />
+                          </svg>
                         </span>
                       </button>
                     </td>
@@ -1301,25 +1382,45 @@ exports[`MemberTable > Snapshot 1`] = `
                       style="min-width: max(calc(var(--col-role-size) * 1px), 40px); --mrt-cell-align: left;"
                     />
                     <td
-                      class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
+                      class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi"
                       data-index="4"
-                      style="min-width: max(calc(var(--col-action-size) * 1px), 40px); --mrt-cell-align: left;"
+                      style="min-width: max(calc(var(--col-mrt_row_actions-size) * 1px), 40px); --mrt-cell-align: left;"
                     >
                       <button
-                        class="mantine-focus-auto mantine-active m_77c9d27d mantine-Button-root m_87cf2631 mantine-UnstyledButton-root"
-                        style="--button-bg: #d84c30; --button-hover: rgba(194, 68, 43, 1); --button-color: var(--mantine-color-white); --button-bd: calc(0.0625rem * var(--mantine-scale)) solid transparent;"
+                        class="mantine-focus-auto mantine-active m_8d3f4000 mantine-ActionIcon-root m_87cf2631 mantine-UnstyledButton-root"
+                        data-variant="transparent"
+                        style="--ai-bg: transparent; --ai-hover: transparent; --ai-color: black; --ai-bd: calc(0.0625rem * var(--mantine-scale)) solid transparent;"
                         type="button"
                       >
                         <span
-                          class="m_80f1301b mantine-Button-inner"
+                          class="m_8d3afb97 mantine-ActionIcon-icon"
                           style=""
                         >
-                          <span
-                            class="m_811560b9 mantine-Button-label"
-                            style=""
+                          <svg
+                            class="tabler-icon tabler-icon-door-exit "
+                            fill="none"
+                            height="24"
+                            stroke="currentColor"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            viewBox="0 0 24 24"
+                            width="24"
+                            xmlns="http://www.w3.org/2000/svg"
                           >
-                            Leave Organization
-                          </span>
+                            <path
+                              d="M13 12v.01"
+                            />
+                            <path
+                              d="M3 21h18"
+                            />
+                            <path
+                              d="M5 21v-16a2 2 0 0 1 2 -2h7.5m2.5 10.5v7.5"
+                            />
+                            <path
+                              d="M14 7h7m-3 -3l3 3l-3 3"
+                            />
+                          </svg>
                         </span>
                       </button>
                     </td>
@@ -1356,25 +1457,45 @@ exports[`MemberTable > Snapshot 1`] = `
                       style="min-width: max(calc(var(--col-role-size) * 1px), 40px); --mrt-cell-align: left;"
                     />
                     <td
-                      class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
+                      class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi"
                       data-index="4"
-                      style="min-width: max(calc(var(--col-action-size) * 1px), 40px); --mrt-cell-align: left;"
+                      style="min-width: max(calc(var(--col-mrt_row_actions-size) * 1px), 40px); --mrt-cell-align: left;"
                     >
                       <button
-                        class="mantine-focus-auto mantine-active m_77c9d27d mantine-Button-root m_87cf2631 mantine-UnstyledButton-root"
-                        style="--button-bg: #d84c30; --button-hover: rgba(194, 68, 43, 1); --button-color: var(--mantine-color-white); --button-bd: calc(0.0625rem * var(--mantine-scale)) solid transparent;"
+                        class="mantine-focus-auto mantine-active m_8d3f4000 mantine-ActionIcon-root m_87cf2631 mantine-UnstyledButton-root"
+                        data-variant="transparent"
+                        style="--ai-bg: transparent; --ai-hover: transparent; --ai-color: black; --ai-bd: calc(0.0625rem * var(--mantine-scale)) solid transparent;"
                         type="button"
                       >
                         <span
-                          class="m_80f1301b mantine-Button-inner"
+                          class="m_8d3afb97 mantine-ActionIcon-icon"
                           style=""
                         >
-                          <span
-                            class="m_811560b9 mantine-Button-label"
-                            style=""
+                          <svg
+                            class="tabler-icon tabler-icon-door-exit "
+                            fill="none"
+                            height="24"
+                            stroke="currentColor"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            viewBox="0 0 24 24"
+                            width="24"
+                            xmlns="http://www.w3.org/2000/svg"
                           >
-                            Leave Organization
-                          </span>
+                            <path
+                              d="M13 12v.01"
+                            />
+                            <path
+                              d="M3 21h18"
+                            />
+                            <path
+                              d="M5 21v-16a2 2 0 0 1 2 -2h7.5m2.5 10.5v7.5"
+                            />
+                            <path
+                              d="M14 7h7m-3 -3l3 3l-3 3"
+                            />
+                          </svg>
                         </span>
                       </button>
                     </td>
@@ -1411,25 +1532,45 @@ exports[`MemberTable > Snapshot 1`] = `
                       style="min-width: max(calc(var(--col-role-size) * 1px), 40px); --mrt-cell-align: left;"
                     />
                     <td
-                      class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
+                      class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi"
                       data-index="4"
-                      style="min-width: max(calc(var(--col-action-size) * 1px), 40px); --mrt-cell-align: left;"
+                      style="min-width: max(calc(var(--col-mrt_row_actions-size) * 1px), 40px); --mrt-cell-align: left;"
                     >
                       <button
-                        class="mantine-focus-auto mantine-active m_77c9d27d mantine-Button-root m_87cf2631 mantine-UnstyledButton-root"
-                        style="--button-bg: #d84c30; --button-hover: rgba(194, 68, 43, 1); --button-color: var(--mantine-color-white); --button-bd: calc(0.0625rem * var(--mantine-scale)) solid transparent;"
+                        class="mantine-focus-auto mantine-active m_8d3f4000 mantine-ActionIcon-root m_87cf2631 mantine-UnstyledButton-root"
+                        data-variant="transparent"
+                        style="--ai-bg: transparent; --ai-hover: transparent; --ai-color: black; --ai-bd: calc(0.0625rem * var(--mantine-scale)) solid transparent;"
                         type="button"
                       >
                         <span
-                          class="m_80f1301b mantine-Button-inner"
+                          class="m_8d3afb97 mantine-ActionIcon-icon"
                           style=""
                         >
-                          <span
-                            class="m_811560b9 mantine-Button-label"
-                            style=""
+                          <svg
+                            class="tabler-icon tabler-icon-door-exit "
+                            fill="none"
+                            height="24"
+                            stroke="currentColor"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            viewBox="0 0 24 24"
+                            width="24"
+                            xmlns="http://www.w3.org/2000/svg"
                           >
-                            Leave Organization
-                          </span>
+                            <path
+                              d="M13 12v.01"
+                            />
+                            <path
+                              d="M3 21h18"
+                            />
+                            <path
+                              d="M5 21v-16a2 2 0 0 1 2 -2h7.5m2.5 10.5v7.5"
+                            />
+                            <path
+                              d="M14 7h7m-3 -3l3 3l-3 3"
+                            />
+                          </svg>
                         </span>
                       </button>
                     </td>
@@ -1470,26 +1611,46 @@ exports[`MemberTable > Snapshot 1`] = `
                       style="min-width: max(calc(var(--col-role-size) * 1px), 40px); --mrt-cell-align: left;"
                     />
                     <td
-                      class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi MRT_TableBodyCell-module_root-data-col__HHcxc"
+                      class="m_4e7aa4ef mantine-Table-td MRT_TableBodyCell-module_root__Wf-zi"
                       data-index="4"
                       data-last-row="true"
-                      style="min-width: max(calc(var(--col-action-size) * 1px), 40px); --mrt-cell-align: left;"
+                      style="min-width: max(calc(var(--col-mrt_row_actions-size) * 1px), 40px); --mrt-cell-align: left;"
                     >
                       <button
-                        class="mantine-focus-auto mantine-active m_77c9d27d mantine-Button-root m_87cf2631 mantine-UnstyledButton-root"
-                        style="--button-bg: #d84c30; --button-hover: rgba(194, 68, 43, 1); --button-color: var(--mantine-color-white); --button-bd: calc(0.0625rem * var(--mantine-scale)) solid transparent;"
+                        class="mantine-focus-auto mantine-active m_8d3f4000 mantine-ActionIcon-root m_87cf2631 mantine-UnstyledButton-root"
+                        data-variant="transparent"
+                        style="--ai-bg: transparent; --ai-hover: transparent; --ai-color: black; --ai-bd: calc(0.0625rem * var(--mantine-scale)) solid transparent;"
                         type="button"
                       >
                         <span
-                          class="m_80f1301b mantine-Button-inner"
+                          class="m_8d3afb97 mantine-ActionIcon-icon"
                           style=""
                         >
-                          <span
-                            class="m_811560b9 mantine-Button-label"
-                            style=""
+                          <svg
+                            class="tabler-icon tabler-icon-door-exit "
+                            fill="none"
+                            height="24"
+                            stroke="currentColor"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            viewBox="0 0 24 24"
+                            width="24"
+                            xmlns="http://www.w3.org/2000/svg"
                           >
-                            Leave Organization
-                          </span>
+                            <path
+                              d="M13 12v.01"
+                            />
+                            <path
+                              d="M3 21h18"
+                            />
+                            <path
+                              d="M5 21v-16a2 2 0 0 1 2 -2h7.5m2.5 10.5v7.5"
+                            />
+                            <path
+                              d="M14 7h7m-3 -3l3 3l-3 3"
+                            />
+                          </svg>
                         </span>
                       </button>
                     </td>
