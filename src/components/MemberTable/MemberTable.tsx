@@ -1,16 +1,16 @@
-import { useGetUsersQuery, useUpdateUserMutation } from '@queries'
+import { GetUsersDocument, Permission, useGetUsersQuery, useUpdateUserMutation } from '@queries'
 import {
   MantineReactTable,
   MRT_ColumnDef,
-  useMantineReactTable,
   MRT_ColumnFiltersState,
+  MRT_Row,
   MRT_SortingState,
+  useMantineReactTable,
 } from 'mantine-react-table'
-import React, { useMemo, useState } from 'react'
-import { useUserContext } from '@context'
-import { Button, Group, Pagination, ScrollArea, Select } from '@mantine/core'
-import { useNavigate } from 'react-router-dom'
-import { theme } from '@components'
+import { useMemo, useState } from 'react'
+import { ActionIcon, Group, Pagination, ScrollArea, Select, Tooltip } from '@mantine/core'
+import { IconDoorExit, IconUserX } from '@tabler/icons-react'
+import { useHasPermission } from '@lib'
 
 interface MemberTableProps {
   organizationId: string
@@ -25,15 +25,19 @@ interface Row {
   role: string
 }
 
-export const MemberTable: React.FC<MemberTableProps> = ({ organizationId }) => {
-  const { user: currentUser } = useUserContext()
-  const currentUserId = currentUser?.id
-  const navigate = useNavigate()
+interface Filters {
+  [key: string]: { contains?: string; equal?: string; is_true?: boolean }
+}
 
+interface SortBy {
+  [key: string]: string
+}
+
+export const MemberTable = ({ organizationId }: MemberTableProps) => {
   const [sorting, setSorting] = useState<MRT_SortingState>([])
   const [columnFilters, setColumnFilters] = useState<MRT_ColumnFiltersState>([])
 
-  const getSortingVariables = () => {
+  const sortBy: SortBy | undefined = useMemo(() => {
     if (!sorting.length) return undefined
     const [sort] = sorting
 
@@ -51,14 +55,14 @@ export const MemberTable: React.FC<MemberTableProps> = ({ organizationId }) => {
     return {
       [sort.desc ? 'dsc' : 'asc']: sortField,
     }
-  }
+  }, [sorting])
 
   const filters = useMemo(() => {
-    if (!columnFilters.length) return undefined
-
-    const filters: Record<string, { contains?: string; equal?: string; is_true?: boolean }> = {
+    const filters: Filters = {
       organizationId: { equal: organizationId },
     }
+
+    if (!columnFilters.length) return filters
 
     columnFilters.forEach((filter) => {
       const fieldName = filter.id === 'name' ? 'firstName' : filter.id
@@ -87,24 +91,16 @@ export const MemberTable: React.FC<MemberTableProps> = ({ organizationId }) => {
     loading: loadingUsers,
     error: errorUsers,
     data: usersData,
-    refetch: refetchUsers,
   } = useGetUsersQuery({
     variables: {
       filters,
-      sortBy: getSortingVariables(),
+      sortBy,
     },
   })
 
-  const [updateUser] = useUpdateUserMutation()
-
-  const getUserRole = (userId: string): string => {
-    const user = rowData.find((row) => row.id === userId)
-    return user ? user.role : 'Member'
-  }
-
-  const formatRole = (role: string | null | undefined): string => {
-    if (!role) return 'N/A'
-    return role.charAt(0).toUpperCase() + role.slice(1).toLowerCase()
+  const formatRoles = (roles: string[] | null | undefined): string => {
+    if (!roles) return 'N/A'
+    return roles.map((role) => role.charAt(0).toUpperCase() + role.slice(1).toLowerCase()).join(', ')
   }
 
   const rowData = useMemo(() => {
@@ -121,35 +117,13 @@ export const MemberTable: React.FC<MemberTableProps> = ({ organizationId }) => {
         lastName: user.lastName,
         email: user.email,
         timeJoined: user.timeJoined,
-        role: formatRole(user.role),
+        role: formatRoles(user.roles),
       })) as Row[]
   }, [usersData])
 
-  const currentUserRole = getUserRole(currentUserId)
   const totalRowCount = rowData.length
 
   const columns = useMemo<MRT_ColumnDef<Row>[]>(() => {
-    const handleRemoveFromOrganization = async (userId: string) => {
-      try {
-        await updateUser({
-          variables: {
-            userInput: {
-              id: userId,
-              organizationId: null,
-            },
-          },
-        })
-        if (userId === currentUserId) {
-          navigate('/organization/new')
-        } else {
-          refetchUsers()
-          navigate('/organization')
-        }
-      } catch (error) {
-        console.error('Error removing user from organization:', error)
-      }
-    }
-
     return [
       {
         accessorKey: 'name',
@@ -188,24 +162,8 @@ export const MemberTable: React.FC<MemberTableProps> = ({ organizationId }) => {
           ],
         },
       },
-      {
-        accessorKey: 'action',
-        header: '',
-        Cell: ({ row }) => (
-          <Button
-            onClick={() => handleRemoveFromOrganization(row.original.id)}
-            disabled={currentUserRole !== 'Owner' && row.original.id !== currentUserId}
-            color={theme?.colors?.red?.[6]}
-          >
-            {row.original.id === currentUserId ? 'Leave Organization' : 'Remove from Organization'}
-          </Button>
-        ),
-        size: 200,
-        enableSorting: false,
-        enableColumnFilter: false,
-      },
     ]
-  }, [currentUserId, currentUserRole, updateUser, navigate, refetchUsers])
+  }, [])
 
   const slicedData = useMemo(() => {
     const start = pagination.pageIndex * pagination.pageSize
@@ -220,6 +178,9 @@ export const MemberTable: React.FC<MemberTableProps> = ({ organizationId }) => {
     enablePagination: false,
     manualFiltering: true,
     manualSorting: true,
+    enableRowActions: true,
+    positionActionsColumn: 'last',
+    renderRowActions: ({ row }) => <RowActions row={row} sortBy={sortBy} filters={filters} />,
     mantineToolbarAlertBannerProps: errorUsers
       ? {
           color: 'red',
@@ -259,4 +220,65 @@ export const MemberTable: React.FC<MemberTableProps> = ({ organizationId }) => {
       </Group>
     </div>
   )
+}
+
+interface RowActionsProps {
+  row: MRT_Row<Row>
+  filters: Filters
+  sortBy: SortBy | undefined
+}
+
+const RowActions = (props: RowActionsProps) => {
+  const { row, filters, sortBy } = props
+
+  const { hasPermission, user } = useHasPermission({ permission: Permission.MEMBERS_DELETE })
+  const [updateUser, { loading }] = useUpdateUserMutation({
+    refetchQueries: [
+      {
+        query: GetUsersDocument,
+        variables: { filters, sortBy },
+      },
+    ],
+  })
+
+  const handleRemoveFromOrganization = async (userId: string) => {
+    await updateUser({
+      variables: {
+        userInput: {
+          id: userId,
+          organizationId: null,
+        },
+      },
+    })
+  }
+
+  if (hasPermission && user?.id !== row.original.id) {
+    return (
+      <Tooltip label={'Remove from organization'} position='left'>
+        <ActionIcon
+          onClick={() => handleRemoveFromOrganization(row.original.id)}
+          variant='transparent'
+          color='black'
+          loading={loading}
+        >
+          <IconUserX />
+        </ActionIcon>
+      </Tooltip>
+    )
+  } else if (user?.id === row.original.id) {
+    return (
+      <Tooltip label={'Leave organization'} position='left'>
+        <ActionIcon
+          onClick={() => handleRemoveFromOrganization(row.original.id)}
+          variant='transparent'
+          color='black'
+          loading={loading}
+        >
+          <IconDoorExit />
+        </ActionIcon>
+      </Tooltip>
+    )
+  } else {
+    return null
+  }
 }

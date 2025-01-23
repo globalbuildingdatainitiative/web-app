@@ -24,6 +24,7 @@ export type Scalars = {
   Date: { input: any; output: any }
   /** Date with time (isoformat) */
   DateTime: { input: any; output: any }
+  EmailAddress: { input: any; output: any }
   /** The `JSON` scalar type represents JSON values as specified by [ECMA-404](https://ecma-international.org/wp-content/uploads/ECMA-404_2nd_edition_december_2017.pdf). */
   JSON: { input: any; output: any }
   UUID: { input: any; output: any }
@@ -1116,8 +1117,12 @@ export type Mutation = {
   deleteContributions: Array<Scalars['UUID']['output']>
   /** Deletes a list of Organizations by their IDs and returns a list of deleted IDs */
   deleteOrganizations: Array<Scalars['UUID']['output']>
+  /** Impersonate a different user */
+  impersonate: Scalars['Boolean']['output']
   /** Invite users to the organization */
   inviteUsers: Array<InviteResult>
+  /** Assign admin role to a user */
+  makeAdmin: Scalars['Boolean']['output']
   /** Reject an invitation */
   rejectInvitation: Scalars['Boolean']['output']
   /** Resend an invitation */
@@ -1150,8 +1155,16 @@ export type MutationDeleteOrganizationsArgs = {
   ids: Array<Scalars['UUID']['input']>
 }
 
+export type MutationImpersonateArgs = {
+  userId: Scalars['String']['input']
+}
+
 export type MutationInviteUsersArgs = {
   input: InviteUsersInput
+}
+
+export type MutationMakeAdminArgs = {
+  userId: Scalars['String']['input']
 }
 
 export type MutationRejectInvitationArgs = {
@@ -1210,6 +1223,21 @@ export type Owner = {
   representative?: Maybe<Scalars['String']['output']>
   type?: Maybe<Scalars['String']['output']>
   web?: Maybe<Scalars['String']['output']>
+}
+
+export enum Permission {
+  CONTRIBUTIONS_CREATE = 'CONTRIBUTIONS_CREATE',
+  CONTRIBUTIONS_DELETE = 'CONTRIBUTIONS_DELETE',
+  CONTRIBUTIONS_READ = 'CONTRIBUTIONS_READ',
+  CONTRIBUTIONS_UPDATE = 'CONTRIBUTIONS_UPDATE',
+  MEMBERS_CREATE = 'MEMBERS_CREATE',
+  MEMBERS_DELETE = 'MEMBERS_DELETE',
+  MEMBERS_READ = 'MEMBERS_READ',
+  MEMBERS_UPDATE = 'MEMBERS_UPDATE',
+  ORGANIZATIONS_CREATE = 'ORGANIZATIONS_CREATE',
+  ORGANIZATIONS_DELETE = 'ORGANIZATIONS_DELETE',
+  ORGANIZATIONS_READ = 'ORGANIZATIONS_READ',
+  ORGANIZATIONS_UPDATE = 'ORGANIZATIONS_UPDATE',
 }
 
 export type Product = {
@@ -1431,6 +1459,8 @@ export type Query = {
   organizations: Array<Organization>
   /** Returns all projects of a user's organization */
   projects: ProjectGraphQlResponse
+  /** Returns all Roles and their permissions */
+  roles: Array<RolePermission>
   /** Returns all Users */
   users: Array<User>
 }
@@ -1487,8 +1517,15 @@ export type Results = {
 }
 
 export enum Role {
+  ADMIN = 'ADMIN',
   MEMBER = 'MEMBER',
   OWNER = 'OWNER',
+}
+
+export type RolePermission = {
+  __typename?: 'RolePermission'
+  name: Role
+  permissions: Array<Permission>
 }
 
 export enum RoofType {
@@ -1612,7 +1649,7 @@ export type UpdateContribution = {
 
 export type UpdateUserInput = {
   currentPassword?: InputMaybe<Scalars['String']['input']>
-  email?: InputMaybe<Scalars['String']['input']>
+  email?: InputMaybe<Scalars['EmailAddress']['input']>
   firstName?: InputMaybe<Scalars['String']['input']>
   id: Scalars['UUID']['input']
   inviteStatus?: InputMaybe<InviteStatus>
@@ -1635,7 +1672,7 @@ export type User = {
   lastName?: Maybe<Scalars['String']['output']>
   organization?: Maybe<Organization>
   organizationId?: Maybe<Scalars['UUID']['output']>
-  role?: Maybe<Role>
+  roles?: Maybe<Array<Role>>
   timeJoined: Scalars['DateTime']['output']
 }
 
@@ -1648,7 +1685,6 @@ export type UserFilters = {
   inviterName?: InputMaybe<FilterOptions>
   lastName?: InputMaybe<FilterOptions>
   organizationId?: InputMaybe<FilterOptions>
-  role?: InputMaybe<FilterOptions>
   timeJoined?: InputMaybe<FilterOptions>
 }
 
@@ -1775,6 +1811,7 @@ export type ResolversTypes = {
   DateTime: ResolverTypeWrapper<Scalars['DateTime']['output']>
   EPD: ResolverTypeWrapper<Epd>
   EPDTechFlow: ResolverTypeWrapper<ResolversUnionTypes<ResolversTypes>['EPDTechFlow']>
+  EmailAddress: ResolverTypeWrapper<Scalars['EmailAddress']['output']>
   Energy: ResolverTypeWrapper<Energy>
   FilterBy: FilterBy
   FilterOptions: FilterOptions
@@ -1809,6 +1846,7 @@ export type ResolversTypes = {
   OrganizationMetaData: ResolverTypeWrapper<OrganizationMetaData>
   OrganizationMetaDataFilter: OrganizationMetaDataFilter
   Owner: ResolverTypeWrapper<Owner>
+  Permission: Permission
   Product: ResolverTypeWrapper<Omit<Product, 'impactData'> & { impactData: ResolversTypes['EPDTechFlow'] }>
   ProductMetaData: ResolverTypeWrapper<ProductMetaData>
   Project: ResolverTypeWrapper<Omit<Project, 'assemblies'> & { assemblies: Array<ResolversTypes['Assembly']> }>
@@ -1828,6 +1866,7 @@ export type ResolversTypes = {
   Query: ResolverTypeWrapper<{}>
   Results: ResolverTypeWrapper<Results>
   Role: Role
+  RolePermission: ResolverTypeWrapper<RolePermission>
   RoofType: RoofType
   SoftwareInfo: ResolverTypeWrapper<SoftwareInfo>
   SortBy: SortBy
@@ -1876,6 +1915,7 @@ export type ResolversParentTypes = {
   DateTime: Scalars['DateTime']['output']
   EPD: Epd
   EPDTechFlow: ResolversUnionTypes<ResolversParentTypes>['EPDTechFlow']
+  EmailAddress: Scalars['EmailAddress']['output']
   Energy: Energy
   FilterBy: FilterBy
   FilterOptions: FilterOptions
@@ -1921,6 +1961,7 @@ export type ResolversParentTypes = {
   Publication: Publication
   Query: {}
   Results: Results
+  RolePermission: RolePermission
   SoftwareInfo: SoftwareInfo
   SortBy: SortBy
   Source: Source
@@ -2202,6 +2243,10 @@ export type EpdTechFlowResolvers<
   __resolveType: TypeResolveFn<'EPD' | 'TechFlow', ParentType, ContextType>
 }
 
+export interface EmailAddressScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['EmailAddress'], any> {
+  name: 'EmailAddress'
+}
+
 export type EnergyResolvers<
   ContextType = any,
   ParentType extends ResolversParentTypes['Energy'] = ResolversParentTypes['Energy'],
@@ -2304,11 +2349,23 @@ export type MutationResolvers<
     ContextType,
     RequireFields<MutationDeleteOrganizationsArgs, 'ids'>
   >
+  impersonate?: Resolver<
+    ResolversTypes['Boolean'],
+    ParentType,
+    ContextType,
+    RequireFields<MutationImpersonateArgs, 'userId'>
+  >
   inviteUsers?: Resolver<
     Array<ResolversTypes['InviteResult']>,
     ParentType,
     ContextType,
     RequireFields<MutationInviteUsersArgs, 'input'>
+  >
+  makeAdmin?: Resolver<
+    ResolversTypes['Boolean'],
+    ParentType,
+    ContextType,
+    RequireFields<MutationMakeAdminArgs, 'userId'>
   >
   rejectInvitation?: Resolver<
     ResolversTypes['Boolean'],
@@ -2613,6 +2670,7 @@ export type QueryResolvers<
     RequireFields<QueryOrganizationsArgs, 'filters'>
   >
   projects?: Resolver<ResolversTypes['ProjectGraphQLResponse'], ParentType, ContextType>
+  roles?: Resolver<Array<ResolversTypes['RolePermission']>, ParentType, ContextType>
   users?: Resolver<
     Array<ResolversTypes['User']>,
     ParentType,
@@ -2663,6 +2721,15 @@ export type ResultsResolvers<
   sm?: Resolver<Maybe<ResolversTypes['ImpactCategoryResults']>, ParentType, ContextType>
   sqp?: Resolver<Maybe<ResolversTypes['ImpactCategoryResults']>, ParentType, ContextType>
   wdp?: Resolver<Maybe<ResolversTypes['ImpactCategoryResults']>, ParentType, ContextType>
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>
+}
+
+export type RolePermissionResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['RolePermission'] = ResolversParentTypes['RolePermission'],
+> = {
+  name?: Resolver<ResolversTypes['Role'], ParentType, ContextType>
+  permissions?: Resolver<Array<ResolversTypes['Permission']>, ParentType, ContextType>
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>
 }
 
@@ -2741,7 +2808,7 @@ export type UserResolvers<
   lastName?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
   organization?: Resolver<Maybe<ResolversTypes['Organization']>, ParentType, ContextType>
   organizationId?: Resolver<Maybe<ResolversTypes['UUID']>, ParentType, ContextType>
-  role?: Resolver<Maybe<ResolversTypes['Role']>, ParentType, ContextType>
+  roles?: Resolver<Maybe<Array<ResolversTypes['Role']>>, ParentType, ContextType>
   timeJoined?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>
 }
@@ -2773,6 +2840,7 @@ export type Resolvers<ContextType = any> = {
   DateTime?: GraphQLScalarType
   EPD?: EpdResolvers<ContextType>
   EPDTechFlow?: EpdTechFlowResolvers<ContextType>
+  EmailAddress?: GraphQLScalarType
   Energy?: EnergyResolvers<ContextType>
   ImpactCategoryResults?: ImpactCategoryResultsResolvers<ContextType>
   InviteResult?: InviteResultResolvers<ContextType>
@@ -2792,6 +2860,7 @@ export type Resolvers<ContextType = any> = {
   Publication?: PublicationResolvers<ContextType>
   Query?: QueryResolvers<ContextType>
   Results?: ResultsResolvers<ContextType>
+  RolePermission?: RolePermissionResolvers<ContextType>
   SoftwareInfo?: SoftwareInfoResolvers<ContextType>
   Source?: SourceResolvers<ContextType>
   Structural?: StructuralResolvers<ContextType>
@@ -2960,7 +3029,7 @@ export type GetUsersQuery = {
     invited: boolean
     inviteStatus: InviteStatus
     inviterName?: string | null
-    role?: Role | null
+    roles?: Array<Role> | null
     organization?: { __typename?: 'Organization'; id: any; name: string } | null
   }>
 }
@@ -2977,7 +3046,7 @@ export type GetCurrentUserQuery = {
     firstName?: string | null
     lastName?: string | null
     email: string
-    role?: Role | null
+    roles?: Array<Role> | null
     timeJoined: any
     organization?: {
       __typename?: 'Organization'
@@ -3004,7 +3073,7 @@ export type UpdateUserMutation = {
     lastName?: string | null
     email: string
     timeJoined: any
-    role?: Role | null
+    roles?: Array<Role> | null
     organizationId?: any | null
   }
 }
@@ -3382,6 +3451,25 @@ export type UpdateContributionsMutationVariables = Exact<{
 export type UpdateContributionsMutation = {
   __typename?: 'Mutation'
   updateContributions: Array<{ __typename?: 'Contribution'; id: any }>
+}
+
+export type ImpersonateUserMutationVariables = Exact<{
+  userId: Scalars['String']['input']
+}>
+
+export type ImpersonateUserMutation = { __typename?: 'Mutation'; impersonate: boolean }
+
+export type MakeUserAdminMutationVariables = Exact<{
+  userId: Scalars['String']['input']
+}>
+
+export type MakeUserAdminMutation = { __typename?: 'Mutation'; makeAdmin: boolean }
+
+export type GetRolesAndPermissionsQueryVariables = Exact<{ [key: string]: never }>
+
+export type GetRolesAndPermissionsQuery = {
+  __typename?: 'Query'
+  roles: Array<{ __typename?: 'RolePermission'; name: Role; permissions: Array<Permission> }>
 }
 
 export const AcceptInvitationDocument = gql`
@@ -3967,11 +4055,11 @@ export const GetUsersDocument = gql`
       invited
       inviteStatus
       inviterName
+      roles
       organization {
         id
         name
       }
-      role
     }
   }
 `
@@ -4018,7 +4106,7 @@ export const GetCurrentUserDocument = gql`
       firstName
       lastName
       email
-      role
+      roles
       organization {
         id
         name
@@ -4081,7 +4169,7 @@ export const UpdateUserDocument = gql`
       lastName
       email
       timeJoined
-      role
+      roles
       organizationId
     }
   }
@@ -4893,4 +4981,139 @@ export type UpdateContributionsMutationResult = Apollo.MutationResult<UpdateCont
 export type UpdateContributionsMutationOptions = Apollo.BaseMutationOptions<
   UpdateContributionsMutation,
   UpdateContributionsMutationVariables
+>
+export const ImpersonateUserDocument = gql`
+  mutation impersonateUser($userId: String!) {
+    impersonate(userId: $userId)
+  }
+`
+export type ImpersonateUserMutationFn = Apollo.MutationFunction<
+  ImpersonateUserMutation,
+  ImpersonateUserMutationVariables
+>
+
+/**
+ * __useImpersonateUserMutation__
+ *
+ * To run a mutation, you first call `useImpersonateUserMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useImpersonateUserMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [impersonateUserMutation, { data, loading, error }] = useImpersonateUserMutation({
+ *   variables: {
+ *      userId: // value for 'userId'
+ *   },
+ * });
+ */
+export function useImpersonateUserMutation(
+  baseOptions?: Apollo.MutationHookOptions<ImpersonateUserMutation, ImpersonateUserMutationVariables>,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<ImpersonateUserMutation, ImpersonateUserMutationVariables>(ImpersonateUserDocument, options)
+}
+export type ImpersonateUserMutationHookResult = ReturnType<typeof useImpersonateUserMutation>
+export type ImpersonateUserMutationResult = Apollo.MutationResult<ImpersonateUserMutation>
+export type ImpersonateUserMutationOptions = Apollo.BaseMutationOptions<
+  ImpersonateUserMutation,
+  ImpersonateUserMutationVariables
+>
+export const MakeUserAdminDocument = gql`
+  mutation makeUserAdmin($userId: String!) {
+    makeAdmin(userId: $userId)
+  }
+`
+export type MakeUserAdminMutationFn = Apollo.MutationFunction<MakeUserAdminMutation, MakeUserAdminMutationVariables>
+
+/**
+ * __useMakeUserAdminMutation__
+ *
+ * To run a mutation, you first call `useMakeUserAdminMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useMakeUserAdminMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [makeUserAdminMutation, { data, loading, error }] = useMakeUserAdminMutation({
+ *   variables: {
+ *      userId: // value for 'userId'
+ *   },
+ * });
+ */
+export function useMakeUserAdminMutation(
+  baseOptions?: Apollo.MutationHookOptions<MakeUserAdminMutation, MakeUserAdminMutationVariables>,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<MakeUserAdminMutation, MakeUserAdminMutationVariables>(MakeUserAdminDocument, options)
+}
+export type MakeUserAdminMutationHookResult = ReturnType<typeof useMakeUserAdminMutation>
+export type MakeUserAdminMutationResult = Apollo.MutationResult<MakeUserAdminMutation>
+export type MakeUserAdminMutationOptions = Apollo.BaseMutationOptions<
+  MakeUserAdminMutation,
+  MakeUserAdminMutationVariables
+>
+export const GetRolesAndPermissionsDocument = gql`
+  query getRolesAndPermissions {
+    roles {
+      name
+      permissions
+    }
+  }
+`
+
+/**
+ * __useGetRolesAndPermissionsQuery__
+ *
+ * To run a query within a React component, call `useGetRolesAndPermissionsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetRolesAndPermissionsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetRolesAndPermissionsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetRolesAndPermissionsQuery(
+  baseOptions?: Apollo.QueryHookOptions<GetRolesAndPermissionsQuery, GetRolesAndPermissionsQueryVariables>,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<GetRolesAndPermissionsQuery, GetRolesAndPermissionsQueryVariables>(
+    GetRolesAndPermissionsDocument,
+    options,
+  )
+}
+export function useGetRolesAndPermissionsLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<GetRolesAndPermissionsQuery, GetRolesAndPermissionsQueryVariables>,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<GetRolesAndPermissionsQuery, GetRolesAndPermissionsQueryVariables>(
+    GetRolesAndPermissionsDocument,
+    options,
+  )
+}
+export function useGetRolesAndPermissionsSuspenseQuery(
+  baseOptions?:
+    | Apollo.SkipToken
+    | Apollo.SuspenseQueryHookOptions<GetRolesAndPermissionsQuery, GetRolesAndPermissionsQueryVariables>,
+) {
+  const options = baseOptions === Apollo.skipToken ? baseOptions : { ...defaultOptions, ...baseOptions }
+  return Apollo.useSuspenseQuery<GetRolesAndPermissionsQuery, GetRolesAndPermissionsQueryVariables>(
+    GetRolesAndPermissionsDocument,
+    options,
+  )
+}
+export type GetRolesAndPermissionsQueryHookResult = ReturnType<typeof useGetRolesAndPermissionsQuery>
+export type GetRolesAndPermissionsLazyQueryHookResult = ReturnType<typeof useGetRolesAndPermissionsLazyQuery>
+export type GetRolesAndPermissionsSuspenseQueryHookResult = ReturnType<typeof useGetRolesAndPermissionsSuspenseQuery>
+export type GetRolesAndPermissionsQueryResult = Apollo.QueryResult<
+  GetRolesAndPermissionsQuery,
+  GetRolesAndPermissionsQueryVariables
 >

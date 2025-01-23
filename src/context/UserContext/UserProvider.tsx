@@ -1,6 +1,9 @@
 import { ReactNode, useMemo } from 'react'
-import { useGetCurrentUserQuery } from '@queries'
-import { User, UserContext } from './UserContext.tsx'
+import { Role, useGetCurrentUserQuery } from '@queries'
+import { UserContext } from './UserContext.tsx'
+import Session from 'supertokens-auth-react/recipe/session'
+import { UserRoleClaim } from 'supertokens-auth-react/recipe/userroles'
+import { User } from './types.ts'
 
 type UserProviderProps = {
   children: ReactNode
@@ -12,13 +15,28 @@ export const UserProvider = ({ children }: UserProviderProps) => {
     variables: { id: currentUserId! },
     skip: !currentUserId,
   })
+  const claimValue = Session.useClaimValue(UserRoleClaim)
+  const sessionContext = Session.useSessionContext()
 
   const user = useMemo(() => {
     if (loading) return null
     if (error) return null
     if (!data || !data.users) return null
-    return data.users[0] as User
-  }, [loading, error, data])
+
+    const user = {
+      ...data.users[0],
+      roles: [],
+      // @ts-expect-error accessTokenPayload is not defined in SessionContext by exists
+      isImpersonation: sessionContext?.accessTokenPayload?.isImpersonation ?? false,
+    } as User
+    if (claimValue.loading || !claimValue.doesSessionExist) {
+      return user
+    }
+
+    user.roles = claimValue.value ? (claimValue.value.map((role) => role.toUpperCase()) as Role[]) : []
+
+    return user
+  }, [loading, error, data, claimValue, sessionContext])
 
   return (
     <UserContext.Provider
