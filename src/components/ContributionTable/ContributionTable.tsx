@@ -15,7 +15,7 @@ import {
   useMantineReactTable,
 } from 'mantine-react-table'
 import 'mantine-react-table/styles.css'
-import React, { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import dayjs from 'dayjs'
 import { ActionIcon, Group, MantineSize, Pagination, ScrollArea, Select, Text, Tooltip } from '@mantine/core'
 import { ViewProjectDetails } from './viewProjectDetails.tsx'
