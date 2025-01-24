@@ -61,14 +61,14 @@ export const ProjectDetailsChart = (props: ProjectDetailsChartProps) => {
               data={data?.projects.aggregation}
               margin={{
                 top: 5,
-                right: 30,
-                left: 20,
-                bottom: 5,
+                right: 25,
+                left: 25,
+                bottom: 20,
               }}
             >
               <CartesianGrid strokeDasharray='3 3' />
-              <XAxis dataKey={'_id'} hide={true} />
-              <YAxis label={{ value: 'kgCO₂eq/m²', angle: -90, offset: -10, position: 'insideLeft' }} />
+              <XAxis dataKey={'_id'} tick={false} label={{ value: 'Projects', position: 'bottom', offset: 5 }} />
+              <YAxis label={{ value: 'Total GWP Intensity', angle: -90, offset: -15, position: 'insideLeft' }} />
               <Tooltip content={(props) => <TooltipContent {...props} projectId={project?.id || ''} />} />
               <Bar dataKey='results'>
                 <LabelList

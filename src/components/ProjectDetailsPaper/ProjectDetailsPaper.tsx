@@ -69,7 +69,7 @@ export const ProjectDetailsPaper = (props: ProjectDetailsPaperProps) => {
         </ErrorBoundary>
         <Divider mt='md' />
         <Title order={4} my='md'>
-          Cumulative Chart
+          GWP Intensity Benchmark
         </Title>
         <ErrorBoundary>
           <ProjectDetailsChart project={project} loading={loading} />
