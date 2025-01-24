@@ -110,7 +110,7 @@ export const EditOrganizationForm = () => {
   return (
     <Paper data-testid='EditOrganizationForm'>
       <Group>
-        <img src={logo} alt='Company Logo' style={{ maxWidth: '500px' }} />
+        <img src={logo} alt='Company Logo' style={{ maxWidth: '700px', paddingLeft: '200px' }} />
         <form onSubmit={form.onSubmit(handleSubmit)} style={{ flex: 1 }}>
           <Stack align='center' gap='xl'>
             <Title order={2}>{hasPermission ? 'Edit Organization' : 'Organization Details'}</Title>

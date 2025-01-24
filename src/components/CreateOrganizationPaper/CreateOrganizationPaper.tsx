@@ -74,7 +74,7 @@ export const CreateOrganizationPaper = () => {
   return (
     <Paper data-testid='CreateOrganizationPaper'>
       <Group>
-        <img src={logo} alt='Company Logo' style={{ maxWidth: '400px' }} />
+        <img src={logo} alt='Company Logo' style={{ width: '700px', paddingLeft: '150px' }} />
         <form onSubmit={form.onSubmit(handleSubmit)} style={{ flex: 1 }}>
           <Stack align='center' gap='xl'>
             <Title order={2}>Create An Organization</Title>
