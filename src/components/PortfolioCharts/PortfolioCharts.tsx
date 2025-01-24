@@ -60,12 +60,12 @@ const selectStyles = () => ({
     marginBottom: rem(8),
     fontSize: theme?.fontSizes?.sm || '14px',
     fontWeight: 500,
-    fontFamily: theme?.fontFamily || 'Outfit, sans-serif',
+    fontFamily: theme?.fontFamily || 'Plus Jakarta Sans, sans-serif',
   },
   input: {
     minHeight: rem(42),
     border: `1px solid ${theme?.colors?.blue?.[2] || '#dfedef'}`,
-    fontFamily: theme?.fontFamily || 'Outfit, sans-serif',
+    fontFamily: theme?.fontFamily || 'Plus Jakarta Sans, sans-serif',
     fontSize: theme?.fontSizes?.sm || '14px',
     '&:focus': {
       borderColor: theme?.colors?.green?.[6] || '#4bd6ac',
@@ -77,14 +77,14 @@ const selectStyles = () => ({
     border: `1px solid ${theme?.colors?.green?.[3] || '#b5edde'}`,
     height: rem(26),
     padding: `0 ${rem(10)}`,
-    fontFamily: theme?.fontFamily || 'Outfit, sans-serif',
+    fontFamily: theme?.fontFamily || 'Plus Jakarta Sans, sans-serif',
     fontSize: theme?.fontSizes?.sm || '14px',
     '&[data-hovered]': {
       backgroundColor: theme?.colors?.green?.[1] || '#ddf5ef',
     },
   },
   item: {
-    fontFamily: theme?.fontFamily || 'Outfit, sans-serif',
+    fontFamily: theme?.fontFamily || 'Plus Jakarta Sans, sans-serif',
     fontSize: theme?.fontSizes?.sm || '14px',
     '&[data-selected]': {
       '&, &:hover': {

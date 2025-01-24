@@ -76,10 +76,7 @@ export const ProjectDetailsChart = (props: ProjectDetailsChartProps) => {
                   content={(props) => renderProjectLabel(props as LabelProps, project?.id, theme.colors.red[6])}
                 />
                 {data?.projects.aggregation.map(({ _id }: { _id: string }) => (
-                  <Cell
-                    key={`cell-${_id}`}
-                    fill={_id === project?.id ? theme.colors.red[6] : theme.colors.light_green[3]}
-                  />
+                  <Cell key={`cell-${_id}`} fill={_id === project?.id ? theme.colors.red[6] : theme.colors.green[1]} />
                 ))}
               </Bar>
             </BarChart>
