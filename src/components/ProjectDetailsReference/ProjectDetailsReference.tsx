@@ -107,12 +107,16 @@ export const ProjectDetailsReference = (props: ProjectDetailsReferenceProps) => 
       <Group justify='center' grow>
         <Center style={{ height: height * 0.4 }}>
           <Image
-            h={height * 0.2}
-            w={height * 0.2}
-            radius='md'
             src={project?.metaData?.image}
             fallbackSrc={logoImage}
             alt={'Project Image'}
+            style={{
+              maxWidth: height * 0.3,
+              maxHeight: height * 0.3,
+              width: 'auto',
+              height: 'auto',
+              objectFit: 'contain',
+            }}
           />
         </Center>
         <ErrorBoundary>
