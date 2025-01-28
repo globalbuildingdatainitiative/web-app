@@ -88,4 +88,4 @@ jobs:
 
       - name: Push Image
         if: github.event_name != 'pull_request'
-        run: docker push ghcr.io/${{ env.REGISTRY }}/${{ env.CONTAINER_NAME }}
+        run: docker push --all-tags ghcr.io/${{ env.REGISTRY }}/${{ env.CONTAINER_NAME }}
