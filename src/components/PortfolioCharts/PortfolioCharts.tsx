@@ -2,7 +2,6 @@ import { useViewportSize } from '@mantine/hooks'
 import { Paper, Tabs, MultiSelect, Box, rem, Select } from '@mantine/core'
 import { AttributeChart } from '../AttributeChart'
 import { CarbonIntensityChart } from '../CarbonIntensityChart'
-import type { MRT_VisibilityState } from 'mantine-react-table'
 import { IconPrinter } from '@tabler/icons-react'
 import { useState } from 'react'
 import domtoimage from 'dom-to-image'
@@ -10,7 +9,6 @@ import { theme } from '@components'
 
 interface PortfolioChartsProps {
   className?: string
-  visibleColumns: MRT_VisibilityState
   filters: object
 }
 
