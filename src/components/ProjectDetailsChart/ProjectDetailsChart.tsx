@@ -56,19 +56,37 @@ export const ProjectDetailsChart = (props: ProjectDetailsChartProps) => {
         {loading || dataLoading ? (
           <Loading />
         ) : (
-          <ResponsiveContainer width='100%' height='100%'>
+          <ResponsiveContainer width='95%' height='100%'>
             <BarChart
               data={data?.projects.aggregation}
               margin={{
-                top: 5,
-                right: 30,
-                left: 20,
-                bottom: 5,
+                top: 20,
+                right: 25,
+                left: 80,
+                bottom: 20,
               }}
             >
               <CartesianGrid strokeDasharray='3 3' />
-              <XAxis dataKey={'_id'} hide={true} />
-              <YAxis label={{ value: 'kgCO₂eq/m²', angle: -90, offset: -10, position: 'insideLeft' }} />
+              <XAxis dataKey={'_id'} tick={false} label={{ value: 'Projects', position: 'bottom', offset: 5 }} />
+              <YAxis
+                label={
+                  <text
+                    y={-100}
+                    dx={-45}
+                    dy={120}
+                    transform='rotate(-90)'
+                    textAnchor='middle'
+                    style={{
+                      fill: theme.colors.gray[6],
+                    }}
+                  >
+                    <tspan x='-150'>Total GWP Intensity</tspan>
+                    <tspan x='-200' dy='1.2em'>
+                      (kgCO₂eq/m²)
+                    </tspan>
+                  </text>
+                }
+              />
               <Tooltip content={(props) => <TooltipContent {...props} projectId={project?.id || ''} />} />
               <Bar dataKey='results'>
                 <LabelList
