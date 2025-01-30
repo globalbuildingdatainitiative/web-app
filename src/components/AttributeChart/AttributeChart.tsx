@@ -87,7 +87,7 @@ const normalizeValue = (value: unknown): string => {
   return String(value)
 }
 
-function getSortValue(label: string): number {
+const getSortValue = (label: string): number => {
   if (label === 'null') {
     return Infinity // Ensuring null goes last
   }
