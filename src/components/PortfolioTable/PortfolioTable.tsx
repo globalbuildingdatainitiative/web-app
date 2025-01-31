@@ -24,14 +24,11 @@ import {
 import { Dispatch, SetStateAction, useEffect, useMemo, useState } from 'react'
 import { Group, Pagination, Progress, Select, Text, Tooltip, Button, Box } from '@mantine/core'
 import { TruncatedTextWithTooltip } from '@components'
-import { useViewportSize } from '@mantine/hooks'
 import { IconDownload } from '@tabler/icons-react'
 import { mkConfig, generateCsv, download } from 'export-to-csv'
 import { alpha3ToCountryName, snakeCaseToHumanCase } from '@lib'
 
 interface PortfolioTableProps {
-  columnVisibility: MRT_VisibilityState
-  onColumnVisibilityChange: (visibility: MRT_VisibilityState) => void
   filters: object
   setFilters: Dispatch<SetStateAction<object>>
 }
@@ -43,7 +40,7 @@ const csvConfig = mkConfig({
 })
 
 export const PortfolioTable = (props: PortfolioTableProps) => {
-  const { columnVisibility, onColumnVisibilityChange, filters, setFilters } = props
+  const { filters, setFilters } = props
 
   const [pagination, setPagination] = useState<MRT_PaginationState>({
     pageIndex: 0,
@@ -51,10 +48,31 @@ export const PortfolioTable = (props: PortfolioTableProps) => {
   })
   const [sorting, setSorting] = useState<MRT_SortingState>([])
   const [columnFilters, setColumnFilters] = useState<MRT_ColumnFiltersState>([])
+  const [columnVisibility, setColumnVisibility] = useState<MRT_VisibilityState>({
+    id: false,
+    name: true,
+    'location.countryName': true,
+    'projectInfo.buildingType': true,
+    'projectInfo.grossFloorArea.value': true,
+    results: true,
+    breakdown: true,
+    'softwareInfo.lcaSoftware': false,
+    'metaData.source.name': false,
+    'projectInfo.buildingCompletionYear': false,
+    'projectInfo.buildingFootprint.value': false,
+    'projectInfo.buildingHeight.value': false,
+    'projectInfo.buildingMass.value': false,
+    'projectInfo.buildingPermitYear': false,
+    'projectInfo.buildingTypology': false,
+    'projectInfo.buildingUsers': false,
+    'projectInfo.floorsAboveGround': false,
+    'projectInfo.floorsBelowGround': false,
+    'projectInfo.generalEnergyClass': false,
+    'projectInfo.heatedFloorArea.value': false,
+    'projectInfo.roofType': false,
+    'projectInfo.frameType': false,
+  })
   const [fetchAllData, { loading: loadingExportingAll }] = useGetProjectPortfolioLazyQuery()
-
-  const { width: viewportWidth } = useViewportSize()
-  const shouldHideColumns = viewportWidth < window.screen.width
 
   const exportCsv = ({
     rows,
@@ -63,16 +81,12 @@ export const PortfolioTable = (props: PortfolioTableProps) => {
     rows: MRT_Row<Pick<Contribution, 'id'>>[]
     onlyVisibleColumns?: boolean
   }) => {
-    // 1. Determine which columns to export (exclude 'breakdown' from CSV)
     let exportColumns = columns.filter((col) => col.accessorKey !== 'breakdown')
     if (onlyVisibleColumns) {
       exportColumns = exportColumns.filter((col) => columnVisibility[col.accessorKey as string])
     }
 
-    // 2. Extract headers
     const headers = exportColumns.map((col) => col.header as string)
-
-    // 3. Build row data with headers as object keys
     const rowData = rows.map((row) => {
       const rowObj: { [key: string]: string | number } = {}
       exportColumns.forEach((column, index) => {
@@ -93,14 +107,12 @@ export const PortfolioTable = (props: PortfolioTableProps) => {
           return
         }
 
-        // Join building typology elements with commas and wrap in quotes
         if (column.accessorKey === 'projectInfo.buildingTypology' && Array.isArray(value)) {
           rowObj[header] = `"${value.join(', ')}"`
           return
         }
 
         if (typeof value === 'object') {
-          // handle numeric sub-fields like "value"
           if ('value' in value) {
             rowObj[header] = (value as { value: number }).value
           } else {
@@ -116,7 +128,7 @@ export const PortfolioTable = (props: PortfolioTableProps) => {
 
     const csvConfigWithHeader = {
       ...csvConfig,
-      useKeysAsHeaders: true, // Enable automatic header generation
+      useKeysAsHeaders: true,
       filename: 'project_portfolio',
     }
 
@@ -136,7 +148,6 @@ export const PortfolioTable = (props: PortfolioTableProps) => {
         fetchPolicy: 'network-only',
       })
 
-      // If the items array is missing or null, just return or handle it gracefully
       if (!data?.projects?.items) {
         console.warn('No items found to export')
         return
@@ -169,8 +180,6 @@ export const PortfolioTable = (props: PortfolioTableProps) => {
   const sortBy = useMemo(() => {
     if (!sorting.length) return undefined
     const [sort] = sorting
-
-    // Don't modify the field path, send it as is to match the backend mapping
     return {
       [sort.desc ? 'dsc' : 'asc']: sort.id,
     }
@@ -249,8 +258,8 @@ export const PortfolioTable = (props: PortfolioTableProps) => {
         filterVariant: 'range-slider',
         filterFn: 'between',
         mantineFilterRangeSliderProps: {
-          max: 2040, //custom max (as opposed to faceted max)
-          min: 1900, //custom min (as opposed to faceted min)
+          max: 2040,
+          min: 1900,
           step: 5,
         },
       },
@@ -265,8 +274,8 @@ export const PortfolioTable = (props: PortfolioTableProps) => {
         filterVariant: 'range-slider',
         filterFn: 'between',
         mantineFilterRangeSliderProps: {
-          max: 30_000, //custom max (as opposed to faceted max)
-          min: 0, //custom min (as opposed to faceted min)
+          max: 30_000,
+          min: 0,
           step: 500,
         },
       },
@@ -281,8 +290,8 @@ export const PortfolioTable = (props: PortfolioTableProps) => {
         filterVariant: 'range-slider',
         filterFn: 'between',
         mantineFilterRangeSliderProps: {
-          max: 500, //custom max (as opposed to faceted max)
-          min: 0, //custom min (as opposed to faceted min)
+          max: 500,
+          min: 0,
           step: 25,
         },
       },
@@ -297,8 +306,8 @@ export const PortfolioTable = (props: PortfolioTableProps) => {
         filterVariant: 'range-slider',
         filterFn: 'between',
         mantineFilterRangeSliderProps: {
-          max: 30_000, //custom max (as opposed to faceted max)
-          min: 0, //custom min (as opposed to faceted min)
+          max: 30_000,
+          min: 0,
           step: 500,
         },
       },
@@ -313,8 +322,8 @@ export const PortfolioTable = (props: PortfolioTableProps) => {
         filterVariant: 'range-slider',
         filterFn: 'between',
         mantineFilterRangeSliderProps: {
-          max: 2030, //custom max (as opposed to faceted max)
-          min: 1900, //custom min (as opposed to faceted min)
+          max: 2030,
+          min: 1900,
           step: 5,
         },
       },
@@ -342,8 +351,8 @@ export const PortfolioTable = (props: PortfolioTableProps) => {
         filterVariant: 'range-slider',
         filterFn: 'between',
         mantineFilterRangeSliderProps: {
-          max: 5000, //custom max (as opposed to faceted max)
-          min: 0, //custom min (as opposed to faceted min)
+          max: 5000,
+          min: 0,
           step: 50,
         },
       },
@@ -358,8 +367,8 @@ export const PortfolioTable = (props: PortfolioTableProps) => {
         filterVariant: 'range-slider',
         filterFn: 'between',
         mantineFilterRangeSliderProps: {
-          max: 150, //custom max (as opposed to faceted max)
-          min: 0, //custom min (as opposed to faceted min)
+          max: 150,
+          min: 0,
           step: 1,
         },
       },
@@ -374,8 +383,8 @@ export const PortfolioTable = (props: PortfolioTableProps) => {
         filterVariant: 'range-slider',
         filterFn: 'between',
         mantineFilterRangeSliderProps: {
-          max: 20, //custom max (as opposed to faceted max)
-          min: 0, //custom min (as opposed to faceted min)
+          max: 20,
+          min: 0,
           step: 1,
         },
       },
@@ -403,8 +412,8 @@ export const PortfolioTable = (props: PortfolioTableProps) => {
         filterVariant: 'range-slider',
         filterFn: 'between',
         mantineFilterRangeSliderProps: {
-          max: 30_000, //custom max (as opposed to faceted max)
-          min: 0, //custom min (as opposed to faceted min)
+          max: 30_000,
+          min: 0,
           step: 500,
         },
       },
@@ -426,7 +435,6 @@ export const PortfolioTable = (props: PortfolioTableProps) => {
         header: 'Frame Type',
         Cell: ({ cell }) => {
           const frameType = cell.getValue<string>()
-          // Convert null, undefined, empty string, or "N/A" to "Unknown"
           const displayValue = !frameType || frameType === '' || frameType === 'N/A' ? 'null' : frameType
           return <TruncatedTextWithTooltip text={displayValue} />
         },
@@ -443,8 +451,8 @@ export const PortfolioTable = (props: PortfolioTableProps) => {
         filterVariant: 'range-slider',
         filterFn: 'between',
         mantineFilterRangeSliderProps: {
-          max: 30_000, //custom max (as opposed to faceted max)
-          min: 0, //custom min (as opposed to faceted min)
+          max: 30_000,
+          min: 0,
           step: 500,
         },
       },
@@ -538,7 +546,6 @@ export const PortfolioTable = (props: PortfolioTableProps) => {
       { contains: {}, equal: {}, in: {}, lt: {}, ...baseFilters },
     )
 
-    // Only return non-empty filter objects
     const result: Record<string, Record<string, unknown>> = {}
     if (Object.keys(filters.contains).length > 0) {
       result.contains = filters.contains
@@ -572,36 +579,6 @@ export const PortfolioTable = (props: PortfolioTableProps) => {
     skip: !filters,
     fetchPolicy: 'network-only',
   })
-
-  useEffect(() => {
-    if (shouldHideColumns) {
-      // Show only essential columns on small screens
-      onColumnVisibilityChange({
-        id: false,
-        name: true,
-        'location.countryName': true,
-        'projectInfo.buildingType': true,
-        'projectInfo.grossFloorArea.value': true,
-        results: true,
-        breakdown: true,
-        'softwareInfo.lcaSoftware': false,
-        'metaData.source.name': false,
-        'projectInfo.buildingCompletionYear': false,
-        'projectInfo.buildingFootprint.value': false,
-        'projectInfo.buildingHeight.value': false,
-        'projectInfo.buildingMass.value': false,
-        'projectInfo.buildingPermitYear': false,
-        'projectInfo.buildingTypology': false,
-        'projectInfo.buildingUsers': false,
-        'projectInfo.floorsAboveGround': false,
-        'projectInfo.floorsBelowGround': false,
-        'projectInfo.generalEnergyClass': false,
-        'projectInfo.heatedFloorArea.value': false,
-        'projectInfo.roofType': false,
-        'projectInfo.frameType': false,
-      })
-    }
-  }, [shouldHideColumns, onColumnVisibilityChange])
 
   const rowData = useMemo(() => data?.projects.items || [], [data])
   const totalRowCount = useMemo(() => data?.projects.count || 0, [data])
@@ -640,13 +617,7 @@ export const PortfolioTable = (props: PortfolioTableProps) => {
       }
     },
     enableStickyHeader: true,
-    onColumnVisibilityChange: (updaterOrValue) => {
-      if (typeof updaterOrValue === 'function') {
-        onColumnVisibilityChange(updaterOrValue(columnVisibility))
-      } else {
-        onColumnVisibilityChange(updaterOrValue)
-      }
-    },
+    onColumnVisibilityChange: setColumnVisibility,
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
     mantineTableContainerProps: {
