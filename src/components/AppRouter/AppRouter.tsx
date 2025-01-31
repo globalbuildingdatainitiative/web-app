@@ -12,12 +12,14 @@ const ContributeNowPage = lazy(() => import('../../pages/ContributeNowPage'))
 const DashboardPage = lazy(() => import('../../pages/DashboardPage'))
 const OrganizationPage = lazy(() => import('../../pages/OrganizationPage'))
 const CreateOrganizationPage = lazy(() => import('../../pages/CreateOrganizationPage'))
-const OrganizationPortfolioPage = lazy(() => import('../../pages/PortfolioPage'))
 const EditProfilePage = lazy(() => import('../../pages/EditProfilePage'))
 const EditOrganizationPage = lazy(() => import('../../pages/EditOrganizationPage'))
 const Page404 = lazy(() => import('../../pages/404Page'))
 const ProjectDetailsPage = lazy(() => import('../../pages/ProjectDetailsPage'))
 const AdminPage = lazy(() => import('../../pages/AdminPage'))
+const CarbonIntensityPortfolioPage = lazy(() => import('../../pages/CarbonIntensityPortfolioPage'))
+const AttributePortfolioPage = lazy(() => import('../../pages/AttributePortfolioPage'))
+const DetailsPage = lazy(() => import('../../pages/DetailsPage'))
 
 export const AppRouter = () => {
   const { user } = useUserContext()
@@ -50,14 +52,16 @@ export const AppRouter = () => {
               </AdminRoute>
             }
           />
-          <Route path='/organization' element={<OrganizationPage />} />
-          <Route path='/organization/new' element={<CreateOrganizationPage />} />
-          <Route path='/organization/edit' element={<EditOrganizationPage />} />
-          <Route path='/portfolio' element={<OrganizationPortfolioPage />} />
-          <Route path='/organization/addmembers' element={<AddMembersPage />} />
           <Route path='/contributions' element={<ContributionPage />} />
           <Route path='/contributions/new' element={<ContributeNowPage />} />
           <Route path='/contributions/:contributionId/project' element={<ProjectDetailsPage />} />
+          <Route path='/details' element={<DetailsPage />} />
+          <Route path='/organization' element={<OrganizationPage />} />
+          <Route path='/organization/addmembers' element={<AddMembersPage />} />
+          <Route path='/organization/edit' element={<EditOrganizationPage />} />
+          <Route path='/organization/new' element={<CreateOrganizationPage />} />
+          <Route path='/portfolio/attributes' element={<AttributePortfolioPage />} />
+          <Route path='/portfolio/carbon-intensity' element={<CarbonIntensityPortfolioPage />} />
           <Route path='/profile' element={<EditProfilePage />} />
           <Route path='*' element={<Page404 />} />
         </Route>
