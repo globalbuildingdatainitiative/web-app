@@ -4279,7 +4279,7 @@ export const GetProjectDataForBoxPlotDocument = gql`
     projects {
       groups(groupBy: "location.country") {
         group
-        items(limit: 1) {
+        items(limit: null) {
           id
           location {
             countryName
