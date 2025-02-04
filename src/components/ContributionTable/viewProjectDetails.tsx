@@ -11,9 +11,7 @@ export const ViewProjectDetails = ({ contributionId }: ViewProjectDetailsProps) 
 
   // If we're on the details/benchmarking page, use the details URL pattern
   const isDetailsPage = location.pathname.startsWith('/details')
-  const linkPath = isDetailsPage
-    ? `/details/${contributionId}/project`
-    : `/contributions/${contributionId}/project`
+  const linkPath = isDetailsPage ? `/details/${contributionId}/project` : `/contributions/${contributionId}/project`
   return (
     <ActionIcon c='black' variant='transparent' component={Link} to={linkPath}>
       <IconExternalLink />
