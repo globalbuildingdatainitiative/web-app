@@ -54,6 +54,7 @@ export const AppRouter = () => {
           />
           <Route path='/contributions' element={<ContributionPage />} />
           <Route path='/contributions/new' element={<ContributeNowPage />} />
+          <Route path='/details/:contributionId/project' element={<ProjectDetailsPage />} />
           <Route path='/contributions/:contributionId/project' element={<ProjectDetailsPage />} />
           <Route path='/details' element={<DetailsPage />} />
           <Route path='/organization' element={<OrganizationPage />} />

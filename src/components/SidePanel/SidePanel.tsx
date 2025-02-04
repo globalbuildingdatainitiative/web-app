@@ -8,7 +8,6 @@ import {
   IconLayoutSidebarLeftExpand,
   IconLayoutSidebarLeftCollapse,
   IconChartBar,
-  IconChartLine,
   IconChartHistogram,
   IconUserStar,
   IconListDetails,
@@ -51,13 +50,12 @@ export const SidePanel = ({ collapsed, toggleCollapsed }: SidePanelProps) => {
       name: 'Portfolio Analysis',
       items: [
         { name: 'Attributes', Logo: IconChartBar, link: '/portfolio/attributes', roles: [] },
-        { name: 'Material Intensity', Logo: IconChartLine, link: '/portfolio/material-intensity', roles: [] },
         { name: 'Carbon Intensity', Logo: IconChartHistogram, link: '/portfolio/carbon-intensity', roles: [] },
       ],
     },
     {
       name: 'Project Analysis',
-      items: [{ name: 'Details', Logo: IconListDetails, link: '/details', roles: [] }],
+      items: [{ name: 'Benchmarking', Logo: IconListDetails, link: '/details', roles: [] }],
     },
     {
       name: 'Management',

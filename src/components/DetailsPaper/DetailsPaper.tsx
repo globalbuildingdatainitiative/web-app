@@ -24,7 +24,7 @@ export const DetailsPaper = () => {
 
   const handleContributionSelect = (value: string | null) => {
     if (!value) return
-    navigate(`/contributions/${value}/project`)
+    navigate(`/details/${value}/project`)
   }
 
   return (
