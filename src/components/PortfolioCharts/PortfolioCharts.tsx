@@ -1,8 +1,8 @@
 import { useViewportSize } from '@mantine/hooks'
-import { Paper, Tabs, MultiSelect, Box, rem, Select } from '@mantine/core'
+import { Paper, Tabs, MultiSelect, Box, rem, Select, Alert } from '@mantine/core'
 import { AttributeChart } from '../AttributeChart'
 import { CarbonIntensityChart } from '../CarbonIntensityChart'
-import { IconPrinter } from '@tabler/icons-react'
+import { IconPrinter, IconExclamationCircle } from '@tabler/icons-react'
 import { useState } from 'react'
 import domtoimage from 'dom-to-image'
 import { theme } from '@components'
@@ -101,6 +101,7 @@ export const PortfolioCharts = (props: PortfolioChartsProps) => {
   const { className, filters, mode } = props
   const [selectedCharts, setSelectedCharts] = useState<string[]>(DEFAULT_VISIBLE_CHARTS)
   const [selectedCarbonColumn, setSelectedCarbonColumn] = useState<string>(CARBON_INTENSITY_COLUMNS[0].value)
+  const [showWarning, setShowWarning] = useState(false)
   const { height } = useViewportSize()
 
   const chartId = mode === 'attribute' ? 'attributes' : 'intensity'
@@ -119,6 +120,15 @@ export const PortfolioCharts = (props: PortfolioChartsProps) => {
     }
   }
 
+  const handleChartsChange = (newSelection: string[]) => {
+    if (newSelection.length === 0) {
+      setShowWarning(true)
+      return
+    }
+    setShowWarning(false)
+    setSelectedCharts(newSelection)
+  }
+
   return (
     <Paper shadow='xs' p='md' mb='xl' className={className}>
       <Tabs keepMounted={false} onChange={handleTabChange}>
@@ -131,10 +141,15 @@ export const PortfolioCharts = (props: PortfolioChartsProps) => {
       {mode === 'attribute' ? (
         <>
           <Box mb='md'>
+            {showWarning && (
+              <Alert icon={<IconExclamationCircle size={16} />} color='yellow' mb='md' title='Chart Selection Required'>
+                At least one chart needs to be selected at all times
+              </Alert>
+            )}
             <MultiSelect
               data={CHART_COLUMNS}
               value={selectedCharts}
-              onChange={setSelectedCharts}
+              onChange={handleChartsChange}
               label='Select charts to display'
               placeholder='Choose charts'
               searchable
