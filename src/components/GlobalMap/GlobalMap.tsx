@@ -26,7 +26,7 @@ export const GlobalMap = (props: GlobalMapProps) => {
 
   // Calculate circle color based on filter state
   const getCircleColor = (countryCode: string) => {
-    return isCountryActive(countryCode) ? theme.primaryColor : theme.colors.gray[4] // Grayed out color for filtered countries
+    return isCountryActive(countryCode) ? theme.colors.green[9] : theme.colors.green[1] // Grayed out color for filtered countries
   }
 
   // Calculate circle radius based on project count
