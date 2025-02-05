@@ -14,14 +14,16 @@ interface useAggregatedProjectStatisticsProps {
 interface Phase {
   name: string
   stages: string[]
+  displayName?: string
 }
 
 export const phases: Phase[] = [
-  { name: 'production', stages: ['a1a3'] },
-  { name: 'construction', stages: ['a4', 'a5'] },
-  { name: 'use', stages: ['b1', 'b2', 'b3', 'b4', 'b5', 'b6', 'b7'] },
-  { name: 'end_of_life', stages: ['c1', 'c2', 'c3', 'c4'] },
-  { name: 'other', stages: ['d'] },
+  { name: 'production', stages: ['a1a3'], displayName: 'Production (A1-A3)' },
+  { name: 'construction', stages: ['a4', 'a5'], displayName: 'Construction (A4-A5)' },
+  { name: 'use_embodied', stages: ['b1', 'b2', 'b3', 'b4', 'b5'], displayName: 'Use Embodied (B1-B5)' },
+  { name: 'use_operational', stages: ['b6', 'b7'], displayName: 'Use Operational (B6-B7)' },
+  { name: 'end_of_life', stages: ['c1', 'c2', 'c3', 'c4'], displayName: 'End of Life (C1-C4)' },
+  { name: 'other', stages: ['d'], displayName: 'Other (D)' },
 ]
 
 export const useAggregatedProjectStatistics = (props: useAggregatedProjectStatisticsProps) => {
@@ -36,22 +38,14 @@ export const useAggregatedProjectStatistics = (props: useAggregatedProjectStatis
     {
       $group: {
         _id: groupName === null ? null : `$${groupName}`,
-        ...phaseStats(phases[0]),
-        ...phaseStats(phases[1]),
-        ...phaseStats(phases[2]),
-        ...phaseStats(phases[3]),
-        ...phaseStats(phases[4]),
+        ...phases.reduce((acc, phase) => ({ ...acc, ...phaseStats(phase) }), {}),
       },
     },
     {
       $project: {
         _id: null,
         group: '$_id',
-        ...phaseProjection(phases[0]),
-        ...phaseProjection(phases[1]),
-        ...phaseProjection(phases[2]),
-        ...phaseProjection(phases[3]),
-        ...phaseProjection(phases[4]),
+        ...phases.reduce((acc, phase) => ({ ...acc, ...phaseProjection(phase) }), {}),
       },
     },
   ]

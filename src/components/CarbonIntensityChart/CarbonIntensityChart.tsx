@@ -2,7 +2,7 @@ import type { MRT_VisibilityState } from 'mantine-react-table'
 import { SimpleGrid, useMatches } from '@mantine/core'
 import { useMemo } from 'react'
 import { BoxPlot, ChartContainer, ErrorMessage, Loading } from '@components'
-import { formatStages, phases, snakeCaseToHumanCase, useAggregatedProjectStatistics } from '@lib'
+import { phases, snakeCaseToHumanCase, useAggregatedProjectStatistics } from '@lib'
 
 const SUPPORTED_COLUMNS = [
   'projectInfo.buildingType',
@@ -59,7 +59,7 @@ export const CarbonIntensityChart = (props: CarbonIntensityChartProps) => {
   }
 
   return (
-    <SimpleGrid cols={gridColumns} spacing='md' style={{ height: '100%' }} verticalSpacing='md'>
+    <SimpleGrid cols={gridColumns} spacing='lg' style={{ height: '100%' }} verticalSpacing='md'>
       {/* @ts-expect-error not inferred types */}
       {projectData?.projects.aggregation.map((group) => (
         <ChartContainer
@@ -68,15 +68,15 @@ export const CarbonIntensityChart = (props: CarbonIntensityChartProps) => {
         >
           <BoxPlot
             orientation={'horizontal'}
-            data={phases.map(({ name, stages }) => ({
-              name: `${snakeCaseToHumanCase(name)} ${formatStages(stages)}`,
-              min: group[name].minimum,
-              pct25: group[name].percentile[0],
-              median: group[name].median,
-              pct75: group[name].percentile[1],
-              max: group[name].maximum,
-              avg: group[name].average,
-              count: group[name].count,
+            data={phases.map((phase) => ({
+              name: phase.displayName || snakeCaseToHumanCase(phase.name),
+              min: group[phase.name].minimum,
+              pct25: group[phase.name].percentile[0],
+              median: group[phase.name].median,
+              pct75: group[phase.name].percentile[1],
+              max: group[phase.name].maximum,
+              avg: group[phase.name].average,
+              count: group[phase.name].count,
             }))}
           />
         </ChartContainer>
