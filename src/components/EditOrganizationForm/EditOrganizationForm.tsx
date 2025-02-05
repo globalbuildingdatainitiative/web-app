@@ -24,9 +24,9 @@ const formatEnumValue = (value: string): string => {
 }
 
 const getCountryNameFromAlpha3 = (alpha3Code: string): string => {
-  const countryEntry = Object.entries(countryNameToAlpha3).find(
-    ([value]) => value.toLowerCase() === alpha3Code.toLowerCase(),
-  )
+  const upperAlpha3 = alpha3Code.toUpperCase()
+  const countryEntry = Object.entries(countryNameToAlpha3).find(([, value]) => value === upperAlpha3)
+
   return countryEntry ? countryEntry[0] : ''
 }
 
