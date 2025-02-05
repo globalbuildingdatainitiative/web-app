@@ -25,13 +25,19 @@ export const SpiderChart = (props: SpiderChartProps) => {
   const { data } = props
   const theme = useMantineTheme()
 
+  const formatPhaseName = (name: string) => {
+    if (name === 'use_embodied') return 'Use Embodied (B1-B5)'
+    if (name === 'use_operational') return 'Use Operational (B6-B7)'
+    return snakeCaseToHumanCase(name)
+  }
+
   return (
     <ResponsiveContainer width='100%' height='100%'>
       <RadarChart
         cx='50%'
         cy='50%'
         outerRadius='70%'
-        data={data.map((phase) => ({ ...phase, name: snakeCaseToHumanCase(phase.name) }))}
+        data={data.map((phase) => ({ ...phase, name: formatPhaseName(phase.name) }))}
       >
         <PolarGrid />
         <PolarAngleAxis dataKey='name' />
