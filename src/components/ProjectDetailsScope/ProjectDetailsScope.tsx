@@ -8,6 +8,30 @@ interface ProjectDetailsScopeProps {
   project: Project | null
 }
 
+interface ScopeBoxProps {
+  name: string
+  stages: string[]
+  projectScopes: LifeCycleStage[]
+}
+
+const moduleNames: Record<string, string> = {
+  a1a3: 'Product stage',
+  a4: 'Transport',
+  a5: 'Construction-installation\nprocess',
+  b1: 'Use',
+  b2: 'Maintenance',
+  b3: 'Repair',
+  b4: 'Refurbishment',
+  b5: 'Replacement',
+  b6: 'Operational energy use',
+  b7: 'Operational water use',
+  c1: 'De-construction\ndemolition',
+  c2: 'Transport',
+  c3: 'Waste\nprocessing',
+  c4: 'Disposal',
+  d: 'Benefits and loads beyond the system boundary',
+}
+
 export const ProjectDetailsScope = (props: ProjectDetailsScopeProps) => {
   const { project } = props
 
@@ -26,17 +50,13 @@ export const ProjectDetailsScope = (props: ProjectDetailsScopeProps) => {
   )
 }
 
-interface ScopeBoxProps {
-  name: string
-  stages: string[]
-  projectScopes: LifeCycleStage[]
-}
-
 const ScopeBox = (props: ScopeBoxProps) => {
   const { name, stages, projectScopes } = props
   const { height: viewportHeight } = useViewportSize()
   const { ref: b6Ref, height: b6Height } = useElementSize()
   const { ref: b1Ref, width: b1Width } = useElementSize()
+
+  const boxHeight = viewportHeight * 0.2 - (b6Height > 0 ? b6Height + 16 : 0)
 
   return (
     <Stack>
@@ -44,7 +64,7 @@ const ScopeBox = (props: ScopeBoxProps) => {
         <Text fw={700}>{name}</Text>
       </Center>
       <Divider />
-      <Group justify={'center'} grow gap='xs'>
+      <Group justify='center' grow gap='xs'>
         {stages
           .filter((stage) => ['b6', 'b7'].indexOf(stage) < 0)
           .map((stage) => (
@@ -52,13 +72,20 @@ const ScopeBox = (props: ScopeBoxProps) => {
               ref={b1Ref}
               key={stage}
               w={{ base: 'sm' }}
-              h={{ base: viewportHeight * 0.3 - (b6Height > 0 ? b6Height + 16 : 0) }}
+              h={{ base: boxHeight }}
               bg={projectScopes?.indexOf(stage as LifeCycleStage) < 0 ? 'green.1' : 'green.9'}
               style={{ borderRadius: 8 }}
             >
-              <Center h='100%'>
-                <Text>{stage.toUpperCase()}</Text>
-              </Center>
+              <Stack h='100%' justify='center' gap='xs'>
+                <Center>
+                  <Text>{stage.toUpperCase()}</Text>
+                </Center>
+                <Center>
+                  <Text size='xs' ta='center' px='xs' style={{ wordBreak: 'break-word' }}>
+                    {stage === 'a1a3' ? 'Product stage' : moduleNames[stage]}
+                  </Text>
+                </Center>
+              </Stack>
             </Box>
           ))}
       </Group>
@@ -66,23 +93,37 @@ const ScopeBox = (props: ScopeBoxProps) => {
         <Stack gap='xs' ref={b6Ref}>
           <Box
             w={{ base: '100%' }}
-            h={{ base: b1Width }}
+            h={{ base: b1Width * 0.6 }} // Reduced height for B6 and B7
             bg={projectScopes?.indexOf('b6' as LifeCycleStage) < 0 ? 'green.1' : 'green.9'}
             style={{ borderRadius: 8 }}
           >
-            <Center h='100%'>
-              <Text>B6</Text>
-            </Center>
+            <Stack h='100%' justify='center' gap={4}>
+              <Center>
+                <Text>B6</Text>
+              </Center>
+              <Center>
+                <Text size='xs' ta='center' px='xs'>
+                  {moduleNames.b6}
+                </Text>
+              </Center>
+            </Stack>
           </Box>
           <Box
             w={{ base: '100%' }}
-            h={{ base: b1Width }}
+            h={{ base: b1Width * 0.6 }} // Reduced height for B6 and B7
             bg={projectScopes?.indexOf('b7' as LifeCycleStage) < 0 ? 'green.1' : 'green.9'}
             style={{ borderRadius: 8 }}
           >
-            <Center h='100%'>
-              <Text>B7</Text>
-            </Center>
+            <Stack h='100%' justify='center' gap={4}>
+              <Center>
+                <Text>B7</Text>
+              </Center>
+              <Center>
+                <Text size='xs' ta='center' px='xs'>
+                  {moduleNames.b7}
+                </Text>
+              </Center>
+            </Stack>
           </Box>
         </Stack>
       ) : null}
