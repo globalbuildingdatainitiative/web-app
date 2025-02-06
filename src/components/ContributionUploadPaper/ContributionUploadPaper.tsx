@@ -2,8 +2,9 @@ import { Paper } from '@components'
 import {
   mapJsonToInputContribution,
   parseLcaxToContribution,
-  parseSLiCEtoContribution,
   parseXlsxToContribution,
+  validateContributions,
+  ValidationResult,
 } from '@lib'
 import { Button, Checkbox, Group, rem, Stack, Text, Title, Tooltip } from '@mantine/core'
 import { Dropzone, FileRejection } from '@mantine/dropzone'
@@ -13,8 +14,13 @@ import { InputContribution, InputProject, useAddContributionMutation } from '@qu
 import { useNavigate } from 'react-router-dom'
 
 export const ContributionUploadPaper = () => {
-  const [addContributions, { loading, error }] = useAddContributionMutation({ refetchQueries: ['getContributions'] })
+  const [addContributions, { loading, error }] = useAddContributionMutation({
+    refetchQueries: ['getContributions'],
+    errorPolicy: 'all',
+  })
   const [contributionData, setContributionData] = useState<InputContribution[] | null>(null)
+  const [contributionWarnings, setContributionWarnings] = useState<ValidationResult[] | null>(null)
+  const [contributionErrors, setContributionErrors] = useState<ValidationResult[] | null>(null)
   const [fileName, setFileName] = useState('')
   const [fileErrors, setFileErrors] = useState<FileRejection[] | null>(null)
   const [fileLoading, setFileLoading] = useState(false)
@@ -52,11 +58,11 @@ export const ContributionUploadPaper = () => {
   }
 
   const fileValidator = (file: File) => {
-    const validExtension = file.name.endsWith('.parquet') || file.name.endsWith('.json') || file.name.endsWith('.xlsx')
+    const validExtension = file.name.endsWith('.json') || file.name.endsWith('.xlsx')
     if (!validExtension) {
       return {
         code: 'file-invalid-type',
-        message: 'Invalid file type. Only .parquet and .json files are allowed.',
+        message: 'Invalid file type. Only .xlsx and .json files are allowed.',
       }
     }
     return null
@@ -67,14 +73,16 @@ export const ContributionUploadPaper = () => {
     setFileName(file.name)
 
     try {
-      if (file.name.endsWith('.parquet')) {
-        setFileLoading(true)
-        const contributions = parseSLiCEtoContribution(new Uint8Array(await file.arrayBuffer()))
-        setFileLoading(false)
-        return contributions
-      } else if (file.name.endsWith('.json')) {
+      if (file.name.endsWith('.json')) {
         setFileLoading(true)
         const contributions = parseLcaxToContribution(JSON.parse(await file.text()))
+        const { warnings, errors } = validateContributions(contributions)
+        if (warnings.length > 0) {
+          setContributionWarnings(warnings)
+        }
+        if (errors.length > 0) {
+          setContributionErrors(errors)
+        }
         setFileLoading(false)
         return contributions
       } else if (file.name.endsWith('.xlsx')) {
@@ -161,22 +169,45 @@ export const ContributionUploadPaper = () => {
         </Text>
       ))}
       {contributionData ? (
-        <Group justify='flex-end' style={{ marginTop: 16 }}>
-          {error ? <Text c='red'>{error.message}</Text> : null}
-          <Text>Upload {fileName}?</Text>
-          <Group>
-            <Tooltip label='Make these contributions visible to other organizations' position='top' withArrow>
-              <Checkbox
-                label='Make contributions public'
-                onChange={(event) => handlePublicToggle(event.currentTarget.checked)}
-                disabled={loading}
-              />
-            </Tooltip>
-            <Button loading={loading} color='green' onClick={onContribute}>
-              Contribute
-            </Button>
+        <Stack>
+          <Group justify='flex-end' style={{ marginTop: 16 }}>
+            {error ? (
+              <Text c='red'>
+                Unable to upload your contribution. This is most likely due to inconsistent data. Please check your
+                upload file ({error.message})
+              </Text>
+            ) : null}
+            <Text>Upload {fileName}?</Text>
+            <Group>
+              <Tooltip label='Make these contributions visible to other organizations' position='top' withArrow>
+                <Checkbox
+                  label='Make contributions public'
+                  onChange={(event) => handlePublicToggle(event.currentTarget.checked)}
+                  disabled={loading}
+                />
+              </Tooltip>
+              <Button loading={loading} color='green' onClick={onContribute}>
+                Contribute
+              </Button>
+            </Group>
           </Group>
-        </Group>
+          {contributionWarnings ? (
+            <Stack>
+              <Text fw={700}>Warnings:</Text>
+              {contributionWarnings.map((warning, index) => (
+                <Text c='yellow' key={index}>{`Project Id: ${warning.projectId} - ${warning.message}`}</Text>
+              ))}
+            </Stack>
+          ) : null}
+          {contributionErrors ? (
+            <Stack>
+              <Text fw={700}>Errors:</Text>
+              {contributionErrors.map((warning, index) => (
+                <Text c='red' key={index}>{`Project Id: ${warning.projectId} - ${warning.message}`}</Text>
+              ))}
+            </Stack>
+          ) : null}
+        </Stack>
       ) : null}
     </Paper>
   )
