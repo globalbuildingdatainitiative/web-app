@@ -1,5 +1,5 @@
 import { ActionButton, Paper, theme } from '@components'
-import { Divider, Group, Text, Stack, Center } from '@mantine/core'
+import { Divider, Group, Text, Stack, Center, Skeleton } from '@mantine/core'
 import { useGetContributionsForHeaderQuery } from '@queries'
 import dayjs from 'dayjs'
 import { IconStack3, IconCalendarMonth } from '@tabler/icons-react'
@@ -9,7 +9,6 @@ export const ContributionHeader = () => {
   const { user: currentUser } = useUserContext()
   const { data, loading, error } = useGetContributionsForHeaderQuery()
 
-  if (loading) return <div>Loading...</div>
   if (error) return <div>Error loading data</div>
 
   const userContributions = data?.contributions?.items?.filter((item) => item.user?.id === currentUser?.id) || []
@@ -30,7 +29,9 @@ export const ContributionHeader = () => {
           <IconStack3 size={36} color={theme.primaryColor} />
           <Stack align='center'>
             <Text> Total Contributions </Text>
-            <Text style={{ textAlign: 'center' }}> {totalContributions} </Text>
+            <Skeleton visible={loading} height={24} radius='sm'>
+              <Text style={{ textAlign: 'center' }}>{totalContributions}</Text>
+            </Skeleton>
           </Stack>
         </Group>
         <Divider orientation='vertical' />
@@ -39,7 +40,9 @@ export const ContributionHeader = () => {
           <IconCalendarMonth size={36} color={theme.primaryColor} />
           <Stack>
             <Text> Days Since Last Contribution </Text>
-            <Text style={{ textAlign: 'center' }}> {daysSinceLastContribution} </Text>
+            <Skeleton visible={loading} height={24} radius='sm'>
+              <Text style={{ textAlign: 'center' }}>{daysSinceLastContribution}</Text>
+            </Skeleton>
           </Stack>
         </Group>
         <Divider orientation='vertical' />
