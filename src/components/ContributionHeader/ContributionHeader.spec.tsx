@@ -69,6 +69,10 @@ test('ContributionHeader shows error state', async () => {
 
   // Wait for the error state
   await waitFor(() => {
-    expect(screen.getByText('Error loading data')).to.exist
+    expect(
+      screen.getByText(
+        'Error loading data. Please try again. If the problem persists, contact support at office@gbdi.io',
+      ),
+    ).to.exist
   })
 })

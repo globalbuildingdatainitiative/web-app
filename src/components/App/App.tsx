@@ -17,7 +17,11 @@ export const App = () => {
       ) : null}
       {error ? (
         <Center style={{ height: '100vh' }}>
-          <ErrorMessage error={error} />
+          <ErrorMessage
+            error={{
+              message: `An error occurred. Please try again. If the problem persists, contact support at office@gbdi.io. Error: ${error.message}`,
+            }}
+          />
         </Center>
       ) : null}
       {user ? <AppRouter /> : null}

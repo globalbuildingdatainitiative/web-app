@@ -55,7 +55,13 @@ export const CarbonIntensityChart = (props: CarbonIntensityChartProps) => {
   if (projectLoading) {
     return <Loading />
   } else if (projectError) {
-    return <ErrorMessage error={projectError} />
+    return (
+      <ErrorMessage
+        error={{
+          message: `An error occurred. Please try again. If the problem persists, contact support at office@gbdi.io. Error: ${projectError.message}`,
+        }}
+      />
+    )
   }
 
   return (

@@ -130,7 +130,7 @@ export const CreateOrganizationPaper = () => {
               required
               aria-label='Stakeholders'
             />
-            {error && <Text c='red'>{error.message}</Text>}
+            {error && <Text c='red'>{error.message}. If the problem persists, contact support at office@gbdi.io.</Text>}
             <Button
               color='green'
               radius='lg'
