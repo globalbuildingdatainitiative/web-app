@@ -1,4 +1,4 @@
-import { Group, Title, Text, Stack } from '@mantine/core'
+import { Group, Title, Text, Stack, Badge } from '@mantine/core'
 import { useUserContext } from '@context'
 import gbdi_logo from 'assets/logo.png'
 import globe_logo from 'assets/globe_logo.png'
@@ -13,6 +13,9 @@ export const Greeting = () => {
           <Title order={3} style={{ paddingLeft: '10px', marginTop: '10px' }}>
             Hello {user?.firstName} 👋🏼
           </Title>
+          <Badge color='purple' variant='light' size='lg' style={{ marginTop: '12px' }}>
+            Beta
+          </Badge>
           {user?.isImpersonation && (
             <Title order={3} c='red'>
               {' '}
