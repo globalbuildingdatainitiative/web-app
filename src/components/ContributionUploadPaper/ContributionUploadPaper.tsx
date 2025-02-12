@@ -123,17 +123,28 @@ export const ContributionUploadPaper = () => {
   return (
     <Paper data-testid='ContributionUploadPaper'>
       <Title order={3}>Contribute Now</Title>
-      <Text>In order to process the data correctly, please follow the steps below:</Text>
-      <Stack pl='md' py='md' gap={0}>
+      <Text>In order to process your data correctly, please read the following:</Text>
+      <Text mt='sm'>There are 3 ways to contribute data to the platform.</Text>
+      <Stack pl='md' py='md' gap='sm'>
         <Text>
-          1. Download the data template file here:
-          <a href='/GBDI_Data_Template_v0.2.0.xlsx' download>
-            Download file
+          A. Convert your data into an openBDF JSON and upload the JSON file below. Examples of converters can be found{' '}
+          <a href='https://https://github.com/globalbuildingdatainitiative/converters' target='_blank'>
+            here
           </a>
         </Text>
-        <Text>2. Fill your data as per template's format</Text>
-        <Text>3. Save as .xlsx</Text>
-        <Text>4. Upload the file below</Text>
+        <Text>B. Fill out <a href='https://docs.google.com/document/d/1s26L-xBlrY6FNIB-rSwhL_mdeC6dbNos/edit?usp=sharing&ouid=102146692042378549668&rtpof=true&sd=true' target='_blank'>this contribution form</a> and submit it to us on office@gbdi.io and we will get in contact to help you.</Text>
+        <Text>C. Use the Excel Upload Template and follow the steps below:</Text>
+        <Stack pl='md' py='md' gap={0}>
+          <Text>
+            1. Download the data template file here:{' '}
+            <a href='/GBDI_Data_Template_v0.2.0.xlsx' download>
+              Download file
+            </a>
+          </Text>
+          <Text>2. Fill your data as per template's format</Text>
+          <Text>3. Save as .xlsx</Text>
+          <Text>4. Upload the file below</Text>
+        </Stack>
       </Stack>
       <Dropzone
         data-testid='contributionDropzone'
