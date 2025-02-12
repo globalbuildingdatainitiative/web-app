@@ -157,7 +157,11 @@ export const ProjectDetailsReference = (props: ProjectDetailsReferenceProps) => 
           </Center>
         </ErrorBoundary>
       </Group>
-      <ErrorMessage error={aggError} />
+      <ErrorMessage
+        error={{
+          message: `${aggError?.message || 'An error occurred while loading project data. Please try again later.'} Contact support: office@gbdi.io`,
+        }}
+      />
     </Stack>
   )
 }
