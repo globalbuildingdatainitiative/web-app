@@ -39,7 +39,12 @@ export const DetailsPaper = () => {
         disabled={loading || !!error}
       />
       {loading && <Loading />}
-      <ErrorMessage error={error} mt='md' />
+      <ErrorMessage
+        error={
+          error ? { message: `${error.message}. If the problem persists, contact support at office@gbdi.io.` } : null
+        }
+        mt='md'
+      />
     </Paper>
   )
 }

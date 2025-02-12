@@ -24,7 +24,7 @@ exports[`ContributionPaper 1`] = `
       >
         <div
           class="m_4451eb3a mantine-Center-root"
-          error="Error: useLocation() may be used only in the context of a <Router> component."
+          error="[object Object]"
           style=""
         >
           <div
@@ -87,7 +87,7 @@ exports[`ContributionPaper 1`] = `
                   id=""
                   style=""
                 >
-                  useLocation() may be used only in the context of a &lt;Router&gt; component.
+                  useLocation() may be used only in the context of a &lt;Router&gt; component.. If the problem persists, contact support at office@gbdi.io.
                 </div>
               </div>
             </div>

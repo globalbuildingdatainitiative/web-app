@@ -117,7 +117,7 @@ export const AdminUserTable = () => {
       error || impersonateError || makeAdminError
         ? {
             color: 'red',
-            children: (error || impersonateError || makeAdminError)?.message,
+            children: `An error occurred. Please try again. If the problem persists, contact support at office@gbdi.io. Error: ${(error || impersonateError || makeAdminError)?.message}`,
           }
         : undefined,
     state: {

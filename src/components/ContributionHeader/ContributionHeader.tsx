@@ -9,7 +9,8 @@ export const ContributionHeader = () => {
   const { user: currentUser } = useUserContext()
   const { data, loading, error } = useGetContributionsForHeaderQuery()
 
-  if (error) return <div>Error loading data</div>
+  if (error)
+    return <div>Error loading data. Please try again. If the problem persists, contact support at office@gbdi.io</div>
 
   const userContributions = data?.contributions?.items?.filter((item) => item.user?.id === currentUser?.id) || []
   const sortedContributions = [...userContributions].sort(

@@ -170,7 +170,8 @@ export const PortfolioTable = (props: PortfolioTableProps) => {
         onlyVisibleColumns: false,
       })
     } catch (error) {
-      console.error('Error exporting all data:', error)
+      console.error('Error exporting all data:', error instanceof Error ? error.message : error)
+      alert('An error occurred while exporting data. Please try again later.')
     }
   }
 

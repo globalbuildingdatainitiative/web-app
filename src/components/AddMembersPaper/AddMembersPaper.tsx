@@ -88,7 +88,9 @@ export const AddMembersPaper = () => {
         setParsedEmails([])
       }
     } catch (err) {
-      alert('An error occurred while inviting users. Please try again.')
+      alert(
+        'An error occurred while inviting users. Please try again. If the problem persists, contact support at office@gbdi.io.',
+      )
     }
   }
 

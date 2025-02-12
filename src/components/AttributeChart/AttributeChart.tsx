@@ -319,7 +319,13 @@ export const AttributeChart = (props: AttributeChartProps) => {
   } else if (projectLoading) {
     return <Loading />
   } else if (projectError) {
-    return <ErrorMessage error={projectError} />
+    return (
+      <ErrorMessage
+        error={{
+          message: `An error occurred. Please try again. If the problem persists, contact support at office@gbdi.io. Error: ${projectError.message}`,
+        }}
+      />
+    )
   }
 
   const gridColumns = transformedProjectData.length > 4 ? 3 : 2

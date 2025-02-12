@@ -5,7 +5,13 @@ import { GetOrganizationsQuery, useGetOrganizationsQuery } from '@queries'
 type Organization = NonNullable<GetOrganizationsQuery['organizations']>[number]
 
 export const AdminOrganizationTable = () => {
-  const { data, loading, error } = useGetOrganizationsQuery()
+  const { data, loading, error } = useGetOrganizationsQuery({
+    onError: (err) => {
+      alert(
+        `An error occurred while fetching organizations. Please try again. If the problem persists, contact support at office@gbdi.io. Error: ${err.message}`,
+      )
+    },
+  })
 
   const columns = useMemo<MRT_ColumnDef<Organization>[]>(
     () => [

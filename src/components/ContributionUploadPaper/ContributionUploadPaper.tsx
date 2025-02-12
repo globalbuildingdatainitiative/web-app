@@ -107,7 +107,8 @@ export const ContributionUploadPaper = () => {
           file: file,
           errors: [
             {
-              message: 'Unexpected Error While Processing the File. Contact the GBDI team if error persists.',
+              message:
+                'Unexpected Error While Processing the File. Contact the GBDI team if error persists at office@gbdi.io.',
               code: 'parsing-error',
             },
           ],

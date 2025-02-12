@@ -54,7 +54,10 @@ export const InviteesTable = ({ organizationId }: InviteesTableProps) => {
           {
             email,
             status: 'error',
-            message: error instanceof Error ? error.message : 'An error occurred while resending the invitation',
+            message:
+              error instanceof Error
+                ? `${error.message}. If the problem persists, contact support at office@gbdi.io.`
+                : 'An error occurred while resending the invitation. If the problem persists, contact support at office@gbdi.io.',
           },
         ])
       }
