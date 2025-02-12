@@ -2,8 +2,9 @@ import { Paper } from '@components'
 import {
   mapJsonToInputContribution,
   parseLcaxToContribution,
-  parseSLiCEtoContribution,
   parseXlsxToContribution,
+  validateContributions,
+  ValidationResult,
 } from '@lib'
 import { Button, Checkbox, Group, rem, Stack, Text, Title, Tooltip } from '@mantine/core'
 import { Dropzone, FileRejection } from '@mantine/dropzone'
@@ -13,8 +14,12 @@ import { InputContribution, InputProject, useAddContributionMutation } from '@qu
 import { useNavigate } from 'react-router-dom'
 
 export const ContributionUploadPaper = () => {
-  const [addContributions, { loading, error }] = useAddContributionMutation({ refetchQueries: ['getContributions'] })
+  const [addContributions, { loading, error }] = useAddContributionMutation({
+    refetchQueries: ['getContributions'],
+    errorPolicy: 'all',
+  })
   const [contributionData, setContributionData] = useState<InputContribution[] | null>(null)
+  const [contributionWarnings, setContributionWarnings] = useState<ValidationResult[] | null>(null)
   const [fileName, setFileName] = useState('')
   const [fileErrors, setFileErrors] = useState<FileRejection[] | null>(null)
   const [fileLoading, setFileLoading] = useState(false)
@@ -26,19 +31,31 @@ export const ContributionUploadPaper = () => {
     }
 
     const chunkSize = 10
+    let errors: object[] = []
     if (contributionData.length > chunkSize) {
       console.warn(
         `Attempting to upload ${contributionData.length} contributions. Will batch it to ${chunkSize} contributions per request.`,
       )
       for (let i = 0; i < contributionData.length; i += chunkSize) {
         const contributionChunk = contributionData.slice(i, i + chunkSize)
-        await addContributions({ variables: { contributions: contributionChunk } })
+        const { errors: contributionErrors } = await addContributions({
+          variables: { contributions: contributionChunk },
+        })
+        if (contributionErrors) {
+          errors = [...errors, ...contributionErrors]
+        }
       }
     } else {
-      await addContributions({ variables: { contributions: contributionData } })
+      const { errors: contributionErrors } = await addContributions({ variables: { contributions: contributionData } })
+      if (contributionErrors) {
+        errors = [...errors, ...contributionErrors]
+      }
     }
-
-    navigate('/contributions')
+    if (!errors.length) {
+      navigate('/contributions')
+    } else {
+      setContributionData(null)
+    }
   }
 
   const handlePublicToggle = (checked: boolean) => {
@@ -52,11 +69,11 @@ export const ContributionUploadPaper = () => {
   }
 
   const fileValidator = (file: File) => {
-    const validExtension = file.name.endsWith('.parquet') || file.name.endsWith('.json') || file.name.endsWith('.xlsx')
+    const validExtension = file.name.endsWith('.json') || file.name.endsWith('.xlsx')
     if (!validExtension) {
       return {
         code: 'file-invalid-type',
-        message: 'Invalid file type. Only .parquet and .json files are allowed.',
+        message: 'Invalid file type. Only .xlsx and .json files are allowed.',
       }
     }
     return null
@@ -65,16 +82,16 @@ export const ContributionUploadPaper = () => {
   const processUploadedFile = async (files: File[]): Promise<InputContribution[]> => {
     const file = files[0]
     setFileName(file.name)
+    setFileErrors(null)
 
     try {
-      if (file.name.endsWith('.parquet')) {
-        setFileLoading(true)
-        const contributions = parseSLiCEtoContribution(new Uint8Array(await file.arrayBuffer()))
-        setFileLoading(false)
-        return contributions
-      } else if (file.name.endsWith('.json')) {
+      if (file.name.endsWith('.json')) {
         setFileLoading(true)
         const contributions = parseLcaxToContribution(JSON.parse(await file.text()))
+        const { warnings } = validateContributions(contributions)
+        if (warnings.length > 0) {
+          setContributionWarnings(warnings)
+        }
         setFileLoading(false)
         return contributions
       } else if (file.name.endsWith('.xlsx')) {
@@ -90,7 +107,8 @@ export const ContributionUploadPaper = () => {
           file: file,
           errors: [
             {
-              message: 'Unexpected Error While Processing the File. Contact the GBDI team if error persists.',
+              message:
+                'Unexpected Error While Processing the File. Contact the GBDI team if error persists at office@gbdi.io.',
               code: 'parsing-error',
             },
           ],
@@ -106,17 +124,37 @@ export const ContributionUploadPaper = () => {
   return (
     <Paper data-testid='ContributionUploadPaper'>
       <Title order={3}>Contribute Now</Title>
-      <Text>In order to process the data correctly, please follow the steps below:</Text>
-      <Stack pl='md' py='md' gap={0}>
+      <Text>In order to process your data correctly, please read the following:</Text>
+      <Text mt='sm'>There are 3 ways to contribute data to the platform.</Text>
+      <Stack pl='md' py='md' gap='sm'>
         <Text>
-          1. Download the data template file here:
-          <a href='/GBDI_Data_Template_v0.2.0.xlsx' download>
-            Download file
+          A. Convert your data into an openBDF JSON and upload the JSON file below. Examples of converters can be found{' '}
+          <a href='https://https://github.com/globalbuildingdatainitiative/converters' target='_blank'>
+            here
           </a>
         </Text>
-        <Text>2. Fill your data as per template's format</Text>
-        <Text>3. Save as .xlsx</Text>
-        <Text>4. Upload the file below</Text>
+        <Text>
+          B. Fill out{' '}
+          <a
+            href='https://docs.google.com/document/d/1s26L-xBlrY6FNIB-rSwhL_mdeC6dbNos/edit?usp=sharing&ouid=102146692042378549668&rtpof=true&sd=true'
+            target='_blank'
+          >
+            this contribution form
+          </a>{' '}
+          and submit it to us on office@gbdi.io and we will get in contact to help you.
+        </Text>
+        <Text>C. Use the Excel Upload Template and follow the steps below:</Text>
+        <Stack pl='md' py='md' gap={0}>
+          <Text>
+            1. Download the data template file here:{' '}
+            <a href='/GBDI_Data_Template_v0.2.0.xlsx' download>
+              Download file
+            </a>
+          </Text>
+          <Text>2. Fill your data as per template's format</Text>
+          <Text>3. Save as .xlsx</Text>
+          <Text>4. Upload the file below</Text>
+        </Stack>
       </Stack>
       <Dropzone
         data-testid='contributionDropzone'
@@ -160,24 +198,41 @@ export const ContributionUploadPaper = () => {
           {_error.file.name}: {_error.errors[0].message}
         </Text>
       ))}
-      {contributionData ? (
+      <Stack>
         <Group justify='flex-end' style={{ marginTop: 16 }}>
-          {error ? <Text c='red'>{error.message}</Text> : null}
-          <Text>Upload {fileName}?</Text>
-          <Group>
-            <Tooltip label='Make these contributions visible to other organizations' position='top' withArrow>
-              <Checkbox
-                label='Make contributions public'
-                onChange={(event) => handlePublicToggle(event.currentTarget.checked)}
-                disabled={loading}
-              />
-            </Tooltip>
-            <Button loading={loading} color='green' onClick={onContribute}>
-              Contribute
-            </Button>
-          </Group>
+          {error ? (
+            <Text c='red'>
+              Unable to upload your contribution. This is most likely due to inconsistent data. Please check your upload
+              file ({error.message})
+            </Text>
+          ) : null}
+          {contributionData ? (
+            <>
+              <Text>Upload {fileName}?</Text>
+              <Group>
+                <Tooltip label='Make these contributions visible to other organizations' position='top' withArrow>
+                  <Checkbox
+                    label='Make contributions public'
+                    onChange={(event) => handlePublicToggle(event.currentTarget.checked)}
+                    disabled={loading}
+                  />
+                </Tooltip>
+                <Button loading={loading} color='green' onClick={onContribute}>
+                  Contribute
+                </Button>
+              </Group>
+            </>
+          ) : null}
         </Group>
-      ) : null}
+        {contributionWarnings ? (
+          <Stack>
+            <Text fw={700}>Warnings:</Text>
+            {contributionWarnings.map((warning, index) => (
+              <Text c='yellow' key={index}>{`Project Id: ${warning.projectId} - ${warning.message}`}</Text>
+            ))}
+          </Stack>
+        ) : null}
+      </Stack>
     </Paper>
   )
 }

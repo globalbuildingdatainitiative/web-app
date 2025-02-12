@@ -61,16 +61,16 @@ export const GlobalBoxPlot = (props: GlobalBoxPlotProps) => {
     if (!data) return []
     const sourceSet = new Set<string>()
     data.projects.groups.forEach((group) => {
-      // We need to access each project's metaData.source.name
-      const sourceName = group.items[0].metaData?.source?.name
-      if (sourceName) sourceSet.add(sourceName)
+      // Iterate over all items in the group
+      group.items.forEach((item) => {
+        const sourceName = item.metaData?.source?.name
+        if (sourceName) sourceSet.add(sourceName)
+      })
     })
-
     const options = Array.from(sourceSet).map((source) => ({
       value: source,
       label: source,
     }))
-
     return [{ value: 'all', label: 'Select All' }, ...options.sort((a, b) => a.label.localeCompare(b.label))]
   }, [data])
 

@@ -69,7 +69,7 @@ export const ProjectDetailsPaper = (props: ProjectDetailsPaperProps) => {
         </ErrorBoundary>
         <Divider mt='md' />
         <Title order={4} my='md'>
-          Cumulative Chart
+          GWP Intensity Benchmark
         </Title>
         <ErrorBoundary>
           <ProjectDetailsChart project={project} loading={loading} />
@@ -89,7 +89,18 @@ export const ProjectDetailsPaper = (props: ProjectDetailsPaperProps) => {
       <ErrorBoundary>
         <ProjectMetadataTable project={project} loading={loading} />
       </ErrorBoundary>
-      <ErrorMessage error={error || printError} mt='lg' />
+      <ErrorMessage
+        error={{
+          message: `${error?.message || 'An error occurred while loading project data. Please try again later.'} Contact support: office@gbdi.io`,
+        }}
+      />
+      {printError && (
+        <ErrorMessage
+          error={{
+            message: printError.message,
+          }}
+        />
+      )}
     </Paper>
   )
 }

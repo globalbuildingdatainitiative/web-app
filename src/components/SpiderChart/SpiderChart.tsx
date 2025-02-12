@@ -8,7 +8,7 @@ import {
   ResponsiveContainer,
   Tooltip,
 } from 'recharts'
-import { snakeCaseToHumanCase } from '@lib'
+import { snakeCaseToHumanCase, formatStages } from '@lib'
 import { useMantineTheme } from '@mantine/core'
 
 export interface SpiderData {
@@ -21,9 +21,30 @@ interface SpiderChartProps {
   data: SpiderData[]
 }
 
+const phaseStages: Record<string, string[]> = {
+  production: ['a1a3'],
+  construction: ['a4', 'a5'],
+  use_embodied: ['b1', 'b2', 'b3', 'b4', 'b5'],
+  use_operational: ['b6', 'b7'],
+  end_of_life: ['c1', 'c2', 'c3', 'c4'],
+  other: ['d'],
+}
+
 export const SpiderChart = (props: SpiderChartProps) => {
   const { data } = props
   const theme = useMantineTheme()
+
+  const formatPhaseName = (name: string) => {
+    const stages = phaseStages[name] || []
+    const formattedStages = formatStages(stages)
+    const baseName =
+      name === 'use_embodied'
+        ? 'Use Embodied'
+        : name === 'use_operational'
+          ? 'Use Operational'
+          : snakeCaseToHumanCase(name)
+    return `${baseName} ${formattedStages}`
+  }
 
   return (
     <ResponsiveContainer width='100%' height='100%'>
@@ -31,7 +52,7 @@ export const SpiderChart = (props: SpiderChartProps) => {
         cx='50%'
         cy='50%'
         outerRadius='70%'
-        data={data.map((phase) => ({ ...phase, name: snakeCaseToHumanCase(phase.name) }))}
+        data={data.map((phase) => ({ ...phase, name: formatPhaseName(phase.name) }))}
       >
         <PolarGrid />
         <PolarAngleAxis dataKey='name' />

@@ -76,7 +76,9 @@ describe('RejectInvitation', () => {
     // Wait for the error message to appear
     await waitFor(() => {
       const alertMessage = screen.getByRole('alert').querySelector('.mantine-Alert-message')
-      expect(alertMessage).toHaveTextContent('Failed to reject invitation. Please try again or contact support.')
+      expect(alertMessage).toHaveTextContent(
+        'Failed to reject invitation. Please try again or contact support: office@gbdi.io.',
+      )
     })
   })
 })

@@ -45,7 +45,8 @@ export const UserContributionsChart = () => {
   }
 
   if (error) {
-    return <p>Error loading data</p>
+    console.error('Error loading data:', error instanceof Error ? error.message : error)
+    return <p>An error occurred while loading data. Please try again later.</p>
   }
 
   return (

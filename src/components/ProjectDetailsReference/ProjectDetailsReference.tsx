@@ -17,13 +17,13 @@ const phaseMap: Record<string, string> = {
   a1a3: 'production',
   a4: 'construction',
   a5: 'construction',
-  b1: 'use',
-  b2: 'use',
-  b3: 'use',
-  b4: 'use',
-  b5: 'use',
-  b6: 'use',
-  b7: 'use',
+  b1: 'use_embodied',
+  b2: 'use_embodied',
+  b3: 'use_embodied',
+  b4: 'use_embodied',
+  b5: 'use_embodied',
+  b6: 'use_operational',
+  b7: 'use_operational',
   c1: 'end_of_life',
   c2: 'end_of_life',
   c3: 'end_of_life',
@@ -60,7 +60,8 @@ export const ProjectDetailsReference = (props: ProjectDetailsReferenceProps) => 
     const spiderPhases = [
       { name: 'production', value: 0, refValue: aggregatedData.production?.median || 0 },
       { name: 'construction', value: 0, refValue: aggregatedData.construction?.median || 0 },
-      { name: 'use', value: 0, refValue: aggregatedData.use?.median || 0 },
+      { name: 'use_embodied', value: 0, refValue: aggregatedData.use_embodied?.median || 0 },
+      { name: 'use_operational', value: 0, refValue: aggregatedData.use_operational?.median || 0 },
       { name: 'end_of_life', value: 0, refValue: aggregatedData.end_of_life?.median || 0 },
       { name: 'other', value: 0, refValue: aggregatedData.other?.median || 0 },
     ]
@@ -81,15 +82,14 @@ export const ProjectDetailsReference = (props: ProjectDetailsReferenceProps) => 
     return {
       production: (projectResults?.a1a3 || 0) / projectGFA,
       construction: ((projectResults?.a4 || 0) + (projectResults?.a5 || 0)) / projectGFA,
-      use:
+      use_embodied:
         ((projectResults?.b1 || 0) +
           (projectResults?.b2 || 0) +
           (projectResults?.b3 || 0) +
           (projectResults?.b4 || 0) +
-          (projectResults?.b5 || 0) +
-          (projectResults?.b6 || 0) +
-          (projectResults?.b7 || 0)) /
+          (projectResults?.b5 || 0)) /
         projectGFA,
+      use_operational: ((projectResults?.b6 || 0) + (projectResults?.b7 || 0)) / projectGFA,
       end_of_life:
         ((projectResults?.c1 || 0) +
           (projectResults?.c2 || 0) +
@@ -132,23 +132,36 @@ export const ProjectDetailsReference = (props: ProjectDetailsReferenceProps) => 
               <BoxPlot
                 data={Object.entries(aggregatedData || {})
                   .filter((value) => ['_id', 'group'].indexOf(value[0]) < 0)
-                  .map(([name, group]) => ({
-                    name: `${snakeCaseToHumanCase(name)} ${formatStages(phases.find((p) => p.name === name)!.stages)}`,
-                    min: group?.minimum,
-                    pct25: group?.percentile[0],
-                    median: group?.median,
-                    pct75: group?.percentile[1],
-                    max: group?.maximum,
-                    avg: group?.average,
-                    count: group?.count,
-                    extra: projectData[name],
-                  }))}
+                  .map(([name, group]) => {
+                    const displayName =
+                      name === 'use_embodied'
+                        ? 'Use Embodied (B1-B5)'
+                        : name === 'use_operational'
+                          ? 'Use Operational (B6-B7)'
+                          : `${snakeCaseToHumanCase(name)} ${formatStages(phases.find((p) => p.name === name)!.stages)}`
+
+                    return {
+                      name: displayName,
+                      min: group?.minimum,
+                      pct25: group?.percentile[0],
+                      median: group?.median,
+                      pct75: group?.percentile[1],
+                      max: group?.maximum,
+                      avg: group?.average,
+                      count: group?.count,
+                      extra: projectData[name],
+                    }
+                  })}
               />
             )}
           </Center>
         </ErrorBoundary>
       </Group>
-      <ErrorMessage error={aggError} />
+      <ErrorMessage
+        error={{
+          message: `${aggError?.message || 'An error occurred while loading project data. Please try again later.'} Contact support: office@gbdi.io`,
+        }}
+      />
     </Stack>
   )
 }

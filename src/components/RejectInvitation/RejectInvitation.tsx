@@ -33,10 +33,16 @@ export const RejectInvitation = () => {
         setRejected(true)
         setTimeout(() => navigate('/'), 3000)
       } else {
-        setInvitationError(new Error('Failed to reject invitation. Please try again or contact support.'))
+        setInvitationError(
+          new Error('Failed to reject invitation. Please try again or contact support: office@gbdi.io.'),
+        )
       }
     } catch (err) {
-      setInvitationError(err instanceof Error ? err : new Error('An unexpected error occurred'))
+      setInvitationError(
+        err instanceof Error
+          ? new Error(`${err.message}. Contact support: office@gbdi.io`)
+          : new Error('An unexpected error occurred. Contact support: office@gbdi.io'),
+      )
     }
   }
 

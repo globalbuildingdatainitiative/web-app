@@ -322,7 +322,7 @@ export const ContributionTable = () => {
       error || deleteError || updateError
         ? {
             color: 'red',
-            children: error?.message || deleteError?.message || updateError?.message,
+            children: `An error occurred. Please try again. If the problem persists, contact support at office@gbdi.io. Error: ${error?.message || deleteError?.message || updateError?.message}`,
           }
         : undefined,
     state: {

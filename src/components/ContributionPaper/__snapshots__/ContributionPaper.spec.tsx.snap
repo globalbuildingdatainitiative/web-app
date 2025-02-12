@@ -24,7 +24,7 @@ exports[`ContributionPaper 1`] = `
       >
         <div
           class="m_4451eb3a mantine-Center-root"
-          error="TypeError: Cannot destructure property 'basename' of 'React__namespace.useContext(...)' as it is null."
+          error="[object Object]"
           style=""
         >
           <div
@@ -87,7 +87,7 @@ exports[`ContributionPaper 1`] = `
                   id=""
                   style=""
                 >
-                  Cannot destructure property 'basename' of 'React__namespace.useContext(...)' as it is null.
+                  useLocation() may be used only in the context of a &lt;Router&gt; component.. If the problem persists, contact support at office@gbdi.io.
                 </div>
               </div>
             </div>

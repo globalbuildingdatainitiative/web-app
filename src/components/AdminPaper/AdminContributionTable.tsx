@@ -83,6 +83,11 @@ export const AdminContributionTable = () => {
       filterBy: getFilterVariables(),
     },
     fetchPolicy: 'network-only',
+    onError: (err) => {
+      alert(
+        `An error occurred while fetching contributions. Please try again. If the problem persists, contact support at office@gbdi.io. Error: ${err.message}`,
+      )
+    },
   })
 
   type ContributionItems = NonNullable<GetContributionsQuery['contributions']['items']>[number]

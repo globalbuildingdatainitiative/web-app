@@ -30,7 +30,15 @@ export class ErrorBoundary extends React.Component<Props, State> {
     if (this.state.hasError) {
       return (
         <div style={{ margin: '1em' }}>
-          <ErrorMessage error={this.state.error} />
+          <ErrorMessage
+            error={
+              this.state.error
+                ? {
+                    message: `${this.state.error.message}. If the problem persists, contact support at office@gbdi.io.`,
+                  }
+                : null
+            }
+          />
           <br />
           <Center>
             <Title order={3}>Try going back or refresh the page</Title>

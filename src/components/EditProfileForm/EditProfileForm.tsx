@@ -1,8 +1,9 @@
 import { Paper } from '@components'
-import { Button, Group, PasswordInput, TextInput, Title } from '@mantine/core'
+import { Button, Group, PasswordInput, TextInput, Title, Alert } from '@mantine/core'
 import { isEmail, useForm } from '@mantine/form'
 import { GetCurrentUserDocument, useUpdateUserMutation } from '@queries'
 import { useUserContext } from '@context'
+import { useState } from 'react'
 
 interface UserInputValues {
   firstName: string
@@ -17,6 +18,7 @@ export const EditProfileForm = () => {
   const [updateUser] = useUpdateUserMutation({
     refetchQueries: [{ query: GetCurrentUserDocument, variables: { id: user?.id } }],
   })
+  const [errorMessage, setErrorMessage] = useState<string | null>(null)
 
   const form = useForm({
     initialValues: {
@@ -52,8 +54,12 @@ export const EditProfileForm = () => {
         },
       })
       form.resetDirty()
+      setErrorMessage(null)
     } catch (error) {
       console.error(error)
+      setErrorMessage(
+        'An error occurred while updating your profile. Please try again. If the problem persists, contact support at office@gbdi.io.',
+      )
     }
   }
 
@@ -62,6 +68,11 @@ export const EditProfileForm = () => {
       <Title order={3} mb='md'>
         Edit Profile
       </Title>
+      {errorMessage && (
+        <Alert color='red' mb='md'>
+          {errorMessage}
+        </Alert>
+      )}
       <form onSubmit={form.onSubmit(handleSubmit)}>
         <TextInput label='First Name' placeholder='Your first name' {...form.getInputProps('firstName')} mb='sm' />
         <TextInput label='Last Name' placeholder='Your last name' {...form.getInputProps('lastName')} mb='sm' />
