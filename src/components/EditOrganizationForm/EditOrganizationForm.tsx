@@ -23,6 +23,13 @@ const formatEnumValue = (value: string): string => {
     .replace(/\b\w/g, (char) => char.toUpperCase())
 }
 
+const getCountryNameFromAlpha3 = (alpha3Code: string): string => {
+  const upperAlpha3 = alpha3Code.toUpperCase()
+  const countryEntry = Object.entries(countryNameToAlpha3).find(([, value]) => value === upperAlpha3)
+
+  return countryEntry ? countryEntry[0] : ''
+}
+
 export const EditOrganizationForm = () => {
   const client = useApolloClient()
   const navigate = useNavigate()
@@ -46,7 +53,7 @@ export const EditOrganizationForm = () => {
       name: user?.organization?.name || '',
       address: user?.organization?.address || '',
       city: user?.organization?.city || '',
-      country: user?.organization?.country || '',
+      country: user?.organization?.country ? getCountryNameFromAlpha3(user?.organization?.country) : '',
       metaData: {
         stakeholders: user?.organization?.metaData?.stakeholders || [],
       },
@@ -56,7 +63,11 @@ export const EditOrganizationForm = () => {
       name: (value) => (value ? null : 'Organization name is required'),
       address: (value) => (value ? null : 'Address is required'),
       city: (value) => (value ? null : 'City is required'),
-      country: (value) => (value ? null : 'Country is required'),
+      country: (value) => {
+        if (!value) return 'Country is required'
+        if (!countryNameToAlpha3[value]) return 'Invalid country selection'
+        return null
+      },
     },
   })
 
