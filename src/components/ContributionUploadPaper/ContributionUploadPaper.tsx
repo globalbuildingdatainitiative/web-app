@@ -225,7 +225,7 @@ export const ContributionUploadPaper = () => {
           ) : null}
         </Group>
         {contributionWarnings ? (
-          <Stack>
+          <Stack gap={0}>
             <Text fw={700}>Warnings:</Text>
             {contributionWarnings.map((warning, index) => (
               <Text c='yellow' key={index}>{`Project Id: ${warning.projectId} - ${warning.message}`}</Text>
