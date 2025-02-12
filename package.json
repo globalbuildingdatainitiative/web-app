@@ -28,6 +28,8 @@
     "@mantine/hooks": "^7.11.0",
     "@mantine/notifications": "^7.13.2",
     "@tabler/icons-react": "^3.27.1",
+    "ajv": "^8.17.1",
+    "ajv-formats": "^3.0.1",
     "clsx": "^2.1.1",
     "dayjs": "^1.11.10",
     "dom-to-image": "^2.6.0",
