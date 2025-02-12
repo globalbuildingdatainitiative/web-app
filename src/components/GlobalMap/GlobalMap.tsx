@@ -79,7 +79,11 @@ export const GlobalMap = (props: GlobalMapProps) => {
           </MapContainer>
         </div>
       )}
-      {mapError ? <ErrorMessage error={mapError} /> : null}
+      {mapError ? (
+        <ErrorMessage
+          error={{ message: `${mapError.message}. If the problem persists, contact support at office@gbdi.io.` }}
+        />
+      ) : null}
     </div>
   )
 }

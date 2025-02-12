@@ -127,7 +127,13 @@ export const DashboardPaper = () => {
           </ErrorBoundary>
         </Grid.Col>
       </Grid>
-      {error ? <ErrorMessage error={error} /> : null}
+      {error ? (
+        <ErrorMessage
+          error={
+            error ? { message: `${error.message}. If the problem persists, contact support at office@gbdi.io.` } : null
+          }
+        />
+      ) : null}
     </Paper>
   )
 }

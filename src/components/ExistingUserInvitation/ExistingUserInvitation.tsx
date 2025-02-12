@@ -33,7 +33,9 @@ export const ExistingUserInvitation = () => {
         setAccepted(true)
         setTimeout(() => navigate('/'), 3000)
       } else {
-        setInvitationError(new Error('Failed to accept invitation. Please try again or contact support.'))
+        setInvitationError(
+          new Error('Failed to accept invitation. Please try again or contact support at office@gbdi.io.'),
+        )
       }
     } catch (err) {
       setInvitationError(err instanceof Error ? err : new Error('An unexpected error occurred'))
