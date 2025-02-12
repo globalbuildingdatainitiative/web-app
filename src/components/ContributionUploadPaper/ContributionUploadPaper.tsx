@@ -132,7 +132,16 @@ export const ContributionUploadPaper = () => {
             here
           </a>
         </Text>
-        <Text>B. Fill out <a href='https://docs.google.com/document/d/1s26L-xBlrY6FNIB-rSwhL_mdeC6dbNos/edit?usp=sharing&ouid=102146692042378549668&rtpof=true&sd=true' target='_blank'>this contribution form</a> and submit it to us on office@gbdi.io and we will get in contact to help you.</Text>
+        <Text>
+          B. Fill out{' '}
+          <a
+            href='https://docs.google.com/document/d/1s26L-xBlrY6FNIB-rSwhL_mdeC6dbNos/edit?usp=sharing&ouid=102146692042378549668&rtpof=true&sd=true'
+            target='_blank'
+          >
+            this contribution form
+          </a>{' '}
+          and submit it to us on office@gbdi.io and we will get in contact to help you.
+        </Text>
         <Text>C. Use the Excel Upload Template and follow the steps below:</Text>
         <Stack pl='md' py='md' gap={0}>
           <Text>
