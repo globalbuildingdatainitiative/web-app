@@ -20,7 +20,6 @@ export const ContributionUploadPaper = () => {
   })
   const [contributionData, setContributionData] = useState<InputContribution[] | null>(null)
   const [contributionWarnings, setContributionWarnings] = useState<ValidationResult[] | null>(null)
-  const [contributionErrors, setContributionErrors] = useState<ValidationResult[] | null>(null)
   const [fileName, setFileName] = useState('')
   const [fileErrors, setFileErrors] = useState<FileRejection[] | null>(null)
   const [fileLoading, setFileLoading] = useState(false)
@@ -32,19 +31,31 @@ export const ContributionUploadPaper = () => {
     }
 
     const chunkSize = 10
+    let errors: object[] = []
     if (contributionData.length > chunkSize) {
       console.warn(
         `Attempting to upload ${contributionData.length} contributions. Will batch it to ${chunkSize} contributions per request.`,
       )
       for (let i = 0; i < contributionData.length; i += chunkSize) {
         const contributionChunk = contributionData.slice(i, i + chunkSize)
-        await addContributions({ variables: { contributions: contributionChunk } })
+        const { errors: contributionErrors } = await addContributions({
+          variables: { contributions: contributionChunk },
+        })
+        if (contributionErrors) {
+          errors = [...errors, ...contributionErrors]
+        }
       }
     } else {
-      await addContributions({ variables: { contributions: contributionData } })
+      const { errors: contributionErrors } = await addContributions({ variables: { contributions: contributionData } })
+      if (contributionErrors) {
+        errors = [...errors, ...contributionErrors]
+      }
     }
-
-    navigate('/contributions')
+    if (!errors.length) {
+      navigate('/contributions')
+    } else {
+      setContributionData(null)
+    }
   }
 
   const handlePublicToggle = (checked: boolean) => {
@@ -71,17 +82,15 @@ export const ContributionUploadPaper = () => {
   const processUploadedFile = async (files: File[]): Promise<InputContribution[]> => {
     const file = files[0]
     setFileName(file.name)
+    setFileErrors(null)
 
     try {
       if (file.name.endsWith('.json')) {
         setFileLoading(true)
         const contributions = parseLcaxToContribution(JSON.parse(await file.text()))
-        const { warnings, errors } = validateContributions(contributions)
+        const { warnings } = validateContributions(contributions)
         if (warnings.length > 0) {
           setContributionWarnings(warnings)
-        }
-        if (errors.length > 0) {
-          setContributionErrors(errors)
         }
         setFileLoading(false)
         return contributions
@@ -168,47 +177,41 @@ export const ContributionUploadPaper = () => {
           {_error.file.name}: {_error.errors[0].message}
         </Text>
       ))}
-      {contributionData ? (
-        <Stack>
-          <Group justify='flex-end' style={{ marginTop: 16 }}>
-            {error ? (
-              <Text c='red'>
-                Unable to upload your contribution. This is most likely due to inconsistent data. Please check your
-                upload file ({error.message})
-              </Text>
-            ) : null}
-            <Text>Upload {fileName}?</Text>
-            <Group>
-              <Tooltip label='Make these contributions visible to other organizations' position='top' withArrow>
-                <Checkbox
-                  label='Make contributions public'
-                  onChange={(event) => handlePublicToggle(event.currentTarget.checked)}
-                  disabled={loading}
-                />
-              </Tooltip>
-              <Button loading={loading} color='green' onClick={onContribute}>
-                Contribute
-              </Button>
-            </Group>
-          </Group>
-          {contributionWarnings ? (
-            <Stack>
-              <Text fw={700}>Warnings:</Text>
-              {contributionWarnings.map((warning, index) => (
-                <Text c='yellow' key={index}>{`Project Id: ${warning.projectId} - ${warning.message}`}</Text>
-              ))}
-            </Stack>
+      <Stack>
+        <Group justify='flex-end' style={{ marginTop: 16 }}>
+          {error ? (
+            <Text c='red'>
+              Unable to upload your contribution. This is most likely due to inconsistent data. Please check your upload
+              file ({error.message})
+            </Text>
           ) : null}
-          {contributionErrors ? (
-            <Stack>
-              <Text fw={700}>Errors:</Text>
-              {contributionErrors.map((warning, index) => (
-                <Text c='red' key={index}>{`Project Id: ${warning.projectId} - ${warning.message}`}</Text>
-              ))}
-            </Stack>
+          {contributionData ? (
+            <>
+              <Text>Upload {fileName}?</Text>
+              <Group>
+                <Tooltip label='Make these contributions visible to other organizations' position='top' withArrow>
+                  <Checkbox
+                    label='Make contributions public'
+                    onChange={(event) => handlePublicToggle(event.currentTarget.checked)}
+                    disabled={loading}
+                  />
+                </Tooltip>
+                <Button loading={loading} color='green' onClick={onContribute}>
+                  Contribute
+                </Button>
+              </Group>
+            </>
           ) : null}
-        </Stack>
-      ) : null}
+        </Group>
+        {contributionWarnings ? (
+          <Stack>
+            <Text fw={700}>Warnings:</Text>
+            {contributionWarnings.map((warning, index) => (
+              <Text c='yellow' key={index}>{`Project Id: ${warning.projectId} - ${warning.message}`}</Text>
+            ))}
+          </Stack>
+        ) : null}
+      </Stack>
     </Paper>
   )
 }
