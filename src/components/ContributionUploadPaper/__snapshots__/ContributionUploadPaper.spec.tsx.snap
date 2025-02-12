@@ -29,42 +29,88 @@ exports[`ContributionUploadPaper > Snapshot 1`] = `
       class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
       style=""
     >
-      In order to process the data correctly, please follow the steps below:
+      In order to process your data correctly, please read the following:
+    </p>
+    <p
+      class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
+      style="margin-top: var(--mantine-spacing-sm);"
+    >
+      There are 3 ways to contribute data to the platform.
     </p>
     <div
       class="m_6d731127 mantine-Stack-root"
-      style="--stack-gap: 0rem; --stack-align: stretch; --stack-justify: flex-start; padding-left: var(--mantine-spacing-md);"
+      style="--stack-gap: var(--mantine-spacing-sm); --stack-align: stretch; --stack-justify: flex-start; padding-left: var(--mantine-spacing-md);"
     >
       <p
         class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
         style=""
       >
-        1. Download the data template file here:
+        A. Convert your data into an openBDF JSON and upload the JSON file below. Examples of converters can be found
+         
         <a
-          download=""
-          href="/GBDI_Data_Template_v0.2.0.xlsx"
+          href="https://https://github.com/globalbuildingdatainitiative/converters"
+          target="_blank"
         >
-          Download file
+          here
         </a>
       </p>
       <p
         class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
         style=""
       >
-        2. Fill your data as per template's format
+        B. Fill out
+         
+        <a
+          href="https://docs.google.com/document/d/1s26L-xBlrY6FNIB-rSwhL_mdeC6dbNos/edit?usp=sharing&ouid=102146692042378549668&rtpof=true&sd=true"
+          target="_blank"
+        >
+          this contribution form
+        </a>
+         
+        and submit it to us on office@gbdi.io and we will get in contact to help you.
       </p>
       <p
         class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
         style=""
       >
-        3. Save as .xlsx
+        C. Use the Excel Upload Template and follow the steps below:
       </p>
-      <p
-        class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
-        style=""
+      <div
+        class="m_6d731127 mantine-Stack-root"
+        style="--stack-gap: 0rem; --stack-align: stretch; --stack-justify: flex-start; padding-left: var(--mantine-spacing-md);"
       >
-        4. Upload the file below
-      </p>
+        <p
+          class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
+          style=""
+        >
+          1. Download the data template file here:
+           
+          <a
+            download=""
+            href="/GBDI_Data_Template_v0.2.0.xlsx"
+          >
+            Download file
+          </a>
+        </p>
+        <p
+          class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
+          style=""
+        >
+          2. Fill your data as per template's format
+        </p>
+        <p
+          class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
+          style=""
+        >
+          3. Save as .xlsx
+        </p>
+        <p
+          class="mantine-focus-auto m_b6d8b162 mantine-Text-root"
+          style=""
+        >
+          4. Upload the file below
+        </p>
+      </div>
     </div>
     <div
       class="mantine-focus-auto m_d46a4834 mantine-Dropzone-root"
@@ -139,6 +185,15 @@ exports[`ContributionUploadPaper > Snapshot 1`] = `
           </div>
         </div>
       </div>
+    </div>
+    <div
+      class="m_6d731127 mantine-Stack-root"
+      style="--stack-gap: var(--mantine-spacing-md); --stack-align: stretch; --stack-justify: flex-start;"
+    >
+      <div
+        class="m_4081bf90 mantine-Group-root"
+        style="--group-gap: var(--mantine-spacing-md); --group-align: center; --group-justify: flex-end; --group-wrap: wrap; margin-top: 16px;"
+      />
     </div>
   </div>
 </div>
