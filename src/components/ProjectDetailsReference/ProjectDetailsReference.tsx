@@ -1,5 +1,5 @@
 import { GetProjectDetailsQuery } from '@queries'
-import { Center, Group, Image, Stack } from '@mantine/core'
+import { Center, Group, Image, Stack, useMantineTheme } from '@mantine/core'
 import logoImage from '../../assets/logo.png'
 import { BoxPlot, ErrorBoundary, ErrorMessage, Loading, SpiderChart } from '@components'
 import { useMemo } from 'react'
@@ -34,6 +34,7 @@ const phaseMap: Record<string, string> = {
 export const ProjectDetailsReference = (props: ProjectDetailsReferenceProps) => {
   const { project, loading } = props
   const { height } = useViewportSize()
+  const theme = useMantineTheme()
 
   const baseFilters = [{ 'projectInfo.grossFloorArea.value': { $gt: 0 } }, { results: { $ne: null } }] as Record<
     string,
@@ -130,6 +131,7 @@ export const ProjectDetailsReference = (props: ProjectDetailsReferenceProps) => 
               <Loading />
             ) : (
               <BoxPlot
+                dotColor={theme.colors.purple[9]}
                 data={Object.entries(aggregatedData || {})
                   .filter((value) => ['_id', 'group'].indexOf(value[0]) < 0)
                   .map(([name, group]) => {
@@ -150,6 +152,7 @@ export const ProjectDetailsReference = (props: ProjectDetailsReferenceProps) => 
                       avg: group?.average,
                       count: group?.count,
                       extra: projectData[name],
+                      dotColor: theme.colors?.purple?.[9] ?? '#5C5CAE',
                     }
                   })}
               />
