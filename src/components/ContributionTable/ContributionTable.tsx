@@ -1,4 +1,5 @@
 import {
+  GetContributionsDocument,
   GetContributionsQuery,
   useDeleteContributionsMutation,
   useGetContributionsQuery,
@@ -10,6 +11,7 @@ import {
   MRT_ColumnFiltersState,
   MRT_PaginationState,
   MRT_Row,
+  MRT_RowSelectionState,
   MRT_SortingState,
   MRT_TableOptions,
   useMantineReactTable,
@@ -17,7 +19,7 @@ import {
 import 'mantine-react-table/styles.css'
 import { useEffect, useMemo, useState } from 'react'
 import dayjs from 'dayjs'
-import { ActionIcon, Group, MantineSize, Pagination, ScrollArea, Select, Text, Tooltip } from '@mantine/core'
+import { ActionIcon, Button, Group, MantineSize, Pagination, ScrollArea, Select, Text, Tooltip } from '@mantine/core'
 import { ViewProjectDetails } from './viewProjectDetails.tsx'
 import { useViewportSize } from '@mantine/hooks'
 import { IconCircleCheck, IconCircleX, IconEdit, IconTrash } from '@tabler/icons-react'
@@ -68,6 +70,8 @@ export const ContributionTable = () => {
   const [columnVisibility, setColumnVisibility] = useState({})
   const [confirmDelete, setConfirmDelete] = useState<string | null>(null)
   const shouldHideColumns = viewportWidth < window.screen.width
+  const [rowSelection, setRowSelection] = useState<MRT_RowSelectionState>({})
+  const [showBulkDeleteConfirm, setShowBulkDeleteConfirm] = useState(false)
 
   const getSortingVariables = () => {
     if (!sorting.length) return undefined
@@ -135,7 +139,9 @@ export const ContributionTable = () => {
     },
     fetchPolicy: 'network-only',
   })
-  const [deleteContributions, { error: deleteError }] = useDeleteContributionsMutation()
+  const [deleteContributions, { error: deleteError }] = useDeleteContributionsMutation({
+    refetchQueries: [{ query: GetContributionsDocument }],
+  })
   const [updateContributions, { error: updateError }] = useUpdateContributionsMutation()
 
   type ContributionItems = NonNullable<GetContributionsQuery['contributions']['items']>[number]
@@ -157,6 +163,14 @@ export const ContributionTable = () => {
       variables: { contributions: [{ id: row.original.id, public: values.public === 'true' }] },
     })
     table.setEditingRow(null)
+  }
+
+  const handleBulkDelete = async () => {
+    const selectedIds = Object.keys(rowSelection).map((index) => rowData[parseInt(index)].id)
+    await deleteContributions({ variables: { contributions: selectedIds } })
+    setRowSelection({})
+    setShowBulkDeleteConfirm(false)
+    await refetch()
   }
 
   const columns = useMemo<MRT_ColumnDef<ContributionItems>[]>(
@@ -294,6 +308,35 @@ export const ContributionTable = () => {
     enableColumnActions: true,
     enableRowActions: true,
     positionActionsColumn: 'last',
+    enableRowSelection: true,
+    enableMultiRowSelection: true,
+    enableSelectAll: true,
+    positionToolbarAlertBanner: 'bottom',
+    renderTopToolbarCustomActions: ({ table }) => {
+      const selectedRows = table.getSelectedRowModel().rows
+
+      if (selectedRows.length === 0) return null
+
+      if (showBulkDeleteConfirm) {
+        return (
+          <Group>
+            <Text>Delete {selectedRows.length} selected contributions?</Text>
+            <ActionIcon onClick={() => setShowBulkDeleteConfirm(false)} variant='transparent' color='red'>
+              <IconCircleX />
+            </ActionIcon>
+            <ActionIcon onClick={handleBulkDelete} variant='transparent' color='green'>
+              <IconCircleCheck />
+            </ActionIcon>
+          </Group>
+        )
+      }
+
+      return (
+        <Button color='red' onClick={() => setShowBulkDeleteConfirm(true)} leftSection={<IconTrash size={16} />}>
+          Delete {selectedRows.length} Selected
+        </Button>
+      )
+    },
     renderRowActions: ({ row, table }) => {
       if (confirmDelete === row.id) {
         return (
@@ -333,6 +376,7 @@ export const ContributionTable = () => {
       sorting,
       columnFilters,
       columnVisibility,
+      rowSelection,
     },
     onPaginationChange: (newPagination) => {
       if (typeof newPagination === 'function') {
@@ -344,6 +388,7 @@ export const ContributionTable = () => {
     onColumnVisibilityChange: setColumnVisibility,
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
+    onRowSelectionChange: setRowSelection,
   })
 
   return (
