@@ -261,7 +261,7 @@ export const BoxPlot = (props: BoxPlotProps) => {
           {/* Horizon Bar */}
           <Bar stackId='a' dataKey='bar' shape={<HorizonBar color={lineColor} orientation={orientation} />} />
           <ZAxis type='number' dataKey='count' range={[0, 250]} />
-          <Scatter dataKey='avg' shape={<CustomDot color={dotColor || theme.colors.orange[5]} />} />
+          <Scatter dataKey='avg' shape={<CustomDot color={theme.colors.orange[5]} />} />
           {data[0]?.extra ? (
             <Scatter dataKey='extra' shape={<CustomDot color={dotColor || theme.colors.red[6]} />} />
           ) : null}
