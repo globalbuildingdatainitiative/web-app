@@ -58,7 +58,7 @@ export const SpiderChart = (props: SpiderChartProps) => {
         <PolarAngleAxis dataKey='name' />
         <PolarRadiusAxis angle={18} />
         <Radar name='Reference' dataKey='refValue' fill={theme.colors.green[1]} fillOpacity={1} />
-        <Radar name='Project' dataKey='value' fill={theme.colors.red[6]} fillOpacity={0.5} />
+        <Radar name='Project' dataKey='value' fill={theme.colors.purple[9]} fillOpacity={0.5} />
         <Legend />
         <Tooltip formatter={(value) => Number(value).toFixed(2)} />
       </RadarChart>

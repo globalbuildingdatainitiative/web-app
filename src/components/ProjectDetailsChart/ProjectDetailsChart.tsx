@@ -91,21 +91,26 @@ export const ProjectDetailsChart = (props: ProjectDetailsChartProps) => {
               <Bar dataKey='results'>
                 <LabelList
                   dataKey='_id'
-                  content={(props) => renderProjectLabel(props as LabelProps, project?.id, theme.colors.red[6])}
+                  content={(props) => renderProjectLabel(props as LabelProps, project?.id, theme.colors.purple[9])}
                 />
                 {data?.projects.aggregation.map(({ _id }: { _id: string }) => (
-                  <Cell key={`cell-${_id}`} fill={_id === project?.id ? theme.colors.red[6] : theme.colors.green[1]} />
+                  <Cell
+                    key={`cell-${_id}`}
+                    fill={_id === project?.id ? theme.colors.purple[9] : theme.colors.green[1]}
+                  />
                 ))}
               </Bar>
             </BarChart>
           </ResponsiveContainer>
         )}
       </Center>
-      <ErrorMessage
-        error={{
-          message: `${error?.message || 'An error occurred while loading project data. Please try again later.'} Contact support: office@gbdi.io`,
-        }}
-      />
+      {error && (
+        <ErrorMessage
+          error={{
+            message: `${error.message || 'An error occurred while loading project data. Please try again later.'} Contact support: office@gbdi.io`,
+          }}
+        />
+      )}
     </Stack>
   )
 }

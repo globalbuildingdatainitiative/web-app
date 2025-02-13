@@ -164,10 +164,11 @@ const CustomTooltip = ({ active, payload, label }: TooltipProps<number, string>)
 interface BoxPlotProps {
   data: BoxPlotData[]
   orientation?: 'horizontal' | 'vertical'
+  dotColor?: string
 }
 
 export const BoxPlot = (props: BoxPlotProps) => {
-  const { data, orientation = 'vertical' } = props
+  const { data, orientation = 'vertical', dotColor } = props
   const theme = useMantineTheme()
 
   const getColor = (colorName: string, shade: number, fallback: string): string => {
@@ -260,8 +261,10 @@ export const BoxPlot = (props: BoxPlotProps) => {
           {/* Horizon Bar */}
           <Bar stackId='a' dataKey='bar' shape={<HorizonBar color={lineColor} orientation={orientation} />} />
           <ZAxis type='number' dataKey='count' range={[0, 250]} />
-          <Scatter dataKey='avg' shape={<CustomDot color={theme.colors.blue[6]} />} />
-          {data[0]?.extra ? <Scatter dataKey='extra' shape={<CustomDot color={theme.colors.red[6]} />} /> : null}
+          <Scatter dataKey='avg' shape={<CustomDot color={theme.colors.orange[5]} />} />
+          {data[0]?.extra ? (
+            <Scatter dataKey='extra' shape={<CustomDot color={dotColor || theme.colors.red[6]} />} />
+          ) : null}
         </ComposedChart>
       </ResponsiveContainer>
     </>
