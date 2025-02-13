@@ -10,12 +10,12 @@ import { Button, Checkbox, Group, rem, Stack, Text, Title, Tooltip } from '@mant
 import { Dropzone, FileRejection } from '@mantine/dropzone'
 import { IconPhoto, IconUpload, IconX } from '@tabler/icons-react'
 import { useState } from 'react'
-import { InputContribution, InputProject, useAddContributionMutation } from '@queries'
+import { InputContribution, InputProject, useAddContributionMutation, GetContributionsDocument } from '@queries'
 import { useNavigate } from 'react-router-dom'
 
 export const ContributionUploadPaper = () => {
   const [addContributions, { loading, error }] = useAddContributionMutation({
-    refetchQueries: ['getContributions'],
+    refetchQueries: [{ query: GetContributionsDocument }],
     errorPolicy: 'all',
   })
   const [contributionData, setContributionData] = useState<InputContribution[] | null>(null)
