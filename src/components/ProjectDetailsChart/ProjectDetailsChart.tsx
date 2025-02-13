@@ -101,11 +101,13 @@ export const ProjectDetailsChart = (props: ProjectDetailsChartProps) => {
           </ResponsiveContainer>
         )}
       </Center>
-      <ErrorMessage
-        error={{
-          message: `${error?.message || 'An error occurred while loading project data. Please try again later.'} Contact support: office@gbdi.io`,
-        }}
-      />
+      {error && (
+        <ErrorMessage
+          error={{
+            message: `${error.message || 'An error occurred while loading project data. Please try again later.'} Contact support: office@gbdi.io`,
+          }}
+        />
+      )}
     </Stack>
   )
 }
