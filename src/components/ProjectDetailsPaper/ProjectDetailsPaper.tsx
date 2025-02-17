@@ -89,13 +89,13 @@ export const ProjectDetailsPaper = (props: ProjectDetailsPaperProps) => {
       <ErrorBoundary>
         <ProjectMetadataTable project={project} loading={loading} />
       </ErrorBoundary>
-      {error && (
+      {error ? (
         <ErrorMessage
           error={{
-            message: `${error.message || 'An error occurred while loading project data. Please try again later.'} Contact support: office@gbdi.io`,
+            message: `${error?.message || 'An error occurred while loading project data. Please try again later.'} Contact support: office@gbdi.io`,
           }}
         />
-      )}
+      ) : null}
       {printError && (
         <ErrorMessage
           error={{
