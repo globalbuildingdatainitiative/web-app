@@ -1,6 +1,10 @@
+# Global Building Data Initiative (GBDI)
+
+The [Global Building Data Initiative (GBDI)](www.gbdi.io) has been developed to address this urgent need for open building data to inform action for reducing resource use as well as embodied and whole life carbon (WLC) emissions within the built environment. GBDI aims to fill prevalent gaps by encouraging collaboration with diverse stakeholders and advancing the adoption of sustainable building practices worldwide, with the development of a global network of stakeholders, the Open Building Data Format (openBDF) and the [Open Building Data Platform](https://www.gbdi.io/platform) for building data collection and management, enabling visualization, benchmarking, and target-setting to support the development of specific pathways for WLC reduction. Learn more about GBDI via [www.gbdi.io](www.gbdi.io).
+
 # GBDI Web App
 
-The [GBDI Web App](https://app.gbdi.io) enables collection and analysis of building material data, including for component and whole building LCA data on a global scale to provide benchmarks and analytics of whole life cycle carbon (CO2e) emissions of buildings.
+This repository contains the source code for the [GBDI Web App](https://app.gbdi.io), necessary to run an instance of the [Open Building Data Platform](https://www.gbdi.io/platform). It enables collection and analysis of building material data, including for component and whole building LCA data on a global scale to provide benchmarks and analytics of whole life cycle carbon (CO2e) emissions of buildings. Interested parties can use this code to build their own instance of the platform under the open source license, described in the [LICENSE](LICENSE) file. When building on this code, consider carrying forward the open science approach by sharing back any valuable features or customizations you may develop. Thank you!
 
 ## Features
 
