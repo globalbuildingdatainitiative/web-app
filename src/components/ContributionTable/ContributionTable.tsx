@@ -1,5 +1,5 @@
 import {
-  GetContributionsDocument,
+  GetContributionsForHeaderDocument,
   GetContributionsQuery,
   useDeleteContributionsMutation,
   useGetContributionsQuery,
@@ -23,6 +23,7 @@ import { ActionIcon, Button, Group, MantineSize, Pagination, ScrollArea, Select,
 import { ViewProjectDetails } from './viewProjectDetails.tsx'
 import { useViewportSize } from '@mantine/hooks'
 import { IconCircleCheck, IconCircleX, IconEdit, IconTrash } from '@tabler/icons-react'
+import { useUserContext } from '@context'
 
 interface TruncatedTextWithTooltipProps {
   text: string
@@ -72,6 +73,7 @@ export const ContributionTable = () => {
   const shouldHideColumns = viewportWidth < window.screen.width
   const [rowSelection, setRowSelection] = useState<MRT_RowSelectionState>({})
   const [showBulkDeleteConfirm, setShowBulkDeleteConfirm] = useState(false)
+  const { user } = useUserContext()
 
   const getSortingVariables = () => {
     if (!sorting.length) return undefined
@@ -140,7 +142,7 @@ export const ContributionTable = () => {
     fetchPolicy: 'network-only',
   })
   const [deleteContributions, { error: deleteError }] = useDeleteContributionsMutation({
-    refetchQueries: [{ query: GetContributionsDocument }],
+    refetchQueries: [{ query: GetContributionsForHeaderDocument }],
   })
   const [updateContributions, { error: updateError }] = useUpdateContributionsMutation()
 
@@ -275,6 +277,10 @@ export const ContributionTable = () => {
     [],
   )
 
+  const handleRowSelection = (row: MRT_Row<ContributionItems>) => {
+    return row.original.user?.organization?.id === user?.organization?.id
+  }
+
   useEffect(() => {
     if (shouldHideColumns) {
       setColumnVisibility({
@@ -308,7 +314,7 @@ export const ContributionTable = () => {
     enableColumnActions: true,
     enableRowActions: true,
     positionActionsColumn: 'last',
-    enableRowSelection: true,
+    enableRowSelection: handleRowSelection,
     enableMultiRowSelection: true,
     enableSelectAll: true,
     positionToolbarAlertBanner: 'bottom',
