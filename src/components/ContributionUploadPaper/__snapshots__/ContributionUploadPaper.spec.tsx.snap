@@ -48,7 +48,7 @@ exports[`ContributionUploadPaper > Snapshot 1`] = `
         A. Convert your data into an openBDF JSON and upload the JSON file below. Examples of converters can be found
          
         <a
-          href="https://https://github.com/globalbuildingdatainitiative/converters"
+          href="https://github.com/globalbuildingdatainitiative/converters"
           target="_blank"
         >
           here
