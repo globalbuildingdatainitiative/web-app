@@ -20,7 +20,7 @@ export const ContributionUploadPaper = () => {
   })
   const [contributionData, setContributionData] = useState<InputContribution[] | null>(null)
   const [contributionWarnings, setContributionWarnings] = useState<ValidationResult[] | null>(null)
-  const [fileName, setFileName] = useState('')
+  const [fileNames, setFileNames] = useState<string[]>([])
   const [fileErrors, setFileErrors] = useState<FileRejection[] | null>(null)
   const [fileLoading, setFileLoading] = useState(false)
   const navigate = useNavigate()
@@ -80,45 +80,49 @@ export const ContributionUploadPaper = () => {
   }
 
   const processUploadedFile = async (files: File[]): Promise<InputContribution[]> => {
-    const file = files[0]
-    setFileName(file.name)
     setFileErrors(null)
+    setFileLoading(true)
+    setFileNames([])
 
-    try {
-      if (file.name.endsWith('.json')) {
-        setFileLoading(true)
-        const contributions = parseLcaxToContribution(JSON.parse(await file.text()))
-        const { warnings } = validateContributions(contributions)
-        if (warnings.length > 0) {
-          setContributionWarnings(warnings)
-        }
-        setFileLoading(false)
-        return contributions
-      } else if (file.name.endsWith('.xlsx')) {
-        setFileLoading(true)
-        const json = await parseXlsxToContribution(file)
-        const contributions = mapJsonToInputContribution(json as never)
-        setFileLoading(false)
-        return contributions
-      }
-    } catch (e) {
-      setFileErrors([
-        {
-          file: file,
-          errors: [
+    const contributions = await Promise.all(
+      files.map(async (file) => {
+        setFileNames((prev) => [...prev, file.name])
+        try {
+          if (file.name.endsWith('.json')) {
+            const contributions = parseLcaxToContribution(JSON.parse(await file.text()))
+            const { warnings } = validateContributions(contributions)
+            if (warnings.length > 0) {
+              setContributionWarnings(warnings)
+            }
+            return contributions
+          } else if (file.name.endsWith('.xlsx')) {
+            const json = await parseXlsxToContribution(file)
+            return mapJsonToInputContribution(json as never)
+          }
+        } catch (e) {
+          setFileErrors([
             {
-              message:
-                'Unexpected Error While Processing the File. Contact the GBDI team if error persists at office@gbdi.io.',
-              code: 'parsing-error',
+              file: file,
+              errors: [
+                {
+                  message:
+                    'Unexpected Error While Processing the File. Contact the GBDI team if error persists at office@gbdi.io.',
+                  code: 'parsing-error',
+                },
+              ],
             },
-          ],
-        },
-      ])
-      setFileLoading(false)
-      console.error('Error in file parsing', e)
+          ])
+          console.error('Error in file parsing', e)
+        }
+      }),
+    )
+    const _contributions = contributions.reduce((prev, current) => [...(prev || []), ...(current || [])], [])
+    setFileLoading(false)
+    if (_contributions) {
+      return _contributions
     }
 
-    return [{ project: { name: file.name } as InputProject }]
+    return [{ project: { name: files[0].name } as InputProject }]
   }
 
   return (
@@ -129,7 +133,7 @@ export const ContributionUploadPaper = () => {
       <Stack pl='md' py='md' gap='sm'>
         <Text>
           A. Convert your data into an openBDF JSON and upload the JSON file below. Examples of converters can be found{' '}
-          <a href='https://https://github.com/globalbuildingdatainitiative/converters' target='_blank'>
+          <a href='https://github.com/globalbuildingdatainitiative/converters' target='_blank'>
             here
           </a>
         </Text>
@@ -208,7 +212,7 @@ export const ContributionUploadPaper = () => {
           ) : null}
           {contributionData ? (
             <>
-              <Text>Upload {fileName}?</Text>
+              <Text>Upload {fileNames.join(', ')}?</Text>
               <Group>
                 <Tooltip label='Make these contributions visible to other organizations' position='top' withArrow>
                   <Checkbox
