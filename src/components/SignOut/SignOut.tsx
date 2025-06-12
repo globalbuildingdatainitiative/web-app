@@ -1,6 +1,5 @@
 import { Button, Text } from '@mantine/core'
 import { IconLogout } from '@tabler/icons-react'
-import { useNavigate } from 'react-router-dom'
 import { signOut } from 'supertokens-auth-react/recipe/emailpassword'
 import { useUserContext } from '@context'
 import { useState } from 'react'
@@ -11,16 +10,17 @@ interface SignOutProps {
 }
 
 export const SignOut = ({ collapsed }: SignOutProps) => {
-  const navigate = useNavigate()
   const { user } = useUserContext()
   const client = useApolloClient()
   const [isHovered, setIsHovered] = useState(false)
+  const [isProcessing, setIsProcessing] = useState(false)
 
   async function onLogout() {
+    setIsProcessing(true)
     await client.resetStore()
     await signOut()
     localStorage.removeItem('userId')
-    navigate('/auth')
+    window.location.pathname = '/auth'
   }
 
   return (
@@ -30,6 +30,8 @@ export const SignOut = ({ collapsed }: SignOutProps) => {
         c='gray'
         size='lg'
         radius='lg'
+        disabled={isProcessing}
+        loading={isProcessing}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
         onClick={onLogout}
