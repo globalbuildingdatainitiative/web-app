@@ -329,6 +329,40 @@ exports[`EditOrganizationForm > Snapshot 1`] = `
             value=""
           />
           <div
+            class="m_46b77525 mantine-InputWrapper-root mantine-TextInput-root"
+            data-size="md"
+            style="width: 500px;"
+          >
+            <label
+              class="m_8fdc1311 mantine-InputWrapper-label mantine-TextInput-label"
+              data-size="md"
+              for=""
+              id=""
+              style="--input-label-size: var(--mantine-font-size-md);"
+            >
+              Organization ID
+            </label>
+            <div
+              class="m_6c018570 mantine-Input-wrapper mantine-TextInput-wrapper"
+              data-disabled="true"
+              data-size="md"
+              data-variant="default"
+              style="--input-height: var(--input-height-md); --input-fz: var(--mantine-font-size-md); --input-radius: var(--mantine-radius-md);"
+            >
+              <input
+                aria-invalid="false"
+                class="m_8fb7ebe7 mantine-Input-input mantine-TextInput-input"
+                data-disabled="true"
+                data-variant="default"
+                disabled=""
+                formaction="http://localhost:3000/"
+                formmethod=""
+                id=""
+                style=""
+              />
+            </div>
+          </div>
+          <div
             class="m_4081bf90 mantine-Group-root"
             style="--group-gap: var(--mantine-spacing-md); --group-align: center; --group-justify: flex-start; --group-wrap: wrap;"
           >
