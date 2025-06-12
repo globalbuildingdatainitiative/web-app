@@ -90,6 +90,7 @@ export const EditProfileForm = () => {
           {...form.getInputProps('confirmPassword')}
           mb='md'
         />
+        <TextInput label='User ID' value={user?.id} mb='sm' disabled={true} />
         <Group mt='md'>
           <Button variant='default'>Cancel</Button>
           <Button color='green' radius='sm' px={16} type='submit' disabled={!form.isDirty()}>
