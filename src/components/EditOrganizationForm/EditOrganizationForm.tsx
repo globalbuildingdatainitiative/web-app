@@ -187,6 +187,14 @@ export const EditOrganizationForm = () => {
               required
               aria-label='Stakeholders'
             />
+            <TextInput
+              size='md'
+              radius='md'
+              label='Organization ID'
+              style={{ width: '500px' }}
+              value={user?.organization?.id}
+              disabled={true}
+            />
             {error && <Text c='red'>{error.message}</Text>}
             <Group>
               <Button variant='default' radius='lg' px={16} size='md' onClick={() => navigate('/organization')}>

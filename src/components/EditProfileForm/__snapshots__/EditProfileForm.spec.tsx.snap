@@ -333,6 +333,37 @@ exports[`EditProfileForm > Snapshot 1`] = `
         </div>
       </div>
       <div
+        class="m_46b77525 mantine-InputWrapper-root mantine-TextInput-root"
+        style="margin-bottom: var(--mantine-spacing-sm);"
+      >
+        <label
+          class="m_8fdc1311 mantine-InputWrapper-label mantine-TextInput-label"
+          for=""
+          id=""
+          style=""
+        >
+          User ID
+        </label>
+        <div
+          class="m_6c018570 mantine-Input-wrapper mantine-TextInput-wrapper"
+          data-disabled="true"
+          data-variant="default"
+          style=""
+        >
+          <input
+            aria-invalid="false"
+            class="m_8fb7ebe7 mantine-Input-input mantine-TextInput-input"
+            data-disabled="true"
+            data-variant="default"
+            disabled=""
+            formaction="http://localhost:3000/"
+            formmethod=""
+            id=""
+            style=""
+          />
+        </div>
+      </div>
+      <div
         class="m_4081bf90 mantine-Group-root"
         style="--group-gap: var(--mantine-spacing-md); --group-align: center; --group-justify: flex-start; --group-wrap: wrap; margin-top: var(--mantine-spacing-md);"
       >
