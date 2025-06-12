@@ -1,10 +1,12 @@
 import { DetailsPaper } from '@components'
-import { Stack } from '@mantine/core'
+import { Container, Stack } from '@mantine/core'
 
 export const DetailsPage = () => {
   return (
-    <Stack>
-      <DetailsPaper />
+    <Stack h='90vh' justify='center' align='center'>
+      <Container size='xl'>
+        <DetailsPaper />
+      </Container>
     </Stack>
   )
 }

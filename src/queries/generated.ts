@@ -2962,6 +2962,19 @@ export type GetContributionsQuery = {
   }
 }
 
+export type GetContributionsForDetailsQueryVariables = Exact<{
+  limit?: InputMaybe<Scalars['Int']['input']>
+  filterBy?: InputMaybe<FilterBy>
+}>
+
+export type GetContributionsForDetailsQuery = {
+  __typename?: 'Query'
+  contributions: {
+    __typename?: 'ContributionGraphQLResponse'
+    items?: Array<{ __typename?: 'Contribution'; id: any; project: { __typename?: 'Project'; name: string } }> | null
+  }
+}
+
 export type AddContributionMutationVariables = Exact<{
   contributions: Array<InputContribution> | InputContribution
 }>
@@ -3850,6 +3863,74 @@ export type GetContributionsQueryHookResult = ReturnType<typeof useGetContributi
 export type GetContributionsLazyQueryHookResult = ReturnType<typeof useGetContributionsLazyQuery>
 export type GetContributionsSuspenseQueryHookResult = ReturnType<typeof useGetContributionsSuspenseQuery>
 export type GetContributionsQueryResult = Apollo.QueryResult<GetContributionsQuery, GetContributionsQueryVariables>
+export const GetContributionsForDetailsDocument = gql`
+  query getContributionsForDetails($limit: Int, $filterBy: FilterBy) {
+    contributions {
+      items(limit: $limit, filterBy: $filterBy) {
+        id
+        project {
+          name
+        }
+      }
+    }
+  }
+`
+
+/**
+ * __useGetContributionsForDetailsQuery__
+ *
+ * To run a query within a React component, call `useGetContributionsForDetailsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetContributionsForDetailsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetContributionsForDetailsQuery({
+ *   variables: {
+ *      limit: // value for 'limit'
+ *      filterBy: // value for 'filterBy'
+ *   },
+ * });
+ */
+export function useGetContributionsForDetailsQuery(
+  baseOptions?: Apollo.QueryHookOptions<GetContributionsForDetailsQuery, GetContributionsForDetailsQueryVariables>,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<GetContributionsForDetailsQuery, GetContributionsForDetailsQueryVariables>(
+    GetContributionsForDetailsDocument,
+    options,
+  )
+}
+export function useGetContributionsForDetailsLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<GetContributionsForDetailsQuery, GetContributionsForDetailsQueryVariables>,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<GetContributionsForDetailsQuery, GetContributionsForDetailsQueryVariables>(
+    GetContributionsForDetailsDocument,
+    options,
+  )
+}
+export function useGetContributionsForDetailsSuspenseQuery(
+  baseOptions?:
+    | Apollo.SkipToken
+    | Apollo.SuspenseQueryHookOptions<GetContributionsForDetailsQuery, GetContributionsForDetailsQueryVariables>,
+) {
+  const options = baseOptions === Apollo.skipToken ? baseOptions : { ...defaultOptions, ...baseOptions }
+  return Apollo.useSuspenseQuery<GetContributionsForDetailsQuery, GetContributionsForDetailsQueryVariables>(
+    GetContributionsForDetailsDocument,
+    options,
+  )
+}
+export type GetContributionsForDetailsQueryHookResult = ReturnType<typeof useGetContributionsForDetailsQuery>
+export type GetContributionsForDetailsLazyQueryHookResult = ReturnType<typeof useGetContributionsForDetailsLazyQuery>
+export type GetContributionsForDetailsSuspenseQueryHookResult = ReturnType<
+  typeof useGetContributionsForDetailsSuspenseQuery
+>
+export type GetContributionsForDetailsQueryResult = Apollo.QueryResult<
+  GetContributionsForDetailsQuery,
+  GetContributionsForDetailsQueryVariables
+>
 export const AddContributionDocument = gql`
   mutation addContribution($contributions: [InputContribution!]!) {
     addContributions(contributions: $contributions) {
