@@ -75,6 +75,17 @@ query getContributions($limit: Int, $offset: Int, $sortBy: SortBy, $filterBy: Fi
   }
 }
 
+query getContributionsForDetails($limit: Int, $filterBy: FilterBy) {
+  contributions {
+    items(limit: $limit, filterBy: $filterBy) {
+      id
+      project {
+        name
+      }
+    }
+  }
+}
+
 mutation addContribution($contributions: [InputContribution!]!) {
   addContributions(contributions: $contributions) {
     id

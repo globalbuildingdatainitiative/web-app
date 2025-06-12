@@ -1,49 +1,33 @@
-import { ErrorMessage, Loading, Paper } from '@components'
-import { Select } from '@mantine/core'
-import { useGetContributionsQuery } from '@queries'
-import { useMemo } from 'react'
+import { AsyncAutocomplete, Paper } from '@components'
+import { useGetContributionsForDetailsLazyQuery } from '@queries'
 import { useNavigate } from 'react-router-dom'
 
 export const DetailsPaper = () => {
   const navigate = useNavigate()
-  const { data, loading, error } = useGetContributionsQuery({
-    variables: {
-      limit: null,
-      offset: 0,
-    },
-  })
 
-  const contributions = useMemo(
-    () =>
-      data?.contributions?.items?.map((contribution) => ({
-        value: contribution.id,
-        label: `${contribution.id} - ${contribution.project?.name || 'Unnamed Project'}`,
-      })) || [],
-    [data],
-  )
+  const [getContributions] = useGetContributionsForDetailsLazyQuery({ variables: { limit: 20 } })
 
   const handleContributionSelect = (value: string | null) => {
     if (!value) return
     navigate(`/details/${value}/project`)
   }
 
+  const processData = (data: object) =>
+    // @ts-expect-error simplified types
+    data?.contributions?.items?.map((contribution) => ({
+      value: contribution.id,
+      label: `${contribution.id} - ${contribution.project?.name || 'Unnamed Project'}`,
+    })) || []
+
   return (
-    <Paper data-testid='DetailsPaper'>
-      <Select
-        label='Select Contribution'
+    <Paper data-testid='DetailsPaper' width={500}>
+      <AsyncAutocomplete
+        label='Search Contributions'
         placeholder='Search contributions by ID or name'
-        data={contributions}
-        onChange={handleContributionSelect}
-        searchable
-        nothingFoundMessage='No contributions found'
-        disabled={loading || !!error}
-      />
-      {loading && <Loading />}
-      <ErrorMessage
-        error={
-          error ? { message: `${error.message}. If the problem persists, contact support at office@gbdi.io.` } : null
-        }
-        mt='md'
+        // @ts-expect-error simplified types
+        dataQuery={getContributions}
+        processData={processData}
+        onSelect={handleContributionSelect}
       />
     </Paper>
   )
