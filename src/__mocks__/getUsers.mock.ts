@@ -7,8 +7,8 @@ export const getUsersMock: MockedResponse[] = [
     request: {
       query: GetUsersDocument,
       variables: {
-        filters: {
-          organizationId: { equal: '1' },
+        filterBy: {
+          equal: { organizationId: '1' },
         },
         sortBy: undefined,
       },
@@ -19,7 +19,7 @@ export const getUsersMock: MockedResponse[] = [
     request: {
       query: GetUsersDocument,
       variables: {
-        filters: undefined,
+        filterBy: undefined,
         sortBy: undefined,
       },
     },
