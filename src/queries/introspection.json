@@ -2309,58 +2309,6 @@
         "possibleTypes": null
       },
       {
-        "kind": "INPUT_OBJECT",
-        "name": "FilterOptions",
-        "description": null,
-        "isOneOf": false,
-        "fields": null,
-        "inputFields": [
-          {
-            "name": "contains",
-            "description": null,
-            "type": { "kind": "SCALAR", "name": "String", "ofType": null },
-            "defaultValue": "null",
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "endsWith",
-            "description": null,
-            "type": { "kind": "SCALAR", "name": "String", "ofType": null },
-            "defaultValue": "null",
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "equal",
-            "description": null,
-            "type": { "kind": "SCALAR", "name": "String", "ofType": null },
-            "defaultValue": "null",
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "isTrue",
-            "description": null,
-            "type": { "kind": "SCALAR", "name": "Boolean", "ofType": null },
-            "defaultValue": "null",
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "startsWith",
-            "description": null,
-            "type": { "kind": "SCALAR", "name": "String", "ofType": null },
-            "defaultValue": "null",
-            "isDeprecated": false,
-            "deprecationReason": null
-          }
-        ],
-        "interfaces": null,
-        "enumValues": null,
-        "possibleTypes": null
-      },
-      {
         "kind": "SCALAR",
         "name": "Float",
         "description": "The `Float` scalar type represents signed double-precision fractional values as specified by [IEEE 754](https://en.wikipedia.org/wiki/IEEE_floating_point).",
@@ -4694,62 +4642,84 @@
         "possibleTypes": null
       },
       {
-        "kind": "INPUT_OBJECT",
-        "name": "OrganizationFilter",
+        "kind": "OBJECT",
+        "name": "OrganizationGraphQLResponse",
         "description": null,
-        "isOneOf": false,
-        "fields": null,
-        "inputFields": [
+        "isOneOf": null,
+        "fields": [
           {
-            "name": "address",
-            "description": null,
-            "type": { "kind": "INPUT_OBJECT", "name": "FilterOptions", "ofType": null },
-            "defaultValue": "null",
+            "name": "count",
+            "description": "Total number of items in the filtered dataset.",
+            "args": [
+              {
+                "name": "filterBy",
+                "description": null,
+                "type": { "kind": "INPUT_OBJECT", "name": "FilterBy", "ofType": null },
+                "defaultValue": "null",
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": { "kind": "NON_NULL", "name": null, "ofType": { "kind": "SCALAR", "name": "Int", "ofType": null } },
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
-            "name": "city",
-            "description": null,
-            "type": { "kind": "INPUT_OBJECT", "name": "FilterOptions", "ofType": null },
-            "defaultValue": "null",
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "country",
-            "description": null,
-            "type": { "kind": "INPUT_OBJECT", "name": "FilterOptions", "ofType": null },
-            "defaultValue": "null",
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "id",
-            "description": null,
-            "type": { "kind": "INPUT_OBJECT", "name": "FilterOptions", "ofType": null },
-            "defaultValue": "null",
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "metaData",
-            "description": null,
-            "type": { "kind": "INPUT_OBJECT", "name": "OrganizationMetaDataFilter", "ofType": null },
-            "defaultValue": "null",
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "name",
-            "description": null,
-            "type": { "kind": "INPUT_OBJECT", "name": "FilterOptions", "ofType": null },
-            "defaultValue": "null",
+            "name": "items",
+            "description": "The list of items in this pagination window.",
+            "args": [
+              {
+                "name": "filterBy",
+                "description": null,
+                "type": { "kind": "INPUT_OBJECT", "name": "FilterBy", "ofType": null },
+                "defaultValue": "null",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "limit",
+                "description": null,
+                "type": { "kind": "SCALAR", "name": "Int", "ofType": null },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "offset",
+                "description": null,
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": { "kind": "SCALAR", "name": "Int", "ofType": null }
+                },
+                "defaultValue": "0",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "sortBy",
+                "description": null,
+                "type": { "kind": "INPUT_OBJECT", "name": "SortBy", "ofType": null },
+                "defaultValue": "null",
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": { "kind": "OBJECT", "name": "Organization", "ofType": null }
+              }
+            },
             "isDeprecated": false,
             "deprecationReason": null
           }
         ],
-        "interfaces": null,
+        "inputFields": null,
+        "interfaces": [],
         "enumValues": null,
         "possibleTypes": null
       },
@@ -4782,26 +4752,6 @@
         ],
         "inputFields": null,
         "interfaces": [],
-        "enumValues": null,
-        "possibleTypes": null
-      },
-      {
-        "kind": "INPUT_OBJECT",
-        "name": "OrganizationMetaDataFilter",
-        "description": null,
-        "isOneOf": false,
-        "fields": null,
-        "inputFields": [
-          {
-            "name": "stakeholders",
-            "description": null,
-            "type": { "kind": "INPUT_OBJECT", "name": "FilterOptions", "ofType": null },
-            "defaultValue": "null",
-            "isDeprecated": false,
-            "deprecationReason": null
-          }
-        ],
-        "interfaces": null,
         "enumValues": null,
         "possibleTypes": null
       },
@@ -6415,28 +6365,11 @@
           {
             "name": "organizations",
             "description": "Returns all Organizations",
-            "args": [
-              {
-                "name": "filters",
-                "description": null,
-                "type": { "kind": "INPUT_OBJECT", "name": "OrganizationFilter", "ofType": null },
-                "defaultValue": "null",
-                "isDeprecated": false,
-                "deprecationReason": null
-              }
-            ],
+            "args": [],
             "type": {
               "kind": "NON_NULL",
               "name": null,
-              "ofType": {
-                "kind": "LIST",
-                "name": null,
-                "ofType": {
-                  "kind": "NON_NULL",
-                  "name": null,
-                  "ofType": { "kind": "OBJECT", "name": "Organization", "ofType": null }
-                }
-              }
+              "ofType": { "kind": "OBJECT", "name": "OrganizationGraphQLResponse", "ofType": null }
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -6476,36 +6409,11 @@
           {
             "name": "users",
             "description": "Returns all Users",
-            "args": [
-              {
-                "name": "filters",
-                "description": null,
-                "type": { "kind": "INPUT_OBJECT", "name": "UserFilters", "ofType": null },
-                "defaultValue": "null",
-                "isDeprecated": false,
-                "deprecationReason": null
-              },
-              {
-                "name": "sortBy",
-                "description": null,
-                "type": { "kind": "INPUT_OBJECT", "name": "UserSort", "ofType": null },
-                "defaultValue": "null",
-                "isDeprecated": false,
-                "deprecationReason": null
-              }
-            ],
+            "args": [],
             "type": {
               "kind": "NON_NULL",
               "name": null,
-              "ofType": {
-                "kind": "LIST",
-                "name": null,
-                "ofType": {
-                  "kind": "NON_NULL",
-                  "name": null,
-                  "ofType": { "kind": "OBJECT", "name": "User", "ofType": null }
-                }
-              }
+              "ofType": { "kind": "OBJECT", "name": "UserGraphQLResponse", "ofType": null }
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -7673,114 +7581,84 @@
         "possibleTypes": null
       },
       {
-        "kind": "INPUT_OBJECT",
-        "name": "UserFilters",
+        "kind": "OBJECT",
+        "name": "UserGraphQLResponse",
         "description": null,
-        "isOneOf": false,
-        "fields": null,
-        "inputFields": [
+        "isOneOf": null,
+        "fields": [
           {
-            "name": "email",
-            "description": null,
-            "type": { "kind": "INPUT_OBJECT", "name": "FilterOptions", "ofType": null },
-            "defaultValue": "null",
+            "name": "count",
+            "description": "Total number of items in the filtered dataset.",
+            "args": [
+              {
+                "name": "filterBy",
+                "description": null,
+                "type": { "kind": "INPUT_OBJECT", "name": "FilterBy", "ofType": null },
+                "defaultValue": "null",
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": { "kind": "NON_NULL", "name": null, "ofType": { "kind": "SCALAR", "name": "Int", "ofType": null } },
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
-            "name": "firstName",
-            "description": null,
-            "type": { "kind": "INPUT_OBJECT", "name": "FilterOptions", "ofType": null },
-            "defaultValue": "null",
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "id",
-            "description": null,
-            "type": { "kind": "INPUT_OBJECT", "name": "FilterOptions", "ofType": null },
-            "defaultValue": "null",
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "inviteStatus",
-            "description": null,
-            "type": { "kind": "INPUT_OBJECT", "name": "FilterOptions", "ofType": null },
-            "defaultValue": "null",
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "invited",
-            "description": null,
-            "type": { "kind": "INPUT_OBJECT", "name": "FilterOptions", "ofType": null },
-            "defaultValue": "null",
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "inviterName",
-            "description": null,
-            "type": { "kind": "INPUT_OBJECT", "name": "FilterOptions", "ofType": null },
-            "defaultValue": "null",
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "lastName",
-            "description": null,
-            "type": { "kind": "INPUT_OBJECT", "name": "FilterOptions", "ofType": null },
-            "defaultValue": "null",
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "organizationId",
-            "description": null,
-            "type": { "kind": "INPUT_OBJECT", "name": "FilterOptions", "ofType": null },
-            "defaultValue": "null",
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "timeJoined",
-            "description": null,
-            "type": { "kind": "INPUT_OBJECT", "name": "FilterOptions", "ofType": null },
-            "defaultValue": "null",
+            "name": "items",
+            "description": "The list of items in this pagination window.",
+            "args": [
+              {
+                "name": "filterBy",
+                "description": null,
+                "type": { "kind": "INPUT_OBJECT", "name": "FilterBy", "ofType": null },
+                "defaultValue": "null",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "limit",
+                "description": null,
+                "type": { "kind": "SCALAR", "name": "Int", "ofType": null },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "offset",
+                "description": null,
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": { "kind": "SCALAR", "name": "Int", "ofType": null }
+                },
+                "defaultValue": "0",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "sortBy",
+                "description": null,
+                "type": { "kind": "INPUT_OBJECT", "name": "SortBy", "ofType": null },
+                "defaultValue": "null",
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": { "kind": "OBJECT", "name": "User", "ofType": null }
+              }
+            },
             "isDeprecated": false,
             "deprecationReason": null
           }
         ],
-        "interfaces": null,
-        "enumValues": null,
-        "possibleTypes": null
-      },
-      {
-        "kind": "INPUT_OBJECT",
-        "name": "UserSort",
-        "description": null,
-        "isOneOf": false,
-        "fields": null,
-        "inputFields": [
-          {
-            "name": "asc",
-            "description": null,
-            "type": { "kind": "SCALAR", "name": "String", "ofType": null },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "dsc",
-            "description": null,
-            "type": { "kind": "SCALAR", "name": "String", "ofType": null },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          }
-        ],
-        "interfaces": null,
+        "inputFields": null,
+        "interfaces": [],
         "enumValues": null,
         "possibleTypes": null
       },

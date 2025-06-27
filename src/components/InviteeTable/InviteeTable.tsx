@@ -31,9 +31,9 @@ export const InviteesTable = ({ organizationId }: InviteesTableProps) => {
     refetch,
   } = useGetUsersQuery({
     variables: {
-      filters: {
-        organizationId: {
-          equal: organizationId,
+      filterBy: {
+        equal: {
+          organizationId,
         },
       },
     },
@@ -122,8 +122,8 @@ export const InviteesTable = ({ organizationId }: InviteesTableProps) => {
   const rowData = useMemo(() => {
     if (!inviteesData) return []
 
-    const filteredData = inviteesData.users
-      .filter((user) => {
+    const filteredData = inviteesData.users.items
+      ?.filter((user) => {
         const status = user.inviteStatus?.toLowerCase() ?? ''
         return user.invited && (status === 'pending' || status === 'rejected')
       })

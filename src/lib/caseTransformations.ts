@@ -25,3 +25,10 @@ export const formatStages = (stages: string[]) => {
   const last = stages[stages.length - 1].toUpperCase()
   return `(${first}-${last})`
 }
+
+export const formatEnumValue = (value: string): string => {
+  return value
+    .toLowerCase()
+    .replace(/_/g, ' ')
+    .replace(/\b\w/g, (char) => char.toUpperCase())
+}

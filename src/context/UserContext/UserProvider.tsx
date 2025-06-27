@@ -24,11 +24,12 @@ export const UserProvider = ({ children }: UserProviderProps) => {
     if (!data || !data.users) return null
 
     const user = {
-      ...data.users[0],
+      ...data.users.items?.[0],
       roles: [],
       // @ts-expect-error accessTokenPayload is not defined in SessionContext by exists
       isImpersonation: sessionContext?.accessTokenPayload?.isImpersonation ?? false,
     } as User
+
     if (claimValue.loading || !claimValue.doesSessionExist) {
       return user
     }

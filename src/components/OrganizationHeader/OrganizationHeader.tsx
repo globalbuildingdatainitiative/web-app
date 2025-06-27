@@ -10,21 +10,22 @@ interface OrganizationHeaderProps {
 
 export const OrganizationHeader = ({ context }: OrganizationHeaderProps) => {
   const { user } = useUserContext()
-  const organizationId = user?.organization?.id || ' '
+  const organizationId = user?.organization?.id
   const { data: usersData } = useGetUsersQuery({
     variables: {
-      filters: {
-        organizationId: {
-          equal: organizationId,
+      filterBy: {
+        equal: {
+          organizationId,
         },
       },
     },
+    skip: !organizationId,
   })
   const totalMembers =
-    usersData?.users?.filter((user) => {
+    usersData?.users.items?.filter((user) => {
       const status = user.inviteStatus?.toLowerCase()
       return status === 'accepted' || status === 'none'
-    }).length || 0
+    }).length || 'N/A'
   const organizationName = user?.organization?.name || 'Unknown'
   const theme = useMantineTheme()
 

@@ -1,6 +1,6 @@
 import { GetCurrentUserQuery } from '@queries'
 
-type GraphQLUser = GetCurrentUserQuery['users'][number]
+type GraphQLUser = NonNullable<GetCurrentUserQuery['users']['items']>[number]
 
 export interface User extends GraphQLUser {
   isImpersonation: boolean
