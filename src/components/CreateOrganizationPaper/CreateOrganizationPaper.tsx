@@ -5,15 +5,8 @@ import { GetCurrentUserDocument, useCreateOrganizationsMutation, CountryCodes, S
 import logo from 'assets/logo.png'
 import { useNavigate } from 'react-router-dom'
 import { useUserContext } from '@context'
-import { countryNameToAlpha3 } from '@lib'
+import { countryNameToAlpha3, formatEnumValue } from '@lib'
 import { useApolloClient } from '@apollo/client'
-
-const formatEnumValue = (value: string): string => {
-  return value
-    .toLowerCase()
-    .replace(/_/g, ' ')
-    .replace(/\b\w/g, (char) => char.toUpperCase())
-}
 
 export const CreateOrganizationPaper = () => {
   const client = useApolloClient()
@@ -58,7 +51,7 @@ export const CreateOrganizationPaper = () => {
     if (result.data) {
       await Promise.all([
         client.refetchQueries({
-          include: ['getOrganizations', 'getCurrentUser'],
+          include: ['getCurrentUser'],
         }),
       ])
     }

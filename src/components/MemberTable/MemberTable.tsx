@@ -26,7 +26,9 @@ interface Row {
 }
 
 interface Filters {
-  [key: string]: { contains?: string; equal?: string; is_true?: boolean }
+  contains?: { [key: string]: string }
+  equal?: { [key: string]: string }
+  is_true?: { [key: string]: boolean }
 }
 
 interface SortBy {
@@ -57,9 +59,9 @@ export const MemberTable = ({ organizationId }: MemberTableProps) => {
     }
   }, [sorting])
 
-  const filters = useMemo(() => {
+  const filterBy = useMemo(() => {
     const filters: Filters = {
-      organizationId: { equal: organizationId },
+      equal: { organizationId },
     }
 
     if (!columnFilters.length) return filters
@@ -70,12 +72,12 @@ export const MemberTable = ({ organizationId }: MemberTableProps) => {
       if (typeof filter.value === 'string') {
         if (filter.id === 'role') {
           // Send the role value in lowercase to match the backend enum
-          filters[fieldName] = { equal: filter.value.toLowerCase() }
+          filters.equal = { [fieldName]: filter.value.toLowerCase() }
         } else {
-          filters[fieldName] = { contains: filter.value }
+          filters.contains = { [fieldName]: filter.value }
         }
       } else if (typeof filter.value === 'boolean') {
-        filters[fieldName] = { is_true: filter.value }
+        filters.is_true = { [fieldName]: filter.value }
       }
     })
 
@@ -93,7 +95,7 @@ export const MemberTable = ({ organizationId }: MemberTableProps) => {
     data: usersData,
   } = useGetUsersQuery({
     variables: {
-      filters,
+      filterBy,
       sortBy,
     },
   })
@@ -106,8 +108,8 @@ export const MemberTable = ({ organizationId }: MemberTableProps) => {
   const rowData = useMemo(() => {
     if (!usersData) return []
 
-    return usersData.users
-      .filter((user) => {
+    return usersData.users.items
+      ?.filter((user) => {
         const status = user.inviteStatus?.toLowerCase()
         return !user.invited || status === 'accepted'
       })
@@ -180,7 +182,7 @@ export const MemberTable = ({ organizationId }: MemberTableProps) => {
     manualSorting: true,
     enableRowActions: true,
     positionActionsColumn: 'last',
-    renderRowActions: ({ row }) => <RowActions row={row} sortBy={sortBy} filters={filters} />,
+    renderRowActions: ({ row }) => <RowActions row={row} sortBy={sortBy} filters={filterBy} />,
     mantineToolbarAlertBannerProps: errorUsers
       ? {
           color: 'red',

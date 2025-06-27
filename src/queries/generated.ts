@@ -818,14 +818,6 @@ export type FilterBy = {
   startsWith?: InputMaybe<Scalars['JSON']['input']>
 }
 
-export type FilterOptions = {
-  contains?: InputMaybe<Scalars['String']['input']>
-  endsWith?: InputMaybe<Scalars['String']['input']>
-  equal?: InputMaybe<Scalars['String']['input']>
-  isTrue?: InputMaybe<Scalars['Boolean']['input']>
-  startsWith?: InputMaybe<Scalars['String']['input']>
-}
-
 export enum GeneralEnergyClass {
   ADVANCED = 'advanced',
   EXISTING = 'existing',
@@ -1197,22 +1189,28 @@ export type Organization = {
   name: Scalars['String']['output']
 }
 
-export type OrganizationFilter = {
-  address?: InputMaybe<FilterOptions>
-  city?: InputMaybe<FilterOptions>
-  country?: InputMaybe<FilterOptions>
-  id?: InputMaybe<FilterOptions>
-  metaData?: InputMaybe<OrganizationMetaDataFilter>
-  name?: InputMaybe<FilterOptions>
+export type OrganizationGraphQlResponse = {
+  __typename?: 'OrganizationGraphQLResponse'
+  /** Total number of items in the filtered dataset. */
+  count: Scalars['Int']['output']
+  /** The list of items in this pagination window. */
+  items?: Maybe<Array<Organization>>
+}
+
+export type OrganizationGraphQlResponseCountArgs = {
+  filterBy?: InputMaybe<FilterBy>
+}
+
+export type OrganizationGraphQlResponseItemsArgs = {
+  filterBy?: InputMaybe<FilterBy>
+  limit?: InputMaybe<Scalars['Int']['input']>
+  offset?: Scalars['Int']['input']
+  sortBy?: InputMaybe<SortBy>
 }
 
 export type OrganizationMetaData = {
   __typename?: 'OrganizationMetaData'
   stakeholders: Array<StakeholderEnum>
-}
-
-export type OrganizationMetaDataFilter = {
-  stakeholders?: InputMaybe<FilterOptions>
 }
 
 export type Owner = {
@@ -1456,22 +1454,13 @@ export type Query = {
   /** Returns all contributions of a user's organization */
   contributions: ContributionGraphQlResponse
   /** Returns all Organizations */
-  organizations: Array<Organization>
+  organizations: OrganizationGraphQlResponse
   /** Returns all projects of a user's organization */
   projects: ProjectGraphQlResponse
   /** Returns all Roles and their permissions */
   roles: Array<RolePermission>
   /** Returns all Users */
-  users: Array<User>
-}
-
-export type QueryOrganizationsArgs = {
-  filters?: InputMaybe<OrganizationFilter>
-}
-
-export type QueryUsersArgs = {
-  filters?: InputMaybe<UserFilters>
-  sortBy?: InputMaybe<UserSort>
+  users: UserGraphQlResponse
 }
 
 export type Results = {
@@ -1676,21 +1665,23 @@ export type User = {
   timeJoined: Scalars['DateTime']['output']
 }
 
-export type UserFilters = {
-  email?: InputMaybe<FilterOptions>
-  firstName?: InputMaybe<FilterOptions>
-  id?: InputMaybe<FilterOptions>
-  inviteStatus?: InputMaybe<FilterOptions>
-  invited?: InputMaybe<FilterOptions>
-  inviterName?: InputMaybe<FilterOptions>
-  lastName?: InputMaybe<FilterOptions>
-  organizationId?: InputMaybe<FilterOptions>
-  timeJoined?: InputMaybe<FilterOptions>
+export type UserGraphQlResponse = {
+  __typename?: 'UserGraphQLResponse'
+  /** Total number of items in the filtered dataset. */
+  count: Scalars['Int']['output']
+  /** The list of items in this pagination window. */
+  items?: Maybe<Array<User>>
 }
 
-export type UserSort = {
-  asc?: InputMaybe<Scalars['String']['input']>
-  dsc?: InputMaybe<Scalars['String']['input']>
+export type UserGraphQlResponseCountArgs = {
+  filterBy?: InputMaybe<FilterBy>
+}
+
+export type UserGraphQlResponseItemsArgs = {
+  filterBy?: InputMaybe<FilterBy>
+  limit?: InputMaybe<Scalars['Int']['input']>
+  offset?: Scalars['Int']['input']
+  sortBy?: InputMaybe<SortBy>
 }
 
 export type ValueUnit = {
@@ -1814,7 +1805,6 @@ export type ResolversTypes = {
   EmailAddress: ResolverTypeWrapper<Scalars['EmailAddress']['output']>
   Energy: ResolverTypeWrapper<Energy>
   FilterBy: FilterBy
-  FilterOptions: FilterOptions
   GeneralEnergyClass: GeneralEnergyClass
   ImpactCategoryKey: ImpactCategoryKey
   ImpactCategoryResults: ResolverTypeWrapper<ImpactCategoryResults>
@@ -1842,9 +1832,8 @@ export type ResolversTypes = {
   Location: ResolverTypeWrapper<Location>
   Mutation: ResolverTypeWrapper<{}>
   Organization: ResolverTypeWrapper<Organization>
-  OrganizationFilter: OrganizationFilter
+  OrganizationGraphQLResponse: ResolverTypeWrapper<OrganizationGraphQlResponse>
   OrganizationMetaData: ResolverTypeWrapper<OrganizationMetaData>
-  OrganizationMetaDataFilter: OrganizationMetaDataFilter
   Owner: ResolverTypeWrapper<Owner>
   Permission: Permission
   Product: ResolverTypeWrapper<Omit<Product, 'impactData'> & { impactData: ResolversTypes['EPDTechFlow'] }>
@@ -1881,8 +1870,7 @@ export type ResolversTypes = {
   UpdateContribution: UpdateContribution
   UpdateUserInput: UpdateUserInput
   User: ResolverTypeWrapper<User>
-  UserFilters: UserFilters
-  UserSort: UserSort
+  UserGraphQLResponse: ResolverTypeWrapper<UserGraphQlResponse>
   ValueUnit: ResolverTypeWrapper<ValueUnit>
 }
 
@@ -1918,7 +1906,6 @@ export type ResolversParentTypes = {
   EmailAddress: Scalars['EmailAddress']['output']
   Energy: Energy
   FilterBy: FilterBy
-  FilterOptions: FilterOptions
   ImpactCategoryResults: ImpactCategoryResults
   InputAggregation: InputAggregation
   InputAreaType: InputAreaType
@@ -1942,9 +1929,8 @@ export type ResolversParentTypes = {
   Location: Location
   Mutation: {}
   Organization: Organization
-  OrganizationFilter: OrganizationFilter
+  OrganizationGraphQLResponse: OrganizationGraphQlResponse
   OrganizationMetaData: OrganizationMetaData
-  OrganizationMetaDataFilter: OrganizationMetaDataFilter
   Owner: Owner
   Product: Omit<Product, 'impactData'> & { impactData: ResolversParentTypes['EPDTechFlow'] }
   ProductMetaData: ProductMetaData
@@ -1971,8 +1957,7 @@ export type ResolversParentTypes = {
   UpdateContribution: UpdateContribution
   UpdateUserInput: UpdateUserInput
   User: User
-  UserFilters: UserFilters
-  UserSort: UserSort
+  UserGraphQLResponse: UserGraphQlResponse
   ValueUnit: ValueUnit
 }
 
@@ -2412,6 +2397,26 @@ export type OrganizationResolvers<
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>
 }
 
+export type OrganizationGraphQlResponseResolvers<
+  ContextType = any,
+  ParentType extends
+    ResolversParentTypes['OrganizationGraphQLResponse'] = ResolversParentTypes['OrganizationGraphQLResponse'],
+> = {
+  count?: Resolver<
+    ResolversTypes['Int'],
+    ParentType,
+    ContextType,
+    RequireFields<OrganizationGraphQlResponseCountArgs, 'filterBy'>
+  >
+  items?: Resolver<
+    Maybe<Array<ResolversTypes['Organization']>>,
+    ParentType,
+    ContextType,
+    RequireFields<OrganizationGraphQlResponseItemsArgs, 'filterBy' | 'offset' | 'sortBy'>
+  >
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>
+}
+
 export type OrganizationMetaDataResolvers<
   ContextType = any,
   ParentType extends ResolversParentTypes['OrganizationMetaData'] = ResolversParentTypes['OrganizationMetaData'],
@@ -2663,20 +2668,10 @@ export type QueryResolvers<
   ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query'],
 > = {
   contributions?: Resolver<ResolversTypes['ContributionGraphQLResponse'], ParentType, ContextType>
-  organizations?: Resolver<
-    Array<ResolversTypes['Organization']>,
-    ParentType,
-    ContextType,
-    RequireFields<QueryOrganizationsArgs, 'filters'>
-  >
+  organizations?: Resolver<ResolversTypes['OrganizationGraphQLResponse'], ParentType, ContextType>
   projects?: Resolver<ResolversTypes['ProjectGraphQLResponse'], ParentType, ContextType>
   roles?: Resolver<Array<ResolversTypes['RolePermission']>, ParentType, ContextType>
-  users?: Resolver<
-    Array<ResolversTypes['User']>,
-    ParentType,
-    ContextType,
-    RequireFields<QueryUsersArgs, 'filters' | 'sortBy'>
-  >
+  users?: Resolver<ResolversTypes['UserGraphQLResponse'], ParentType, ContextType>
 }
 
 export type ResultsResolvers<
@@ -2813,6 +2808,25 @@ export type UserResolvers<
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>
 }
 
+export type UserGraphQlResponseResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['UserGraphQLResponse'] = ResolversParentTypes['UserGraphQLResponse'],
+> = {
+  count?: Resolver<
+    ResolversTypes['Int'],
+    ParentType,
+    ContextType,
+    RequireFields<UserGraphQlResponseCountArgs, 'filterBy'>
+  >
+  items?: Resolver<
+    Maybe<Array<ResolversTypes['User']>>,
+    ParentType,
+    ContextType,
+    RequireFields<UserGraphQlResponseItemsArgs, 'filterBy' | 'offset' | 'sortBy'>
+  >
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>
+}
+
 export type ValueUnitResolvers<
   ContextType = any,
   ParentType extends ResolversParentTypes['ValueUnit'] = ResolversParentTypes['ValueUnit'],
@@ -2848,6 +2862,7 @@ export type Resolvers<ContextType = any> = {
   Location?: LocationResolvers<ContextType>
   Mutation?: MutationResolvers<ContextType>
   Organization?: OrganizationResolvers<ContextType>
+  OrganizationGraphQLResponse?: OrganizationGraphQlResponseResolvers<ContextType>
   OrganizationMetaData?: OrganizationMetaDataResolvers<ContextType>
   Owner?: OwnerResolvers<ContextType>
   Product?: ProductResolvers<ContextType>
@@ -2867,6 +2882,7 @@ export type Resolvers<ContextType = any> = {
   TechFlow?: TechFlowResolvers<ContextType>
   UUID?: GraphQLScalarType
   User?: UserResolvers<ContextType>
+  UserGraphQLResponse?: UserGraphQlResponseResolvers<ContextType>
   ValueUnit?: ValueUnitResolvers<ContextType>
 }
 
@@ -2984,11 +3000,28 @@ export type AddContributionMutation = {
   addContributions: Array<{ __typename?: 'Contribution'; id: any }>
 }
 
-export type GetOrganizationsQueryVariables = Exact<{ [key: string]: never }>
+export type GetOrganizationsQueryVariables = Exact<{
+  limit?: InputMaybe<Scalars['Int']['input']>
+  offset?: InputMaybe<Scalars['Int']['input']>
+  sortBy?: InputMaybe<SortBy>
+  filterBy?: InputMaybe<FilterBy>
+}>
 
 export type GetOrganizationsQuery = {
   __typename?: 'Query'
-  organizations: Array<{ __typename?: 'Organization'; id: any; name: string }>
+  organizations: {
+    __typename?: 'OrganizationGraphQLResponse'
+    count: number
+    items?: Array<{
+      __typename?: 'Organization'
+      id: any
+      name: string
+      city: string
+      address: string
+      country: CountryCodes
+      metaData: { __typename?: 'OrganizationMetaData'; stakeholders: Array<StakeholderEnum> }
+    }> | null
+  }
 }
 
 export type CreateOrganizationsMutationVariables = Exact<{
@@ -3026,25 +3059,31 @@ export type UpdateOrganizationsMutation = {
 }
 
 export type GetUsersQueryVariables = Exact<{
-  filters?: InputMaybe<UserFilters>
-  sortBy?: InputMaybe<UserSort>
+  limit?: InputMaybe<Scalars['Int']['input']>
+  offset?: InputMaybe<Scalars['Int']['input']>
+  sortBy?: InputMaybe<SortBy>
+  filterBy?: InputMaybe<FilterBy>
 }>
 
 export type GetUsersQuery = {
   __typename?: 'Query'
-  users: Array<{
-    __typename?: 'User'
-    id: any
-    firstName?: string | null
-    lastName?: string | null
-    email: string
-    timeJoined: any
-    invited: boolean
-    inviteStatus: InviteStatus
-    inviterName?: string | null
-    roles?: Array<Role> | null
-    organization?: { __typename?: 'Organization'; id: any; name: string } | null
-  }>
+  users: {
+    __typename?: 'UserGraphQLResponse'
+    count: number
+    items?: Array<{
+      __typename?: 'User'
+      id: any
+      firstName?: string | null
+      lastName?: string | null
+      email: string
+      timeJoined: any
+      invited: boolean
+      inviteStatus: InviteStatus
+      inviterName?: string | null
+      roles?: Array<Role> | null
+      organization?: { __typename?: 'Organization'; id: any; name: string } | null
+    }> | null
+  }
 }
 
 export type GetCurrentUserQueryVariables = Exact<{
@@ -3053,24 +3092,27 @@ export type GetCurrentUserQueryVariables = Exact<{
 
 export type GetCurrentUserQuery = {
   __typename?: 'Query'
-  users: Array<{
-    __typename?: 'User'
-    id: any
-    firstName?: string | null
-    lastName?: string | null
-    email: string
-    roles?: Array<Role> | null
-    timeJoined: any
-    organization?: {
-      __typename?: 'Organization'
+  users: {
+    __typename?: 'UserGraphQLResponse'
+    items?: Array<{
+      __typename?: 'User'
       id: any
-      name: string
-      address: string
-      city: string
-      country: CountryCodes
-      metaData: { __typename?: 'OrganizationMetaData'; stakeholders: Array<StakeholderEnum> }
-    } | null
-  }>
+      firstName?: string | null
+      lastName?: string | null
+      email: string
+      roles?: Array<Role> | null
+      timeJoined: any
+      organization?: {
+        __typename?: 'Organization'
+        id: any
+        name: string
+        address: string
+        city: string
+        country: CountryCodes
+        metaData: { __typename?: 'OrganizationMetaData'; stakeholders: Array<StakeholderEnum> }
+      } | null
+    }> | null
+  }
 }
 
 export type UpdateUserMutationVariables = Exact<{
@@ -3785,7 +3827,7 @@ export type GetContributionsForHeaderQueryResult = Apollo.QueryResult<
   GetContributionsForHeaderQueryVariables
 >
 export const GetContributionsDocument = gql`
-  query getContributions($limit: Int, $offset: Int, $sortBy: SortBy, $filterBy: FilterBy) {
+  query getContributions($limit: Int, $offset: Int = 0, $sortBy: SortBy, $filterBy: FilterBy) {
     contributions {
       items(limit: $limit, offset: $offset, sortBy: $sortBy, filterBy: $filterBy) {
         id
@@ -3973,10 +4015,19 @@ export type AddContributionMutationOptions = Apollo.BaseMutationOptions<
   AddContributionMutationVariables
 >
 export const GetOrganizationsDocument = gql`
-  query getOrganizations {
+  query getOrganizations($limit: Int, $offset: Int = 0, $sortBy: SortBy, $filterBy: FilterBy) {
     organizations {
-      id
-      name
+      items(limit: $limit, offset: $offset, sortBy: $sortBy, filterBy: $filterBy) {
+        id
+        name
+        city
+        address
+        country
+        metaData {
+          stakeholders
+        }
+      }
+      count(filterBy: $filterBy)
     }
   }
 `
@@ -3993,6 +4044,10 @@ export const GetOrganizationsDocument = gql`
  * @example
  * const { data, loading, error } = useGetOrganizationsQuery({
  *   variables: {
+ *      limit: // value for 'limit'
+ *      offset: // value for 'offset'
+ *      sortBy: // value for 'sortBy'
+ *      filterBy: // value for 'filterBy'
  *   },
  * });
  */
@@ -4126,21 +4181,24 @@ export type UpdateOrganizationsMutationOptions = Apollo.BaseMutationOptions<
   UpdateOrganizationsMutationVariables
 >
 export const GetUsersDocument = gql`
-  query getUsers($filters: UserFilters, $sortBy: UserSort) {
-    users(filters: $filters, sortBy: $sortBy) {
-      id
-      firstName
-      lastName
-      email
-      timeJoined
-      invited
-      inviteStatus
-      inviterName
-      roles
-      organization {
+  query getUsers($limit: Int, $offset: Int = 0, $sortBy: SortBy, $filterBy: FilterBy) {
+    users {
+      items(limit: $limit, offset: $offset, sortBy: $sortBy, filterBy: $filterBy) {
         id
-        name
+        firstName
+        lastName
+        email
+        timeJoined
+        invited
+        inviteStatus
+        inviterName
+        roles
+        organization {
+          id
+          name
+        }
       }
+      count
     }
   }
 `
@@ -4157,8 +4215,10 @@ export const GetUsersDocument = gql`
  * @example
  * const { data, loading, error } = useGetUsersQuery({
  *   variables: {
- *      filters: // value for 'filters'
+ *      limit: // value for 'limit'
+ *      offset: // value for 'offset'
  *      sortBy: // value for 'sortBy'
+ *      filterBy: // value for 'filterBy'
  *   },
  * });
  */
@@ -4182,23 +4242,25 @@ export type GetUsersSuspenseQueryHookResult = ReturnType<typeof useGetUsersSuspe
 export type GetUsersQueryResult = Apollo.QueryResult<GetUsersQuery, GetUsersQueryVariables>
 export const GetCurrentUserDocument = gql`
   query getCurrentUser($id: String!) {
-    users(filters: { id: { equal: $id } }) {
-      id
-      firstName
-      lastName
-      email
-      roles
-      organization {
+    users {
+      items(filterBy: { equal: { id: $id } }, limit: 1) {
         id
-        name
-        address
-        city
-        country
-        metaData {
-          stakeholders
+        firstName
+        lastName
+        email
+        roles
+        organization {
+          id
+          name
+          address
+          city
+          country
+          metaData {
+            stakeholders
+          }
         }
+        timeJoined
       }
-      timeJoined
     }
   }
 `

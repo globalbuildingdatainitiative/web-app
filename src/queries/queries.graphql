@@ -44,7 +44,7 @@ query getContributionsForHeader {
   }
 }
 
-query getContributions($limit: Int, $offset: Int, $sortBy: SortBy, $filterBy: FilterBy) {
+query getContributions($limit: Int, $offset: Int = 0, $sortBy: SortBy, $filterBy: FilterBy) {
   contributions {
     items(limit: $limit, offset: $offset, sortBy: $sortBy, filterBy: $filterBy) {
       id
@@ -92,10 +92,19 @@ mutation addContribution($contributions: [InputContribution!]!) {
   }
 }
 
-query getOrganizations {
+query getOrganizations($limit: Int, $offset: Int = 0, $sortBy: SortBy, $filterBy: FilterBy) {
   organizations {
-    id
-    name
+    items(limit: $limit, offset: $offset, sortBy: $sortBy, filterBy: $filterBy) {
+      id
+      name
+      city
+      address
+      country
+      metaData {
+        stakeholders
+      }
+    }
+    count(filterBy: $filterBy)
   }
 }
 
@@ -125,42 +134,47 @@ mutation updateOrganizations($organizations: [InputOrganization!]!) {
   }
 }
 
-query getUsers($filters: UserFilters, $sortBy: UserSort) {
-  users(filters: $filters, sortBy: $sortBy) {
-    id
-    firstName
-    lastName
-    email
-    timeJoined
-    invited
-    inviteStatus
-    inviterName
-    roles
-    organization {
+query getUsers($limit: Int, $offset: Int = 0, $sortBy: SortBy, $filterBy: FilterBy) {
+  users {
+    items(limit: $limit, offset: $offset, sortBy: $sortBy, filterBy: $filterBy) {
       id
-      name
+      firstName
+      lastName
+      email
+      timeJoined
+      invited
+      inviteStatus
+      inviterName
+      roles
+      organization {
+        id
+        name
+      }
     }
+    count
   }
 }
 
 query getCurrentUser($id: String!) {
-  users(filters: { id: { equal: $id } }) {
-    id
-    firstName
-    lastName
-    email
-    roles
-    organization {
+  users {
+    items(filterBy: { equal: { id: $id } }, limit: 1) {
       id
-      name
-      address
-      city
-      country
-      metaData {
-        stakeholders
+      firstName
+      lastName
+      email
+      roles
+      organization {
+        id
+        name
+        address
+        city
+        country
+        metaData {
+          stakeholders
+        }
       }
+      timeJoined
     }
-    timeJoined
   }
 }
 
