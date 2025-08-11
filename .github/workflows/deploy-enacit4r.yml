@@ -18,4 +18,4 @@ jobs:
     with:
       org: gbdi
       repo: app
-      build_context: '["./Dockerfile.enac-it4r"]'
+      build_context: '["./"]'
