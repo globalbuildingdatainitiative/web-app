@@ -12,10 +12,11 @@ jobs:
     permissions:
       contents: read
       packages: write
-    uses: EPFL-ENAC/epfl-enac-build-push-deploy-action/.github/workflows/deploy.yml@v2.4.0
+    uses: EPFL-ENAC/epfl-enac-build-push-deploy-action/.github/workflows/deploy.yml@v2.4.1
     secrets:
       token: ${{ secrets.CD_TOKEN }}
     with:
       org: gbdi
       repo: app
+      image_name: web-app
       build_context: '["./"]'

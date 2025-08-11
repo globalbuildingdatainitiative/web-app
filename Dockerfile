@@ -36,14 +36,20 @@ COPY . .
 RUN npm run build
 
 # Production stage
-FROM nginx:1.27-alpine
+FROM nginx:stable-alpine-slim
 
-# Drop default server, add ours
-RUN rm -f /etc/nginx/conf.d/default.conf
+# Remove default nginx config
+RUN rm /etc/nginx/conf.d/default.conf
+
+# Copy nginx configuration
 COPY nginx.conf /etc/nginx/nginx.conf
 
 # Copy built static files from build stage
 COPY --from=builder /app/dist/ /usr/share/nginx/html
 
 EXPOSE 8000
+
+# Start nginx in foreground
+CMD ["nginx", "-g", "daemon off;"]
+
 HEALTHCHECK --interval=30s --timeout=3s CMD wget -qO- http://127.0.0.1:8000/health || exit 1
