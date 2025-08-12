@@ -3,26 +3,6 @@ FROM node:22-alpine AS builder
 
 WORKDIR /app
 
-# TODO: create an injectEnv.js to inject environment variables
-# dynamically to have only one build
-
-# Accept build arguments with defaults
-ARG VITE_APP_NAME=GBDI
-ARG VITE_GRAPHQL_API_DOMAIN=https://api.gbdi.io
-ARG VITE_WEB_DOMAIN=https://app.gbdi.io
-ARG VITE_AUTH_API_DOMAIN=https://api.gbdi.io
-ARG VITE_AUTH_API_PATH=/api/auth
-ARG VITE_AUTH_WEB_PATH=/auth
-
-
-# Set environment variables from build args
-ENV VITE_APP_NAME=${VITE_APP_NAME}
-ENV VITE_GRAPHQL_API_DOMAIN=${VITE_GRAPHQL_API_DOMAIN}
-ENV VITE_WEB_DOMAIN=${VITE_WEB_DOMAIN}
-ENV VITE_AUTH_API_DOMAIN=${VITE_AUTH_API_DOMAIN}
-ENV VITE_AUTH_API_PATH=${VITE_AUTH_API_PATH}
-ENV VITE_AUTH_WEB_PATH=${VITE_AUTH_WEB_PATH}
-
 # Copy package files for dependency installation
 COPY package.json package-lock.json ./
 
@@ -50,9 +30,8 @@ COPY --from=builder /app/dist/ /usr/share/nginx/html
 EXPOSE 8000
 
 # Create app directory for entrypoint to dynamically inject env variables
-RUN mkdir /app
-COPY entrypoint.sh /app/entrypoint.sh
-ENTRYPOINT ["/app/entrypoint.sh"]
+COPY entrypoint.sh /usr/share/nginx/html/entrypoint.sh
+ENTRYPOINT ["/usr/share/nginx/html/entrypoint.sh"]
 
 # Start nginx in foreground
 CMD ["nginx", "-g", "daemon off;"]
