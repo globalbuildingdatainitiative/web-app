@@ -8,14 +8,15 @@ import SuperTokens, { SuperTokensWrapper } from 'supertokens-auth-react'
 import EmailPassword from 'supertokens-auth-react/recipe/emailpassword'
 import Session from 'supertokens-auth-react/recipe/session'
 import { GraphQLProvider } from '@context'
+import { env } from "./config";
 
 SuperTokens.init({
   appInfo: {
-    appName: import.meta.env.VITE_APP_NAME,
-    apiDomain: import.meta.env.VITE_AUTH_API_DOMAIN,
-    websiteDomain: import.meta.env.VITE_WEB_DOMAIN,
-    apiBasePath: import.meta.env.VITE_AUTH_API_PATH,
-    websiteBasePath: import.meta.env.VITE_AUTH_WEB_PATH,
+    appName: env.VITE_APP_NAME,
+    apiDomain: env.VITE_AUTH_API_DOMAIN,
+    websiteDomain: env.VITE_WEB_DOMAIN,
+    apiBasePath: env.VITE_AUTH_API_PATH,
+    websiteBasePath: env.VITE_AUTH_WEB_PATH,
   },
   useShadowDom: false,
   style: `

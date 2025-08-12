@@ -49,6 +49,11 @@ COPY --from=builder /app/dist/ /usr/share/nginx/html
 
 EXPOSE 8000
 
+# Create app directory for entrypoint to dynamically inject env variables
+RUN mkdir /app
+COPY entrypoint.sh /app/entrypoint.sh
+ENTRYPOINT ["/app/entrypoint.sh"]
+
 # Start nginx in foreground
 CMD ["nginx", "-g", "daemon off;"]
 
