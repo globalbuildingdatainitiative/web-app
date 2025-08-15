@@ -1,8 +1,8 @@
 declare global {
   interface Window {
-    injectedEnvVariable: ProcessEnv;
-    _env: ProcessEnv;
+    injectedEnvVariable: ProcessEnv
+    _env: ProcessEnv
   }
 }
 
-export {};
+export {}

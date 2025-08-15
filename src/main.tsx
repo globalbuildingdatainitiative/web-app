@@ -8,7 +8,7 @@ import SuperTokens, { SuperTokensWrapper } from 'supertokens-auth-react'
 import EmailPassword from 'supertokens-auth-react/recipe/emailpassword'
 import Session from 'supertokens-auth-react/recipe/session'
 import { GraphQLProvider } from '@context'
-import { env } from "./config";
+import { env } from './config'
 
 SuperTokens.init({
   appInfo: {

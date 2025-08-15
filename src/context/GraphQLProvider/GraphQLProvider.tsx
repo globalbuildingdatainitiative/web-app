@@ -4,7 +4,7 @@ import { ApolloClient, ApolloProvider, createHttpLink, from, InMemoryCache } fro
 import { onError } from '@apollo/client/link/error'
 import SuperTokens from 'supertokens-auth-react'
 import { useLocation } from 'react-router-dom'
-import { env } from "../../config";
+import { env } from '../../config'
 
 type GraphQlProviderProps = {
   children: ReactNode
