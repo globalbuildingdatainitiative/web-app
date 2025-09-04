@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.1.0](https://github.com/globalbuildingdatainitiative/web-app/compare/v1.0.1...v1.1.0) (2025-09-04)
+
+
+### Features
+
+* **gbdi:** Add Asana form for greetings Closes [#353](https://github.com/globalbuildingdatainitiative/web-app/issues/353) ([5ec2dd6](https://github.com/globalbuildingdatainitiative/web-app/commit/5ec2dd62cbf13b299ac544e59880fa8f1268c40f))
+
+
+### Bug Fixes
+
+* **Greeting:** adjust greeting layout and reposition Beta badge fixes [#353](https://github.com/globalbuildingdatainitiative/web-app/issues/353) ([c6c1f60](https://github.com/globalbuildingdatainitiative/web-app/commit/c6c1f6094c8074c278b212dec4936b96ec3ca676))
+
 ## 1.0.0 (2025-08-20)
 
 
