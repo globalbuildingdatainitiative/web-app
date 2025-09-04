@@ -15,8 +15,18 @@ export const Greeting = () => {
       <Group justify='space-between' align='flex-start' w='100%'>
         <Group pt='md'>
           <Title order={3} style={{ paddingLeft: '10px', marginTop: '10px' }}>
-            Hello {user?.firstName} 👋🏼
+            {/* <!-- Add same space before than after-->  */}
+            👋🏼 <span style={{ marginLeft: '10px' }}>Hello {user?.firstName}</span>
           </Title>
+          <Badge color='purple' variant='light' size='lg' style={{ marginTop: '12px' }}>
+            Beta
+          </Badge>
+          {user?.isImpersonation && (
+            <Title order={3} c='red'>
+              {' '}
+              (Impersonating as Admin)
+            </Title>
+          )}
           <ActionIcon
             onClick={() => setHelpModalOpened(true)}
             color='orange'
@@ -33,15 +43,6 @@ export const Greeting = () => {
             onClose={() => setHelpModalOpened(false)}
             formUrl='https://form.asana.com/?k=xh0ZrlKv2-gVplAEqvkKHQ&d=657131673058940&embed=true'
           />
-          <Badge color='purple' variant='light' size='lg' style={{ marginTop: '12px' }}>
-            Beta
-          </Badge>
-          {user?.isImpersonation && (
-            <Title order={3} c='red'>
-              {' '}
-              (Impersonating as Admin)
-            </Title>
-          )}
         </Group>
 
         <Stack align='flex-end' pr='30px' gap='xs' style={{ marginRight: '10px', marginTop: '5px' }}>
