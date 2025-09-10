@@ -61,7 +61,7 @@ export const MemberTable = ({ organizationId }: MemberTableProps) => {
 
   const filterBy = useMemo(() => {
     const filters: Filters = {
-      equal: { organizationId },
+      contains: { data: organizationId },
     }
 
     if (!columnFilters.length) return filters
