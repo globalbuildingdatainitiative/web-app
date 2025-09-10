@@ -215,7 +215,7 @@ export const ContributionTable = () => {
         header: 'User',
         enableEditing: false,
         enableSorting: false,
-        enableColumnFilter: false,
+        enableColumnFilter: true,
         Cell: ({ row }) => {
           const firstName = row.original.user?.firstName ?? 'N/A'
           const lastName = row.original.user?.lastName ?? 'N/A'
