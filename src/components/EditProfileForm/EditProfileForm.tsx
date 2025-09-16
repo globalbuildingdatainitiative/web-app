@@ -4,6 +4,9 @@ import { isEmail, useForm } from '@mantine/form'
 import { GetCurrentUserDocument, useUpdateUserMutation } from '@queries'
 import { useUserContext } from '@context'
 import { useState } from 'react'
+import { showErrorNotification, showSuccessNotification } from 'lib/uiUtils/notifications'
+import { makeErrorMessageFromOptionalString } from 'lib/uiUtils/errors'
+import { ApolloError } from '@apollo/client'
 
 interface UserInputValues {
   firstName: string
@@ -55,11 +58,14 @@ export const EditProfileForm = () => {
       })
       form.resetDirty()
       setErrorMessage(null)
+
+      showSuccessNotification('Profile Updated', 'Your profile has been updated successfully.')
     } catch (error) {
       console.error(error)
-      setErrorMessage(
-        'An error occurred while updating your profile. Please try again. If the problem persists, contact support at office@gbdi.io.',
-      )
+      const messages = (error as ApolloError).graphQLErrors.map((err) => err.message)
+      const errorMessage = makeErrorMessageFromOptionalString(`${messages.join('\n')}.`)
+      setErrorMessage(errorMessage)
+      showErrorNotification('Error', errorMessage)
     }
   }
 
@@ -68,6 +74,7 @@ export const EditProfileForm = () => {
       <Title order={3} mb='md'>
         Edit Profile
       </Title>
+
       {errorMessage && (
         <Alert color='red' mb='md'>
           {errorMessage}
