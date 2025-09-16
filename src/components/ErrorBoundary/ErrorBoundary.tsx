@@ -1,6 +1,7 @@
 import * as React from 'react'
 import { Center, Title } from '@mantine/core'
 import { ErrorMessage } from '@components'
+import { makeErrorFromOptionalString } from 'lib/uiUtils/errors'
 
 interface Props {
   children?: React.ReactNode
@@ -33,9 +34,7 @@ export class ErrorBoundary extends React.Component<Props, State> {
           <ErrorMessage
             error={
               this.state.error
-                ? {
-                    message: `${this.state.error.message}. If the problem persists, contact support at office@gbdi.io.`,
-                  }
+                ? makeErrorFromOptionalString(this.state.error.message)
                 : null
             }
           />
