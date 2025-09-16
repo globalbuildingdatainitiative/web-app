@@ -5,6 +5,7 @@ import { BoxPlot, ErrorBoundary, ErrorMessage, Loading, SpiderChart } from '@com
 import { useMemo } from 'react'
 import { formatStages, phases, snakeCaseToHumanCase, useAggregatedProjectStatistics } from '@lib'
 import { useViewportSize } from '@mantine/hooks'
+import { makeErrorFromOptionalString } from 'lib/uiUtils/errors'
 
 type Project = NonNullable<GetProjectDetailsQuery['contributions']['items']>[number]['project']
 
@@ -160,13 +161,8 @@ export const ProjectDetailsReference = (props: ProjectDetailsReferenceProps) => 
           </Center>
         </ErrorBoundary>
       </Group>
-      {aggError ? (
-        <ErrorMessage
-          error={{
-            message: `${aggError?.message || 'An error occurred while loading project data. Please try again later.'} Contact support: office@gbdi.io`,
-          }}
-        />
-      ) : null}
+
+      {aggError && <ErrorMessage error={makeErrorFromOptionalString(aggError.message)} />}
     </Stack>
   )
 }

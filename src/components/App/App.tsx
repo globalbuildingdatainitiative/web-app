@@ -7,6 +7,7 @@ import '@mantine/dropzone/styles.css'
 import '@mantine/charts/styles.css'
 import '@mantine/notifications/styles.css';
 import { useUserContext } from '@context'
+import { makeErrorFromOptionalString } from 'lib/uiUtils/errors';
 
 export const App = () => {
   const { user, loading, error } = useUserContext()
@@ -21,11 +22,7 @@ export const App = () => {
       ) : null}
       {error ? (
         <Center style={{ height: '100vh' }}>
-          <ErrorMessage
-            error={{
-              message: `An error occurred. Please try again. If the problem persists, contact support at office@gbdi.io. Error: ${error.message}`,
-            }}
-          />
+          <ErrorMessage error={makeErrorFromOptionalString(error?.message)}/>
         </Center>
       ) : null}
       {user ? <AppRouter /> : null}

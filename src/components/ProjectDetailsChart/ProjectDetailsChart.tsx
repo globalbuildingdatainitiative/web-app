@@ -15,6 +15,7 @@ import {
 } from 'recharts'
 import { useViewportSize } from '@mantine/hooks'
 import { NameType, ValueType } from 'recharts/types/component/DefaultTooltipContent'
+import { makeErrorFromOptionalString } from 'lib/uiUtils/errors'
 
 type Project = NonNullable<GetProjectDetailsQuery['contributions']['items']>[number]['project']
 
@@ -104,13 +105,7 @@ export const ProjectDetailsChart = (props: ProjectDetailsChartProps) => {
           </ResponsiveContainer>
         )}
       </Center>
-      {error ? (
-        <ErrorMessage
-          error={{
-            message: `${error.message || 'An error occurred while loading project data. Please try again later.'} Contact support: office@gbdi.io`,
-          }}
-        />
-      ) : null}
+      {error && <ErrorMessage error={makeErrorFromOptionalString(error.message)} />}
     </Stack>
   )
 }
