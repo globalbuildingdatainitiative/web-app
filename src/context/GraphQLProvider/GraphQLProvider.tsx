@@ -4,6 +4,7 @@ import { ApolloClient, ApolloProvider, createHttpLink, from, InMemoryCache } fro
 import { onError } from '@apollo/client/link/error'
 import SuperTokens from 'supertokens-auth-react'
 import { useLocation } from 'react-router-dom'
+import { env } from '../../config'
 
 type GraphQlProviderProps = {
   children: ReactNode
@@ -12,7 +13,7 @@ type GraphQlProviderProps = {
 export const GraphQLProvider = ({ children }: GraphQlProviderProps) => {
   const location = useLocation()
   const httpLink = createHttpLink({
-    uri: `${import.meta.env.VITE_GRAPHQL_API_DOMAIN}/graphql`,
+    uri: `${env.VITE_GRAPHQL_API_DOMAIN}/graphql`,
     credentials: 'include',
   })
 

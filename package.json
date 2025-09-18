@@ -1,7 +1,7 @@
 {
   "name": "gbdi-frontend",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite --port 8000 --host",
@@ -81,6 +81,7 @@
     "prettier": "^3.2.5",
     "typescript": "^5.2.2",
     "vite": "^5.1.6",
+    "vite-plugin-html": "^3.2.2",
     "vite-plugin-wasm": "^3.3.0",
     "vite-tsconfig-paths": "^4.3.2",
     "vitest": "^1.6.0"
