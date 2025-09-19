@@ -4,6 +4,7 @@ import 'leaflet/dist/leaflet.css'
 import { Center, Text, useMantineTheme } from '@mantine/core'
 import { ErrorMessage, Loading } from '@components'
 import { useViewportSize } from '@mantine/hooks'
+import { makeErrorFromOptionalString } from 'lib/uiUtils/errors'
 
 interface GlobalMapProps {
   loading: boolean
@@ -79,11 +80,7 @@ export const GlobalMap = (props: GlobalMapProps) => {
           </MapContainer>
         </div>
       )}
-      {mapError ? (
-        <ErrorMessage
-          error={{ message: `${mapError.message}. If the problem persists, contact support at office@gbdi.io.` }}
-        />
-      ) : null}
+      {mapError && <ErrorMessage error={makeErrorFromOptionalString(mapError.message)} />}
     </div>
   )
 }
