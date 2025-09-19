@@ -5,6 +5,7 @@ import type { MRT_VisibilityState } from 'mantine-react-table'
 import { ChartContainer, ErrorMessage, Loading, SubBarChart } from '@components'
 import { IconExclamationCircle } from '@tabler/icons-react'
 import { alpha3ToCountryName, camelCaseToHumanCase, snakeCaseToHumanCase } from '@lib'
+import { makeErrorFromOptionalString } from 'lib/uiUtils/errors'
 
 interface BucketResult {
   _id: number | string | { min: number; max: number } | null
@@ -321,9 +322,7 @@ export const AttributeChart = (props: AttributeChartProps) => {
   } else if (projectError) {
     return (
       <ErrorMessage
-        error={{
-          message: `An error occurred. Please try again. If the problem persists, contact support at office@gbdi.io. Error: ${projectError.message}`,
-        }}
+        error={makeErrorFromOptionalString(projectError.message)}
       />
     )
   }

@@ -2,6 +2,7 @@ import { ErrorBoundary, ErrorMessage, GlobalBoxPlot, GlobalMap, Paper } from '@c
 import { Grid, Title } from '@mantine/core'
 import { useMemo, useState } from 'react'
 import { LifeCycleStage, useGetProjectDataForBoxPlotQuery } from '@queries'
+import { makeErrorFromOptionalString } from 'lib/uiUtils/errors'
 
 export interface FilterState {
   selectedTypologies: string[]
@@ -129,9 +130,7 @@ export const DashboardPaper = () => {
       </Grid>
       {error ? (
         <ErrorMessage
-          error={
-            error ? { message: `${error.message}. If the problem persists, contact support at office@gbdi.io.` } : null
-          }
+          error={makeErrorFromOptionalString(error.message)}
         />
       ) : null}
     </Paper>

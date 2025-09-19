@@ -12,6 +12,7 @@ import { useGetProjectDetailsQuery } from '@queries'
 import { useMemo, useState } from 'react'
 import { IconPrinter } from '@tabler/icons-react'
 import domtoimage from 'dom-to-image'
+import { makeErrorFromOptionalString } from 'lib/uiUtils/errors'
 
 interface ProjectDetailsPaperProps {
   projectId: string
@@ -89,13 +90,9 @@ export const ProjectDetailsPaper = (props: ProjectDetailsPaperProps) => {
       <ErrorBoundary>
         <ProjectMetadataTable project={project} loading={loading} />
       </ErrorBoundary>
-      {error ? (
-        <ErrorMessage
-          error={{
-            message: `${error?.message || 'An error occurred while loading project data. Please try again later.'} Contact support: office@gbdi.io`,
-          }}
-        />
-      ) : null}
+
+      {error && <ErrorMessage error={makeErrorFromOptionalString(error.message)} />}
+      
       {printError && (
         <ErrorMessage
           error={{
