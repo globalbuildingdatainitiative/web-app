@@ -63,7 +63,7 @@ export const EditProfileForm = () => {
     } catch (error) {
       console.error(error)
       const messages = (error as ApolloError).graphQLErrors.map((err) => err.message)
-      const errorMessage = makeErrorMessageFromOptionalString(`${messages.join('\n')}.`)
+      const errorMessage = makeErrorMessageFromOptionalString(messages.join('\n'))
       setErrorMessage(errorMessage)
       showErrorNotification('Error', errorMessage)
     }
