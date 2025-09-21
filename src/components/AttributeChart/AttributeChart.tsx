@@ -320,11 +320,7 @@ export const AttributeChart = (props: AttributeChartProps) => {
   } else if (projectLoading) {
     return <Loading />
   } else if (projectError) {
-    return (
-      <ErrorMessage
-        error={makeErrorFromOptionalString(projectError.message)}
-      />
-    )
+    return <ErrorMessage error={makeErrorFromOptionalString(projectError.message)} />
   }
 
   const gridColumns = transformedProjectData.length > 4 ? 3 : 2
