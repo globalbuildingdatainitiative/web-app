@@ -128,11 +128,7 @@ export const DashboardPaper = () => {
           </ErrorBoundary>
         </Grid.Col>
       </Grid>
-      {error ? (
-        <ErrorMessage
-          error={makeErrorFromOptionalString(error.message)}
-        />
-      ) : null}
+      {error ? <ErrorMessage error={makeErrorFromOptionalString(error.message)} /> : null}
     </Paper>
   )
 }
