@@ -92,7 +92,7 @@ export const ProjectDetailsPaper = (props: ProjectDetailsPaperProps) => {
       </ErrorBoundary>
 
       {error && <ErrorMessage error={makeErrorFromOptionalString(error.message)} />}
-      
+
       {printError && (
         <ErrorMessage
           error={{
