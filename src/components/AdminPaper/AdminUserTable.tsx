@@ -44,13 +44,14 @@ export const AdminUserTable = () => {
 
     const filters = columnFilters.reduce<FilterAccumulator>(
       (acc, filter) => {
-        // const fieldName = filter.id.split('.').pop() || filter.id
+        // debugger
+        const fieldName = filter.id.split('.').pop() || filter.id
         return {
           ...acc,
           equal: acc.equal, // Maintain the equal object
           contains: {
             ...acc.contains,
-            data: filter.value,
+            [fieldName]: filter.value,
           },
         }
       },
