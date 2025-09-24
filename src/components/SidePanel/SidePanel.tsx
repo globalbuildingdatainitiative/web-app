@@ -12,6 +12,7 @@ import {
   IconUserStar,
   IconListDetails,
   type Icon,
+  IconTableOptions,
 } from '@tabler/icons-react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { theme, SignOut } from '@components'
@@ -44,7 +45,7 @@ export const SidePanel = ({ collapsed, toggleCollapsed }: SidePanelProps) => {
   const menuSections: MenuSection[] = [
     {
       name: 'Global Database',
-      items: [{ name: 'Dashboard', Logo: IconDashboard, link: '/', roles: [] }],
+      items: [{ name: 'Dashboard', Logo: IconDashboard, link: '/', roles: [] }, { name: 'Plot Designer', Logo: IconTableOptions, link: '/plot-designer', roles: [] }],
     },
     {
       name: 'Portfolio Analysis',

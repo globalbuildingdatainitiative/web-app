@@ -10,6 +10,7 @@ const AddMembersPage = lazy(() => import('../../pages/AddMembersPage'))
 const ContributionPage = lazy(() => import('../../pages/ContributionPage'))
 const ContributeNowPage = lazy(() => import('../../pages/ContributeNowPage'))
 const DashboardPage = lazy(() => import('../../pages/DashboardPage'))
+const PlotDesignerPage = lazy(() => import('../../pages/PlotDesignerPage'))
 const OrganizationPage = lazy(() => import('../../pages/OrganizationPage'))
 const CreateOrganizationPage = lazy(() => import('../../pages/CreateOrganizationPage'))
 const EditProfilePage = lazy(() => import('../../pages/EditProfilePage'))
@@ -44,6 +45,7 @@ export const AppRouter = () => {
       <Routes>
         <Route element={<AppLayout />}>
           <Route path='/' element={<DashboardPage />} />
+          <Route path='/plot-designer' element={<PlotDesignerPage />} />
           <Route
             path='/admin'
             element={
