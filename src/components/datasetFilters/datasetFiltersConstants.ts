@@ -1,4 +1,4 @@
-import { BuildingTypology, GetProjectDataForBoxPlotQuery, LifeCycleStage } from "queries/generated"
+import { BuildingTypology, GetProjectDataForBoxPlotQuery, LifeCycleStage } from 'queries/generated'
 
 const formatEnumValue = (value: string): string => {
   return value
@@ -81,10 +81,10 @@ type PlotDesignerDataFilterSelection<T> = {
   value: T
 }
 
-function disabledFilter<T>(value: T): PlotDesignerDataFilterSelection<T> {
+function makeFilter<T>(value: T, enabled: boolean = false): PlotDesignerDataFilterSelection<T> {
   return {
-    enabled: false,
-    value
+    enabled,
+    value,
   }
 }
 
@@ -100,37 +100,56 @@ export interface PlotDesignerDataFiltersSelection {
 
 export function defaultFilters(): PlotDesignerDataFiltersSelection {
   return {
-    typologies: disabledFilter([]),
-    lifeCycleStages: disabledFilter([LifeCycleStage.A1A3]),
-    countries: disabledFilter([]),
-    software: disabledFilter([]),
-    sources: disabledFilter([]),
-    gfaRange: disabledFilter([0, 0]),
-    confirmedGfaRange: disabledFilter([0, 0])
+    typologies: makeFilter([]),
+    lifeCycleStages: makeFilter([LifeCycleStage.A1A3], true),
+    countries: makeFilter([]),
+    software: makeFilter([]),
+    sources: makeFilter([]),
+    gfaRange: makeFilter([100, 5000], true),
+    confirmedGfaRange: makeFilter([0, 0]),
   }
 }
 
-export function filtersToAggregation(filters: PlotDesignerDataFiltersSelection): object[] {
-  const divideAggregation = filters.lifeCycleStages.enabled ? {
-    $sum: filters.lifeCycleStages.value.map((stage) => `$results.gwp.${stage.toLowerCase()}`),
-  } : null
+export interface PlotDesignerPlotParameters {
+  quantity: 'gwp' | 'gwp_per_m2'
+  lifeCycleStagesToInclude: LifeCycleStage[]
+  groupBy: 'country' | 'buildingType' | 'software' | 'source'
+}
 
-  const stageFilters = filters.lifeCycleStages.enabled ? filters.lifeCycleStages.value.map((stage) => ({
-    [`results.gwp.${stage.toLowerCase()}`]: { $gt: 0 },
-  })) : []
+export function defaultPlotParameters(): PlotDesignerPlotParameters {
+  return {
+    quantity: 'gwp',
+    lifeCycleStagesToInclude: [LifeCycleStage.A1A3],
+    groupBy: 'country',
+  }
+}
 
-  const gfaFilter = filters.gfaRange.enabled ? {
-    'projectInfo.grossFloorArea.value': {
-      $gte: filters.gfaRange.value[0],
-      $lte: filters.gfaRange.value[1],
-    },
-  } : null
+export interface PlotDesignerPlotSettings {
+  filters: PlotDesignerDataFiltersSelection
+  plotParameters: PlotDesignerPlotParameters
+}
+
+export function matchStageFromFilters(filters: PlotDesignerDataFiltersSelection): object[] {
+  const stageFilters = filters.lifeCycleStages.enabled
+    ? filters.lifeCycleStages.value.map((stage) => ({
+        [`results.gwp.${stage.toLowerCase()}`]: { $gt: 0 },
+      }))
+    : []
+
+  const gfaFilter = filters.gfaRange.enabled
+    ? {
+        'projectInfo.grossFloorArea.value': {
+          $gte: filters.gfaRange.value[0],
+          $lte: filters.gfaRange.value[1],
+        },
+      }
+    : null
 
   const filtersToApply: object[] = [...stageFilters]
   if (gfaFilter) filtersToApply.push(gfaFilter)
 
   const typologyFilter =
-    (filters.typologies.value.length > 0 && filters.typologies.enabled)
+    filters.typologies.value.length > 0 && filters.typologies.enabled
       ? { 'projectInfo.buildingTypology': { $in: filters.typologies.value } }
       : {}
   if (typologyFilter) {
@@ -138,7 +157,7 @@ export function filtersToAggregation(filters: PlotDesignerDataFiltersSelection):
   }
 
   const countryFilter =
-    (filters.countries.value.length > 0 && filters.countries.enabled)
+    filters.countries.value.length > 0 && filters.countries.enabled
       ? { 'location.country': { $in: filters.countries.value } }
       : {}
   if (countryFilter) {
@@ -146,7 +165,7 @@ export function filtersToAggregation(filters: PlotDesignerDataFiltersSelection):
   }
 
   const softwareFilter =
-    (filters.software.value.length > 0 && filters.software.enabled)
+    filters.software.value.length > 0 && filters.software.enabled
       ? { 'softwareInfo.lcaSoftware': { $in: filters.software.value } }
       : {}
   if (softwareFilter) {
@@ -154,39 +173,69 @@ export function filtersToAggregation(filters: PlotDesignerDataFiltersSelection):
   }
 
   const sourceFilter =
-    (filters.sources.value.length > 0 && filters.sources.enabled)
+    filters.sources.value.length > 0 && filters.sources.enabled
       ? { 'metaData.source.name': { $in: filters.sources.value } }
       : {}
   if (sourceFilter) {
     filtersToApply.push(sourceFilter)
   }
 
+  return filtersToApply
+}
+
+export function computationFromPlotParameters(plotParameters: PlotDesignerPlotParameters): object {
+  const gwpSum = {
+    $sum: plotParameters.lifeCycleStagesToInclude.map((stage) => `$results.gwp.${stage.toLowerCase()}`),
+  }
+
+  if (plotParameters.quantity === 'gwp_per_m2') {
+    return { $divide: [gwpSum, '$projectInfo.grossFloorArea.value'] }
+  } else {
+    return gwpSum
+  }
+}
+
+export function groupByFromPlotParameters(plotParameters: PlotDesignerPlotParameters): string {
+  let groupBy = '$location.country'
+  if (plotParameters.groupBy === 'buildingType') {
+    groupBy = '$projectInfo.buildingType'
+  } else if (plotParameters.groupBy === 'software') {
+    groupBy = '$softwareInfo.lcaSoftware'
+  } else if (plotParameters.groupBy === 'source') {
+    groupBy = '$metaData.source.name'
+  }
+  return groupBy
+}
+
+export function filtersToAggregation(settings: PlotDesignerPlotSettings): object[] {
+  const computation = computationFromPlotParameters(settings.plotParameters)
+
   return [
     {
       $match: {
-        $and: filtersToApply,
+        $and: matchStageFromFilters(settings.filters),
       },
     },
     {
       $group: {
-        _id: '$location.country',
+        _id: groupByFromPlotParameters(settings.plotParameters),
         count: { $sum: 1 },
-        minimum: { $min: { $divide: [divideAggregation, '$projectInfo.grossFloorArea.value'] } },
+        minimum: { $min: computation },
         percentiles: {
           $percentile: {
             p: [0.25, 0.75],
             method: 'approximate',
-            input: { $divide: [divideAggregation, '$projectInfo.grossFloorArea.value'] },
+            input: computation,
           },
         },
         median: {
           $median: {
             method: 'approximate',
-            input: { $divide: [divideAggregation, '$projectInfo.grossFloorArea.value'] },
+            input: computation,
           },
         },
-        maximum: { $max: { $divide: [divideAggregation, '$projectInfo.grossFloorArea.value'] } },
-        average: { $avg: { $divide: [divideAggregation, '$projectInfo.grossFloorArea.value'] } },
+        maximum: { $max: computation },
+        average: { $avg: computation },
       },
     },
     {

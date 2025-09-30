@@ -1,14 +1,20 @@
-import { MultiSelect, RangeSlider, Switch } from "@mantine/core"
-import { type GetProjectDataForBoxPlotQuery, LifeCycleStage } from "@queries"
-import { useMemo } from "react"
-import { buildingTypologyOptions, countryOptionsFromData, lifeCycleOptions, PlotDesignerDataFiltersSelection, softwareOptionsFromData, sourceOptionsFromData } from "./datasetFiltersConstants"
+import { MultiSelect, RangeSlider, Switch } from '@mantine/core'
+import { type GetProjectDataForBoxPlotQuery, LifeCycleStage } from '@queries'
+import { useMemo } from 'react'
+import {
+  buildingTypologyOptions,
+  countryOptionsFromData,
+  lifeCycleOptions,
+  PlotDesignerDataFiltersSelection,
+  softwareOptionsFromData,
+  sourceOptionsFromData,
+} from './datasetFiltersConstants'
 
 interface PlotDesignerDataFiltersProps {
-  filters: PlotDesignerDataFiltersSelection;
-  onFilterChange: (f: PlotDesignerDataFiltersSelection) => any;
-  data: GetProjectDataForBoxPlotQuery | undefined;
+  filters: PlotDesignerDataFiltersSelection
+  onFilterChange: (f: PlotDesignerDataFiltersSelection) => any
+  data: GetProjectDataForBoxPlotQuery | undefined
 }
-
 
 export const PlotDesignerDataFilters = ({ filters, onFilterChange, data }: PlotDesignerDataFiltersProps) => {
   function setFieldEnabled(field: keyof PlotDesignerDataFiltersSelection, enabled: boolean) {
@@ -16,17 +22,20 @@ export const PlotDesignerDataFilters = ({ filters, onFilterChange, data }: PlotD
       ...filters,
       [field]: {
         enabled,
-        value: filters[field].value
-      }
+        value: filters[field].value,
+      },
     })
   }
-  function setFieldValue(field: keyof PlotDesignerDataFiltersSelection, value: string[] | LifeCycleStage[] | [number, number]) {
+  function setFieldValue(
+    field: keyof PlotDesignerDataFiltersSelection,
+    value: string[] | LifeCycleStage[] | [number, number],
+  ) {
     onFilterChange({
       ...filters,
       [field]: {
         enabled: filters[field].enabled,
-        value
-      }
+        value,
+      },
     })
   }
 
@@ -45,7 +54,7 @@ export const PlotDesignerDataFilters = ({ filters, onFilterChange, data }: PlotD
   }, [data])
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'row', gap: '12px', flexWrap: 'wrap' }}>
+    <div style={{ display: 'flex', flexDirection: 'row', gap: '16px', flexWrap: 'wrap' }}>
       <MultiSelect
         data={buildingTypologyOptions}
         value={filters.typologies.value}

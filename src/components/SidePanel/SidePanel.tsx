@@ -45,7 +45,10 @@ export const SidePanel = ({ collapsed, toggleCollapsed }: SidePanelProps) => {
   const menuSections: MenuSection[] = [
     {
       name: 'Global Database',
-      items: [{ name: 'Dashboard', Logo: IconDashboard, link: '/', roles: [] }, { name: 'Plot Designer', Logo: IconTableOptions, link: '/plot-designer', roles: [] }],
+      items: [
+        { name: 'Dashboard', Logo: IconDashboard, link: '/', roles: [] },
+        { name: 'Plot Designer', Logo: IconTableOptions, link: '/plot-designer', roles: [] },
+      ],
     },
     {
       name: 'Portfolio Analysis',

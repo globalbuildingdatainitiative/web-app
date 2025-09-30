@@ -15,7 +15,6 @@ export interface FilterState {
 }
 
 export const DashboardPaper = () => {
-  console.log('Rendering DashboardPaper', new Date().toISOString())
   const gridSize = { base: 12, xl: 6 }
 
   const [filters, setFilters] = useState<FilterState>({
@@ -111,7 +110,10 @@ export const DashboardPaper = () => {
   }, [filters])
 
   // Cache invalidation triggered by useGetProjectsCountsByCountryQuery() inside GlobalMap forced this query to re-run, triggering a re-render loop between the 2 components. Disabling cache for this query fixes the issue, at least temporarily.
-  const { data, loading, error } = useGetProjectDataForBoxPlotQuery({ variables: { aggregation }, fetchPolicy: 'no-cache' })
+  const { data, loading, error } = useGetProjectDataForBoxPlotQuery({
+    variables: { aggregation },
+    fetchPolicy: 'no-cache',
+  })
 
   return (
     <Paper data-testid='DashboardPaper'>
