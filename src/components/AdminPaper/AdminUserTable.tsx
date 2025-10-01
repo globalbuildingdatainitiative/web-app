@@ -44,7 +44,6 @@ export const AdminUserTable = () => {
 
     const filters = columnFilters.reduce<FilterAccumulator>(
       (acc, filter) => {
-        // debugger
         const fieldName = filter.id.split('.').pop() || filter.id
         return {
           ...acc,
