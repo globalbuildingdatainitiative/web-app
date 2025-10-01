@@ -28,7 +28,6 @@ export const DashboardPaper = () => {
   })
 
   const aggregation = useMemo(() => {
-    console.log('Filters:', filters)
     const divideAggregation = {
       $sum: filters.selectedLifeCycleStages.map((stage) => `$results.gwp.${stage.toLowerCase()}`),
     }

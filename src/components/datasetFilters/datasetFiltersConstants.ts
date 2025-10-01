@@ -130,54 +130,51 @@ export interface PlotDesignerPlotSettings {
 }
 
 export function matchStageFromFilters(filters: PlotDesignerDataFiltersSelection): object[] {
-  const stageFilters = filters.lifeCycleStages.enabled
-    ? filters.lifeCycleStages.value.map((stage) => ({
-        [`results.gwp.${stage.toLowerCase()}`]: { $gt: 0 },
-      }))
-    : []
+  const filtersToApply: object[] = []
 
-  const gfaFilter = filters.gfaRange.enabled
-    ? {
-        'projectInfo.grossFloorArea.value': {
-          $gte: filters.gfaRange.value[0],
-          $lte: filters.gfaRange.value[1],
-        },
+  if (filters.lifeCycleStages.enabled) {
+    filtersToApply.push(...filters.lifeCycleStages.value.map((stage) => ({
+      [`results.gwp.${stage.toLowerCase()}`]: { $gt: 0 },
+    })))
+  }
+
+  if (filters.gfaRange.enabled) {
+    filtersToApply.push({
+      'projectInfo.grossFloorArea.value': {
+        $gte: filters.gfaRange.value[0],
+        $lte: filters.gfaRange.value[1]
       }
-    : null
-
-  const filtersToApply: object[] = [...stageFilters]
-  if (gfaFilter) filtersToApply.push(gfaFilter)
-
-  const typologyFilter =
-    filters.typologies.value.length > 0 && filters.typologies.enabled
-      ? { 'projectInfo.buildingTypology': { $in: filters.typologies.value } }
-      : {}
-  if (typologyFilter) {
-    filtersToApply.push(typologyFilter)
+    })
   }
 
-  const countryFilter =
-    filters.countries.value.length > 0 && filters.countries.enabled
-      ? { 'location.country': { $in: filters.countries.value } }
-      : {}
-  if (countryFilter) {
-    filtersToApply.push(countryFilter)
+  if (filters.typologies.value.length > 0 && filters.typologies.enabled) {
+    filtersToApply.push({
+      'projectInfo.buildingTypology': {
+        $in: filters.typologies.value
+      }
+    })
   }
 
-  const softwareFilter =
-    filters.software.value.length > 0 && filters.software.enabled
-      ? { 'softwareInfo.lcaSoftware': { $in: filters.software.value } }
-      : {}
-  if (softwareFilter) {
-    filtersToApply.push(softwareFilter)
+  if (filters.countries.value.length > 0 && filters.countries.enabled) {
+    filtersToApply.push({
+      'location.country': {
+        $in: filters.countries.value
+      }
+    })
   }
 
-  const sourceFilter =
-    filters.sources.value.length > 0 && filters.sources.enabled
-      ? { 'metaData.source.name': { $in: filters.sources.value } }
-      : {}
-  if (sourceFilter) {
-    filtersToApply.push(sourceFilter)
+  if (filters.software.value.length > 0 && filters.software.enabled) {
+    filtersToApply.push({
+      'softwareInfo.lcaSoftware': { $in: filters.software.value }
+    })
+  }
+
+  if (filters.sources.value.length > 0 && filters.sources.enabled) {
+    filtersToApply.push({
+      'metaData.source.name': {
+        $in: filters.sources.value
+      }
+    })
   }
 
   return filtersToApply

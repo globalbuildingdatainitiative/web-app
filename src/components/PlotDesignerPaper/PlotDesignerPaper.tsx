@@ -16,11 +16,20 @@ import { PlotDesignerPlotParametersSelector } from 'components/datasetFilters/Pl
 import { plotParametersToValueAxisLabel, prettifyPlotDesignerAggregation } from './plotDesignerUtils'
 import { PlotDesignerTable } from './PlotDesignerTable'
 
+interface BoxPlotVisualSettings {
+  valueAxisLabel: string
+  labelHeightFactor: number
+}
+
 export const PlotDesignerPaper = () => {
   const [filters, setFilters] = useState<PlotDesignerDataFiltersSelection>(defaultFilters())
   const [filtersUpdated, setFiltersUpdated] = useState<boolean>(true)
   const [plotParameters, setPlotParameters] = useState<PlotDesignerPlotParameters>(defaultPlotParameters())
   const [plotParametersUpdated, setPlotParametersUpdated] = useState<boolean>(true)
+  const [boxPlotVisualSettings, setBoxPlotVisualSettings] = useState<BoxPlotVisualSettings>({
+    valueAxisLabel: "",
+    labelHeightFactor: 50,
+  })
 
   const onFilterChange = (newFilters: PlotDesignerDataFiltersSelection) => {
     setFilters(newFilters)
@@ -44,8 +53,14 @@ export const PlotDesignerPaper = () => {
 
   const updatePlot = () => {
     getProjectDataForBoxPlot({ variables: { aggregation } })
+
     setFiltersUpdated(false)
     setPlotParametersUpdated(false)
+
+    setBoxPlotVisualSettings({
+      valueAxisLabel: plotParametersToValueAxisLabel(plotParameters),
+      labelHeightFactor: plotParameters.groupBy === 'country' ? 50 : 100,
+    })
   }
 
   const boxPlotData: BoxPlotData[] = useMemo(() => {
@@ -83,33 +98,34 @@ export const PlotDesignerPaper = () => {
             {data ? 'Update plot' : 'Draw plot'}
           </Button>
         </div>
+
+        {error && <ErrorMessage error={makeErrorFromOptionalString(error.message)} />}
+        {loading && <Loading />}
+
+        {data && (
+          <>
+            <div>
+              <Title order={4} style={{ marginBottom: '8px' }}>
+                Box Plot {filtersUpdated || plotParametersUpdated ? ' (out of date)' : ''}
+              </Title>
+              <Center style={{ height: boxPlotData.length * boxPlotVisualSettings.labelHeightFactor }}>
+                <BoxPlot
+                  data={boxPlotData}
+                  orientation='vertical'
+                  valueAxisLabel={boxPlotVisualSettings.valueAxisLabel}
+                />
+              </Center>
+            </div>
+            <div>
+              <Title order={4} style={{ marginBottom: '8px' }}>
+                Raw data {filtersUpdated || plotParametersUpdated ? ' (out of date)' : ''}
+              </Title>
+              <PlotDesignerTable prettifiedData={boxPlotData} />
+            </div>
+          </>
+        )}
       </div>
 
-      {error && <ErrorMessage error={makeErrorFromOptionalString(error.message)} />}
-      {loading && <Loading />}
-
-      {data && (
-        <>
-          <div>
-            <Title order={4} style={{ marginBottom: '8px' }}>
-              Box Plot {filtersUpdated || plotParametersUpdated ? ' (out of date)' : ''}
-            </Title>
-            <Center style={{ height: boxPlotData.length * 50 }}>
-              <BoxPlot
-                data={boxPlotData}
-                orientation='vertical'
-                valueAxisLabel={plotParametersToValueAxisLabel(plotParameters)}
-              />
-            </Center>
-          </div>
-          <div>
-            <Title order={4} style={{ marginBottom: '8px' }}>
-              Raw data {filtersUpdated || plotParametersUpdated ? ' (out of date)' : ''}
-            </Title>
-            <PlotDesignerTable prettifiedData={boxPlotData} />
-          </div>
-        </>
-      )}
     </Paper>
   )
 }
