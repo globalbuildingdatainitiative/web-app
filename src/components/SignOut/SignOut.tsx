@@ -23,7 +23,7 @@ export const SignOut = ({ collapsed }: SignOutProps) => {
   }
 
   return (
-    <div>
+    <>
       {!collapsed && (
         <Text
           style={{
@@ -48,6 +48,6 @@ export const SignOut = ({ collapsed }: SignOutProps) => {
         <IconLogout size={20} />
         {!collapsed && <Text style={{ marginLeft: 8 }}>Sign Out</Text>}
       </Button>
-    </div>
+    </>
   )
 }
