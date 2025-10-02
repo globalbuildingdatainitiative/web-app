@@ -27,7 +27,7 @@ export const PlotDesignerPaper = () => {
   const [plotParameters, setPlotParameters] = useState<PlotDesignerPlotParameters>(defaultPlotParameters())
   const [plotParametersUpdated, setPlotParametersUpdated] = useState<boolean>(true)
   const [boxPlotVisualSettings, setBoxPlotVisualSettings] = useState<BoxPlotVisualSettings>({
-    valueAxisLabel: "",
+    valueAxisLabel: '',
     labelHeightFactor: 50,
   })
 
@@ -125,7 +125,6 @@ export const PlotDesignerPaper = () => {
           </>
         )}
       </div>
-
     </Paper>
   )
 }

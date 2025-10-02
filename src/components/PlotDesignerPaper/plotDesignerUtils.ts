@@ -205,20 +205,15 @@ export function formatCountryName(countryCode: string): string {
 }
 
 export function formatBuildingType(buildingType: string): string {
-  switch (buildingType) {
-    case 'deconstruction_and_new_construction_works':
-      return 'Deconstruction and New Construction Works'
-    case 'new_construction_works':
-      return 'New Construction Works'
-    case 'operations':
-      return 'Operations'
-    case 'retrofit_works':
-      return 'Retrofit Works'
-    case 'other':
-      return 'Other'
+  const buildingTypeToDisplayName: { [key: string]: string } = {
+    deconstruction_and_new_construction_works: 'Deconstruction and New Construction Works',
+    new_construction_works: 'New Construction Works',
+    operations: 'Operations',
+    retrofit_works: 'Retrofit Works',
+    other: 'Other',
   }
 
-  return `Unknown Building Type ${buildingType}`
+  return buildingTypeToDisplayName[buildingType] || `Unknown Building Type ${buildingType}`
 }
 
 type PlotDesignerAggregationGroupTitleGenerator = (groupValue: string | null) => string
@@ -281,9 +276,11 @@ export function prettifyPlotDesignerAggregation(
 
   return data.projects.aggregation
     .map((agg: PlotDesignerAggregationResultRaw) => rawAggregationToPretty(agg, titleGenerator))
-    .sort((a: PlotDesignerAggregationResultPretty, b: PlotDesignerAggregationResultPretty) =>
-      a.name && b.name ? a.name.localeCompare(b.name) : 0,
-    )
+    .sort((a: PlotDesignerAggregationResultPretty, b: PlotDesignerAggregationResultPretty) => {
+      const aName = a?.name ?? ''
+      const bName = b?.name ?? ''
+      return aName.localeCompare(bName)
+    })
 }
 
 export function plotParametersToValueAxisLabel(plotParameters: PlotDesignerPlotParameters): string {

@@ -133,47 +133,49 @@ export function matchStageFromFilters(filters: PlotDesignerDataFiltersSelection)
   const filtersToApply: object[] = []
 
   if (filters.lifeCycleStages.enabled) {
-    filtersToApply.push(...filters.lifeCycleStages.value.map((stage) => ({
-      [`results.gwp.${stage.toLowerCase()}`]: { $gt: 0 },
-    })))
+    filtersToApply.push(
+      ...filters.lifeCycleStages.value.map((stage) => ({
+        [`results.gwp.${stage.toLowerCase()}`]: { $gt: 0 },
+      })),
+    )
   }
 
   if (filters.gfaRange.enabled) {
     filtersToApply.push({
       'projectInfo.grossFloorArea.value': {
         $gte: filters.gfaRange.value[0],
-        $lte: filters.gfaRange.value[1]
-      }
+        $lte: filters.gfaRange.value[1],
+      },
     })
   }
 
   if (filters.typologies.value.length > 0 && filters.typologies.enabled) {
     filtersToApply.push({
       'projectInfo.buildingTypology': {
-        $in: filters.typologies.value
-      }
+        $in: filters.typologies.value,
+      },
     })
   }
 
   if (filters.countries.value.length > 0 && filters.countries.enabled) {
     filtersToApply.push({
       'location.country': {
-        $in: filters.countries.value
-      }
+        $in: filters.countries.value,
+      },
     })
   }
 
   if (filters.software.value.length > 0 && filters.software.enabled) {
     filtersToApply.push({
-      'softwareInfo.lcaSoftware': { $in: filters.software.value }
+      'softwareInfo.lcaSoftware': { $in: filters.software.value },
     })
   }
 
   if (filters.sources.value.length > 0 && filters.sources.enabled) {
     filtersToApply.push({
       'metaData.source.name': {
-        $in: filters.sources.value
-      }
+        $in: filters.sources.value,
+      },
     })
   }
 
