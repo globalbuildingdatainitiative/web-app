@@ -28,10 +28,12 @@ export const SignOut = ({ collapsed }: SignOutProps) => {
         <Text
           style={{
             whiteSpace: 'normal',
-            marginBottom: 8
+            marginBottom: 8,
           }}
         >
-          <div>{user?.firstName || '(No first name)'} {user?.lastName || '(No last name)'}</div>
+          <div>
+            {user?.firstName || '(No first name)'} {user?.lastName || '(No last name)'}
+          </div>
           <div style={{ fontSize: 14, lineHeight: 1.25 }}>{user?.email || '(No email)'}</div>
           <div style={{ fontSize: 14, lineHeight: 1.25 }}>{user?.organization?.name || 'No organization'}</div>
         </Text>
