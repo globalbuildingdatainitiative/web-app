@@ -91,6 +91,7 @@ export const SidePanel = ({ collapsed, toggleCollapsed }: SidePanelProps) => {
         flexDirection: 'column',
         height: '100vh',
         backgroundColor: '#fff',
+        overflow: 'auto',
       }}
     >
       <AppShell.Section>
@@ -155,15 +156,7 @@ export const SidePanel = ({ collapsed, toggleCollapsed }: SidePanelProps) => {
         </Stack>
       </AppShell.Section>
 
-      <AppShell.Section
-        style={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          marginTop: 'auto',
-          marginBottom: '20px',
-        }}
-      >
+      <AppShell.Section>
         <SignOut collapsed={collapsed} />
       </AppShell.Section>
     </div>
