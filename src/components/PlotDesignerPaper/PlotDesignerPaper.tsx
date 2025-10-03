@@ -66,7 +66,7 @@ export const PlotDesignerPaper = () => {
   const boxPlotData: BoxPlotData[] = useMemo(() => {
     if (!data) return []
     return prettifyPlotDesignerAggregation(data, plotParameters)
-  }, [data])
+  }, [data, plotParameters])
 
   return (
     <Paper data-testid='PlotDesignerPaper'>

@@ -12,7 +12,7 @@ import {
 
 interface PlotDesignerDataFiltersProps {
   filters: PlotDesignerDataFiltersSelection
-  onFilterChange: (f: PlotDesignerDataFiltersSelection) => any
+  onFilterChange: (f: PlotDesignerDataFiltersSelection) => void
   data: GetProjectDataForBoxPlotQuery | undefined
 }
 
