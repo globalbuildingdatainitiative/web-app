@@ -1,0 +1,17 @@
+#   Refer for explanation to following link:
+#   https://lefthook.dev/configuration/
+
+pre-commit:
+  parallel: true
+  jobs:
+    - name: prettier
+      glob: 'src/**/*'
+      run: npx prettier --write {staged_files}
+    - name: eslint
+      glob: 'src/**/*.{ts,tsx}'
+      run: npx eslint --fix {staged_files}
+
+commit-msg:
+  commands:
+    commitlint:
+      run: npx --no -- commitlint --edit {1}

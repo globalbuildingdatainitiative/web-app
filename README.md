@@ -16,10 +16,10 @@ This repository contains the source code for the [GBDI Web App](https://app.gbdi
 
 ## Installation
 
-To install the dependencies, use npm:
+To install the dependencies, use:
 
 ```bash
-npm install
+make install
 ```
 
 Rename the `.env.example` file to `.env` and fill in the required environment variables.
