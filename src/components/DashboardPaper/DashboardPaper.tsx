@@ -108,14 +108,17 @@ export const DashboardPaper = () => {
     ]
   }, [filters])
 
-  const { data, loading, error } = useGetProjectDataForBoxPlotQuery({ variables: { aggregation } })
+  // Cache invalidation triggered by useGetProjectsCountsByCountryQuery() inside GlobalMap forced this query to re-run, triggering a re-render loop between the 2 components. Disabling cache for this query fixes the issue, at least temporarily.
+  const { data, loading, error } = useGetProjectDataForBoxPlotQuery({
+    variables: { aggregation },
+    fetchPolicy: 'no-cache',
+  })
 
   return (
     <Paper data-testid='DashboardPaper'>
       <Title order={3} style={{ marginBottom: 8 }}>
         GWP Intensity (Global Level - Building Type)
       </Title>
-
       <Grid grow>
         <Grid.Col span={gridSize}>
           <ErrorBoundary>

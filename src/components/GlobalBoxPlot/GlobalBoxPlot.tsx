@@ -283,7 +283,11 @@ export const GlobalBoxPlot = (props: GlobalBoxPlotProps) => {
         </Grid.Col>
       </Grid>
       <Center style={{ height: height * 0.9 - gridHeight }}>
-        {loading ? <Loading /> : <BoxPlot data={boxPlotData} orientation='vertical' />}
+        {loading ? (
+          <Loading />
+        ) : (
+          <BoxPlot data={boxPlotData} orientation='vertical' valueAxisLabel='GWP Intensity (kgCO₂eq/m²)' />
+        )}
       </Center>
     </Stack>
   )

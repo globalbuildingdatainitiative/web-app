@@ -165,10 +165,11 @@ interface BoxPlotProps {
   data: BoxPlotData[]
   orientation?: 'horizontal' | 'vertical'
   dotColor?: string
+  valueAxisLabel?: string
 }
 
 export const BoxPlot = (props: BoxPlotProps) => {
-  const { data, orientation = 'vertical', dotColor } = props
+  const { data, orientation = 'vertical', dotColor, valueAxisLabel } = props
   const theme = useMantineTheme()
 
   const getColor = (colorName: string, shade: number, fallback: string): string => {
@@ -211,7 +212,7 @@ export const BoxPlot = (props: BoxPlotProps) => {
       tickCount: 7,
       ticks: Array.from({ length: 8 }, (_, i) => Math.round((i * roundedMax) / 7 / 10) * 10),
       label: {
-        value: 'GWP Intensity (kgCO₂eq/m²)',
+        value: valueAxisLabel ?? 'No label provided',
         position: orientation === 'vertical' ? 'insideBottom' : 'insideLeft',
         offset: -10,
         angle: orientation === 'vertical' ? 0 : -90,
