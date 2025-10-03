@@ -13,12 +13,12 @@ export const PlotDesignerTable = ({ prettifiedData }: PlotDesignerTableProps) =>
   const rows = prettifiedData.map((agg) => (
     <Table.Tr key={agg.name}>
       <Table.Td>{agg.name}</Table.Td>
-      <Table.Td>{agg.min}</Table.Td>
-      <Table.Td>{agg.pct25}</Table.Td>
-      <Table.Td>{agg.median}</Table.Td>
-      <Table.Td>{agg.pct75}</Table.Td>
-      <Table.Td>{agg.max}</Table.Td>
-      <Table.Td>{agg.avg}</Table.Td>
+      <Table.Td>{agg.min.toFixed(2)}</Table.Td>
+      <Table.Td>{agg.pct25.toFixed(2)}</Table.Td>
+      <Table.Td>{agg.median.toFixed(2)}</Table.Td>
+      <Table.Td>{agg.pct75.toFixed(2)}</Table.Td>
+      <Table.Td>{agg.max.toFixed(2)}</Table.Td>
+      <Table.Td>{agg.avg.toFixed(2)}</Table.Td>
       <Table.Td>{agg.count}</Table.Td>
     </Table.Tr>
   ))

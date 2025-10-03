@@ -1,6 +1,6 @@
 import { MultiSelect, Select } from '@mantine/core'
 import { LifeCycleStage } from '@queries'
-import { PlotDesignerPlotParameters } from './datasetFiltersConstants'
+import { PlotDesignerGroupByOption, PlotDesignerPlotParameters } from './datasetFiltersConstants'
 
 interface PlotDesignerPlotParametersSelectorProps {
   parameters: PlotDesignerPlotParameters
@@ -12,7 +12,7 @@ export const PlotDesignerPlotParametersSelector = ({
   onPlotParametersChange,
 }: PlotDesignerPlotParametersSelectorProps) => {
   const quantityOptions = [
-    { value: 'gwp', label: 'GWP' },
+    { value: 'gwp', label: 'GWP building' },
     { value: 'gwp_per_m2', label: 'GWP per m²' },
   ]
 
@@ -62,7 +62,7 @@ export const PlotDesignerPlotParametersSelector = ({
         onChange={(value) =>
           onPlotParametersChange({
             ...parameters,
-            groupBy: value as 'country' | 'buildingType' | 'software' | 'source',
+            groupBy: value as PlotDesignerGroupByOption,
           })
         }
         label='Group By'

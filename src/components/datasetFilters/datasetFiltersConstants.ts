@@ -110,15 +110,17 @@ export function defaultFilters(): PlotDesignerDataFiltersSelection {
   }
 }
 
+export type PlotDesignerGroupByOption = 'country' | 'software' | 'source'
+
 export interface PlotDesignerPlotParameters {
   quantity: 'gwp' | 'gwp_per_m2'
   lifeCycleStagesToInclude: LifeCycleStage[]
-  groupBy: 'country' | 'buildingType' | 'software' | 'source'
+  groupBy: PlotDesignerGroupByOption
 }
 
 export function defaultPlotParameters(): PlotDesignerPlotParameters {
   return {
-    quantity: 'gwp',
+    quantity: 'gwp_per_m2',
     lifeCycleStagesToInclude: [LifeCycleStage.A1A3],
     groupBy: 'country',
   }
@@ -196,9 +198,7 @@ export function computationFromPlotParameters(plotParameters: PlotDesignerPlotPa
 
 export function groupByFromPlotParameters(plotParameters: PlotDesignerPlotParameters): string {
   let groupBy = '$location.country'
-  if (plotParameters.groupBy === 'buildingType') {
-    groupBy = '$projectInfo.buildingType'
-  } else if (plotParameters.groupBy === 'software') {
+  if (plotParameters.groupBy === 'software') {
     groupBy = '$softwareInfo.lcaSoftware'
   } else if (plotParameters.groupBy === 'source') {
     groupBy = '$metaData.source.name'

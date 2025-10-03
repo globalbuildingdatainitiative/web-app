@@ -108,7 +108,7 @@ export const PlotDesignerPaper = () => {
               <Title order={4} style={{ marginBottom: '8px' }}>
                 Box Plot {filtersUpdated || plotParametersUpdated ? ' (out of date)' : ''}
               </Title>
-              <Center style={{ height: boxPlotData.length * boxPlotVisualSettings.labelHeightFactor }}>
+              <Center style={{ height: 150 + boxPlotData.length * boxPlotVisualSettings.labelHeightFactor }}>
                 <BoxPlot
                   data={boxPlotData}
                   orientation='vertical'
