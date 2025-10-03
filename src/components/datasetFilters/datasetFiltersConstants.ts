@@ -110,10 +110,11 @@ export function defaultFilters(): PlotDesignerDataFiltersSelection {
   }
 }
 
+export type PlotDesignerQuantityOption = 'gwp' | 'gwp_per_m2'
 export type PlotDesignerGroupByOption = 'country' | 'software' | 'source'
 
 export interface PlotDesignerPlotParameters {
-  quantity: 'gwp' | 'gwp_per_m2'
+  quantity: PlotDesignerQuantityOption
   lifeCycleStagesToInclude: LifeCycleStage[]
   groupBy: PlotDesignerGroupByOption
 }

@@ -204,17 +204,6 @@ export function formatCountryName(countryCode: string): string {
   return countryNames[countryCode.toLowerCase()] || `Invalid country code ${countryCode}`
 }
 
-export function formatBuildingType(buildingType: string): string {
-  const buildingTypeToDisplayName: { [key: string]: string } = {
-    deconstruction_and_new_construction_works: 'Deconstruction and New Construction Works',
-    new_construction_works: 'New Construction Works',
-    operations: 'Operations',
-    retrofit_works: 'Retrofit Works',
-    other: 'Other',
-  }
-
-  return buildingTypeToDisplayName[buildingType] || `Unknown Building Type ${buildingType}`
-}
 
 type PlotDesignerAggregationGroupTitleGenerator = (groupValue: string | null) => string
 
@@ -223,9 +212,6 @@ export function plotParametersToAggregationGroupTitleGenerator(
 ): PlotDesignerAggregationGroupTitleGenerator {
   if (plotParameters.groupBy === 'country') {
     return (countryName: string | null) => (countryName ? formatCountryName(countryName) : `Unknown Country`)
-  }
-  if (plotParameters.groupBy === 'buildingType') {
-    return (buildingType: string | null) => (buildingType ? formatBuildingType(buildingType) : `Unknown Building Type`)
   }
 
   return (groupName: string | null) => (groupName ? groupName : `Unknown`)
