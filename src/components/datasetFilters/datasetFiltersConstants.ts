@@ -1,3 +1,5 @@
+import { alpha3AndUnknownToCountryName, formatCountryName } from '@lib'
+import { BoxPlotOrientation } from 'components/BoxPlot'
 import { BuildingTypology, GetProjectDataForBoxPlotQuery, LifeCycleStage } from 'queries/generated'
 
 const formatEnumValue = (value: string): string => {
@@ -9,19 +11,6 @@ const formatEnumValue = (value: string): string => {
 
 const capitalizeEnumValue = (value: string): string => {
   return value.toUpperCase()
-}
-
-const formatCountryName = (countryName: string): string => {
-  switch (countryName) {
-    case 'United Kingdom of Great Britain and Northern Ireland':
-      return 'UK'
-    case 'United States of America':
-      return 'USA'
-    case 'Korea, Republic of':
-      return 'South Korea'
-    default:
-      return countryName
-  }
 }
 
 export const buildingTypologyOptions = Object.values(BuildingTypology).map((value) => ({
@@ -37,13 +26,10 @@ export const lifeCycleOptions = [
   })),
 ]
 
-export function countryOptionsFromData(data: GetProjectDataForBoxPlotQuery) {
-  const countries = data.projects.groups.map((group) => ({
-    value: group.group,
-    label: formatCountryName(group.items[0].location.countryName),
-  }))
-  return [{ value: 'all', label: 'Select All' }, ...countries.sort((a, b) => a.label.localeCompare(b.label))]
-}
+export const countryOptions = Object.entries(alpha3AndUnknownToCountryName).map(([key, val]) => ({
+  value: key,
+  label: formatCountryName(val),
+}))
 
 export function softwareOptionsFromData(data: GetProjectDataForBoxPlotQuery) {
   const softwareSet = new Set<string>()
@@ -110,15 +96,18 @@ export function defaultFilters(): PlotDesignerDataFiltersSelection {
   }
 }
 
+export type PlotDesignerQuantityOption = 'gwp' | 'gwp_per_m2'
+export type PlotDesignerGroupByOption = 'country' | 'software' | 'source'
+
 export interface PlotDesignerPlotParameters {
-  quantity: 'gwp' | 'gwp_per_m2'
+  quantity: PlotDesignerQuantityOption
   lifeCycleStagesToInclude: LifeCycleStage[]
-  groupBy: 'country' | 'buildingType' | 'software' | 'source'
+  groupBy: PlotDesignerGroupByOption
 }
 
 export function defaultPlotParameters(): PlotDesignerPlotParameters {
   return {
-    quantity: 'gwp',
+    quantity: 'gwp_per_m2',
     lifeCycleStagesToInclude: [LifeCycleStage.A1A3],
     groupBy: 'country',
   }
@@ -196,9 +185,7 @@ export function computationFromPlotParameters(plotParameters: PlotDesignerPlotPa
 
 export function groupByFromPlotParameters(plotParameters: PlotDesignerPlotParameters): string {
   let groupBy = '$location.country'
-  if (plotParameters.groupBy === 'buildingType') {
-    groupBy = '$projectInfo.buildingType'
-  } else if (plotParameters.groupBy === 'software') {
+  if (plotParameters.groupBy === 'software') {
     groupBy = '$softwareInfo.lcaSoftware'
   } else if (plotParameters.groupBy === 'source') {
     groupBy = '$metaData.source.name'
@@ -251,3 +238,8 @@ export function filtersToAggregation(settings: PlotDesignerPlotSettings): object
     },
   ]
 }
+
+export const boxPlotOrientationOptions: { value: BoxPlotOrientation; label: string }[] = [
+  { value: 'horizontal', label: 'Horizontal' },
+  { value: 'vertical', label: 'Vertical' },
+]

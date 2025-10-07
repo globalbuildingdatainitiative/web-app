@@ -295,7 +295,7 @@ export const AttributeChart = (props: AttributeChartProps) => {
 
         if (name === 'countryName' && typeof item._id === 'string') {
           const fallback = snakeCaseToHumanCase(normalizeValue(item._id))
-          const alphaCountry = alpha3ToCountryName()[item._id] ?? fallback
+          const alphaCountry = alpha3ToCountryName[item._id] ?? fallback
           return { name: alphaCountry, count: item.count || 0 }
         }
 

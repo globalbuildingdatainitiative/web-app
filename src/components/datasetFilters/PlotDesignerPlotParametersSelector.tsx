@@ -1,6 +1,10 @@
 import { MultiSelect, Select } from '@mantine/core'
 import { LifeCycleStage } from '@queries'
-import { PlotDesignerPlotParameters } from './datasetFiltersConstants'
+import {
+  PlotDesignerGroupByOption,
+  PlotDesignerPlotParameters,
+  PlotDesignerQuantityOption,
+} from './datasetFiltersConstants'
 
 interface PlotDesignerPlotParametersSelectorProps {
   parameters: PlotDesignerPlotParameters
@@ -11,14 +15,13 @@ export const PlotDesignerPlotParametersSelector = ({
   parameters,
   onPlotParametersChange,
 }: PlotDesignerPlotParametersSelectorProps) => {
-  const quantityOptions = [
-    { value: 'gwp', label: 'GWP' },
+  const quantityOptions: { value: PlotDesignerQuantityOption; label: string }[] = [
+    { value: 'gwp', label: 'GWP building' },
     { value: 'gwp_per_m2', label: 'GWP per m²' },
   ]
 
-  const groupByOptions = [
+  const groupByOptions: { value: PlotDesignerGroupByOption; label: string }[] = [
     { value: 'country', label: 'Country' },
-    { value: 'buildingType', label: 'Building Type' },
     { value: 'software', label: 'Software' },
     { value: 'source', label: 'Source' },
   ]
@@ -37,7 +40,7 @@ export const PlotDesignerPlotParametersSelector = ({
         <Select
           data={quantityOptions}
           value={parameters.quantity}
-          onChange={(value) => onPlotParametersChange({ ...parameters, quantity: value as 'gwp' | 'gwp_per_m2' })}
+          onChange={(value) => onPlotParametersChange({ ...parameters, quantity: value as PlotDesignerQuantityOption })}
           label='Quantity to display'
           placeholder='Select quantity'
         />
@@ -62,7 +65,7 @@ export const PlotDesignerPlotParametersSelector = ({
         onChange={(value) =>
           onPlotParametersChange({
             ...parameters,
-            groupBy: value as 'country' | 'buildingType' | 'software' | 'source',
+            groupBy: value as PlotDesignerGroupByOption,
           })
         }
         label='Group By'
