@@ -24,13 +24,11 @@ export const PlotDesignerTable = ({ prettifiedData }: PlotDesignerTableProps) =>
       agg.count,
     ])
 
-    // make csv with papaparse
     const csv = Papa.unparse({
       fields: headers,
       data: rows,
     })
 
-    // download csv
     const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' })
     const link = document.createElement('a')
     const url = URL.createObjectURL(blob)
