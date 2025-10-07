@@ -161,7 +161,7 @@ const CustomTooltip = ({ active, payload, label }: TooltipProps<number, string>)
   return null
 }
 
-export type BoxPlotOrientation = 'horizontal' | 'vertical';
+export type BoxPlotOrientation = 'horizontal' | 'vertical'
 
 interface BoxPlotProps {
   data: BoxPlotData[]

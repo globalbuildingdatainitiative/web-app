@@ -12,16 +12,7 @@ export const PlotDesignerTable = ({ prettifiedData }: PlotDesignerTableProps) =>
   }
 
   function downloadAsCSV() {
-    const headers = [
-      'Label',
-      'Min',
-      '25th percentile',
-      'Median',
-      '75th percentile',
-      'Max',
-      'Average',
-      'Project count',
-    ]
+    const headers = ['Label', 'Min', '25th percentile', 'Median', '75th percentile', 'Max', 'Average', 'Project count']
     const rows = prettifiedData.map((agg) => [
       agg.name,
       agg.min,

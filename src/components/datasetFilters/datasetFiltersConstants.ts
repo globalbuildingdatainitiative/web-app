@@ -26,7 +26,10 @@ export const lifeCycleOptions = [
   })),
 ]
 
-export const countryOptions = Object.entries(alpha3AndUnknownToCountryName).map(([key, val]) => ({ value: key, label: formatCountryName(val) }));
+export const countryOptions = Object.entries(alpha3AndUnknownToCountryName).map(([key, val]) => ({
+  value: key,
+  label: formatCountryName(val),
+}))
 
 export function softwareOptionsFromData(data: GetProjectDataForBoxPlotQuery) {
   const softwareSet = new Set<string>()

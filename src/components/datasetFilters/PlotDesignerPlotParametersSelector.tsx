@@ -1,6 +1,10 @@
 import { MultiSelect, Select } from '@mantine/core'
 import { LifeCycleStage } from '@queries'
-import { PlotDesignerGroupByOption, PlotDesignerPlotParameters, PlotDesignerQuantityOption } from './datasetFiltersConstants'
+import {
+  PlotDesignerGroupByOption,
+  PlotDesignerPlotParameters,
+  PlotDesignerQuantityOption,
+} from './datasetFiltersConstants'
 
 interface PlotDesignerPlotParametersSelectorProps {
   parameters: PlotDesignerPlotParameters

@@ -12,7 +12,8 @@ export function plotParametersToAggregationGroupTitleGenerator(
   plotParameters: PlotDesignerPlotParameters,
 ): PlotDesignerAggregationGroupTitleGenerator {
   if (plotParameters.groupBy === 'country') {
-    return (countryName: string | null) => (countryName ? formatCountryName(getCountryNameFromCode(countryName)) : `Unknown Country`)
+    return (countryName: string | null) =>
+      countryName ? formatCountryName(getCountryNameFromCode(countryName)) : `Unknown Country`
   }
 
   return (groupName: string | null) => (groupName ? groupName : `Unknown`)

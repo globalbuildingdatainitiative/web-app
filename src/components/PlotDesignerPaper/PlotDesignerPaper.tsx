@@ -31,7 +31,7 @@ export const PlotDesignerPaper = () => {
     valueAxisLabel: '',
     labelHeightFactor: 50,
   })
-  const [boxPlotOrientation, setBoxPlotOrientation] = useState<BoxPlotOrientation>('vertical');
+  const [boxPlotOrientation, setBoxPlotOrientation] = useState<BoxPlotOrientation>('vertical')
 
   const onFilterChange = (newFilters: PlotDesignerDataFiltersSelection) => {
     setFilters(newFilters)
@@ -70,7 +70,8 @@ export const PlotDesignerPaper = () => {
     return prettifyPlotDesignerAggregation(data, plotParameters)
   }, [data, plotParameters])
 
-  const boxPlotHeight = boxPlotOrientation === 'vertical' ? 150 + boxPlotData.length * boxPlotVisualSettings.labelHeightFactor : 900;
+  const boxPlotHeight =
+    boxPlotOrientation === 'vertical' ? 150 + boxPlotData.length * boxPlotVisualSettings.labelHeightFactor : 900
 
   return (
     <Paper data-testid='PlotDesignerPaper'>
@@ -118,13 +119,10 @@ export const PlotDesignerPaper = () => {
                     <Select
                       data={boxPlotOrientationOptions}
                       value={boxPlotOrientation}
-                      onChange={(value) =>
-                        setBoxPlotOrientation(value as BoxPlotOrientation)
-                      }
+                      onChange={(value) => setBoxPlotOrientation(value as BoxPlotOrientation)}
                       label='Orientation'
                       placeholder='Select Orientation'
                     />
-
                   </div>
                   <Center style={{ height: boxPlotHeight }}>
                     <BoxPlot

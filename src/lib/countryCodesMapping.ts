@@ -250,7 +250,7 @@ export const alpha3ToCountryName = Object.entries(countryNameToAlpha3)
 
 export const alpha3AndUnknownToCountryName: { [key: string]: string } = {
   ...alpha3ToCountryName,
-  unknown: 'Unknown Country'
+  unknown: 'Unknown Country',
 }
 
 export function formatCountryName(countryName: string): string {
