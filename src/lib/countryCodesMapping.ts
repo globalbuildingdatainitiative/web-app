@@ -244,7 +244,24 @@ export const countryNameToAlpha3: { [key: string]: string } = {
   Zimbabwe: 'ZWE',
 }
 
-export const alpha3ToCountryName = () =>
-  Object.entries(countryNameToAlpha3)
-    .map(([key, value]) => ({ [value.toLowerCase()]: key }))
-    .reduce((prev, next) => ({ ...prev, ...next }), {})
+export const alpha3ToCountryName = Object.entries(countryNameToAlpha3)
+  .map(([key, value]) => ({ [value.toLowerCase()]: key }))
+  .reduce((prev, next) => ({ ...prev, ...next }), {})
+
+export const alpha3AndUnknownToCountryName: { [key: string]: string } = {
+  ...alpha3ToCountryName,
+  unknown: 'Unknown Country'
+}
+
+export function formatCountryName(countryName: string): string {
+  switch (countryName) {
+    case 'United Kingdom of Great Britain and Northern Ireland':
+      return 'UK'
+    case 'United States of America':
+      return 'USA'
+    case 'Korea, Republic of':
+      return 'South Korea'
+    default:
+      return countryName
+  }
+}

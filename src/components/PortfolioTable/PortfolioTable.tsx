@@ -213,7 +213,7 @@ export const PortfolioTable = (props: PortfolioTableProps) => {
         filterVariant: 'multi-select',
         mantineFilterMultiSelectProps: {
           data: Object.values(Country) as string[],
-          renderOption: (item) => alpha3ToCountryName()[item.option.value],
+          renderOption: (item) => alpha3ToCountryName[item.option.value],
         },
       },
       {

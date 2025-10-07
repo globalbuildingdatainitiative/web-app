@@ -1,3 +1,5 @@
+import { alpha3AndUnknownToCountryName, formatCountryName } from '@lib'
+import { BoxPlotOrientation } from 'components/BoxPlot'
 import { BuildingTypology, GetProjectDataForBoxPlotQuery, LifeCycleStage } from 'queries/generated'
 
 const formatEnumValue = (value: string): string => {
@@ -9,19 +11,6 @@ const formatEnumValue = (value: string): string => {
 
 const capitalizeEnumValue = (value: string): string => {
   return value.toUpperCase()
-}
-
-const formatCountryName = (countryName: string): string => {
-  switch (countryName) {
-    case 'United Kingdom of Great Britain and Northern Ireland':
-      return 'UK'
-    case 'United States of America':
-      return 'USA'
-    case 'Korea, Republic of':
-      return 'South Korea'
-    default:
-      return countryName
-  }
 }
 
 export const buildingTypologyOptions = Object.values(BuildingTypology).map((value) => ({
@@ -37,13 +26,7 @@ export const lifeCycleOptions = [
   })),
 ]
 
-export function countryOptionsFromData(data: GetProjectDataForBoxPlotQuery) {
-  const countries = data.projects.groups.map((group) => ({
-    value: group.group,
-    label: formatCountryName(group.items[0].location.countryName),
-  }))
-  return [{ value: 'all', label: 'Select All' }, ...countries.sort((a, b) => a.label.localeCompare(b.label))]
-}
+export const countryOptions = Object.entries(alpha3AndUnknownToCountryName).map(([key, val]) => ({ value: key, label: formatCountryName(val) }));
 
 export function softwareOptionsFromData(data: GetProjectDataForBoxPlotQuery) {
   const softwareSet = new Set<string>()
@@ -252,3 +235,8 @@ export function filtersToAggregation(settings: PlotDesignerPlotSettings): object
     },
   ]
 }
+
+export const boxPlotOrientationOptions: { value: BoxPlotOrientation; label: string }[] = [
+  { value: 'horizontal', label: 'Horizontal' },
+  { value: 'vertical', label: 'Vertical' },
+]

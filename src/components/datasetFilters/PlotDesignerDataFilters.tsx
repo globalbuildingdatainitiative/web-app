@@ -3,7 +3,7 @@ import { type GetProjectDataForBoxPlotQuery, LifeCycleStage } from '@queries'
 import { useMemo } from 'react'
 import {
   buildingTypologyOptions,
-  countryOptionsFromData,
+  countryOptions,
   lifeCycleOptions,
   PlotDesignerDataFiltersSelection,
   softwareOptionsFromData,
@@ -40,10 +40,6 @@ export const PlotDesignerDataFilters = ({ filters, onFilterChange, data }: PlotD
   }
 
   // TODO : should all of these be dependent on this data or should all countries be available?
-  const countryOptions = useMemo(() => {
-    if (!data) return []
-    return countryOptionsFromData(data)
-  }, [data])
   const softwareOptions = useMemo(() => {
     if (!data) return []
     return softwareOptionsFromData(data)
@@ -96,6 +92,8 @@ export const PlotDesignerDataFilters = ({ filters, onFilterChange, data }: PlotD
             label='Country'
           />
         }
+        searchable
+        nothingFoundMessage='No country found'
         placeholder='Select countries'
         disabled={!filters.countries.enabled}
       />
@@ -113,6 +111,7 @@ export const PlotDesignerDataFilters = ({ filters, onFilterChange, data }: PlotD
         }
         placeholder='Select LCA software'
         searchable
+        nothingFoundMessage='No software found'
         clearable
         disabled={!filters.software.enabled}
       />

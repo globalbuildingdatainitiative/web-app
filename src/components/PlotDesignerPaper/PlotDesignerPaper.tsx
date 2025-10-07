@@ -1,5 +1,5 @@
-import { BoxPlot, BoxPlotData, ErrorMessage, Loading, Paper } from '@components'
-import { Button, Center, Title } from '@mantine/core'
+import { BoxPlot, BoxPlotData, BoxPlotOrientation, ErrorMessage, Loading, Paper } from '@components'
+import { Button, Center, Select, Title } from '@mantine/core'
 import { useMemo, useState } from 'react'
 import { useGetProjectDataForBoxPlotLazyQuery } from '@queries'
 import { makeErrorFromOptionalString } from 'lib/uiUtils/errors'
@@ -8,6 +8,7 @@ import {
   PlotDesignerDataFiltersSelection,
   PlotDesignerPlotParameters,
   PlotDesignerPlotSettings,
+  boxPlotOrientationOptions,
   defaultFilters,
   defaultPlotParameters,
   filtersToAggregation,
@@ -30,6 +31,7 @@ export const PlotDesignerPaper = () => {
     valueAxisLabel: '',
     labelHeightFactor: 50,
   })
+  const [boxPlotOrientation, setBoxPlotOrientation] = useState<BoxPlotOrientation>('vertical');
 
   const onFilterChange = (newFilters: PlotDesignerDataFiltersSelection) => {
     setFilters(newFilters)
@@ -68,6 +70,8 @@ export const PlotDesignerPaper = () => {
     return prettifyPlotDesignerAggregation(data, plotParameters)
   }, [data, plotParameters])
 
+  const boxPlotHeight = boxPlotOrientation === 'vertical' ? 150 + boxPlotData.length * boxPlotVisualSettings.labelHeightFactor : 900;
+
   return (
     <Paper data-testid='PlotDesignerPaper'>
       <Title order={3} style={{ marginBottom: 16 }}>
@@ -104,24 +108,46 @@ export const PlotDesignerPaper = () => {
 
         {data && (
           <>
-            <div>
-              <Title order={4} style={{ marginBottom: '8px' }}>
-                Box Plot {filtersUpdated || plotParametersUpdated ? ' (out of date)' : ''}
-              </Title>
-              <Center style={{ height: 150 + boxPlotData.length * boxPlotVisualSettings.labelHeightFactor }}>
-                <BoxPlot
-                  data={boxPlotData}
-                  orientation='vertical'
-                  valueAxisLabel={boxPlotVisualSettings.valueAxisLabel}
-                />
-              </Center>
-            </div>
-            <div>
-              <Title order={4} style={{ marginBottom: '8px' }}>
-                Raw data {filtersUpdated || plotParametersUpdated ? ' (out of date)' : ''}
-              </Title>
-              <PlotDesignerTable prettifiedData={boxPlotData} />
-            </div>
+            {boxPlotData.length > 0 ? (
+              <>
+                <div>
+                  <Title order={4} style={{ marginBottom: 4 }}>
+                    Box Plot {filtersUpdated || plotParametersUpdated ? ' (out of date)' : ''}
+                  </Title>
+                  <div style={{ display: 'flex', gap: 8, marginBottom: 8 }}>
+                    <Select
+                      data={boxPlotOrientationOptions}
+                      value={boxPlotOrientation}
+                      onChange={(value) =>
+                        setBoxPlotOrientation(value as BoxPlotOrientation)
+                      }
+                      label='Orientation'
+                      placeholder='Select Orientation'
+                    />
+
+                  </div>
+                  <Center style={{ height: boxPlotHeight }}>
+                    <BoxPlot
+                      data={boxPlotData}
+                      orientation={boxPlotOrientation}
+                      valueAxisLabel={boxPlotVisualSettings.valueAxisLabel}
+                    />
+                  </Center>
+                </div>
+                <div>
+                  <Title order={4} style={{ marginBottom: '8px' }}>
+                    Raw data {filtersUpdated || plotParametersUpdated ? ' (out of date)' : ''}
+                  </Title>
+                  <PlotDesignerTable prettifiedData={boxPlotData} />
+                </div>
+              </>
+            ) : (
+              <>
+                <Center style={{ height: 300 }}>
+                  <Title order={4}>No data matching those parameters</Title>
+                </Center>
+              </>
+            )}
           </>
         )}
       </div>
