@@ -7547,6 +7547,14 @@
             "deprecationReason": null
           },
           {
+            "name": "pendingOrgId",
+            "description": null,
+            "args": [],
+            "type": { "kind": "SCALAR", "name": "UUID", "ofType": null },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "roles",
             "description": null,
             "args": [],
@@ -7588,7 +7596,7 @@
         "fields": [
           {
             "name": "count",
-            "description": "Total number of items in the filtered dataset.",
+            "description": "Total number of users in the filtered dataset.",
             "args": [
               {
                 "name": "filterBy",
@@ -7605,7 +7613,7 @@
           },
           {
             "name": "items",
-            "description": "The list of items in this pagination window.",
+            "description": "The list of users in this pagination window.",
             "args": [
               {
                 "name": "filterBy",
@@ -7618,8 +7626,12 @@
               {
                 "name": "limit",
                 "description": null,
-                "type": { "kind": "SCALAR", "name": "Int", "ofType": null },
-                "defaultValue": null,
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": { "kind": "SCALAR", "name": "Int", "ofType": null }
+                },
+                "defaultValue": "50",
                 "isDeprecated": false,
                 "deprecationReason": null
               },
@@ -7645,12 +7657,16 @@
               }
             ],
             "type": {
-              "kind": "LIST",
+              "kind": "NON_NULL",
               "name": null,
               "ofType": {
-                "kind": "NON_NULL",
+                "kind": "LIST",
                 "name": null,
-                "ofType": { "kind": "OBJECT", "name": "User", "ofType": null }
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": { "kind": "OBJECT", "name": "User", "ofType": null }
+                }
               }
             },
             "isDeprecated": false,

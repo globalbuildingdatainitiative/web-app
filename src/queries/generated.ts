@@ -1661,16 +1661,17 @@ export type User = {
   lastName?: Maybe<Scalars['String']['output']>
   organization?: Maybe<Organization>
   organizationId?: Maybe<Scalars['UUID']['output']>
+  pendingOrgId?: Maybe<Scalars['UUID']['output']>
   roles?: Maybe<Array<Role>>
   timeJoined: Scalars['DateTime']['output']
 }
 
 export type UserGraphQlResponse = {
   __typename?: 'UserGraphQLResponse'
-  /** Total number of items in the filtered dataset. */
+  /** Total number of users in the filtered dataset. */
   count: Scalars['Int']['output']
-  /** The list of items in this pagination window. */
-  items?: Maybe<Array<User>>
+  /** The list of users in this pagination window. */
+  items: Array<User>
 }
 
 export type UserGraphQlResponseCountArgs = {
@@ -1679,7 +1680,7 @@ export type UserGraphQlResponseCountArgs = {
 
 export type UserGraphQlResponseItemsArgs = {
   filterBy?: InputMaybe<FilterBy>
-  limit?: InputMaybe<Scalars['Int']['input']>
+  limit?: Scalars['Int']['input']
   offset?: Scalars['Int']['input']
   sortBy?: InputMaybe<SortBy>
 }
@@ -2803,6 +2804,7 @@ export type UserResolvers<
   lastName?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
   organization?: Resolver<Maybe<ResolversTypes['Organization']>, ParentType, ContextType>
   organizationId?: Resolver<Maybe<ResolversTypes['UUID']>, ParentType, ContextType>
+  pendingOrgId?: Resolver<Maybe<ResolversTypes['UUID']>, ParentType, ContextType>
   roles?: Resolver<Maybe<Array<ResolversTypes['Role']>>, ParentType, ContextType>
   timeJoined?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>
@@ -2819,10 +2821,10 @@ export type UserGraphQlResponseResolvers<
     RequireFields<UserGraphQlResponseCountArgs, 'filterBy'>
   >
   items?: Resolver<
-    Maybe<Array<ResolversTypes['User']>>,
+    Array<ResolversTypes['User']>,
     ParentType,
     ContextType,
-    RequireFields<UserGraphQlResponseItemsArgs, 'filterBy' | 'offset' | 'sortBy'>
+    RequireFields<UserGraphQlResponseItemsArgs, 'filterBy' | 'limit' | 'offset' | 'sortBy'>
   >
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>
 }
@@ -3070,7 +3072,7 @@ export type GetUsersQuery = {
   users: {
     __typename?: 'UserGraphQLResponse'
     count: number
-    items?: Array<{
+    items: Array<{
       __typename?: 'User'
       id: any
       firstName?: string | null
@@ -3082,7 +3084,7 @@ export type GetUsersQuery = {
       inviterName?: string | null
       roles?: Array<Role> | null
       organization?: { __typename?: 'Organization'; id: any; name: string } | null
-    }> | null
+    }>
   }
 }
 
@@ -3094,7 +3096,7 @@ export type GetCurrentUserQuery = {
   __typename?: 'Query'
   users: {
     __typename?: 'UserGraphQLResponse'
-    items?: Array<{
+    items: Array<{
       __typename?: 'User'
       id: any
       firstName?: string | null
@@ -3111,7 +3113,7 @@ export type GetCurrentUserQuery = {
         country: CountryCodes
         metaData: { __typename?: 'OrganizationMetaData'; stakeholders: Array<StakeholderEnum> }
       } | null
-    }> | null
+    }>
   }
 }
 
@@ -4198,7 +4200,7 @@ export const GetUsersDocument = gql`
           name
         }
       }
-      count
+      count(filterBy: $filterBy)
     }
   }
 `

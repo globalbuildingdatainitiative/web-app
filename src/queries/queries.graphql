@@ -151,7 +151,7 @@ query getUsers($limit: Int, $offset: Int = 0, $sortBy: SortBy, $filterBy: Filter
         name
       }
     }
-    count
+    count(filterBy: $filterBy)
   }
 }
 
