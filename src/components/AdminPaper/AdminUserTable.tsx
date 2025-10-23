@@ -1,4 +1,11 @@
-import { GetUsersQuery, useGetUsersQuery, useImpersonateUserMutation, useMakeUserAdminMutation } from '@queries'
+import {
+  GetUsersQuery,
+  Role,
+  useGetUsersQuery,
+  useGetUsersLazyQuery,
+  useImpersonateUserMutation,
+  useMakeUserAdminMutation,
+} from '@queries'
 import { useMemo, useState } from 'react'
 import Session from 'supertokens-auth-react/recipe/session'
 import {
@@ -10,11 +17,12 @@ import {
   MRT_SortingState,
   useMantineReactTable,
 } from 'mantine-react-table'
-import { ActionIcon, Group, Pagination, ScrollArea, Select, Tooltip } from '@mantine/core'
+import { ActionIcon, Button, Group, Pagination, ScrollArea, Select, Tooltip } from '@mantine/core'
 import { IconUserBolt, IconUserStar } from '@tabler/icons-react'
 import { useNavigate } from 'react-router-dom'
 import { TruncatedTextWithTooltip } from '@components'
 import { capitalizeFirstLetter } from '@lib'
+import { downloadCSV } from 'lib/uiUtils/csvExport'
 
 type User = NonNullable<GetUsersQuery['users']['items']>[number]
 
@@ -23,6 +31,10 @@ export const AdminUserTable = () => {
   const [pagination, setPagination] = useState<MRT_PaginationState>({ pageIndex: 0, pageSize: 10 })
   const [sorting, setSorting] = useState<MRT_SortingState>([])
   const [columnFilters, setColumnFilters] = useState<MRT_ColumnFiltersState>([])
+  const [downloadLoading, setDownloadLoading] = useState(false)
+
+  // Add the lazy query hook at the top level
+  const [fetchUsersForCSV] = useGetUsersLazyQuery()
 
   const getSortingVariables = () => {
     if (!sorting.length) return undefined
@@ -88,6 +100,8 @@ export const AdminUserTable = () => {
       {
         accessorKey: 'id',
         header: 'ID',
+        visibleInShowHideMenu: true,
+        enableHiding: true,
         Cell: ({ cell }) => <TruncatedTextWithTooltip size='sm' text={cell.getValue<string>()} maxLength={8} />,
       },
       {
@@ -109,6 +123,13 @@ export const AdminUserTable = () => {
       {
         accessorKey: 'roles',
         header: 'Roles',
+        filterVariant: 'select',
+        mantineFilterSelectProps: {
+          data: Object.values(Role).map((role) => ({
+            value: role,
+            label: capitalizeFirstLetter(role.toLowerCase()),
+          })),
+        },
         Cell: ({ cell }) => (
           <TruncatedTextWithTooltip
             text={
@@ -142,6 +163,35 @@ export const AdminUserTable = () => {
     await makeAdmin({ variables: { userId: row.original.id } })
   }
 
+  const handleDownloadUsersCSV = () =>
+    downloadCSV<User>(
+      setDownloadLoading,
+      () =>
+        fetchUsersForCSV({
+          variables: {
+            limit: 2000,
+            offset: 0,
+            sortBy: getSortingVariables(),
+            filterBy: getFilterVariables(),
+          },
+        }).then((result) => ({
+          data: result.data?.users ? { items: result.data.users.items ?? [], count: result.data.users.count } : null,
+          error: result.error,
+        })),
+      (items) =>
+        items.map((item) => ({
+          id: item.id,
+          firstName: item.firstName,
+          lastName: item.lastName,
+          email: item.email,
+          timeJoined: new Date(item.timeJoined).toLocaleDateString(),
+          roles: item.roles?.map((role) => capitalizeFirstLetter(role.toLowerCase())).join(', ') || '',
+          organization: item.organization?.name || '',
+        })),
+      'users_export.csv',
+      'users',
+    )
+
   const rowData = useMemo(() => data?.users.items || [], [data])
   const totalRowCount = useMemo(() => data?.users.count || 0, [data])
 
@@ -156,6 +206,18 @@ export const AdminUserTable = () => {
     manualPagination: true,
     enableRowActions: true,
     positionActionsColumn: 'last',
+    renderTopToolbarCustomActions: ({ table }) => {
+      return (
+        <div style={{ gap: '4px', display: 'flex', alignItems: 'center' }}>
+          <span>
+            Total {table.getRowCount() === 1 ? 'User' : 'Users'}: {table.getRowCount()}
+          </span>
+          <Button loading={downloadLoading} onClick={handleDownloadUsersCSV}>
+            Download CSV
+          </Button>
+        </div>
+      )
+    },
     renderRowActions: ({ row }) => {
       return (
         <Group>
@@ -197,6 +259,7 @@ export const AdminUserTable = () => {
       sorting,
       columnFilters,
     },
+    initialState: { columnVisibility: { id: false, timeJoined: false } },
     onPaginationChange: (newPagination) => {
       if (typeof newPagination === 'function') {
         setPagination((prevPagination) => newPagination(prevPagination))
@@ -225,6 +288,9 @@ export const AdminUserTable = () => {
           data={['10', '20', '30', '50', '100', '200']}
           label='Rows per page'
         />
+        <div>
+          Total: {totalRowCount} {totalRowCount === 1 ? 'item' : 'items'}
+        </div>
       </Group>
     </div>
   )
