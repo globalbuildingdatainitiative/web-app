@@ -627,6 +627,10 @@ mutation makeUserAdmin($userId: String!) {
   makeAdmin(userId: $userId)
 }
 
+mutation unmakeUserAdmin($userId: String!) {
+  unmakeAdmin(userId: $userId)
+}
+
 query getRolesAndPermissions {
   roles {
     name

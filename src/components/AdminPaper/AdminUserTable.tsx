@@ -5,6 +5,7 @@ import {
   useGetUsersLazyQuery,
   useImpersonateUserMutation,
   useMakeUserAdminMutation,
+  useUnmakeUserAdminMutation,
 } from '@queries'
 import { useMemo, useState } from 'react'
 import Session from 'supertokens-auth-react/recipe/session'
@@ -18,7 +19,7 @@ import {
   useMantineReactTable,
 } from 'mantine-react-table'
 import { ActionIcon, Button, Group, Pagination, ScrollArea, Select, Tooltip } from '@mantine/core'
-import { IconUserBolt, IconUserStar } from '@tabler/icons-react'
+import { IconUserBolt, IconUserStar, IconUserCancel } from '@tabler/icons-react'
 import { useNavigate } from 'react-router-dom'
 import { TruncatedTextWithTooltip } from '@components'
 import { capitalizeFirstLetter } from '@lib'
@@ -92,6 +93,10 @@ export const AdminUserTable = () => {
 
   const [impersonate, { loading: impersonateLoading, error: impersonateError }] = useImpersonateUserMutation()
   const [makeAdmin, { loading: makeAdminLoading, error: makeAdminError }] = useMakeUserAdminMutation({
+    refetchQueries: ['getUsers'],
+  })
+
+  const [unmakeAdmin, { loading: unmakeAdminLoading, error: unmakeAdminError }] = useUnmakeUserAdminMutation({
     refetchQueries: ['getUsers'],
   })
 
@@ -219,6 +224,35 @@ export const AdminUserTable = () => {
       )
     },
     renderRowActions: ({ row }) => {
+      const isAdmin = row.original.roles?.includes(Role.ADMIN)
+      let adminButton
+      if (isAdmin) {
+        adminButton = (
+          <Tooltip label={'Revoke Admin Rights'} position='left'>
+            <ActionIcon
+              onClick={() => unmakeAdmin({ variables: { userId: row.original.id } })}
+              variant='transparent'
+              color='black'
+              loading={unmakeAdminLoading}
+            >
+              <IconUserCancel />
+            </ActionIcon>
+          </Tooltip>
+        )
+      } else {
+        adminButton = (
+          <Tooltip label={'Make User Admin'} position='left'>
+            <ActionIcon
+              onClick={() => handleUserAdmin(row)}
+              variant='transparent'
+              color='black'
+              loading={makeAdminLoading}
+            >
+              <IconUserStar />
+            </ActionIcon>
+          </Tooltip>
+        )
+      }
       return (
         <Group>
           <Tooltip label={'Impersonate User'} position='left'>
@@ -231,21 +265,12 @@ export const AdminUserTable = () => {
               <IconUserBolt />
             </ActionIcon>
           </Tooltip>
-          <Tooltip label={'Make User Admin'} position='left'>
-            <ActionIcon
-              onClick={() => handleUserAdmin(row)}
-              variant='transparent'
-              color='black'
-              loading={makeAdminLoading}
-            >
-              <IconUserStar />
-            </ActionIcon>
-          </Tooltip>
+          {adminButton}
         </Group>
       )
     },
     mantineToolbarAlertBannerProps:
-      error || impersonateError || makeAdminError
+      error || impersonateError || makeAdminError || unmakeAdminError
         ? {
             color: 'red',
             children: `An error occurred. Please try again. If the problem persists, contact support at office@gbdi.io. Error: ${(error || impersonateError || makeAdminError)?.message}`,
@@ -253,7 +278,7 @@ export const AdminUserTable = () => {
         : undefined,
     state: {
       isLoading: loading,
-      showAlertBanner: !!error || !!impersonateError || !!makeAdminError,
+      showAlertBanner: !!error || !!impersonateError || !!makeAdminError || !!unmakeAdminError,
       showSkeletons: loading,
       pagination,
       sorting,
