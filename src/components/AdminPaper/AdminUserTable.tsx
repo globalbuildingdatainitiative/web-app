@@ -82,7 +82,7 @@ export const AdminUserTable = () => {
     return Object.keys(result).length > 0 ? result : undefined
   }
 
-  const { data, loading, error } = useGetUsersQuery({
+  const { data, loading, error, refetch } = useGetUsersQuery({
     variables: {
       limit: pagination.pageSize,
       offset: pagination.pageIndex * pagination.pageSize,
@@ -92,13 +92,9 @@ export const AdminUserTable = () => {
   })
 
   const [impersonate, { loading: impersonateLoading, error: impersonateError }] = useImpersonateUserMutation()
-  const [makeAdmin, { loading: makeAdminLoading, error: makeAdminError }] = useMakeUserAdminMutation({
-    refetchQueries: ['getUsers'],
-  })
+  const [makeAdmin, { loading: makeAdminLoading, error: makeAdminError }] = useMakeUserAdminMutation()
 
-  const [unmakeAdmin, { loading: unmakeAdminLoading, error: unmakeAdminError }] = useUnmakeUserAdminMutation({
-    refetchQueries: ['getUsers'],
-  })
+  const [unmakeAdmin, { loading: unmakeAdminLoading, error: unmakeAdminError }] = useUnmakeUserAdminMutation()
 
   const columns = useMemo<MRT_ColumnDef<User>[]>(
     () => [
@@ -166,6 +162,7 @@ export const AdminUserTable = () => {
 
   const handleUserAdmin = async (row: MRT_Row<User>) => {
     await makeAdmin({ variables: { userId: row.original.id } })
+    await refetch()
   }
 
   const handleDownloadUsersCSV = () =>
@@ -230,7 +227,10 @@ export const AdminUserTable = () => {
         adminButton = (
           <Tooltip label={'Revoke Admin Rights'} position='left'>
             <ActionIcon
-              onClick={() => unmakeAdmin({ variables: { userId: row.original.id } })}
+              onClick={async () => {
+                await unmakeAdmin({ variables: { userId: row.original.id } })
+                await refetch()
+              }}
               variant='transparent'
               color='black'
               loading={unmakeAdminLoading}
