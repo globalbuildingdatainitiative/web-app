@@ -31,6 +31,108 @@ export const countryOptions = Object.entries(alpha3AndUnknownToCountryName).map(
   label: formatCountryName(val),
 }))
 
+const frameTypeKeys = [
+  "Concrete (In-Situ)",
+  "Concrete (Precast)",
+  "Concrete (PT)",
+  "frame concrete",
+  "frame steel",
+  "frame wood",
+  "In-Situ RC",
+  "Masonry & Timber",
+  "Masonry/Concrete",
+  "Masonry/Timber",
+  "massive brick",
+  "massive concrete",
+  "massive wood",
+  "other", // there's one entry with lowercase 'o' in the dataset
+  "Other",
+  "SteelFrame/Composite",
+  "SteelFrame/Other",
+  "SteelFrame/Precast",
+  "SteelFrame/Timber",
+  "TimberFrame(Glulam/CLT)",
+  "TimberFrame(Softwood)",
+  "Unknown"
+]
+
+export function formatFrameType(frameType: string): string {
+  const frameTypeKeyToLabel: { [key: string]: string } = {
+    "Concrete (In-Situ)": "Concrete (In-Situ)",
+    "Concrete (Precast)": "Concrete (Precast)",
+    "Concrete (PT)": "Concrete (Post-Tensioned)",
+    "frame concrete": "Concrete Frame",
+    "frame steel": "Steel Frame",
+    "frame wood": "Wood Frame",
+    "In-Situ RC": "In-Situ Reinforced Concrete",
+    "Masonry & Timber": "Masonry & Timber",
+    "Masonry/Concrete": "Masonry / Concrete",
+    "Masonry/Timber": "Masonry / Timber",
+    "massive brick": "Massive Brick",
+    "massive concrete": "Massive Concrete",
+    "massive wood": "Massive Wood",
+    "other": "other (lowercase)",
+    "Other": "Other",
+    "SteelFrame/Composite": "Steel Frame / Composite",
+    "SteelFrame/Other": "Steel Frame / Other",
+    "SteelFrame/Precast": "Steel Frame / Precast",
+    "SteelFrame/Timber": "Steel Frame / Timber",
+    "TimberFrame(Glulam/CLT)": "Timber Frame (Glulam/CLT)",
+    "TimberFrame(Softwood)": "Timber Frame (Softwood)",
+    "Unknown": "Unknown"
+  }
+  return frameTypeKeyToLabel[frameType] || frameType
+}
+
+export const frameTypeOptions = frameTypeKeys.map((frameType) => ({
+  value: frameType,
+  label: formatFrameType(frameType),
+}))
+
+const lcaSoftwareKeys = [
+  "MMG-Building-LCA-Tool",
+  "Other",
+  "SimaPro",
+  "Structural Carbon Toolkit",
+]
+
+export function formatLcaSoftware(name: string): string {
+  const lcaSoftwareKeyToLabel: { [key: string]: string } = {
+    "MMG-Building-LCA-Tool": "MMG Building LCA Tool",
+    "Other": "Other",
+    "SimaPro": "SimaPro",
+    "Structural Carbon Toolkit": "Structural Carbon Toolkit",
+  }
+  return lcaSoftwareKeyToLabel[name] || name
+}
+
+export const lcaSoftwareOptions = lcaSoftwareKeys.map((software) => ({
+  value: software,
+  label: formatLcaSoftware(software),
+}))
+
+const sourceKeys = [
+  "BECD",
+  "CarbEnMats",
+  "SLiCE",
+  "StructuralPanda",
+]
+
+export function formatSource(source: string): string {
+  const sourceKeyToLabel: { [key: string]: string } = {
+    "BECD": "BECD",
+    "CarbEnMats": "CarbEnMats",
+    "SLiCE": "SLiCE",
+    "StructuralPanda": "Structural Panda",
+  }
+  return sourceKeyToLabel[source] || source
+}
+
+export const sourceOptions = sourceKeys.map((source) => ({
+  value: source,
+  label: formatSource(source),
+}))
+
 export function softwareOptionsFromData(data: GetProjectDataForBoxPlotQuery) {
   const softwareSet = new Set<string>()
   data.projects.groups.forEach((group) => {
@@ -80,6 +182,7 @@ export interface PlotDesignerDataFiltersSelection {
   countries: PlotDesignerDataFilterSelection<string[]>
   software: PlotDesignerDataFilterSelection<string[]>
   sources: PlotDesignerDataFilterSelection<string[]>
+  frameTypes: PlotDesignerDataFilterSelection<string[]>
   gfaRange: PlotDesignerDataFilterSelection<[number, number]>
   confirmedGfaRange: PlotDesignerDataFilterSelection<[number, number]>
 }
@@ -91,13 +194,14 @@ export function defaultFilters(): PlotDesignerDataFiltersSelection {
     countries: makeFilter([]),
     software: makeFilter([]),
     sources: makeFilter([]),
+    frameTypes: makeFilter([]),
     gfaRange: makeFilter([100, 5000], true),
     confirmedGfaRange: makeFilter([0, 0]),
   }
 }
 
 export type PlotDesignerQuantityOption = 'gwp' | 'gwp_per_m2'
-export type PlotDesignerGroupByOption = 'country' | 'software' | 'source'
+export type PlotDesignerGroupByOption = 'country' | 'software' | 'source' | 'frameType' | 'buildingTypology'
 
 export interface PlotDesignerPlotParameters {
   quantity: PlotDesignerQuantityOption
@@ -154,6 +258,14 @@ export function matchStageFromFilters(filters: PlotDesignerDataFiltersSelection)
     })
   }
 
+  if (filters.frameTypes.value.length > 0 && filters.frameTypes.enabled) {
+    filtersToApply.push({
+      'projectInfo.frameType': {
+        $in: filters.frameTypes.value,
+      },
+    })
+  }
+
   if (filters.software.value.length > 0 && filters.software.enabled) {
     filtersToApply.push({
       'softwareInfo.lcaSoftware': { $in: filters.software.value },
@@ -183,12 +295,16 @@ export function computationFromPlotParameters(plotParameters: PlotDesignerPlotPa
   }
 }
 
-export function groupByFromPlotParameters(plotParameters: PlotDesignerPlotParameters): string {
-  let groupBy = '$location.country'
+export function groupByFromPlotParameters(plotParameters: PlotDesignerPlotParameters): string | { $arrayElemAt: [string, number] } {
+  let groupBy: string | { $arrayElemAt: [string, number] } = '$location.country'
   if (plotParameters.groupBy === 'software') {
     groupBy = '$softwareInfo.lcaSoftware'
   } else if (plotParameters.groupBy === 'source') {
     groupBy = '$metaData.source.name'
+  } else if (plotParameters.groupBy === 'frameType') {
+    groupBy = '$projectInfo.frameType'
+  } else if (plotParameters.groupBy === 'buildingTypology') {
+    groupBy = { $arrayElemAt: ['$projectInfo.buildingTypology', 0] } 
   }
   return groupBy
 }

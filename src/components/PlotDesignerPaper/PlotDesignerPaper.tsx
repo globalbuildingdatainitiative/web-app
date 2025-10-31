@@ -1,7 +1,7 @@
 import { BoxPlot, BoxPlotData, BoxPlotOrientation, ErrorMessage, Loading, Paper } from '@components'
 import { Button, Center, Select, Title } from '@mantine/core'
 import { useMemo, useState } from 'react'
-import { useGetProjectDataForBoxPlotLazyQuery } from '@queries'
+import { LifeCycleStage, useGetProjectDataForBoxPlotLazyQuery } from '@queries'
 import { makeErrorFromOptionalString } from 'lib/uiUtils/errors'
 import { PlotDesignerDataFilters } from 'components/datasetFilters/PlotDesignerDataFilters'
 import {
@@ -16,17 +16,88 @@ import {
 import { PlotDesignerPlotParametersSelector } from 'components/datasetFilters/PlotDesignerPlotParametersSelector'
 import { plotParametersToValueAxisLabel, prettifyPlotDesignerAggregation } from './plotDesignerUtils'
 import { PlotDesignerTable } from './PlotDesignerTable'
+import { useSearchParamsReplicator } from 'lib/hooks/useSearchParamsReplicator'
 
 interface BoxPlotVisualSettings {
   valueAxisLabel: string
   labelHeightFactor: number
 }
 
+function searchParamsToFilters(searchParams: URLSearchParams): PlotDesignerDataFiltersSelection {
+  const filtersUsingNumbers = ["gfaRange", "confirmedGfaRange"]
+  const filters =  defaultFilters()
+
+  const filtersKeys = Object.keys(filters) as (keyof PlotDesignerDataFiltersSelection)[]
+  filtersKeys.forEach((key) => {
+    const paramValue = searchParams.get(key)
+    if (paramValue !== null) {
+      filters[key].enabled = true
+      if (paramValue !== '') {
+        const values = paramValue.split(',')
+        filters[key].value = filtersUsingNumbers.includes(key) ? values.map(Number) : values as unknown as any
+      }
+    }
+  })
+
+  return filters
+}
+
+function filtersToSearchParams(filters: PlotDesignerDataFiltersSelection, existingParams: URLSearchParams = new URLSearchParams()): URLSearchParams {
+  const filterKeys = Object.keys(filters) as (keyof PlotDesignerDataFiltersSelection)[]
+  filterKeys.forEach((key) => {
+    if (filters[key].enabled) {
+      existingParams.set(key, filters[key].value.join(','))
+    } else {
+      existingParams.delete(key)
+    }
+  })
+  return existingParams
+}
+
+function searchParamsToPlotParameters(searchParams: URLSearchParams): PlotDesignerPlotParameters {
+  const plotParameters = defaultPlotParameters()
+  
+  const quantityParam = searchParams.get('quantity')
+  if (quantityParam) {
+    plotParameters.quantity = quantityParam as PlotDesignerPlotParameters['quantity']
+  }
+
+  const groupByParam = searchParams.get('groupBy')
+  if (groupByParam) {
+    plotParameters.groupBy = groupByParam as PlotDesignerPlotParameters['groupBy']
+  }
+
+  const lifeCycleStagesParam = searchParams.get('lifeCycleStagesToInclude')
+  if (lifeCycleStagesParam) {
+    plotParameters.lifeCycleStagesToInclude = lifeCycleStagesParam.split(',') as LifeCycleStage[]
+  }
+
+  return plotParameters
+}
+
+function filtersToSearchParamsPlotParameters(plotParameters: PlotDesignerPlotParameters): URLSearchParams {
+  const searchParams = new URLSearchParams()
+  searchParams.set('quantity', plotParameters.quantity)
+  searchParams.set('groupBy', plotParameters.groupBy)
+  searchParams.set('lifeCycleStagesToInclude', plotParameters.lifeCycleStagesToInclude.join(','))
+  return searchParams
+}
+
 export const PlotDesignerPaper = () => {
-  const [filters, setFilters] = useState<PlotDesignerDataFiltersSelection>(defaultFilters())
+  const [filters, setFilters] = useSearchParamsReplicator<PlotDesignerDataFiltersSelection>(
+    searchParamsToFilters,
+    filtersToSearchParams,
+    defaultFilters()
+  )
   const [filtersUpdated, setFiltersUpdated] = useState<boolean>(true)
-  const [plotParameters, setPlotParameters] = useState<PlotDesignerPlotParameters>(defaultPlotParameters())
+
+  const [plotParameters, setPlotParameters] = useSearchParamsReplicator<PlotDesignerPlotParameters>(
+    searchParamsToPlotParameters,
+    filtersToSearchParamsPlotParameters,
+    defaultPlotParameters()
+  )
   const [plotParametersUpdated, setPlotParametersUpdated] = useState<boolean>(true)
+
   const [boxPlotVisualSettings, setBoxPlotVisualSettings] = useState<BoxPlotVisualSettings>({
     valueAxisLabel: '',
     labelHeightFactor: 50,

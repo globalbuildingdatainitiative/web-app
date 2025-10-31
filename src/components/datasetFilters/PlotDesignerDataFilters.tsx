@@ -1,13 +1,13 @@
 import { MultiSelect, RangeSlider, Switch } from '@mantine/core'
 import { type GetProjectDataForBoxPlotQuery, LifeCycleStage } from '@queries'
-import { useMemo } from 'react'
 import {
   buildingTypologyOptions,
   countryOptions,
+  frameTypeOptions,
+  lcaSoftwareOptions,
   lifeCycleOptions,
   PlotDesignerDataFiltersSelection,
-  softwareOptionsFromData,
-  sourceOptionsFromData,
+  sourceOptions,
 } from './datasetFiltersConstants'
 
 interface PlotDesignerDataFiltersProps {
@@ -38,16 +38,6 @@ export const PlotDesignerDataFilters = ({ filters, onFilterChange, data }: PlotD
       },
     })
   }
-
-  // TODO : should all of these be dependent on this data or should all countries be available?
-  const softwareOptions = useMemo(() => {
-    if (!data) return []
-    return softwareOptionsFromData(data)
-  }, [data])
-  const sourceOptions = useMemo(() => {
-    if (!data) return []
-    return sourceOptionsFromData(data)
-  }, [data])
 
   return (
     <div style={{ display: 'flex', flexDirection: 'row', gap: '16px', flexWrap: 'wrap' }}>
@@ -99,7 +89,24 @@ export const PlotDesignerDataFilters = ({ filters, onFilterChange, data }: PlotD
       />
 
       <MultiSelect
-        data={softwareOptions}
+        data={frameTypeOptions}
+        value={filters.frameTypes.value}
+        onChange={(value) => setFieldValue('frameTypes', value)}
+        label={
+          <Switch
+            checked={filters.frameTypes.enabled}
+            onChange={(event) => setFieldEnabled('frameTypes', event.currentTarget.checked)}
+            label='Frame Type (Structure Type)'
+          />
+        }
+        searchable
+        nothingFoundMessage='No frame type found'
+        placeholder='Select frame types'
+        disabled={!filters.frameTypes.enabled}
+      />
+
+      <MultiSelect
+        data={lcaSoftwareOptions}
         value={filters.software.value}
         onChange={(value) => setFieldValue('software', value)}
         label={

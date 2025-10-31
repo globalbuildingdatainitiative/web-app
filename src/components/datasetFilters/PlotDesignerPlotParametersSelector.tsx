@@ -24,6 +24,8 @@ export const PlotDesignerPlotParametersSelector = ({
     { value: 'country', label: 'Country' },
     { value: 'software', label: 'Software' },
     { value: 'source', label: 'Source' },
+    { value: 'frameType', label: 'Frame Type (Structure Type)' },
+    { value: 'buildingTypology', label: 'Building Typology' },
   ]
 
   const lifeCycleOptions = [

@@ -1,5 +1,5 @@
 import { alpha3AndUnknownToCountryName, formatCountryName } from '@lib'
-import { PlotDesignerPlotParameters } from 'components/datasetFilters/datasetFiltersConstants'
+import { formatFrameType, formatLcaSoftware, PlotDesignerPlotParameters } from 'components/datasetFilters/datasetFiltersConstants'
 import { GetProjectDataForBoxPlotQuery } from 'queries/generated'
 
 export function getCountryNameFromCode(countryCode: string): string {
@@ -14,6 +14,14 @@ export function plotParametersToAggregationGroupTitleGenerator(
   if (plotParameters.groupBy === 'country') {
     return (countryName: string | null) =>
       countryName ? formatCountryName(getCountryNameFromCode(countryName)) : `Unknown Country`
+  } else if (plotParameters.groupBy === 'frameType') {
+    return (frameType: string | null) => frameType ? formatFrameType(frameType) : `Unknown Frame Type`
+  } else if (plotParameters.groupBy === 'software') {
+    return (softwareName: string | null) => (softwareName ? formatLcaSoftware(softwareName) : `Unknown Software`)
+  } else if (plotParameters.groupBy === 'source') {
+    return (sourceName: string | null) => (sourceName ? sourceName : `Unknown Source`)
+  } else if (plotParameters.groupBy === 'buildingTypology') {
+    return (typologyName: string | null) => (typologyName ? typologyName : `Unknown Typology`)
   }
 
   return (groupName: string | null) => (groupName ? groupName : `Unknown`)
