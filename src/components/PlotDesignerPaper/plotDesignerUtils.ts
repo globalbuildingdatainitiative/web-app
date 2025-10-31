@@ -1,5 +1,6 @@
 import { alpha3AndUnknownToCountryName, formatCountryName } from '@lib'
-import { formatFrameType, formatLcaSoftware, PlotDesignerPlotParameters } from 'components/datasetFilters/datasetFiltersConstants'
+import { formatFrameType, formatLcaSoftware } from 'components/datasetFilters/filtersConstants'
+import { PlotDesignerGroupByOption, PlotDesignerPlotParameters } from 'components/datasetFilters/plotSettings'
 import { GetProjectDataForBoxPlotQuery } from 'queries/generated'
 
 export function getCountryNameFromCode(countryCode: string): string {
@@ -7,24 +8,19 @@ export function getCountryNameFromCode(countryCode: string): string {
 }
 
 type PlotDesignerAggregationGroupTitleGenerator = (groupValue: string | null) => string
+const groupByToTitleGenerator: Record<PlotDesignerGroupByOption, PlotDesignerAggregationGroupTitleGenerator> = {
+  'country': (countryName: string | null) =>
+    countryName ? formatCountryName(getCountryNameFromCode(countryName)) : `Unknown Country`,
+  'frameType': (frameType: string | null) => frameType ? formatFrameType(frameType) : `Unknown Frame Type`,
+  'software': (softwareName: string | null) => (softwareName ? formatLcaSoftware(softwareName) : `Unknown Software`),
+  'source': (sourceName: string | null) => (sourceName ? sourceName : `Unknown Source`),
+  'buildingTypology': (typologyName: string | null) => (typologyName ? typologyName : `Unknown Typology`),
+}
 
 export function plotParametersToAggregationGroupTitleGenerator(
   plotParameters: PlotDesignerPlotParameters,
 ): PlotDesignerAggregationGroupTitleGenerator {
-  if (plotParameters.groupBy === 'country') {
-    return (countryName: string | null) =>
-      countryName ? formatCountryName(getCountryNameFromCode(countryName)) : `Unknown Country`
-  } else if (plotParameters.groupBy === 'frameType') {
-    return (frameType: string | null) => frameType ? formatFrameType(frameType) : `Unknown Frame Type`
-  } else if (plotParameters.groupBy === 'software') {
-    return (softwareName: string | null) => (softwareName ? formatLcaSoftware(softwareName) : `Unknown Software`)
-  } else if (plotParameters.groupBy === 'source') {
-    return (sourceName: string | null) => (sourceName ? sourceName : `Unknown Source`)
-  } else if (plotParameters.groupBy === 'buildingTypology') {
-    return (typologyName: string | null) => (typologyName ? typologyName : `Unknown Typology`)
-  }
-
-  return (groupName: string | null) => (groupName ? groupName : `Unknown`)
+  return groupByToTitleGenerator[plotParameters.groupBy] || ((groupName: string | null) => (groupName ? groupName : `Unknown`))
 }
 
 interface PlotDesignerAggregationResultRaw {
@@ -77,11 +73,4 @@ export function prettifyPlotDesignerAggregation(
       const bName = b?.name ?? ''
       return aName.localeCompare(bName)
     })
-}
-
-export function plotParametersToValueAxisLabel(plotParameters: PlotDesignerPlotParameters): string {
-  if (plotParameters.quantity === 'gwp_per_m2') {
-    return 'GWP Intensity (kgCO₂eq/m²)'
-  }
-  return 'GWP (kgCO₂eq)'
 }

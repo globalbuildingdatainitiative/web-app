@@ -1,10 +1,7 @@
 import { MultiSelect, Select } from '@mantine/core'
 import { LifeCycleStage } from '@queries'
-import {
-  PlotDesignerGroupByOption,
-  PlotDesignerPlotParameters,
-  PlotDesignerQuantityOption,
-} from './datasetFiltersConstants'
+import { PlotDesignerGroupByOption, PlotDesignerPlotParameters, PlotDesignerQuantityOption } from './plotSettings'
+import { plotDesignerQuantityOptions, plotDesignerLifeCycleStageOptions, plotDesignerGroupByOptions } from './plotParametersConstants'
 
 interface PlotDesignerPlotParametersSelectorProps {
   parameters: PlotDesignerPlotParameters
@@ -15,32 +12,11 @@ export const PlotDesignerPlotParametersSelector = ({
   parameters,
   onPlotParametersChange,
 }: PlotDesignerPlotParametersSelectorProps) => {
-  const quantityOptions: { value: PlotDesignerQuantityOption; label: string }[] = [
-    { value: 'gwp', label: 'GWP building' },
-    { value: 'gwp_per_m2', label: 'GWP per m²' },
-  ]
-
-  const groupByOptions: { value: PlotDesignerGroupByOption; label: string }[] = [
-    { value: 'country', label: 'Country' },
-    { value: 'software', label: 'Software' },
-    { value: 'source', label: 'Source' },
-    { value: 'frameType', label: 'Frame Type (Structure Type)' },
-    { value: 'buildingTypology', label: 'Building Typology' },
-  ]
-
-  const lifeCycleOptions = [
-    { value: 'all', label: 'Select All' },
-    ...Object.values(LifeCycleStage).map((value) => ({
-      value,
-      label: value.toUpperCase(),
-    })),
-  ]
-
   return (
     <div style={{ display: 'flex', flexDirection: 'row', gap: '16px', flexWrap: 'wrap' }}>
       <div style={{ maxWidth: 300 }}>
         <Select
-          data={quantityOptions}
+          data={plotDesignerQuantityOptions}
           value={parameters.quantity}
           onChange={(value) => onPlotParametersChange({ ...parameters, quantity: value as PlotDesignerQuantityOption })}
           label='Quantity to display'
@@ -52,7 +28,7 @@ export const PlotDesignerPlotParametersSelector = ({
       </div>
 
       <MultiSelect
-        data={lifeCycleOptions}
+        data={plotDesignerLifeCycleStageOptions}
         value={parameters.lifeCycleStagesToInclude}
         onChange={(value) =>
           onPlotParametersChange({ ...parameters, lifeCycleStagesToInclude: value as LifeCycleStage[] })
@@ -62,7 +38,7 @@ export const PlotDesignerPlotParametersSelector = ({
       />
 
       <Select
-        data={groupByOptions}
+        data={plotDesignerGroupByOptions}
         value={parameters.groupBy}
         onChange={(value) =>
           onPlotParametersChange({

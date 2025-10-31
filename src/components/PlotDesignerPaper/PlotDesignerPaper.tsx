@@ -1,86 +1,21 @@
 import { BoxPlot, BoxPlotData, BoxPlotOrientation, ErrorMessage, Loading, Paper } from '@components'
 import { Button, Center, Select, Title } from '@mantine/core'
 import { useMemo, useState } from 'react'
-import { LifeCycleStage, useGetProjectDataForBoxPlotLazyQuery } from '@queries'
+import { useGetProjectDataForBoxPlotLazyQuery } from '@queries'
 import { makeErrorFromOptionalString } from 'lib/uiUtils/errors'
 import { PlotDesignerDataFilters } from 'components/datasetFilters/PlotDesignerDataFilters'
-import {
-  PlotDesignerDataFiltersSelection,
-  PlotDesignerPlotParameters,
-  PlotDesignerPlotSettings,
-  boxPlotOrientationOptions,
-  defaultFilters,
-  defaultPlotParameters,
-  filtersToAggregation,
-} from 'components/datasetFilters/datasetFiltersConstants'
+import { boxPlotOrientationOptions } from 'components/datasetFilters/filtersConstants'
 import { PlotDesignerPlotParametersSelector } from 'components/datasetFilters/PlotDesignerPlotParametersSelector'
-import { plotParametersToValueAxisLabel, prettifyPlotDesignerAggregation } from './plotDesignerUtils'
+import { prettifyPlotDesignerAggregation } from './plotDesignerUtils'
 import { PlotDesignerTable } from './PlotDesignerTable'
 import { useSearchParamsReplicator } from 'lib/hooks/useSearchParamsReplicator'
+import { filtersToAggregation } from 'components/datasetFilters/aggregationBuilders'
+import { PlotDesignerDataFiltersSelection, defaultFilters, PlotDesignerPlotParameters, defaultPlotParameters, PlotDesignerPlotSettings, filtersToSearchParams, filtersToSearchParamsPlotParameters, searchParamsToFilters, searchParamsToPlotParameters } from 'components/datasetFilters/plotSettings'
+import { formatQuantity } from 'components/datasetFilters/plotParametersConstants'
 
 interface BoxPlotVisualSettings {
   valueAxisLabel: string
   labelHeightFactor: number
-}
-
-function searchParamsToFilters(searchParams: URLSearchParams): PlotDesignerDataFiltersSelection {
-  const filtersUsingNumbers = ["gfaRange", "confirmedGfaRange"]
-  const filters =  defaultFilters()
-
-  const filtersKeys = Object.keys(filters) as (keyof PlotDesignerDataFiltersSelection)[]
-  filtersKeys.forEach((key) => {
-    const paramValue = searchParams.get(key)
-    if (paramValue !== null) {
-      filters[key].enabled = true
-      if (paramValue !== '') {
-        const values = paramValue.split(',')
-        filters[key].value = filtersUsingNumbers.includes(key) ? values.map(Number) : values as unknown as any
-      }
-    }
-  })
-
-  return filters
-}
-
-function filtersToSearchParams(filters: PlotDesignerDataFiltersSelection, existingParams: URLSearchParams = new URLSearchParams()): URLSearchParams {
-  const filterKeys = Object.keys(filters) as (keyof PlotDesignerDataFiltersSelection)[]
-  filterKeys.forEach((key) => {
-    if (filters[key].enabled) {
-      existingParams.set(key, filters[key].value.join(','))
-    } else {
-      existingParams.delete(key)
-    }
-  })
-  return existingParams
-}
-
-function searchParamsToPlotParameters(searchParams: URLSearchParams): PlotDesignerPlotParameters {
-  const plotParameters = defaultPlotParameters()
-  
-  const quantityParam = searchParams.get('quantity')
-  if (quantityParam) {
-    plotParameters.quantity = quantityParam as PlotDesignerPlotParameters['quantity']
-  }
-
-  const groupByParam = searchParams.get('groupBy')
-  if (groupByParam) {
-    plotParameters.groupBy = groupByParam as PlotDesignerPlotParameters['groupBy']
-  }
-
-  const lifeCycleStagesParam = searchParams.get('lifeCycleStagesToInclude')
-  if (lifeCycleStagesParam) {
-    plotParameters.lifeCycleStagesToInclude = lifeCycleStagesParam.split(',') as LifeCycleStage[]
-  }
-
-  return plotParameters
-}
-
-function filtersToSearchParamsPlotParameters(plotParameters: PlotDesignerPlotParameters): URLSearchParams {
-  const searchParams = new URLSearchParams()
-  searchParams.set('quantity', plotParameters.quantity)
-  searchParams.set('groupBy', plotParameters.groupBy)
-  searchParams.set('lifeCycleStagesToInclude', plotParameters.lifeCycleStagesToInclude.join(','))
-  return searchParams
 }
 
 export const PlotDesignerPaper = () => {
@@ -131,7 +66,7 @@ export const PlotDesignerPaper = () => {
     setPlotParametersUpdated(false)
 
     setBoxPlotVisualSettings({
-      valueAxisLabel: plotParametersToValueAxisLabel(plotParameters),
+      valueAxisLabel: formatQuantity(plotParameters.quantity),
       labelHeightFactor: plotParameters.groupBy === 'country' ? 50 : 100,
     })
   }
@@ -155,7 +90,7 @@ export const PlotDesignerPaper = () => {
           <Title order={4} style={{ marginBottom: '8px' }}>
             Data Filters {filtersUpdated ? ' (updated)' : ''}
           </Title>
-          <PlotDesignerDataFilters filters={filters} onFilterChange={onFilterChange} data={data} />
+          <PlotDesignerDataFilters filters={filters} onFilterChange={onFilterChange} />
         </div>
         <div>
           <Title order={4} style={{ marginBottom: '8px' }}>

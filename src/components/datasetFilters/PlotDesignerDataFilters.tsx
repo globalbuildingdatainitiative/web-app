@@ -1,22 +1,21 @@
 import { MultiSelect, RangeSlider, Switch } from '@mantine/core'
-import { type GetProjectDataForBoxPlotQuery, LifeCycleStage } from '@queries'
+import { LifeCycleStage } from '@queries'
 import {
   buildingTypologyOptions,
   countryOptions,
   frameTypeOptions,
   lcaSoftwareOptions,
   lifeCycleOptions,
-  PlotDesignerDataFiltersSelection,
   sourceOptions,
-} from './datasetFiltersConstants'
+} from './filtersConstants'
+import type { PlotDesignerDataFiltersSelection } from './plotSettings'
 
 interface PlotDesignerDataFiltersProps {
   filters: PlotDesignerDataFiltersSelection
   onFilterChange: (f: PlotDesignerDataFiltersSelection) => void
-  data: GetProjectDataForBoxPlotQuery | undefined
 }
 
-export const PlotDesignerDataFilters = ({ filters, onFilterChange, data }: PlotDesignerDataFiltersProps) => {
+export const PlotDesignerDataFilters = ({ filters, onFilterChange }: PlotDesignerDataFiltersProps) => {
   function setFieldEnabled(field: keyof PlotDesignerDataFiltersSelection, enabled: boolean) {
     onFilterChange({
       ...filters,
