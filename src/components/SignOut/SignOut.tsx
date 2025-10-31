@@ -31,11 +31,15 @@ export const SignOut = ({ collapsed }: SignOutProps) => {
             marginBottom: 8,
           }}
         >
-          <div>
+          <span style={{ display: 'block' }}>
             {user?.firstName || '(No first name)'} {user?.lastName || '(No last name)'}
-          </div>
-          <div style={{ fontSize: 14, lineHeight: 1.25 }}>{user?.email || '(No email)'}</div>
-          <div style={{ fontSize: 14, lineHeight: 1.25 }}>{user?.organization?.name || 'No organization'}</div>
+          </span>
+          <span style={{ display: 'block', fontSize: 14, lineHeight: 1.25 }}>
+            {user?.email || '(No email)'}
+          </span>
+          <span style={{ display: 'block', fontSize: 14, lineHeight: 1.25 }}>
+            {user?.organization?.name || 'No organization'}
+          </span>
         </Text>
       )}
       <Button
