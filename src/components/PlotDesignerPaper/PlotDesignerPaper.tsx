@@ -207,7 +207,7 @@ export const PlotDesignerPaper = () => {
                   <Title order={4} style={{ marginBottom: '8px' }}>
                     Raw data {filtersUpdated || plotParametersUpdated ? ' (out of date)' : ''}
                   </Title>
-                  <PlotDesignerTable prettifiedData={boxPlotData} />
+                  <PlotDesignerTable prettifiedData={boxPlotData} filters={filters} plotParameters={plotParameters} />
                 </div>
               </>
             ) : (
