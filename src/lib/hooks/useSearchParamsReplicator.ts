@@ -19,7 +19,7 @@ export function useSearchParamsReplicator<T>(
 
     window.addEventListener("popstate", handlePopState)
     return () => window.removeEventListener("popstate", handlePopState)
-  }, [fromSearchParams])
+  }, [fromSearchParams, toSearchParams])
 
   const updateSearchParams = (
     value: T,

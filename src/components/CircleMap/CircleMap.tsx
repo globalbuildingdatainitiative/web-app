@@ -4,6 +4,7 @@ import { Text, useMantineTheme } from '@mantine/core'
 import { useMemo } from 'react'
 
 export interface CircleMapDataPoint {
+  id: string;
   lat: number;
   lon: number;
   value: number;

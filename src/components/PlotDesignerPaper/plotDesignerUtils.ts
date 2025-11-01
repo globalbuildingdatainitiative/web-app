@@ -97,7 +97,7 @@ export function aggregationToMapData(
 ): CircleMapData | null {
 
   const points = data.projects.aggregation.map((agg: PlotDesignerAggregationResultRaw) => {
-    const { lat, lon} = getLatLonFromAlpha3(agg.group) || { lat: 0, lon: 0 }
+    const { lat, lon } = getLatLonFromAlpha3(agg.group) || { lat: 0, lon: 0 }
     const name = formatCountryName(getCountryNameFromCode(agg.group))
     const id = agg.group
 
