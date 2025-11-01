@@ -1,17 +1,18 @@
 import { BoxPlot, BoxPlotData, BoxPlotOrientation, ErrorMessage, Loading, Paper } from '@components'
-import { Button, Center, Select, Title } from '@mantine/core'
+import { Button, Center, Select, Title, Text } from '@mantine/core'
 import { useMemo, useState } from 'react'
 import { useGetProjectDataForBoxPlotLazyQuery } from '@queries'
 import { makeErrorFromOptionalString } from 'lib/uiUtils/errors'
 import { PlotDesignerDataFilters } from 'components/datasetFilters/PlotDesignerDataFilters'
-import { boxPlotOrientationOptions } from 'components/datasetFilters/filtersConstants'
+import { boxPlotOrientationOptions, mapCircleRadiusSourceOptions } from 'components/datasetFilters/filtersConstants'
 import { PlotDesignerPlotParametersSelector } from 'components/datasetFilters/PlotDesignerPlotParametersSelector'
-import { prettifyPlotDesignerAggregation } from './plotDesignerUtils'
+import { aggregationToMapData, getMapCircleRadiusSourceLabel, MapCircleRadiusSource, prettifyPlotDesignerAggregation } from './plotDesignerUtils'
 import { PlotDesignerTable } from './PlotDesignerTable'
 import { useSearchParamsReplicator } from 'lib/hooks/useSearchParamsReplicator'
 import { filtersToAggregation } from 'components/datasetFilters/aggregationBuilders'
 import { PlotDesignerDataFiltersSelection, defaultFilters, PlotDesignerPlotParameters, defaultPlotParameters, PlotDesignerPlotSettings, filtersToSearchParams, filtersToSearchParamsPlotParameters, searchParamsToFilters, searchParamsToPlotParameters } from 'components/datasetFilters/plotSettings'
 import { formatQuantity } from 'components/datasetFilters/plotParametersConstants'
+import { CircleMap, CircleMapData, CircleMapDataPoint } from 'components/CircleMap'
 
 interface BoxPlotVisualSettings {
   valueAxisLabel: string
@@ -38,6 +39,7 @@ export const PlotDesignerPaper = () => {
     labelHeightFactor: 50,
   })
   const [boxPlotOrientation, setBoxPlotOrientation] = useState<BoxPlotOrientation>('vertical')
+  const [mapCircleRadiusSource, setMapCircleRadiusSource] = useState<MapCircleRadiusSource>('count')
 
   const onFilterChange = (newFilters: PlotDesignerDataFiltersSelection) => {
     setFilters(newFilters)
@@ -75,6 +77,11 @@ export const PlotDesignerPaper = () => {
     if (!data) return []
     return prettifyPlotDesignerAggregation(data, plotParameters)
   }, [data, plotParameters])
+
+  const mapData: CircleMapData | null = useMemo(() => {
+    if (!data) return null
+    return aggregationToMapData(data, mapCircleRadiusSource)
+  }, [data, mapCircleRadiusSource])
 
   const boxPlotHeight =
     boxPlotOrientation === 'vertical' ? 150 + boxPlotData.length * boxPlotVisualSettings.labelHeightFactor : 900
@@ -138,6 +145,33 @@ export const PlotDesignerPaper = () => {
                     />
                   </Center>
                 </div>
+                {mapData && (<div>
+                  <Title order={4} style={{ marginBottom: 4 }}>
+                    Map {filtersUpdated || plotParametersUpdated ? ' (out of date)' : ''}
+                  </Title>
+                  <div style={{ display: 'flex', gap: 8, marginBottom: 8 }}>
+                    <Select
+                      data={mapCircleRadiusSourceOptions}
+                      value={mapCircleRadiusSource}
+                      onChange={(value) => setMapCircleRadiusSource(value as MapCircleRadiusSource)}
+                      label='Display'
+                      placeholder='Select information to display'
+                    />
+                  </div>
+                  <Center style={{ height: 800, width: '100%', position: 'relative', zIndex: 0 }}>
+                    <CircleMap
+                      data={mapData}
+                      minPointRadius={1}
+                      maxPointRadius={20}
+                      makePopup={(point: CircleMapDataPoint) => (
+                        <>
+                          <Title order={5}>{point.name}</Title>
+                          <Text>{getMapCircleRadiusSourceLabel(mapCircleRadiusSource)}: {point.value}</Text>
+                        </>
+                      )}
+                    />
+                  </Center>
+                </div>)}
                 <div>
                   <Title order={4} style={{ marginBottom: '8px' }}>
                     Raw data {filtersUpdated || plotParametersUpdated ? ' (out of date)' : ''}

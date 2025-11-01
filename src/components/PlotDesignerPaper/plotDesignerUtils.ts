@@ -1,4 +1,5 @@
-import { alpha3AndUnknownToCountryName, formatCountryName } from '@lib'
+import { alpha3AndUnknownToCountryName, formatCountryName, getLatLonFromAlpha3 } from '@lib'
+import { CircleMapData } from 'components/CircleMap/CircleMap'
 import { formatFrameType, formatLcaSoftware } from 'components/datasetFilters/filtersConstants'
 import { PlotDesignerGroupByOption, PlotDesignerPlotParameters } from 'components/datasetFilters/plotSettings'
 import { GetProjectDataForBoxPlotQuery } from 'queries/generated'
@@ -73,4 +74,43 @@ export function prettifyPlotDesignerAggregation(
       const bName = b?.name ?? ''
       return aName.localeCompare(bName)
     })
+}
+
+export type MapCircleRadiusSource = 'count' | 'median' | 'avg' | 'min' | 'max' | 'pct25' | 'pct75'
+export const MapCircleRadiusSourceLabels: Record<MapCircleRadiusSource, string> = {
+  'count': 'Project count',
+  'median': 'Median',
+  'avg': 'Average',
+  'min': 'Minimum',
+  'max': 'Maximum',
+  'pct25': '25th Percentile',
+  'pct75': '75th Percentile',
+}
+
+export function getMapCircleRadiusSourceLabel(source: MapCircleRadiusSource): string {
+  return MapCircleRadiusSourceLabels[source] || 'Unknown'
+}
+
+export function aggregationToMapData(
+  data: GetProjectDataForBoxPlotQuery,
+  radiusSource: MapCircleRadiusSource,
+): CircleMapData | null {
+
+  const points = data.projects.aggregation.map((agg: PlotDesignerAggregationResultRaw) => {
+    const { lat, lon} = getLatLonFromAlpha3(agg.group) || { lat: 0, lon: 0 }
+    const name = formatCountryName(getCountryNameFromCode(agg.group))
+    const id = agg.group
+
+    let value = 0;
+    if (radiusSource === 'count') value = agg.count
+    else if (radiusSource === 'median') value = agg.median
+    else if (radiusSource === 'avg') value = agg.avg
+    else if (radiusSource === 'min') value = agg.min
+    else if (radiusSource === 'max') value = agg.max
+    else if (radiusSource === 'pct25') value = agg.pct[0]
+    else if (radiusSource === 'pct75') value = agg.pct[1]
+    
+    return { lat, lon, value, name, id }
+  })
+  return { points }
 }
