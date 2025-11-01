@@ -10,18 +10,21 @@ export function getCountryNameFromCode(countryCode: string): string {
 
 type PlotDesignerAggregationGroupTitleGenerator = (groupValue: string | null) => string
 const groupByToTitleGenerator: Record<PlotDesignerGroupByOption, PlotDesignerAggregationGroupTitleGenerator> = {
-  'country': (countryName: string | null) =>
+  country: (countryName: string | null) =>
     countryName ? formatCountryName(getCountryNameFromCode(countryName)) : `Unknown Country`,
-  'frameType': (frameType: string | null) => frameType ? formatFrameType(frameType) : `Unknown Frame Type`,
-  'software': (softwareName: string | null) => (softwareName ? formatLcaSoftware(softwareName) : `Unknown Software`),
-  'source': (sourceName: string | null) => (sourceName ? sourceName : `Unknown Source`),
-  'buildingTypology': (typologyName: string | null) => (typologyName ? typologyName : `Unknown Typology`),
+  frameType: (frameType: string | null) => (frameType ? formatFrameType(frameType) : `Unknown Frame Type`),
+  software: (softwareName: string | null) => (softwareName ? formatLcaSoftware(softwareName) : `Unknown Software`),
+  source: (sourceName: string | null) => (sourceName ? sourceName : `Unknown Source`),
+  buildingTypology: (typologyName: string | null) => (typologyName ? typologyName : `Unknown Typology`),
 }
 
 export function plotParametersToAggregationGroupTitleGenerator(
   plotParameters: PlotDesignerPlotParameters,
 ): PlotDesignerAggregationGroupTitleGenerator {
-  return groupByToTitleGenerator[plotParameters.groupBy] || ((groupName: string | null) => (groupName ? groupName : `Unknown`))
+  return (
+    groupByToTitleGenerator[plotParameters.groupBy] ||
+    ((groupName: string | null) => (groupName ? groupName : `Unknown`))
+  )
 }
 
 interface PlotDesignerAggregationResultRaw {
@@ -78,13 +81,13 @@ export function prettifyPlotDesignerAggregation(
 
 export type MapCircleRadiusSource = 'count' | 'median' | 'avg' | 'min' | 'max' | 'pct25' | 'pct75'
 export const MapCircleRadiusSourceLabels: Record<MapCircleRadiusSource, string> = {
-  'count': 'Project count',
-  'median': 'Median',
-  'avg': 'Average',
-  'min': 'Minimum',
-  'max': 'Maximum',
-  'pct25': '25th Percentile',
-  'pct75': '75th Percentile',
+  count: 'Project count',
+  median: 'Median',
+  avg: 'Average',
+  min: 'Minimum',
+  max: 'Maximum',
+  pct25: '25th Percentile',
+  pct75: '75th Percentile',
 }
 
 export function getMapCircleRadiusSourceLabel(source: MapCircleRadiusSource): string {
@@ -95,13 +98,12 @@ export function aggregationToMapData(
   data: GetProjectDataForBoxPlotQuery,
   radiusSource: MapCircleRadiusSource,
 ): CircleMapData | null {
-
   const points = data.projects.aggregation.map((agg: PlotDesignerAggregationResultRaw) => {
     const { lat, lon } = getLatLonFromAlpha3(agg.group) || { lat: 0, lon: 0 }
     const name = formatCountryName(getCountryNameFromCode(agg.group))
     const id = agg.group
 
-    let value = 0;
+    let value = 0
     if (radiusSource === 'count') value = agg.count
     else if (radiusSource === 'median') value = agg.median
     else if (radiusSource === 'avg') value = agg.avg
@@ -109,7 +111,7 @@ export function aggregationToMapData(
     else if (radiusSource === 'max') value = agg.max
     else if (radiusSource === 'pct25') value = agg.pct[0]
     else if (radiusSource === 'pct75') value = agg.pct[1]
-    
+
     return { lat, lon, value, name, id }
   })
   return { points }

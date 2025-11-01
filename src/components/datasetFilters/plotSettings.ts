@@ -1,4 +1,4 @@
-import { LifeCycleStage } from "queries/generated"
+import { LifeCycleStage } from 'queries/generated'
 
 type PlotDesignerDataFilterSelection<T> = {
   enabled: boolean
@@ -37,8 +37,8 @@ export function defaultFilters(): PlotDesignerDataFiltersSelection {
 }
 
 export function searchParamsToFilters(searchParams: URLSearchParams): PlotDesignerDataFiltersSelection {
-  const filtersUsingNumbers = ["gfaRange", "confirmedGfaRange"]
-  const filters =  defaultFilters()
+  const filtersUsingNumbers = ['gfaRange', 'confirmedGfaRange']
+  const filters = defaultFilters()
 
   const filtersKeys = Object.keys(filters) as (keyof PlotDesignerDataFiltersSelection)[]
   filtersKeys.forEach((key) => {
@@ -47,7 +47,7 @@ export function searchParamsToFilters(searchParams: URLSearchParams): PlotDesign
       filters[key].enabled = true
       if (paramValue !== '') {
         const values = paramValue.split(',')
-        filters[key].value = filtersUsingNumbers.includes(key) ? values.map(Number) : values as unknown as any
+        filters[key].value = filtersUsingNumbers.includes(key) ? values.map(Number) : (values as unknown as any)
       }
     }
   })
@@ -55,7 +55,10 @@ export function searchParamsToFilters(searchParams: URLSearchParams): PlotDesign
   return filters
 }
 
-export function filtersToSearchParams(filters: PlotDesignerDataFiltersSelection, existingParams: URLSearchParams = new URLSearchParams()): URLSearchParams {
+export function filtersToSearchParams(
+  filters: PlotDesignerDataFiltersSelection,
+  existingParams: URLSearchParams = new URLSearchParams(),
+): URLSearchParams {
   const filterKeys = Object.keys(filters) as (keyof PlotDesignerDataFiltersSelection)[]
   filterKeys.forEach((key) => {
     if (filters[key].enabled) {
@@ -90,7 +93,7 @@ export interface PlotDesignerPlotSettings {
 
 export function searchParamsToPlotParameters(searchParams: URLSearchParams): PlotDesignerPlotParameters {
   const plotParameters = defaultPlotParameters()
-  
+
   const quantityParam = searchParams.get('quantity')
   if (quantityParam) {
     plotParameters.quantity = quantityParam as PlotDesignerPlotParameters['quantity']

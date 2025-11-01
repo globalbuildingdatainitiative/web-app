@@ -1,4 +1,4 @@
-import { PlotDesignerDataFiltersSelection, PlotDesignerPlotParameters, PlotDesignerPlotSettings } from "./plotSettings"
+import { PlotDesignerDataFiltersSelection, PlotDesignerPlotParameters, PlotDesignerPlotSettings } from './plotSettings'
 
 export function matchStageFromFilters(filters: PlotDesignerDataFiltersSelection): object[] {
   const filtersToApply: object[] = []
@@ -73,7 +73,9 @@ export function computationFromPlotParameters(plotParameters: PlotDesignerPlotPa
   }
 }
 
-export function groupByFromPlotParameters(plotParameters: PlotDesignerPlotParameters): string | { $arrayElemAt: [string, number] } {
+export function groupByFromPlotParameters(
+  plotParameters: PlotDesignerPlotParameters,
+): string | { $arrayElemAt: [string, number] } {
   let groupBy: string | { $arrayElemAt: [string, number] } = '$location.country'
   if (plotParameters.groupBy === 'software') {
     groupBy = '$softwareInfo.lcaSoftware'
@@ -82,7 +84,7 @@ export function groupByFromPlotParameters(plotParameters: PlotDesignerPlotParame
   } else if (plotParameters.groupBy === 'frameType') {
     groupBy = '$projectInfo.frameType'
   } else if (plotParameters.groupBy === 'buildingTypology') {
-    groupBy = { $arrayElemAt: ['$projectInfo.buildingTypology', 0] } 
+    groupBy = { $arrayElemAt: ['$projectInfo.buildingTypology', 0] }
   }
   return groupBy
 }

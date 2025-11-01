@@ -6,11 +6,26 @@ import { makeErrorFromOptionalString } from 'lib/uiUtils/errors'
 import { PlotDesignerDataFilters } from 'components/datasetFilters/PlotDesignerDataFilters'
 import { boxPlotOrientationOptions, mapCircleRadiusSourceOptions } from 'components/datasetFilters/filtersConstants'
 import { PlotDesignerPlotParametersSelector } from 'components/datasetFilters/PlotDesignerPlotParametersSelector'
-import { aggregationToMapData, getMapCircleRadiusSourceLabel, MapCircleRadiusSource, prettifyPlotDesignerAggregation } from './plotDesignerUtils'
+import {
+  aggregationToMapData,
+  getMapCircleRadiusSourceLabel,
+  MapCircleRadiusSource,
+  prettifyPlotDesignerAggregation,
+} from './plotDesignerUtils'
 import { PlotDesignerTable } from './PlotDesignerTable'
 import { useSearchParamsReplicator } from 'lib/hooks/useSearchParamsReplicator'
 import { filtersToAggregation } from 'components/datasetFilters/aggregationBuilders'
-import { PlotDesignerDataFiltersSelection, defaultFilters, PlotDesignerPlotParameters, defaultPlotParameters, PlotDesignerPlotSettings, filtersToSearchParams, filtersToSearchParamsPlotParameters, searchParamsToFilters, searchParamsToPlotParameters } from 'components/datasetFilters/plotSettings'
+import {
+  PlotDesignerDataFiltersSelection,
+  defaultFilters,
+  PlotDesignerPlotParameters,
+  defaultPlotParameters,
+  PlotDesignerPlotSettings,
+  filtersToSearchParams,
+  filtersToSearchParamsPlotParameters,
+  searchParamsToFilters,
+  searchParamsToPlotParameters,
+} from 'components/datasetFilters/plotSettings'
 import { formatQuantity } from 'components/datasetFilters/plotParametersConstants'
 import { CircleMap, CircleMapData, CircleMapDataPoint } from 'components/CircleMap'
 
@@ -23,14 +38,14 @@ export const PlotDesignerPaper = () => {
   const [filters, setFilters] = useSearchParamsReplicator<PlotDesignerDataFiltersSelection>(
     searchParamsToFilters,
     filtersToSearchParams,
-    defaultFilters()
+    defaultFilters(),
   )
   const [filtersUpdated, setFiltersUpdated] = useState<boolean>(true)
 
   const [plotParameters, setPlotParameters] = useSearchParamsReplicator<PlotDesignerPlotParameters>(
     searchParamsToPlotParameters,
     filtersToSearchParamsPlotParameters,
-    defaultPlotParameters()
+    defaultPlotParameters(),
   )
   const [plotParametersUpdated, setPlotParametersUpdated] = useState<boolean>(true)
 
@@ -145,33 +160,37 @@ export const PlotDesignerPaper = () => {
                     />
                   </Center>
                 </div>
-                {mapData && (<div>
-                  <Title order={4} style={{ marginBottom: 4 }}>
-                    Map {filtersUpdated || plotParametersUpdated ? ' (out of date)' : ''}
-                  </Title>
-                  <div style={{ display: 'flex', gap: 8, marginBottom: 8 }}>
-                    <Select
-                      data={mapCircleRadiusSourceOptions}
-                      value={mapCircleRadiusSource}
-                      onChange={(value) => setMapCircleRadiusSource(value as MapCircleRadiusSource)}
-                      label='Display'
-                      placeholder='Select information to display'
-                    />
+                {mapData && (
+                  <div>
+                    <Title order={4} style={{ marginBottom: 4 }}>
+                      Map {filtersUpdated || plotParametersUpdated ? ' (out of date)' : ''}
+                    </Title>
+                    <div style={{ display: 'flex', gap: 8, marginBottom: 8 }}>
+                      <Select
+                        data={mapCircleRadiusSourceOptions}
+                        value={mapCircleRadiusSource}
+                        onChange={(value) => setMapCircleRadiusSource(value as MapCircleRadiusSource)}
+                        label='Display'
+                        placeholder='Select information to display'
+                      />
+                    </div>
+                    <Center style={{ height: 800, width: '100%', position: 'relative', zIndex: 0 }}>
+                      <CircleMap
+                        data={mapData}
+                        minPointRadius={1}
+                        maxPointRadius={20}
+                        makePopup={(point: CircleMapDataPoint) => (
+                          <>
+                            <Title order={5}>{point.name}</Title>
+                            <Text>
+                              {getMapCircleRadiusSourceLabel(mapCircleRadiusSource)}: {point.value}
+                            </Text>
+                          </>
+                        )}
+                      />
+                    </Center>
                   </div>
-                  <Center style={{ height: 800, width: '100%', position: 'relative', zIndex: 0 }}>
-                    <CircleMap
-                      data={mapData}
-                      minPointRadius={1}
-                      maxPointRadius={20}
-                      makePopup={(point: CircleMapDataPoint) => (
-                        <>
-                          <Title order={5}>{point.name}</Title>
-                          <Text>{getMapCircleRadiusSourceLabel(mapCircleRadiusSource)}: {point.value}</Text>
-                        </>
-                      )}
-                    />
-                  </Center>
-                </div>)}
+                )}
                 <div>
                   <Title order={4} style={{ marginBottom: '8px' }}>
                     Raw data {filtersUpdated || plotParametersUpdated ? ' (out of date)' : ''}

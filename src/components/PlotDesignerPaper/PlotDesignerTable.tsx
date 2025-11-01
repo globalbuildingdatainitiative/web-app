@@ -14,20 +14,23 @@ function buildFiltersSlug(filters: PlotDesignerDataFiltersSelection): string {
   const activeFilters = Object.entries(filters)
     .filter(([_, filter]) => filter.enabled && filter.value.length > 0)
     .map(([key, filter]) => `${key}-${filter.value.join('-')}`)
-  
-  return activeFilters.join("__")
+
+  return activeFilters.join('__')
 }
 
 function buildPlotParametersSlug(plotParameters: PlotDesignerPlotParameters): string {
   return `quantity-${plotParameters.quantity}__groupBy-${plotParameters.groupBy}__lifeCycleStages-${plotParameters.lifeCycleStagesToInclude.join('-')}`
 }
 
-function makeYamlStyleHeaderForCSV(filters: PlotDesignerDataFiltersSelection, plotParameters: PlotDesignerPlotParameters): string {
-  let header = "# Plot Designer Parameters\n"
+function makeYamlStyleHeaderForCSV(
+  filters: PlotDesignerDataFiltersSelection,
+  plotParameters: PlotDesignerPlotParameters,
+): string {
+  let header = '# Plot Designer Parameters\n'
   header += `# Quantity: ${plotParameters.quantity}\n`
   header += `# Group By: ${plotParameters.groupBy}\n`
   header += `# Life Cycle Stages Included: ${plotParameters.lifeCycleStagesToInclude.join(', ')}\n`
-  header += "# Applied Filters:\n"
+  header += '# Applied Filters:\n'
   Object.entries(filters).forEach(([key, filter]) => {
     if (filter.enabled) {
       header += `#   - ${key}: [${filter.value.join(', ')}]\n`
@@ -66,7 +69,8 @@ export const PlotDesignerTable = ({ prettifiedData, filters, plotParameters }: P
     const url = URL.createObjectURL(blob)
     link.setAttribute('href', url)
     // limit to 250 characters for file system compatibility
-    const completeSlug = `plot___Params_${buildPlotParametersSlug(plotParameters)}___Filters_${buildFiltersSlug(filters)}`.slice(0, 250)
+    const completeSlug =
+      `plot___Params_${buildPlotParametersSlug(plotParameters)}___Filters_${buildFiltersSlug(filters)}`.slice(0, 250)
     link.setAttribute('download', `${completeSlug}.csv`)
     link.style.visibility = 'hidden'
     document.body.appendChild(link)
@@ -93,7 +97,11 @@ export const PlotDesignerTable = ({ prettifiedData, filters, plotParameters }: P
         <div style={{ display: 'flex', gap: 8, marginBottom: 8 }}>
           <Button onClick={downloadAsCSV}>Download CSV</Button>
         </div>
-        <Switch label="Add filters and parameters to CSV headers (may decrease compatibility)" checked={addHeaders} onChange={(event) => setAddHeaders(event.currentTarget.checked)} />
+        <Switch
+          label='Add filters and parameters to CSV headers (may decrease compatibility)'
+          checked={addHeaders}
+          onChange={(event) => setAddHeaders(event.currentTarget.checked)}
+        />
       </div>
       <Table>
         <Table.Thead>

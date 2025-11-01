@@ -4,23 +4,23 @@ import { Text, useMantineTheme } from '@mantine/core'
 import { useMemo } from 'react'
 
 export interface CircleMapDataPoint {
-  id: string;
-  lat: number;
-  lon: number;
-  value: number;
-  name: string;
-  disabled?: boolean;
+  id: string
+  lat: number
+  lon: number
+  value: number
+  name: string
+  disabled?: boolean
 }
 
 export interface CircleMapData {
-  points: CircleMapDataPoint[];
+  points: CircleMapDataPoint[]
 }
 
 interface CircleMapProps {
-  minPointRadius: number;
-  maxPointRadius: number;
-  data: CircleMapData;
-  makePopup?: (point: CircleMapDataPoint) => React.ReactNode;
+  minPointRadius: number
+  maxPointRadius: number
+  data: CircleMapData
+  makePopup?: (point: CircleMapDataPoint) => React.ReactNode
 }
 
 export const CircleMap = (props: CircleMapProps) => {
@@ -28,8 +28,8 @@ export const CircleMap = (props: CircleMapProps) => {
   const theme = useMantineTheme()
 
   const maxValue = useMemo(() => {
-    return Math.max(...data.points.map(point => point.value));
-  }, [data]);
+    return Math.max(...data.points.map((point) => point.value))
+  }, [data])
 
   // Calculate circle color based on filter state
   const getCircleColor = (point: CircleMapDataPoint) => {
@@ -61,7 +61,9 @@ export const CircleMap = (props: CircleMapProps) => {
             center={[point.lat, point.lon]}
           >
             <Popup>
-              {makePopup ? makePopup(point) : (
+              {makePopup ? (
+                makePopup(point)
+              ) : (
                 <>
                   <Text>{point.name}</Text>
                 </>

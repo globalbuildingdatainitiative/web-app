@@ -34,9 +34,7 @@ export const SignOut = ({ collapsed }: SignOutProps) => {
           <span style={{ display: 'block' }}>
             {user?.firstName || '(No first name)'} {user?.lastName || '(No last name)'}
           </span>
-          <span style={{ display: 'block', fontSize: 14, lineHeight: 1.25 }}>
-            {user?.email || '(No email)'}
-          </span>
+          <span style={{ display: 'block', fontSize: 14, lineHeight: 1.25 }}>{user?.email || '(No email)'}</span>
           <span style={{ display: 'block', fontSize: 14, lineHeight: 1.25 }}>
             {user?.organization?.name || 'No organization'}
           </span>
