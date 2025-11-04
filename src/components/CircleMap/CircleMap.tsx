@@ -38,6 +38,9 @@ export const CircleMap = (props: CircleMapProps) => {
 
   // Calculate circle radius based on project count
   const getRadius = (point: CircleMapDataPoint) => {
+    if (point.value <= 0) {
+      return minPointRadius
+    }
     return minPointRadius + (Math.log(point.value) / Math.log(maxValue)) * (maxPointRadius - minPointRadius)
   }
 

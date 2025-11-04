@@ -1,5 +1,5 @@
 import { alpha3AndUnknownToCountryName, formatCountryName, getLatLonFromAlpha3 } from '@lib'
-import { CircleMapData } from 'components/CircleMap/CircleMap'
+import { CircleMapData, CircleMapDataPoint } from 'components/CircleMap/CircleMap'
 import { formatFrameType, formatLcaSoftware } from 'components/datasetFilters/filtersConstants'
 import { PlotDesignerGroupByOption, PlotDesignerPlotParameters } from 'components/datasetFilters/plotSettings'
 import { GetProjectDataForBoxPlotQuery } from 'queries/generated'
@@ -98,8 +98,10 @@ export function aggregationToMapData(
   data: GetProjectDataForBoxPlotQuery,
   radiusSource: MapCircleRadiusSource,
 ): CircleMapData | null {
-  const points = data.projects.aggregation.map((agg: PlotDesignerAggregationResultRaw) => {
-    const { lat, lon } = getLatLonFromAlpha3(agg.group) || { lat: 0, lon: 0 }
+  const points = data.projects.aggregation.map((agg: PlotDesignerAggregationResultRaw): CircleMapDataPoint | null => {
+    const coords = getLatLonFromAlpha3(agg.group)
+    if (!coords) return null
+    const { lat, lon } = coords
     const name = formatCountryName(getCountryNameFromCode(agg.group))
     const id = agg.group
 
@@ -113,6 +115,6 @@ export function aggregationToMapData(
     else if (radiusSource === 'pct75') value = agg.pct[1]
 
     return { lat, lon, value, name, id }
-  })
+  }).filter((point: CircleMapDataPoint | null) => point !== null)
   return { points }
 }
