@@ -98,23 +98,25 @@ export function aggregationToMapData(
   data: GetProjectDataForBoxPlotQuery,
   radiusSource: MapCircleRadiusSource,
 ): CircleMapData | null {
-  const points = data.projects.aggregation.map((agg: PlotDesignerAggregationResultRaw): CircleMapDataPoint | null => {
-    const coords = getLatLonFromAlpha3(agg.group)
-    if (!coords) return null
-    const { lat, lon } = coords
-    const name = formatCountryName(getCountryNameFromCode(agg.group))
-    const id = agg.group
+  const points = data.projects.aggregation
+    .map((agg: PlotDesignerAggregationResultRaw): CircleMapDataPoint | null => {
+      const coords = getLatLonFromAlpha3(agg.group)
+      if (!coords) return null
+      const { lat, lon } = coords
+      const name = formatCountryName(getCountryNameFromCode(agg.group))
+      const id = agg.group
 
-    let value = 0
-    if (radiusSource === 'count') value = agg.count
-    else if (radiusSource === 'median') value = agg.median
-    else if (radiusSource === 'avg') value = agg.avg
-    else if (radiusSource === 'min') value = agg.min
-    else if (radiusSource === 'max') value = agg.max
-    else if (radiusSource === 'pct25') value = agg.pct[0]
-    else if (radiusSource === 'pct75') value = agg.pct[1]
+      let value = 0
+      if (radiusSource === 'count') value = agg.count
+      else if (radiusSource === 'median') value = agg.median
+      else if (radiusSource === 'avg') value = agg.avg
+      else if (radiusSource === 'min') value = agg.min
+      else if (radiusSource === 'max') value = agg.max
+      else if (radiusSource === 'pct25') value = agg.pct[0]
+      else if (radiusSource === 'pct75') value = agg.pct[1]
 
-    return { lat, lon, value, name, id }
-  }).filter((point: CircleMapDataPoint | null) => point !== null)
+      return { lat, lon, value, name, id }
+    })
+    .filter((point: CircleMapDataPoint | null) => point !== null)
   return { points }
 }

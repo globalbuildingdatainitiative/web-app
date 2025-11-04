@@ -1,7 +1,12 @@
 import { Button, Switch, Table } from '@mantine/core'
 import { PlotDesignerAggregationResultPretty } from './plotDesignerUtils'
 import Papa from 'papaparse'
-import { filtersToSearchParams, PlotDesignerDataFiltersSelection, PlotDesignerPlotParameters, plotParametersToSearchParams } from 'components/datasetFilters/plotSettings'
+import {
+  filtersToSearchParams,
+  PlotDesignerDataFiltersSelection,
+  PlotDesignerPlotParameters,
+  plotParametersToSearchParams,
+} from 'components/datasetFilters/plotSettings'
 import { useState } from 'react'
 
 interface PlotDesignerTableProps {
