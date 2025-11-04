@@ -1,7 +1,7 @@
 import { Button, Switch, Table } from '@mantine/core'
 import { PlotDesignerAggregationResultPretty } from './plotDesignerUtils'
 import Papa from 'papaparse'
-import { PlotDesignerDataFiltersSelection, PlotDesignerPlotParameters } from 'components/datasetFilters/plotSettings'
+import { filtersToSearchParams, PlotDesignerDataFiltersSelection, PlotDesignerPlotParameters, plotParametersToSearchParams } from 'components/datasetFilters/plotSettings'
 import { useState } from 'react'
 
 interface PlotDesignerTableProps {
@@ -26,14 +26,15 @@ function makeYamlStyleHeaderForCSV(
   filters: PlotDesignerDataFiltersSelection,
   plotParameters: PlotDesignerPlotParameters,
 ): string {
-  let header = '# Plot Designer Parameters\n'
-  header += `# Quantity: ${plotParameters.quantity}\n`
-  header += `# Group By: ${plotParameters.groupBy}\n`
-  header += `# Life Cycle Stages Included: ${plotParameters.lifeCycleStagesToInclude.join(', ')}\n`
-  header += '# Applied Filters:\n'
+  let header = '## Plot Designer Parameters\n'
+  header += `## URL : ${window.location.origin}/plot-designer?${filtersToSearchParams(filters)}&${plotParametersToSearchParams(plotParameters)}\n`
+  header += `## Quantity: ${plotParameters.quantity}\n`
+  header += `## Group By: ${plotParameters.groupBy}\n`
+  header += `## Life Cycle Stages Included: ${plotParameters.lifeCycleStagesToInclude.join(', ')}\n`
+  header += '## Applied Filters:\n'
   Object.entries(filters).forEach(([key, filter]) => {
     if (filter.enabled) {
-      header += `#   - ${key}: [${filter.value.join(', ')}]\n`
+      header += `##   - ${key}: [${filter.value.join(', ')}]\n`
     }
   })
   return header

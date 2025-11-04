@@ -112,7 +112,7 @@ export function searchParamsToPlotParameters(searchParams: URLSearchParams): Plo
   return plotParameters
 }
 
-export function filtersToSearchParamsPlotParameters(plotParameters: PlotDesignerPlotParameters): URLSearchParams {
+export function plotParametersToSearchParams(plotParameters: PlotDesignerPlotParameters): URLSearchParams {
   const searchParams = new URLSearchParams()
   searchParams.set('quantity', plotParameters.quantity)
   searchParams.set('groupBy', plotParameters.groupBy)

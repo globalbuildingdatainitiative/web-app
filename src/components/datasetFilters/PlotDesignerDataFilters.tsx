@@ -12,10 +12,11 @@ import type { PlotDesignerDataFiltersSelection } from './plotSettings'
 
 interface PlotDesignerDataFiltersProps {
   filters: PlotDesignerDataFiltersSelection
+  disabled?: boolean
   onFilterChange: (f: PlotDesignerDataFiltersSelection) => void
 }
 
-export const PlotDesignerDataFilters = ({ filters, onFilterChange }: PlotDesignerDataFiltersProps) => {
+export const PlotDesignerDataFilters = ({ filters, onFilterChange, disabled }: PlotDesignerDataFiltersProps) => {
   function setFieldEnabled(field: keyof PlotDesignerDataFiltersSelection, enabled: boolean) {
     onFilterChange({
       ...filters,
@@ -49,10 +50,11 @@ export const PlotDesignerDataFilters = ({ filters, onFilterChange }: PlotDesigne
             checked={filters.typologies.enabled}
             onChange={(event) => setFieldEnabled('typologies', event.currentTarget.checked)}
             label='Building Typology'
+            disabled={disabled}
           />
         }
         placeholder='Select building typologies'
-        disabled={!filters.typologies.enabled}
+        disabled={!filters.typologies.enabled || disabled}
       />
 
       <MultiSelect
@@ -64,10 +66,11 @@ export const PlotDesignerDataFilters = ({ filters, onFilterChange }: PlotDesigne
             checked={filters.lifeCycleStages.enabled}
             onChange={(event) => setFieldEnabled('lifeCycleStages', event.currentTarget.checked)}
             label='Life Cycle Stage'
+            disabled={disabled}
           />
         }
         placeholder='Select life cycle stages'
-        disabled={!filters.lifeCycleStages.enabled}
+        disabled={!filters.lifeCycleStages.enabled || disabled}
       />
 
       <MultiSelect
@@ -79,12 +82,13 @@ export const PlotDesignerDataFilters = ({ filters, onFilterChange }: PlotDesigne
             checked={filters.countries.enabled}
             onChange={(event) => setFieldEnabled('countries', event.currentTarget.checked)}
             label='Country'
+            disabled={disabled}
           />
         }
         searchable
         nothingFoundMessage='No country found'
         placeholder='Select countries'
-        disabled={!filters.countries.enabled}
+        disabled={!filters.countries.enabled || disabled}
       />
 
       <MultiSelect
@@ -96,12 +100,13 @@ export const PlotDesignerDataFilters = ({ filters, onFilterChange }: PlotDesigne
             checked={filters.frameTypes.enabled}
             onChange={(event) => setFieldEnabled('frameTypes', event.currentTarget.checked)}
             label='Frame Type (Structure Type)'
+            disabled={disabled}
           />
         }
         searchable
         nothingFoundMessage='No frame type found'
         placeholder='Select frame types'
-        disabled={!filters.frameTypes.enabled}
+        disabled={!filters.frameTypes.enabled || disabled}
       />
 
       <MultiSelect
@@ -113,13 +118,14 @@ export const PlotDesignerDataFilters = ({ filters, onFilterChange }: PlotDesigne
             checked={filters.software.enabled}
             onChange={(event) => setFieldEnabled('software', event.currentTarget.checked)}
             label='LCA Software'
+            disabled={disabled}
           />
         }
         placeholder='Select LCA software'
         searchable
         nothingFoundMessage='No software found'
         clearable
-        disabled={!filters.software.enabled}
+        disabled={!filters.software.enabled || disabled}
       />
 
       <MultiSelect
@@ -131,12 +137,13 @@ export const PlotDesignerDataFilters = ({ filters, onFilterChange }: PlotDesigne
             checked={filters.sources.enabled}
             onChange={(event) => setFieldEnabled('sources', event.currentTarget.checked)}
             label='Source'
+            disabled={disabled}
           />
         }
         placeholder='Select sources'
         searchable
         clearable
-        disabled={!filters.sources.enabled}
+        disabled={!filters.sources.enabled || disabled}
       />
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
@@ -144,6 +151,7 @@ export const PlotDesignerDataFilters = ({ filters, onFilterChange }: PlotDesigne
           checked={filters.gfaRange.enabled}
           onChange={(event) => setFieldEnabled('gfaRange', event.currentTarget.checked)}
           label='Gross Floor Area (m²)'
+          disabled={disabled}
         />
         <RangeSlider
           min={0}
@@ -158,7 +166,7 @@ export const PlotDesignerDataFilters = ({ filters, onFilterChange }: PlotDesigne
             { value: 2500, label: '2500 m²' },
             { value: 5000, label: '5000 m²' },
           ]}
-          disabled={!filters.gfaRange.enabled}
+          disabled={!filters.gfaRange.enabled || disabled}
         />
       </div>
     </div>

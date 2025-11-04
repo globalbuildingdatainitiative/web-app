@@ -22,7 +22,7 @@ import {
   defaultPlotParameters,
   PlotDesignerPlotSettings,
   filtersToSearchParams,
-  filtersToSearchParamsPlotParameters,
+  plotParametersToSearchParams,
   searchParamsToFilters,
   searchParamsToPlotParameters,
 } from 'components/datasetFilters/plotSettings'
@@ -44,7 +44,7 @@ export const PlotDesignerPaper = () => {
 
   const [plotParameters, setPlotParameters] = useSearchParamsReplicator<PlotDesignerPlotParameters>(
     searchParamsToPlotParameters,
-    filtersToSearchParamsPlotParameters,
+    plotParametersToSearchParams,
     defaultPlotParameters(),
   )
   const [plotParametersUpdated, setPlotParametersUpdated] = useState<boolean>(true)
@@ -112,7 +112,7 @@ export const PlotDesignerPaper = () => {
           <Title order={4} style={{ marginBottom: '8px' }}>
             Data Filters {filtersUpdated ? ' (updated)' : ''}
           </Title>
-          <PlotDesignerDataFilters filters={filters} onFilterChange={onFilterChange} />
+          <PlotDesignerDataFilters filters={filters} onFilterChange={onFilterChange} disabled={loading} />
         </div>
         <div>
           <Title order={4} style={{ marginBottom: '8px' }}>
@@ -121,13 +121,14 @@ export const PlotDesignerPaper = () => {
           <PlotDesignerPlotParametersSelector
             parameters={plotParameters}
             onPlotParametersChange={onPlotParametersChange}
+            disabled={loading}
           />
         </div>
         <div>
           <Title order={4} style={{ marginBottom: '8px' }}>
             Draw plot
           </Title>
-          <Button onClick={updatePlot} disabled={!filtersUpdated && !plotParametersUpdated}>
+          <Button onClick={updatePlot} disabled={(!filtersUpdated && !plotParametersUpdated) || loading}>
             {data ? 'Update plot' : 'Draw plot'}
           </Button>
         </div>

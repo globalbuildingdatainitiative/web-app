@@ -9,11 +9,13 @@ import {
 
 interface PlotDesignerPlotParametersSelectorProps {
   parameters: PlotDesignerPlotParameters
+  disabled?: boolean
   onPlotParametersChange: (parameters: PlotDesignerPlotParameters) => void
 }
 
 export const PlotDesignerPlotParametersSelector = ({
   parameters,
+  disabled,
   onPlotParametersChange,
 }: PlotDesignerPlotParametersSelectorProps) => {
   return (
@@ -25,6 +27,7 @@ export const PlotDesignerPlotParametersSelector = ({
           onChange={(value) => onPlotParametersChange({ ...parameters, quantity: value as PlotDesignerQuantityOption })}
           label='Quantity to display'
           placeholder='Select quantity'
+          disabled={disabled}
         />
         <p style={{ fontStyle: 'italic', color: 'gray', fontSize: '12px', marginTop: 0 }}>
           Make sure to filter for Gross Floor Area {'>'} 0 if you select "GWP per m²" to avoid a division by zero error.
@@ -39,6 +42,7 @@ export const PlotDesignerPlotParametersSelector = ({
         }
         label='Life Cycle Stages to Include in computation'
         placeholder='Select life cycle stages'
+        disabled={disabled}
       />
 
       <Select
@@ -52,6 +56,7 @@ export const PlotDesignerPlotParametersSelector = ({
         }
         label='Group By'
         placeholder='Select grouping'
+        disabled={disabled}
       />
     </div>
   )
