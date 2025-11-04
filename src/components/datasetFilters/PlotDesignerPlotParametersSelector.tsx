@@ -1,48 +1,33 @@
 import { MultiSelect, Select } from '@mantine/core'
 import { LifeCycleStage } from '@queries'
+import { PlotDesignerGroupByOption, PlotDesignerPlotParameters, PlotDesignerQuantityOption } from './plotSettings'
 import {
-  PlotDesignerGroupByOption,
-  PlotDesignerPlotParameters,
-  PlotDesignerQuantityOption,
-} from './datasetFiltersConstants'
+  plotDesignerQuantityOptions,
+  plotDesignerLifeCycleStageOptions,
+  plotDesignerGroupByOptions,
+} from './plotParametersConstants'
 
 interface PlotDesignerPlotParametersSelectorProps {
   parameters: PlotDesignerPlotParameters
+  disabled?: boolean
   onPlotParametersChange: (parameters: PlotDesignerPlotParameters) => void
 }
 
 export const PlotDesignerPlotParametersSelector = ({
   parameters,
+  disabled,
   onPlotParametersChange,
 }: PlotDesignerPlotParametersSelectorProps) => {
-  const quantityOptions: { value: PlotDesignerQuantityOption; label: string }[] = [
-    { value: 'gwp', label: 'GWP building' },
-    { value: 'gwp_per_m2', label: 'GWP per m²' },
-  ]
-
-  const groupByOptions: { value: PlotDesignerGroupByOption; label: string }[] = [
-    { value: 'country', label: 'Country' },
-    { value: 'software', label: 'Software' },
-    { value: 'source', label: 'Source' },
-  ]
-
-  const lifeCycleOptions = [
-    { value: 'all', label: 'Select All' },
-    ...Object.values(LifeCycleStage).map((value) => ({
-      value,
-      label: value.toUpperCase(),
-    })),
-  ]
-
   return (
     <div style={{ display: 'flex', flexDirection: 'row', gap: '16px', flexWrap: 'wrap' }}>
       <div style={{ maxWidth: 300 }}>
         <Select
-          data={quantityOptions}
+          data={plotDesignerQuantityOptions}
           value={parameters.quantity}
           onChange={(value) => onPlotParametersChange({ ...parameters, quantity: value as PlotDesignerQuantityOption })}
           label='Quantity to display'
           placeholder='Select quantity'
+          disabled={disabled}
         />
         <p style={{ fontStyle: 'italic', color: 'gray', fontSize: '12px', marginTop: 0 }}>
           Make sure to filter for Gross Floor Area {'>'} 0 if you select "GWP per m²" to avoid a division by zero error.
@@ -50,17 +35,18 @@ export const PlotDesignerPlotParametersSelector = ({
       </div>
 
       <MultiSelect
-        data={lifeCycleOptions}
+        data={plotDesignerLifeCycleStageOptions}
         value={parameters.lifeCycleStagesToInclude}
         onChange={(value) =>
           onPlotParametersChange({ ...parameters, lifeCycleStagesToInclude: value as LifeCycleStage[] })
         }
         label='Life Cycle Stages to Include in computation'
         placeholder='Select life cycle stages'
+        disabled={disabled}
       />
 
       <Select
-        data={groupByOptions}
+        data={plotDesignerGroupByOptions}
         value={parameters.groupBy}
         onChange={(value) =>
           onPlotParametersChange({
@@ -70,6 +56,7 @@ export const PlotDesignerPlotParametersSelector = ({
         }
         label='Group By'
         placeholder='Select grouping'
+        disabled={disabled}
       />
     </div>
   )

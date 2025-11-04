@@ -1,5 +1,7 @@
-import { alpha3AndUnknownToCountryName, formatCountryName } from '@lib'
-import { PlotDesignerPlotParameters } from 'components/datasetFilters/datasetFiltersConstants'
+import { alpha3AndUnknownToCountryName, formatCountryName, getLatLonFromAlpha3 } from '@lib'
+import { CircleMapData, CircleMapDataPoint } from 'components/CircleMap/CircleMap'
+import { formatFrameType, formatLcaSoftware } from 'components/datasetFilters/filtersConstants'
+import { PlotDesignerGroupByOption, PlotDesignerPlotParameters } from 'components/datasetFilters/plotSettings'
 import { GetProjectDataForBoxPlotQuery } from 'queries/generated'
 
 export function getCountryNameFromCode(countryCode: string): string {
@@ -7,16 +9,22 @@ export function getCountryNameFromCode(countryCode: string): string {
 }
 
 type PlotDesignerAggregationGroupTitleGenerator = (groupValue: string | null) => string
+const groupByToTitleGenerator: Record<PlotDesignerGroupByOption, PlotDesignerAggregationGroupTitleGenerator> = {
+  country: (countryName: string | null) =>
+    countryName ? formatCountryName(getCountryNameFromCode(countryName)) : `Unknown Country`,
+  frameType: (frameType: string | null) => (frameType ? formatFrameType(frameType) : `Unknown Frame Type`),
+  software: (softwareName: string | null) => (softwareName ? formatLcaSoftware(softwareName) : `Unknown Software`),
+  source: (sourceName: string | null) => (sourceName ? sourceName : `Unknown Source`),
+  buildingTypology: (typologyName: string | null) => (typologyName ? typologyName : `Unknown Typology`),
+}
 
 export function plotParametersToAggregationGroupTitleGenerator(
   plotParameters: PlotDesignerPlotParameters,
 ): PlotDesignerAggregationGroupTitleGenerator {
-  if (plotParameters.groupBy === 'country') {
-    return (countryName: string | null) =>
-      countryName ? formatCountryName(getCountryNameFromCode(countryName)) : `Unknown Country`
-  }
-
-  return (groupName: string | null) => (groupName ? groupName : `Unknown`)
+  return (
+    groupByToTitleGenerator[plotParameters.groupBy] ||
+    ((groupName: string | null) => (groupName ? groupName : `Unknown`))
+  )
 }
 
 interface PlotDesignerAggregationResultRaw {
@@ -71,9 +79,44 @@ export function prettifyPlotDesignerAggregation(
     })
 }
 
-export function plotParametersToValueAxisLabel(plotParameters: PlotDesignerPlotParameters): string {
-  if (plotParameters.quantity === 'gwp_per_m2') {
-    return 'GWP Intensity (kgCO₂eq/m²)'
-  }
-  return 'GWP (kgCO₂eq)'
+export type MapCircleRadiusSource = 'count' | 'median' | 'avg' | 'min' | 'max' | 'pct25' | 'pct75'
+export const MapCircleRadiusSourceLabels: Record<MapCircleRadiusSource, string> = {
+  count: 'Project count',
+  median: 'Median',
+  avg: 'Average',
+  min: 'Minimum',
+  max: 'Maximum',
+  pct25: '25th Percentile',
+  pct75: '75th Percentile',
+}
+
+export function getMapCircleRadiusSourceLabel(source: MapCircleRadiusSource): string {
+  return MapCircleRadiusSourceLabels[source] || 'Unknown'
+}
+
+export function aggregationToMapData(
+  data: GetProjectDataForBoxPlotQuery,
+  radiusSource: MapCircleRadiusSource,
+): CircleMapData | null {
+  const points = data.projects.aggregation
+    .map((agg: PlotDesignerAggregationResultRaw): CircleMapDataPoint | null => {
+      const coords = getLatLonFromAlpha3(agg.group)
+      if (!coords) return null
+      const { lat, lon } = coords
+      const name = formatCountryName(getCountryNameFromCode(agg.group))
+      const id = agg.group
+
+      let value = 0
+      if (radiusSource === 'count') value = agg.count
+      else if (radiusSource === 'median') value = agg.median
+      else if (radiusSource === 'avg') value = agg.avg
+      else if (radiusSource === 'min') value = agg.min
+      else if (radiusSource === 'max') value = agg.max
+      else if (radiusSource === 'pct25') value = agg.pct[0]
+      else if (radiusSource === 'pct75') value = agg.pct[1]
+
+      return { lat, lon, value, name, id }
+    })
+    .filter((point: CircleMapDataPoint | null) => point !== null)
+  return { points }
 }

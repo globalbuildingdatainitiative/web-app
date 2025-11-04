@@ -1,21 +1,33 @@
 import { BoxPlot, BoxPlotData, BoxPlotOrientation, ErrorMessage, Loading, Paper } from '@components'
-import { Button, Center, Select, Title } from '@mantine/core'
+import { Button, Center, Select, Title, Text } from '@mantine/core'
 import { useMemo, useState } from 'react'
 import { useGetProjectDataForBoxPlotLazyQuery } from '@queries'
 import { makeErrorFromOptionalString } from 'lib/uiUtils/errors'
 import { PlotDesignerDataFilters } from 'components/datasetFilters/PlotDesignerDataFilters'
+import { boxPlotOrientationOptions, mapCircleRadiusSourceOptions } from 'components/datasetFilters/filtersConstants'
+import { PlotDesignerPlotParametersSelector } from 'components/datasetFilters/PlotDesignerPlotParametersSelector'
+import {
+  aggregationToMapData,
+  getMapCircleRadiusSourceLabel,
+  MapCircleRadiusSource,
+  prettifyPlotDesignerAggregation,
+} from './plotDesignerUtils'
+import { PlotDesignerTable } from './PlotDesignerTable'
+import { useSearchParamsReplicator } from 'lib/hooks/useSearchParamsReplicator'
+import { filtersToAggregation } from 'components/datasetFilters/aggregationBuilders'
 import {
   PlotDesignerDataFiltersSelection,
-  PlotDesignerPlotParameters,
-  PlotDesignerPlotSettings,
-  boxPlotOrientationOptions,
   defaultFilters,
+  PlotDesignerPlotParameters,
   defaultPlotParameters,
-  filtersToAggregation,
-} from 'components/datasetFilters/datasetFiltersConstants'
-import { PlotDesignerPlotParametersSelector } from 'components/datasetFilters/PlotDesignerPlotParametersSelector'
-import { plotParametersToValueAxisLabel, prettifyPlotDesignerAggregation } from './plotDesignerUtils'
-import { PlotDesignerTable } from './PlotDesignerTable'
+  PlotDesignerPlotSettings,
+  filtersToSearchParams,
+  plotParametersToSearchParams,
+  searchParamsToFilters,
+  searchParamsToPlotParameters,
+} from 'components/datasetFilters/plotSettings'
+import { formatQuantity } from 'components/datasetFilters/plotParametersConstants'
+import { CircleMap, CircleMapData, CircleMapDataPoint } from 'components/CircleMap'
 
 interface BoxPlotVisualSettings {
   valueAxisLabel: string
@@ -23,15 +35,26 @@ interface BoxPlotVisualSettings {
 }
 
 export const PlotDesignerPaper = () => {
-  const [filters, setFilters] = useState<PlotDesignerDataFiltersSelection>(defaultFilters())
+  const [filters, setFilters] = useSearchParamsReplicator<PlotDesignerDataFiltersSelection>(
+    searchParamsToFilters,
+    filtersToSearchParams,
+    defaultFilters(),
+  )
   const [filtersUpdated, setFiltersUpdated] = useState<boolean>(true)
-  const [plotParameters, setPlotParameters] = useState<PlotDesignerPlotParameters>(defaultPlotParameters())
+
+  const [plotParameters, setPlotParameters] = useSearchParamsReplicator<PlotDesignerPlotParameters>(
+    searchParamsToPlotParameters,
+    plotParametersToSearchParams,
+    defaultPlotParameters(),
+  )
   const [plotParametersUpdated, setPlotParametersUpdated] = useState<boolean>(true)
+
   const [boxPlotVisualSettings, setBoxPlotVisualSettings] = useState<BoxPlotVisualSettings>({
     valueAxisLabel: '',
     labelHeightFactor: 50,
   })
   const [boxPlotOrientation, setBoxPlotOrientation] = useState<BoxPlotOrientation>('vertical')
+  const [mapCircleRadiusSource, setMapCircleRadiusSource] = useState<MapCircleRadiusSource>('count')
 
   const onFilterChange = (newFilters: PlotDesignerDataFiltersSelection) => {
     setFilters(newFilters)
@@ -60,7 +83,7 @@ export const PlotDesignerPaper = () => {
     setPlotParametersUpdated(false)
 
     setBoxPlotVisualSettings({
-      valueAxisLabel: plotParametersToValueAxisLabel(plotParameters),
+      valueAxisLabel: formatQuantity(plotParameters.quantity),
       labelHeightFactor: plotParameters.groupBy === 'country' ? 50 : 100,
     })
   }
@@ -69,6 +92,11 @@ export const PlotDesignerPaper = () => {
     if (!data) return []
     return prettifyPlotDesignerAggregation(data, plotParameters)
   }, [data, plotParameters])
+
+  const mapData: CircleMapData | null = useMemo(() => {
+    if (!data) return null
+    return aggregationToMapData(data, mapCircleRadiusSource)
+  }, [data, mapCircleRadiusSource])
 
   const boxPlotHeight =
     boxPlotOrientation === 'vertical' ? 150 + boxPlotData.length * boxPlotVisualSettings.labelHeightFactor : 900
@@ -84,7 +112,7 @@ export const PlotDesignerPaper = () => {
           <Title order={4} style={{ marginBottom: '8px' }}>
             Data Filters {filtersUpdated ? ' (updated)' : ''}
           </Title>
-          <PlotDesignerDataFilters filters={filters} onFilterChange={onFilterChange} data={data} />
+          <PlotDesignerDataFilters filters={filters} onFilterChange={onFilterChange} disabled={loading} />
         </div>
         <div>
           <Title order={4} style={{ marginBottom: '8px' }}>
@@ -93,13 +121,14 @@ export const PlotDesignerPaper = () => {
           <PlotDesignerPlotParametersSelector
             parameters={plotParameters}
             onPlotParametersChange={onPlotParametersChange}
+            disabled={loading}
           />
         </div>
         <div>
           <Title order={4} style={{ marginBottom: '8px' }}>
             Draw plot
           </Title>
-          <Button onClick={updatePlot} disabled={!filtersUpdated && !plotParametersUpdated}>
+          <Button onClick={updatePlot} disabled={(!filtersUpdated && !plotParametersUpdated) || loading}>
             {data ? 'Update plot' : 'Draw plot'}
           </Button>
         </div>
@@ -132,11 +161,42 @@ export const PlotDesignerPaper = () => {
                     />
                   </Center>
                 </div>
+                {mapData && (
+                  <div>
+                    <Title order={4} style={{ marginBottom: 4 }}>
+                      Map {filtersUpdated || plotParametersUpdated ? ' (out of date)' : ''}
+                    </Title>
+                    <div style={{ display: 'flex', gap: 8, marginBottom: 8 }}>
+                      <Select
+                        data={mapCircleRadiusSourceOptions}
+                        value={mapCircleRadiusSource}
+                        onChange={(value) => setMapCircleRadiusSource(value as MapCircleRadiusSource)}
+                        label='Display'
+                        placeholder='Select information to display'
+                      />
+                    </div>
+                    <Center style={{ height: 800, width: '100%', position: 'relative', zIndex: 0 }}>
+                      <CircleMap
+                        data={mapData}
+                        minPointRadius={1}
+                        maxPointRadius={20}
+                        makePopup={(point: CircleMapDataPoint) => (
+                          <>
+                            <Title order={5}>{point.name}</Title>
+                            <Text>
+                              {getMapCircleRadiusSourceLabel(mapCircleRadiusSource)}: {point.value}
+                            </Text>
+                          </>
+                        )}
+                      />
+                    </Center>
+                  </div>
+                )}
                 <div>
                   <Title order={4} style={{ marginBottom: '8px' }}>
                     Raw data {filtersUpdated || plotParametersUpdated ? ' (out of date)' : ''}
                   </Title>
-                  <PlotDesignerTable prettifiedData={boxPlotData} />
+                  <PlotDesignerTable prettifiedData={boxPlotData} filters={filters} plotParameters={plotParameters} />
                 </div>
               </>
             ) : (

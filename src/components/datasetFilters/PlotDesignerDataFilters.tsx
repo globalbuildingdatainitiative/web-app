@@ -1,22 +1,22 @@
 import { MultiSelect, RangeSlider, Switch } from '@mantine/core'
-import { type GetProjectDataForBoxPlotQuery, LifeCycleStage } from '@queries'
-import { useMemo } from 'react'
+import { LifeCycleStage } from '@queries'
 import {
   buildingTypologyOptions,
   countryOptions,
+  frameTypeOptions,
+  lcaSoftwareOptions,
   lifeCycleOptions,
-  PlotDesignerDataFiltersSelection,
-  softwareOptionsFromData,
-  sourceOptionsFromData,
-} from './datasetFiltersConstants'
+  sourceOptions,
+} from './filtersConstants'
+import type { PlotDesignerDataFiltersSelection } from './plotSettings'
 
 interface PlotDesignerDataFiltersProps {
   filters: PlotDesignerDataFiltersSelection
+  disabled?: boolean
   onFilterChange: (f: PlotDesignerDataFiltersSelection) => void
-  data: GetProjectDataForBoxPlotQuery | undefined
 }
 
-export const PlotDesignerDataFilters = ({ filters, onFilterChange, data }: PlotDesignerDataFiltersProps) => {
+export const PlotDesignerDataFilters = ({ filters, onFilterChange, disabled }: PlotDesignerDataFiltersProps) => {
   function setFieldEnabled(field: keyof PlotDesignerDataFiltersSelection, enabled: boolean) {
     onFilterChange({
       ...filters,
@@ -39,16 +39,6 @@ export const PlotDesignerDataFilters = ({ filters, onFilterChange, data }: PlotD
     })
   }
 
-  // TODO : should all of these be dependent on this data or should all countries be available?
-  const softwareOptions = useMemo(() => {
-    if (!data) return []
-    return softwareOptionsFromData(data)
-  }, [data])
-  const sourceOptions = useMemo(() => {
-    if (!data) return []
-    return sourceOptionsFromData(data)
-  }, [data])
-
   return (
     <div style={{ display: 'flex', flexDirection: 'row', gap: '16px', flexWrap: 'wrap' }}>
       <MultiSelect
@@ -60,10 +50,11 @@ export const PlotDesignerDataFilters = ({ filters, onFilterChange, data }: PlotD
             checked={filters.typologies.enabled}
             onChange={(event) => setFieldEnabled('typologies', event.currentTarget.checked)}
             label='Building Typology'
+            disabled={disabled}
           />
         }
         placeholder='Select building typologies'
-        disabled={!filters.typologies.enabled}
+        disabled={!filters.typologies.enabled || disabled}
       />
 
       <MultiSelect
@@ -75,10 +66,11 @@ export const PlotDesignerDataFilters = ({ filters, onFilterChange, data }: PlotD
             checked={filters.lifeCycleStages.enabled}
             onChange={(event) => setFieldEnabled('lifeCycleStages', event.currentTarget.checked)}
             label='Life Cycle Stage'
+            disabled={disabled}
           />
         }
         placeholder='Select life cycle stages'
-        disabled={!filters.lifeCycleStages.enabled}
+        disabled={!filters.lifeCycleStages.enabled || disabled}
       />
 
       <MultiSelect
@@ -90,16 +82,35 @@ export const PlotDesignerDataFilters = ({ filters, onFilterChange, data }: PlotD
             checked={filters.countries.enabled}
             onChange={(event) => setFieldEnabled('countries', event.currentTarget.checked)}
             label='Country'
+            disabled={disabled}
           />
         }
         searchable
         nothingFoundMessage='No country found'
         placeholder='Select countries'
-        disabled={!filters.countries.enabled}
+        disabled={!filters.countries.enabled || disabled}
       />
 
       <MultiSelect
-        data={softwareOptions}
+        data={frameTypeOptions}
+        value={filters.frameTypes.value}
+        onChange={(value) => setFieldValue('frameTypes', value)}
+        label={
+          <Switch
+            checked={filters.frameTypes.enabled}
+            onChange={(event) => setFieldEnabled('frameTypes', event.currentTarget.checked)}
+            label='Frame Type (Structure Type)'
+            disabled={disabled}
+          />
+        }
+        searchable
+        nothingFoundMessage='No frame type found'
+        placeholder='Select frame types'
+        disabled={!filters.frameTypes.enabled || disabled}
+      />
+
+      <MultiSelect
+        data={lcaSoftwareOptions}
         value={filters.software.value}
         onChange={(value) => setFieldValue('software', value)}
         label={
@@ -107,13 +118,14 @@ export const PlotDesignerDataFilters = ({ filters, onFilterChange, data }: PlotD
             checked={filters.software.enabled}
             onChange={(event) => setFieldEnabled('software', event.currentTarget.checked)}
             label='LCA Software'
+            disabled={disabled}
           />
         }
         placeholder='Select LCA software'
         searchable
         nothingFoundMessage='No software found'
         clearable
-        disabled={!filters.software.enabled}
+        disabled={!filters.software.enabled || disabled}
       />
 
       <MultiSelect
@@ -125,12 +137,13 @@ export const PlotDesignerDataFilters = ({ filters, onFilterChange, data }: PlotD
             checked={filters.sources.enabled}
             onChange={(event) => setFieldEnabled('sources', event.currentTarget.checked)}
             label='Source'
+            disabled={disabled}
           />
         }
         placeholder='Select sources'
         searchable
         clearable
-        disabled={!filters.sources.enabled}
+        disabled={!filters.sources.enabled || disabled}
       />
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
@@ -138,6 +151,7 @@ export const PlotDesignerDataFilters = ({ filters, onFilterChange, data }: PlotD
           checked={filters.gfaRange.enabled}
           onChange={(event) => setFieldEnabled('gfaRange', event.currentTarget.checked)}
           label='Gross Floor Area (m²)'
+          disabled={disabled}
         />
         <RangeSlider
           min={0}
@@ -152,7 +166,7 @@ export const PlotDesignerDataFilters = ({ filters, onFilterChange, data }: PlotD
             { value: 2500, label: '2500 m²' },
             { value: 5000, label: '5000 m²' },
           ]}
-          disabled={!filters.gfaRange.enabled}
+          disabled={!filters.gfaRange.enabled || disabled}
         />
       </div>
     </div>
