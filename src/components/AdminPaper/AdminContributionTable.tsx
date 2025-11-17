@@ -1,4 +1,4 @@
-import { GetContributionsQuery, useGetContributionsQuery } from '@queries'
+import { GetContributionsQuery, useGetContributionsQuery, useGetContributionsLazyQuery } from '@queries'
 import {
   MantineReactTable,
   MRT_ColumnDef,
@@ -10,13 +10,18 @@ import {
 import 'mantine-react-table/styles.css'
 import { useMemo, useState } from 'react'
 import dayjs from 'dayjs'
-import { Group, Pagination, ScrollArea, Select, Text } from '@mantine/core'
+import { Button, Group, Pagination, ScrollArea, Select, Text } from '@mantine/core'
 import { TruncatedTextWithTooltip } from '@components'
+import { downloadCSV } from 'lib/uiUtils/csvExport'
 
 export const AdminContributionTable = () => {
   const [pagination, setPagination] = useState<MRT_PaginationState>({ pageIndex: 0, pageSize: 10 })
   const [sorting, setSorting] = useState<MRT_SortingState>([])
   const [columnFilters, setColumnFilters] = useState<MRT_ColumnFiltersState>([])
+  const [downloadLoading, setDownloadLoading] = useState(false)
+
+  // Add the lazy query hook at the top level
+  const [fetchContributionsForCSV] = useGetContributionsLazyQuery()
 
   const getSortingVariables = () => {
     if (!sorting.length) return undefined
@@ -92,6 +97,36 @@ export const AdminContributionTable = () => {
 
   type ContributionItems = NonNullable<GetContributionsQuery['contributions']['items']>[number]
 
+  const handleDownloadContributionsCSV = () =>
+    downloadCSV<ContributionItems>(
+      setDownloadLoading,
+      () =>
+        fetchContributionsForCSV({
+          variables: {
+            limit: 2500,
+            offset: 0,
+            sortBy: getSortingVariables(),
+            filterBy: getFilterVariables(),
+          },
+        }).then((result) => ({
+          data: result.data?.contributions
+            ? { items: result.data.contributions.items ?? [], count: result.data.contributions.count }
+            : null,
+          error: result.error,
+        })),
+      (items) =>
+        items.map((item) => ({
+          id: item.id,
+          projectName: item.project?.name || 'N/A',
+          user: `${item.user?.firstName ?? 'N/A'} ${item.user?.lastName ?? 'N/A'}`,
+          uploadedAt: dayjs(item.uploadedAt).format('DD/MM/YYYY'),
+          public: item.public ? 'Yes' : 'No',
+          organization: item.user?.organization?.name || '',
+        })),
+      'contributions_export.csv',
+      'contributions',
+    )
+
   const columns = useMemo<MRT_ColumnDef<ContributionItems>[]>(
     () => [
       {
@@ -160,12 +195,25 @@ export const AdminContributionTable = () => {
     manualSorting: true,
     manualPagination: true,
     enableColumnActions: true,
+    renderTopToolbarCustomActions: ({ table }) => {
+      return (
+        <div style={{ gap: '4px', display: 'flex', alignItems: 'center' }}>
+          <span>
+            Total {table.getRowCount() === 1 ? 'Contribution' : 'Contributions'}: {table.getRowCount()}
+          </span>
+          <Button loading={downloadLoading} onClick={handleDownloadContributionsCSV}>
+            Download CSV
+          </Button>
+        </div>
+      )
+    },
     mantineToolbarAlertBannerProps: error
       ? {
           color: 'red',
           children: error?.message,
         }
       : undefined,
+    initialState: { columnVisibility: { id: false } },
     state: {
       isLoading: loading,
       showAlertBanner: !!error,
@@ -202,6 +250,9 @@ export const AdminContributionTable = () => {
           data={['10', '20', '30', '50', '100', '200']}
           label='Rows per page'
         />
+        <div>
+          Total: {totalRowCount} {totalRowCount === 1 ? 'item' : 'items'}
+        </div>
       </Group>
     </div>
   )
