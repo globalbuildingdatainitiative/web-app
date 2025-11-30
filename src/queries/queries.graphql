@@ -151,7 +151,7 @@ query getUsers($limit: Int, $offset: Int = 0, $sortBy: SortBy, $filterBy: Filter
         name
       }
     }
-    count
+    count(filterBy: $filterBy)
   }
 }
 
@@ -625,6 +625,10 @@ mutation impersonateUser($userId: String!) {
 
 mutation makeUserAdmin($userId: String!) {
   makeAdmin(userId: $userId)
+}
+
+mutation unmakeUserAdmin($userId: String!) {
+  unmakeAdmin(userId: $userId)
 }
 
 query getRolesAndPermissions {

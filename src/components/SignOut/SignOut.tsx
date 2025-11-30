@@ -25,7 +25,7 @@ export const SignOut = ({ collapsed }: SignOutProps) => {
   return (
     <>
       {!collapsed && (
-        <Text
+        <div
           style={{
             whiteSpace: 'normal',
             marginBottom: 8,
@@ -38,7 +38,7 @@ export const SignOut = ({ collapsed }: SignOutProps) => {
           <span style={{ display: 'block', fontSize: 14, lineHeight: 1.25 }}>
             {user?.organization?.name || 'No organization'}
           </span>
-        </Text>
+        </div>
       )}
       <Button
         variant='outline'

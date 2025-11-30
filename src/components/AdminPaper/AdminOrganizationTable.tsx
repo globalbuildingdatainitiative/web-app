@@ -7,9 +7,10 @@ import {
   MRT_SortingState,
   useMantineReactTable,
 } from 'mantine-react-table'
-import { GetOrganizationsQuery, useGetOrganizationsQuery } from '@queries'
-import { Group, Pagination, ScrollArea, Select } from '@mantine/core'
+import { GetOrganizationsQuery, useGetOrganizationsQuery, useGetOrganizationsLazyQuery } from '@queries'
+import { Group, Pagination, ScrollArea, Select, Button } from '@mantine/core'
 import { formatEnumValue } from '@lib'
+import { downloadCSV } from 'lib/uiUtils/csvExport'
 
 type Organization = NonNullable<GetOrganizationsQuery['organizations']['items']>[number]
 
@@ -17,6 +18,10 @@ export const AdminOrganizationTable = () => {
   const [pagination, setPagination] = useState<MRT_PaginationState>({ pageIndex: 0, pageSize: 10 })
   const [sorting, setSorting] = useState<MRT_SortingState>([])
   const [columnFilters, setColumnFilters] = useState<MRT_ColumnFiltersState>([])
+  const [downloadLoading, setDownloadLoading] = useState(false)
+
+  // Add the lazy query hook at the top level
+  const [fetchOrganizationsForCSV] = useGetOrganizationsLazyQuery()
 
   const getSortingVariables = () => {
     if (!sorting.length) return undefined
@@ -110,6 +115,94 @@ export const AdminOrganizationTable = () => {
 
   const rowData = useMemo(() => data?.organizations.items || [], [data])
   const totalRowCount = useMemo(() => data?.organizations.count || 0, [data])
+  const handleDownloadOrganizationsCSV = () =>
+    downloadCSV<Organization>(
+      setDownloadLoading,
+      () =>
+        fetchOrganizationsForCSV({
+          variables: {
+            limit: 2000,
+            offset: 0,
+            sortBy: getSortingVariables(),
+            filterBy: getFilterVariables(),
+          },
+        }).then((result) => ({
+          data: result.data?.organizations
+            ? { items: result.data.organizations.items ?? [], count: result.data.organizations.count }
+            : null,
+          error: result.error,
+        })),
+      (items) =>
+        items.map((item) => ({
+          id: item.id,
+          name: item.name,
+          city: item.city,
+          address: item.address,
+          country: item.country,
+          stakeholders:
+            item?.metaData?.stakeholders.map((stakeholder) => formatEnumValue(stakeholder)).join(', ') || '',
+        })),
+      'organizations_export.csv',
+      'organizations',
+    )
+  // Now you can use the lazy query inside the event handler
+  // const handleDownloadCSV = async () => {
+  //   setDownloadLoading(true)
+  //   try {
+  //     const { data: csvData, error: csvError } = await fetchOrganizationsForCSV({
+  //       variables: {
+  //         limit: 2000,
+  //         offset: 0,
+  //         sortBy: getSortingVariables(),
+  //         filterBy: getFilterVariables(),
+  //       },
+  //     })
+  //     if (csvError) {
+  //       console.error('Error fetching organizations for CSV download:', csvError)
+  //       alert(`Error downloading CSV: ${csvError.message}`)
+  //       return
+  //     }
+  //     if ((csvData?.organizations?.count ?? 0) > 2000) {
+  //       alert('Cannot download more than 2000 organizations at once. Please contact support for a full data export.')
+  //       return
+  //     }
+  //     const allItems: Organization[] = csvData?.organizations.items || []
+
+  //     // Transform the data to flatten metaData.stakeholders
+  //     const transformedData = allItems.map(item => ({
+  //       id: item.id,
+  //       name: item.name,
+  //       city: item.city,
+  //       address: item.address,
+  //       country: item.country,
+  //       stakeholders: item?.metaData?.stakeholders.map(stakeholder => formatEnumValue(stakeholder)).join(', ') || ''
+  //     }))
+
+  //     const csv = unparse(transformedData, {
+  //       quotes: true, // Force quotes around all fields
+  //       quoteChar: '"',
+  //       escapeChar: '"',
+  //       delimiter: ',',
+  //       header: true,
+  //       newline: '\r\n',
+  //     })
+  //     const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' })
+  //     const url = URL.createObjectURL(blob)
+
+  //     const link = document.createElement('a')
+  //     link.href = url
+  //     link.download = 'organizations_export.csv'
+  //     link.click()
+
+  //     // Clean up the URL object
+  //     URL.revokeObjectURL(url)
+  //   } catch (err) {
+  //     console.error('Error downloading CSV:', err)
+  //     alert('An error occurred while downloading the CSV')
+  //   } finally {
+  //     setDownloadLoading(false)
+  //   }
+  // }
 
   const table = useMantineReactTable({
     columns,
@@ -126,6 +219,17 @@ export const AdminOrganizationTable = () => {
           children: error?.message,
         }
       : undefined,
+    renderTopToolbarCustomActions: ({ table }) => {
+      return (
+        <div style={{ gap: '4px', display: 'flex', alignItems: 'center' }}>
+          <span>Total  {table.getRowCount() === 1 ? 'Organization' : 'Organizations'}: {table.getRowCount()}</span>
+          <Button loading={downloadLoading} onClick={handleDownloadOrganizationsCSV}>
+            Download CSV
+          </Button>
+        </div>
+      )
+    },
+    initialState: { columnVisibility: { id: false } },
     state: {
       isLoading: loading,
       showAlertBanner: !!error,
@@ -162,6 +266,9 @@ export const AdminOrganizationTable = () => {
           data={['10', '20', '30', '50', '100', '200']}
           label='Rows per page'
         />
+        <div>
+          Total: {totalRowCount} {totalRowCount === 1 ? 'item' : 'items'}
+        </div>
       </Group>
     </div>
   )
