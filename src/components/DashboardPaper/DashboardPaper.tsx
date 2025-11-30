@@ -202,6 +202,7 @@ export const DashboardPaper = () => {
 
   const boxPlotData: BoxPlotData[] = useMemo(() => {
     if (!data) return []
+    console.log(data, dashboardPlotParameters)
     return prettifyPlotDesignerAggregation(data, dashboardPlotParameters)
   }, [data])
 

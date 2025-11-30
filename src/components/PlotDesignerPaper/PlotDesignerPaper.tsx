@@ -4,7 +4,7 @@ import { useMemo, useState } from 'react'
 import { useGetProjectDataForBoxPlotLazyQuery } from '@queries'
 import { makeErrorFromOptionalString } from 'lib/uiUtils/errors'
 import { PlotDesignerDataFilters } from 'components/datasetFilters/PlotDesignerDataFilters'
-import { boxPlotOrientationOptions, mapCircleRadiusSourceOptions } from 'components/datasetFilters/filtersConstants'
+import { boxPlotOrientationOptions } from 'components/datasetFilters/filtersConstants'
 import { PlotDesignerPlotParametersSelector } from 'components/datasetFilters/PlotDesignerPlotParametersSelector'
 import {
   aggregationToMapData,
@@ -29,6 +29,7 @@ import {
 } from 'components/datasetFilters/plotSettings'
 import { formatQuantity } from 'components/datasetFilters/plotParametersConstants'
 import { CircleMap, CircleMapData, CircleMapDataPoint } from 'components/CircleMap'
+import { mapCircleRadiusSourceOptions } from 'components/datasetFilters/mapConstants'
 
 export const PlotDesignerPaper = () => {
   const [filters, setFilters] = useSearchParamsReplicator<PlotDesignerDataFiltersSelection>(
