@@ -25,14 +25,10 @@ import {
   plotParametersToSearchParams,
   searchParamsToFilters,
   searchParamsToPlotParameters,
+  type BoxPlotVisualSettings,
 } from 'components/datasetFilters/plotSettings'
 import { formatQuantity } from 'components/datasetFilters/plotParametersConstants'
 import { CircleMap, CircleMapData, CircleMapDataPoint } from 'components/CircleMap'
-
-interface BoxPlotVisualSettings {
-  valueAxisLabel: string
-  labelHeightFactor: number
-}
 
 export const PlotDesignerPaper = () => {
   const [filters, setFilters] = useSearchParamsReplicator<PlotDesignerDataFiltersSelection>(

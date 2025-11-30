@@ -119,3 +119,8 @@ export function plotParametersToSearchParams(plotParameters: PlotDesignerPlotPar
   searchParams.set('lifeCycleStagesToInclude', plotParameters.lifeCycleStagesToInclude.join(','))
   return searchParams
 }
+
+export interface BoxPlotVisualSettings {
+  valueAxisLabel: string
+  labelHeightFactor: number
+}

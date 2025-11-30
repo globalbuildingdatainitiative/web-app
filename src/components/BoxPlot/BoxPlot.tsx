@@ -235,7 +235,7 @@ export const BoxPlot = (props: BoxPlotProps) => {
           layout={orientation}
           data={chartData}
           margin={{
-            left: orientation === 'vertical' ? 100 : 35,
+            left: orientation === 'vertical' ? 50 : 35,
             right: 50,
             bottom: orientation === 'vertical' ? 60 : 120,
             top: 10,
