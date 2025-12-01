@@ -1,6 +1,5 @@
 import { alpha3AndUnknownToCountryName, formatCountryName } from '@lib'
 import { BoxPlotOrientation } from 'components/BoxPlot'
-import { MapCircleRadiusSource, MapCircleRadiusSourceLabels } from 'components/PlotDesignerPaper/plotDesignerUtils'
 import { BuildingTypology, LifeCycleStage } from 'queries/generated'
 
 const formatEnumValue = (value: string): string => {
@@ -133,10 +132,3 @@ export const boxPlotOrientationOptions: { value: BoxPlotOrientation; label: stri
   { value: 'horizontal', label: 'Horizontal' },
   { value: 'vertical', label: 'Vertical' },
 ]
-
-export const mapCircleRadiusSourceOptions: { value: MapCircleRadiusSource; label: string }[] = Object.entries(
-  MapCircleRadiusSourceLabels,
-).map(([key, label]) => ({
-  value: key as MapCircleRadiusSource,
-  label,
-}))
