@@ -1,11 +1,4 @@
-import {
-  BoxPlot,
-  BoxPlotData,
-  ErrorBoundary,
-  ErrorMessage,
-  Loading,
-  Paper,
-} from '@components'
+import { BoxPlot, BoxPlotData, ErrorBoundary, ErrorMessage, Loading, Paper } from '@components'
 import { Button, Center, Title, Text } from '@mantine/core'
 import { useMemo, useState } from 'react'
 import { LifeCycleStage, useGetProjectDataForBoxPlotLazyQuery } from '@queries'
@@ -42,6 +35,16 @@ const dashboardBoxPlotVisualSettings: BoxPlotVisualSettings = {
 }
 
 const dashboardMapCircleRadiusSource: MapCircleRadiusSource = 'count'
+
+export interface FilterState {
+  selectedTypologies: string[]
+  selectedLifeCycleStages: string[]
+  selectedCountries: string[]
+  selectedSoftware: string[]
+  selectedSources: string[]
+  gfaRange: [number, number]
+  confirmedGfaRange: [number, number]
+}
 
 export const DashboardPaper = () => {
   const [filters, setFilters] = useSearchParamsReplicator<PlotDesignerDataFiltersSelection>(
