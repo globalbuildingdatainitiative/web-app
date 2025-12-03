@@ -88,10 +88,7 @@ export const AdminUserTable = () => {
       offset: pagination.pageIndex * pagination.pageSize,
       sortBy: getSortingVariables(),
       filterBy: getFilterVariables(),
-    },
-    onCompleted(data) {
-      console.log('Fetched users:', data)
-    },
+    }
   })
 
   const [impersonate, { loading: impersonateLoading, error: impersonateError }] = useImpersonateUserMutation()
@@ -127,7 +124,6 @@ export const AdminUserTable = () => {
       {
         accessorKey: 'lastLogin',
         header: 'Last Login',
-        // Cell: ({ cell }) => new Date(cell.getValue<string>()).toLocaleDateString(),
         Cell: ({ cell }) => {
           const v = cell.getValue<string | null>()
           if (!v) return 'Never'
