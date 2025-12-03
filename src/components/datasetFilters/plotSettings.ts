@@ -23,22 +23,25 @@ export interface PlotDesignerDataFiltersSelection {
   confirmedGfaRange: PlotDesignerDataFilterSelection<[number, number]>
 }
 
-export function defaultFilters(): PlotDesignerDataFiltersSelection {
+export function defaultFilters(allEnabled: boolean = false): PlotDesignerDataFiltersSelection {
   return {
-    typologies: makeFilter([]),
+    typologies: makeFilter([], allEnabled),
     lifeCycleStages: makeFilter([LifeCycleStage.A1A3], true),
-    countries: makeFilter([]),
-    software: makeFilter([]),
-    sources: makeFilter([]),
-    frameTypes: makeFilter([]),
+    countries: makeFilter([], allEnabled),
+    software: makeFilter([], allEnabled),
+    sources: makeFilter([], allEnabled),
+    frameTypes: makeFilter([], allEnabled),
     gfaRange: makeFilter([100, 5000], true),
-    confirmedGfaRange: makeFilter([0, 0]),
+    confirmedGfaRange: makeFilter([0, 0], allEnabled),
   }
 }
 
-export function searchParamsToFilters(searchParams: URLSearchParams): PlotDesignerDataFiltersSelection {
+export function searchParamsToFilters(
+  searchParams: URLSearchParams,
+  allEnabled: boolean = false,
+): PlotDesignerDataFiltersSelection {
   const filtersUsingNumbers = ['gfaRange', 'confirmedGfaRange']
-  const filters = defaultFilters()
+  const filters = defaultFilters(allEnabled)
 
   const filtersKeys = Object.keys(filters) as (keyof PlotDesignerDataFiltersSelection)[]
   filtersKeys.forEach((key) => {

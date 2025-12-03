@@ -8,7 +8,7 @@ import {
   useMantineReactTable,
 } from 'mantine-react-table'
 import { GetOrganizationsQuery, useGetOrganizationsQuery, useGetOrganizationsLazyQuery } from '@queries'
-import { Group, Pagination, ScrollArea, Select, Button } from '@mantine/core'
+import { Group, Pagination, ScrollArea, Select, Button, HoverCard, Text } from '@mantine/core'
 import { formatEnumValue } from '@lib'
 import { downloadCSV } from 'lib/uiUtils/csvExport'
 
@@ -221,8 +221,24 @@ export const AdminOrganizationTable = () => {
       : undefined,
     renderTopToolbarCustomActions: ({ table }) => {
       return (
-        <div style={{ gap: '4px', display: 'flex', alignItems: 'center' }}>
-          <span>Total  {table.getRowCount() === 1 ? 'Organization' : 'Organizations'}: {table.getRowCount()}</span>
+        <div style={{ gap: '8px', display: 'flex', alignItems: 'center' }}>
+          <div>
+            <HoverCard width={300} shadow='xl'>
+              <HoverCard.Target>
+                <span>
+                  Unique {data?.organizations.uniqueCount === 1 ? 'Organization' : 'Organizations'} count:{' '}
+                  {data?.organizations.uniqueCount}
+                </span>
+              </HoverCard.Target>
+              <HoverCard.Dropdown>
+                <Text size='sm'>
+                  If some organizations share the same name and country, they are counted only once in this total.{' '}
+                  <br />
+                  The raw, unfiltered count is {data?.organizations.count}.
+                </Text>
+              </HoverCard.Dropdown>
+            </HoverCard>
+          </div>
           <Button loading={downloadLoading} onClick={handleDownloadOrganizationsCSV}>
             Download CSV
           </Button>

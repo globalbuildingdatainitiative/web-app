@@ -225,6 +225,10 @@ export type ContributionGraphQlResponse = {
   groups: Array<ContributionGraphQlGroupResponse>
   /** The list of items in this pagination window. */
   items?: Maybe<Array<Contribution>>
+  /** Total number of private contributions in the filtered dataset. */
+  privateCount: Scalars['Int']['output']
+  /** Total number of public contributions in the filtered dataset. */
+  publicCount: Scalars['Int']['output']
 }
 
 export type ContributionGraphQlResponseAggregationArgs = {
@@ -245,6 +249,14 @@ export type ContributionGraphQlResponseItemsArgs = {
   limit?: InputMaybe<Scalars['Int']['input']>
   offset?: Scalars['Int']['input']
   sortBy?: InputMaybe<SortBy>
+}
+
+export type ContributionGraphQlResponsePrivateCountArgs = {
+  filterBy?: InputMaybe<FilterBy>
+}
+
+export type ContributionGraphQlResponsePublicCountArgs = {
+  filterBy?: InputMaybe<FilterBy>
 }
 
 export type Conversion = {
@@ -1115,6 +1127,8 @@ export type Mutation = {
   inviteUsers: Array<InviteResult>
   /** Assign admin role to a user */
   makeAdmin: Scalars['Boolean']['output']
+  /** Refresh user cache after external metadata updates */
+  refreshUserCache: Scalars['Boolean']['output']
   /** Reject an invitation */
   rejectInvitation: Scalars['Boolean']['output']
   /** Resend an invitation */
@@ -1161,6 +1175,10 @@ export type MutationMakeAdminArgs = {
   userId: Scalars['String']['input']
 }
 
+export type MutationRefreshUserCacheArgs = {
+  userId: Scalars['String']['input']
+}
+
 export type MutationRejectInvitationArgs = {
   userId: Scalars['String']['input']
 }
@@ -1201,6 +1219,8 @@ export type OrganizationGraphQlResponse = {
   count: Scalars['Int']['output']
   /** The list of items in this pagination window. */
   items?: Maybe<Array<Organization>>
+  /** Total number of unique items in the filtered dataset. */
+  uniqueCount: Scalars['Int']['output']
 }
 
 export type OrganizationGraphQlResponseCountArgs = {
@@ -1212,6 +1232,10 @@ export type OrganizationGraphQlResponseItemsArgs = {
   limit?: InputMaybe<Scalars['Int']['input']>
   offset?: Scalars['Int']['input']
   sortBy?: InputMaybe<SortBy>
+}
+
+export type OrganizationGraphQlResponseUniqueCountArgs = {
+  filterBy?: InputMaybe<FilterBy>
 }
 
 export type OrganizationMetaData = {
@@ -1664,6 +1688,7 @@ export type User = {
   inviteStatus: InviteStatus
   invited: Scalars['Boolean']['output']
   inviterName?: Maybe<Scalars['String']['output']>
+  lastLogin?: Maybe<Scalars['DateTime']['output']>
   lastName?: Maybe<Scalars['String']['output']>
   organization?: Maybe<Organization>
   organizationId?: Maybe<Scalars['UUID']['output']>
@@ -2171,6 +2196,18 @@ export type ContributionGraphQlResponseResolvers<
     ContextType,
     RequireFields<ContributionGraphQlResponseItemsArgs, 'filterBy' | 'offset' | 'sortBy'>
   >
+  privateCount?: Resolver<
+    ResolversTypes['Int'],
+    ParentType,
+    ContextType,
+    RequireFields<ContributionGraphQlResponsePrivateCountArgs, 'filterBy'>
+  >
+  publicCount?: Resolver<
+    ResolversTypes['Int'],
+    ParentType,
+    ContextType,
+    RequireFields<ContributionGraphQlResponsePublicCountArgs, 'filterBy'>
+  >
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>
 }
 
@@ -2360,6 +2397,12 @@ export type MutationResolvers<
     ContextType,
     RequireFields<MutationMakeAdminArgs, 'userId'>
   >
+  refreshUserCache?: Resolver<
+    ResolversTypes['Boolean'],
+    ParentType,
+    ContextType,
+    RequireFields<MutationRefreshUserCacheArgs, 'userId'>
+  >
   rejectInvitation?: Resolver<
     ResolversTypes['Boolean'],
     ParentType,
@@ -2427,6 +2470,12 @@ export type OrganizationGraphQlResponseResolvers<
     ParentType,
     ContextType,
     RequireFields<OrganizationGraphQlResponseItemsArgs, 'filterBy' | 'offset' | 'sortBy'>
+  >
+  uniqueCount?: Resolver<
+    ResolversTypes['Int'],
+    ParentType,
+    ContextType,
+    RequireFields<OrganizationGraphQlResponseUniqueCountArgs, 'filterBy'>
   >
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>
 }
@@ -2814,6 +2863,7 @@ export type UserResolvers<
   inviteStatus?: Resolver<ResolversTypes['InviteStatus'], ParentType, ContextType>
   invited?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>
   inviterName?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
+  lastLogin?: Resolver<Maybe<ResolversTypes['DateTime']>, ParentType, ContextType>
   lastName?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
   organization?: Resolver<Maybe<ResolversTypes['Organization']>, ParentType, ContextType>
   organizationId?: Resolver<Maybe<ResolversTypes['UUID']>, ParentType, ContextType>
@@ -2969,6 +3019,8 @@ export type GetContributionsQuery = {
   contributions: {
     __typename?: 'ContributionGraphQLResponse'
     count: number
+    publicCount: number
+    privateCount: number
     items?: Array<{
       __typename?: 'Contribution'
       id: any
@@ -3027,6 +3079,7 @@ export type GetOrganizationsQuery = {
   organizations: {
     __typename?: 'OrganizationGraphQLResponse'
     count: number
+    uniqueCount: number
     items?: Array<{
       __typename?: 'Organization'
       id: any
@@ -3096,6 +3149,7 @@ export type GetUsersQuery = {
       inviteStatus: InviteStatus
       inviterName?: string | null
       roles?: Array<Role> | null
+      lastLogin?: any | null
       organization?: { __typename?: 'Organization'; id: any; name: string } | null
     }>
   }
@@ -3876,6 +3930,8 @@ export const GetContributionsDocument = gql`
         }
       }
       count(filterBy: $filterBy)
+      publicCount(filterBy: $filterBy)
+      privateCount(filterBy: $filterBy)
     }
   }
 `
@@ -4049,6 +4105,7 @@ export const GetOrganizationsDocument = gql`
         }
       }
       count(filterBy: $filterBy)
+      uniqueCount(filterBy: $filterBy)
     }
   }
 `
@@ -4214,6 +4271,7 @@ export const GetUsersDocument = gql`
         inviteStatus
         inviterName
         roles
+        lastLogin
         organization {
           id
           name

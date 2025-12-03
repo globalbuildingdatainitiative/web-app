@@ -1244,6 +1244,40 @@
             },
             "isDeprecated": false,
             "deprecationReason": null
+          },
+          {
+            "name": "privateCount",
+            "description": "Total number of private contributions in the filtered dataset.",
+            "args": [
+              {
+                "name": "filterBy",
+                "description": null,
+                "type": { "kind": "INPUT_OBJECT", "name": "FilterBy", "ofType": null },
+                "defaultValue": "null",
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": { "kind": "NON_NULL", "name": null, "ofType": { "kind": "SCALAR", "name": "Int", "ofType": null } },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "publicCount",
+            "description": "Total number of public contributions in the filtered dataset.",
+            "args": [
+              {
+                "name": "filterBy",
+                "description": null,
+                "type": { "kind": "INPUT_OBJECT", "name": "FilterBy", "ofType": null },
+                "defaultValue": "null",
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": { "kind": "NON_NULL", "name": null, "ofType": { "kind": "SCALAR", "name": "Int", "ofType": null } },
+            "isDeprecated": false,
+            "deprecationReason": null
           }
         ],
         "inputFields": null,
@@ -4395,6 +4429,31 @@
             "deprecationReason": null
           },
           {
+            "name": "refreshUserCache",
+            "description": "Refresh user cache after external metadata updates",
+            "args": [
+              {
+                "name": "userId",
+                "description": null,
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": { "kind": "SCALAR", "name": "String", "ofType": null }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": { "kind": "SCALAR", "name": "Boolean", "ofType": null }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "rejectInvitation",
             "description": "Reject an invitation",
             "args": [
@@ -4739,6 +4798,23 @@
                 "ofType": { "kind": "OBJECT", "name": "Organization", "ofType": null }
               }
             },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "uniqueCount",
+            "description": "Total number of unique items in the filtered dataset.",
+            "args": [
+              {
+                "name": "filterBy",
+                "description": null,
+                "type": { "kind": "INPUT_OBJECT", "name": "FilterBy", "ofType": null },
+                "defaultValue": "null",
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": { "kind": "NON_NULL", "name": null, "ofType": { "kind": "SCALAR", "name": "Int", "ofType": null } },
             "isDeprecated": false,
             "deprecationReason": null
           }
@@ -7544,6 +7620,14 @@
             "description": null,
             "args": [],
             "type": { "kind": "SCALAR", "name": "String", "ofType": null },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "lastLogin",
+            "description": null,
+            "args": [],
+            "type": { "kind": "SCALAR", "name": "DateTime", "ofType": null },
             "isDeprecated": false,
             "deprecationReason": null
           },

@@ -197,9 +197,10 @@ export const AdminContributionTable = () => {
     enableColumnActions: true,
     renderTopToolbarCustomActions: ({ table }) => {
       return (
-        <div style={{ gap: '4px', display: 'flex', alignItems: 'center' }}>
+        <div style={{ gap: '8px', display: 'flex', alignItems: 'center' }}>
           <span>
-            Total {table.getRowCount() === 1 ? 'Contribution' : 'Contributions'}: {table.getRowCount()}
+            Total {table.getRowCount() === 1 ? 'Contribution' : 'Contributions'}: {table.getRowCount()} (
+            {data?.contributions.publicCount || 0} public, {data?.contributions.privateCount || 0} private)
           </span>
           <Button loading={downloadLoading} onClick={handleDownloadContributionsCSV}>
             Download CSV

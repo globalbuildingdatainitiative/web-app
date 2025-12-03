@@ -1,6 +1,6 @@
 import { BoxPlot, BoxPlotData, ErrorBoundary, ErrorMessage, Loading, Paper } from '@components'
 import { Button, Center, Title, Text } from '@mantine/core'
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { LifeCycleStage, useGetProjectDataForBoxPlotLazyQuery } from '@queries'
 import { makeErrorFromOptionalString } from 'lib/uiUtils/errors'
 import { useSearchParamsReplicator } from 'lib/hooks/useSearchParamsReplicator'
@@ -31,7 +31,7 @@ const dashboardPlotParameters: PlotDesignerPlotParameters = {
 
 const dashboardBoxPlotVisualSettings: BoxPlotVisualSettings = {
   valueAxisLabel: 'GWP per m²',
-  labelHeightFactor: 50,
+  labelHeightFactor: 35,
 }
 
 const dashboardMapCircleRadiusSource: MapCircleRadiusSource = 'count'
@@ -48,9 +48,9 @@ export interface FilterState {
 
 export const DashboardPaper = () => {
   const [filters, setFilters] = useSearchParamsReplicator<PlotDesignerDataFiltersSelection>(
-    searchParamsToFilters,
+    (params) => searchParamsToFilters(params, true),
     filtersToSearchParams,
-    defaultFilters(),
+    defaultFilters(true),
   )
   const [filtersUpdated, setFiltersUpdated] = useState<boolean>(true)
 
@@ -86,6 +86,10 @@ export const DashboardPaper = () => {
     setFiltersUpdated(true)
   }
 
+  useEffect(() => {
+    updatePlot()
+  }, [])
+
   return (
     <Paper data-testid='DashboardPaper'>
       <Title order={3} style={{ marginBottom: 16 }}>
@@ -115,24 +119,12 @@ export const DashboardPaper = () => {
           <ErrorBoundary>
             {boxPlotData.length > 0 ? (
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(500px, 1fr))', gap: 8 }}>
-                <div>
-                  <Title order={4} style={{ marginBottom: 4 }}>
-                    Box Plot {filtersUpdated ? ' (out of date)' : ''}
-                  </Title>
-                  <Center style={{ height: boxPlotHeight }}>
-                    <BoxPlot
-                      data={boxPlotData}
-                      orientation={'vertical'}
-                      valueAxisLabel={dashboardBoxPlotVisualSettings.valueAxisLabel}
-                    />
-                  </Center>
-                </div>
                 {mapData && (
                   <div>
                     <Title order={4} style={{ marginBottom: 4 }}>
                       Map {filtersUpdated ? ' (out of date)' : ''}
                     </Title>
-                    <Center style={{ height: 800, width: '100%', position: 'relative', zIndex: 0 }}>
+                    <Center style={{ height: 1000, width: '100%', position: 'relative', zIndex: 0 }}>
                       <CircleMap
                         data={mapData}
                         minPointRadius={1}
@@ -149,6 +141,18 @@ export const DashboardPaper = () => {
                     </Center>
                   </div>
                 )}
+                <div>
+                  <Title order={4} style={{ marginBottom: 4 }}>
+                    Box Plot {filtersUpdated ? ' (out of date)' : ''}
+                  </Title>
+                  <Center style={{ height: boxPlotHeight }}>
+                    <BoxPlot
+                      data={boxPlotData}
+                      orientation={'vertical'}
+                      valueAxisLabel={dashboardBoxPlotVisualSettings.valueAxisLabel}
+                    />
+                  </Center>
+                </div>
               </div>
             ) : (
               <Center style={{ height: 300 }}>
