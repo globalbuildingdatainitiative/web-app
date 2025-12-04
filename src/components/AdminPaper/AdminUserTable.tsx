@@ -88,7 +88,7 @@ export const AdminUserTable = () => {
       offset: pagination.pageIndex * pagination.pageSize,
       sortBy: getSortingVariables(),
       filterBy: getFilterVariables(),
-    },
+    }
   })
 
   const [impersonate, { loading: impersonateLoading, error: impersonateError }] = useImpersonateUserMutation()
@@ -120,6 +120,16 @@ export const AdminUserTable = () => {
         accessorKey: 'timeJoined',
         header: 'Joined On',
         Cell: ({ cell }) => new Date(cell.getValue<string>()).toLocaleDateString(),
+      },
+      {
+        accessorKey: 'lastLogin',
+        header: 'Last Login',
+        Cell: ({ cell }) => {
+          const v = cell.getValue<string | null>()
+          if (!v) return 'Never'
+          const formatter = new Intl.DateTimeFormat('en-US', { dateStyle: 'short', timeStyle: 'short' })
+          return formatter.format(new Date(v))
+        },
       },
       {
         accessorKey: 'roles',
@@ -210,7 +220,7 @@ export const AdminUserTable = () => {
     positionActionsColumn: 'last',
     renderTopToolbarCustomActions: ({ table }) => {
       return (
-        <div style={{ gap: '4px', display: 'flex', alignItems: 'center' }}>
+        <div style={{ gap: '8px', display: 'flex', alignItems: 'center' }}>
           <span>
             Total {table.getRowCount() === 1 ? 'User' : 'Users'}: {table.getRowCount()}
           </span>

@@ -72,6 +72,8 @@ query getContributions($limit: Int, $offset: Int = 0, $sortBy: SortBy, $filterBy
       }
     }
     count(filterBy: $filterBy)
+    publicCount(filterBy: $filterBy)
+    privateCount(filterBy: $filterBy)
   }
 }
 
@@ -105,6 +107,7 @@ query getOrganizations($limit: Int, $offset: Int = 0, $sortBy: SortBy, $filterBy
       }
     }
     count(filterBy: $filterBy)
+    uniqueCount(filterBy: $filterBy)
   }
 }
 
@@ -146,6 +149,7 @@ query getUsers($limit: Int, $offset: Int = 0, $sortBy: SortBy, $filterBy: Filter
       inviteStatus
       inviterName
       roles
+      lastLogin
       organization {
         id
         name
