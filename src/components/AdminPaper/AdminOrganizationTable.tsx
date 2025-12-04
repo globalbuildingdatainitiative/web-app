@@ -8,7 +8,8 @@ import {
   useMantineReactTable,
 } from 'mantine-react-table'
 import { GetOrganizationsQuery, useGetOrganizationsQuery, useGetOrganizationsLazyQuery } from '@queries'
-import { Group, Pagination, ScrollArea, Select, Button, HoverCard, Text } from '@mantine/core'
+import { Group, Pagination, ScrollArea, Select, Button, HoverCard, Text, ActionIcon } from '@mantine/core'
+import { IconInfoCircle } from '@tabler/icons-react'
 import { formatEnumValue } from '@lib'
 import { downloadCSV } from 'lib/uiUtils/csvExport'
 
@@ -219,26 +220,27 @@ export const AdminOrganizationTable = () => {
           children: error?.message,
         }
       : undefined,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     renderTopToolbarCustomActions: ({ table }) => {
       return (
         <div style={{ gap: '8px', display: 'flex', alignItems: 'center' }}>
-          <div>
-            <HoverCard width={300} shadow='xl'>
-              <HoverCard.Target>
-                <span>
-                  Unique {data?.organizations.uniqueCount === 1 ? 'Organization' : 'Organizations'} count:{' '}
-                  {data?.organizations.uniqueCount}
-                </span>
-              </HoverCard.Target>
-              <HoverCard.Dropdown>
-                <Text size='sm'>
-                  If some organizations share the same name and country, they are counted only once in this total.{' '}
-                  <br />
-                  The raw, unfiltered count is {data?.organizations.count}.
-                </Text>
-              </HoverCard.Dropdown>
-            </HoverCard>
-          </div>
+          <span>
+            Unique {data?.organizations.uniqueCount === 1 ? 'Organization' : 'Organizations'} count:{' '}
+            {data?.organizations.uniqueCount}
+          </span>
+          <HoverCard width={300} shadow='xl'>
+            <HoverCard.Target>
+              <ActionIcon variant='transparent' color='gray'>
+                <IconInfoCircle />
+              </ActionIcon>
+            </HoverCard.Target>
+            <HoverCard.Dropdown>
+              <Text size='sm'>
+                If some organizations share the same name and country, they are counted only once in this total. <br />
+                The raw, unfiltered count is {data?.organizations.count}.
+              </Text>
+            </HoverCard.Dropdown>
+          </HoverCard>
           <Button loading={downloadLoading} onClick={handleDownloadOrganizationsCSV}>
             Download CSV
           </Button>
