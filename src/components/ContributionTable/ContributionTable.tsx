@@ -19,11 +19,12 @@ import {
 import 'mantine-react-table/styles.css'
 import { useEffect, useMemo, useState } from 'react'
 import dayjs from 'dayjs'
-import { ActionIcon, Button, Group, MantineSize, Pagination, ScrollArea, Select, Text, Tooltip } from '@mantine/core'
+import { ActionIcon, Button, Group, Loader, MantineSize, Pagination, ScrollArea, Select, Text, Tooltip } from '@mantine/core'
 import { ViewProjectDetails } from './viewProjectDetails.tsx'
 import { useViewportSize } from '@mantine/hooks'
 import { IconCircleCheck, IconCircleX, IconEdit, IconTrash } from '@tabler/icons-react'
 import { useUserContext } from '@context'
+import { Loading } from '@components'
 
 interface TruncatedTextWithTooltipProps {
   text: string
@@ -318,6 +319,13 @@ export const ContributionTable = () => {
     enableMultiRowSelection: true,
     enableSelectAll: true,
     positionToolbarAlertBanner: 'bottom',
+    renderTopToolbar: () => {
+      return (
+        <Text style={{ padding: '8px 16px', display: 'flex', alignItems: 'center' }}>
+          Contributions count once filtered: { loading ? <Loader size={24} style={{ marginLeft: 8 }} /> : totalRowCount}
+        </Text>
+      )
+    },
     renderTopToolbarCustomActions: ({ table }) => {
       const selectedRows = table.getSelectedRowModel().rows
 

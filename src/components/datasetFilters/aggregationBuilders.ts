@@ -1,6 +1,14 @@
 import { PlotDesignerDataFiltersSelection, PlotDesignerPlotParameters, PlotDesignerPlotSettings } from './plotSettings'
 
 export function matchStageFromFilters(filters: PlotDesignerDataFiltersSelection): object[] {
+  if (Object.values(filters).every((filter) => !filter.enabled)) {
+    return [{
+      'projectInfo.grossFloorArea.value': {
+        $gte: 0,
+      },
+    }]
+  }
+
   const filtersToApply: object[] = []
 
   if (filters.lifeCycleStages.enabled) {
