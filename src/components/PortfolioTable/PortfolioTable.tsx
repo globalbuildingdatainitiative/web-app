@@ -480,7 +480,7 @@ export const PortfolioTable = (props: PortfolioTableProps) => {
   )
 
   useEffect(() => {
-    const baseFilters = { gt: { 'projectInfo.grossFloorArea.value': 0 }, notEqual: { /*results: null */ } }
+    const baseFilters = { gt: { 'projectInfo.grossFloorArea.value': 0 }, notEqual: { results: null } }
     if (!columnFilters.length) {
       setFilters(baseFilters)
       return
