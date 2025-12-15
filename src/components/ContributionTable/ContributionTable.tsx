@@ -24,7 +24,6 @@ import { ViewProjectDetails } from './viewProjectDetails.tsx'
 import { useViewportSize } from '@mantine/hooks'
 import { IconCircleCheck, IconCircleX, IconEdit, IconTrash } from '@tabler/icons-react'
 import { useUserContext } from '@context'
-import { Loading } from '@components'
 
 interface TruncatedTextWithTooltipProps {
   text: string
