@@ -140,7 +140,7 @@ export const AttributeChart = (props: AttributeChartProps) => {
   }
 
   const transformedFilters = useMemo(() => {
-    return Object.entries(filters).map(([key, value]) => {
+    return Object.entries(filters).filter(([key, value]) => value !== undefined && Object.keys(value).length > 0).map(([key, value]) => {
       const filterKey = Object.keys(value)[0]
       if (key === 'notEqual') key = 'ne'
       if (key === 'contains') key = 'regex'
