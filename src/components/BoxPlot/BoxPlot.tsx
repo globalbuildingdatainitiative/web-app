@@ -168,10 +168,11 @@ interface BoxPlotProps {
   orientation?: BoxPlotOrientation
   dotColor?: string
   valueAxisLabel?: string
+  categoryLabelFontSize?: number
 }
 
 export const BoxPlot = (props: BoxPlotProps) => {
-  const { data, orientation = 'vertical', dotColor, valueAxisLabel } = props
+  const { data, orientation = 'vertical', dotColor, valueAxisLabel, categoryLabelFontSize } = props
   const theme = useMantineTheme()
 
   const getColor = (colorName: string, shade: number, fallback: string): string => {
@@ -225,6 +226,9 @@ export const BoxPlot = (props: BoxPlotProps) => {
       dataKey: 'name',
       angle: orientation === 'vertical' ? 0 : 45,
       textAnchor: orientation === 'vertical' ? 'end' : 'start',
+      tick: {
+        fontSize: categoryLabelFontSize ?? 16,
+      }
     },
   ]
   return (

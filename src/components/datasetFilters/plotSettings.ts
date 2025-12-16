@@ -126,4 +126,5 @@ export function plotParametersToSearchParams(plotParameters: PlotDesignerPlotPar
 export interface BoxPlotVisualSettings {
   valueAxisLabel: string
   labelHeightFactor: number
+  labelFontSize?: number
 }

@@ -31,7 +31,8 @@ const dashboardPlotParameters: PlotDesignerPlotParameters = {
 
 const dashboardBoxPlotVisualSettings: BoxPlotVisualSettings = {
   valueAxisLabel: 'GWP per m²',
-  labelHeightFactor: 35,
+  labelHeightFactor: 26,
+  labelFontSize: 12,
 }
 
 const dashboardMapCircleRadiusSource: MapCircleRadiusSource = 'count'
@@ -92,25 +93,18 @@ export const DashboardPaper = () => {
 
   return (
     <Paper data-testid='DashboardPaper'>
-      <Title order={3} style={{ marginBottom: 16 }}>
-        GWP Intensity (Global Level - Building Type)
-      </Title>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <Title order={3} style={{ marginBottom: 16 }}>
+          GWP Intensity (Global Level - Building Type)
+        </Title>
+
+        <Button onClick={updatePlot} disabled={!filtersUpdated || loading}>
+          {data ? 'Update plot' : 'Draw plot'}
+        </Button>
+      </div>
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: '32px', marginBottom: '16px' }}>
-        <div>
-          <Title order={4} style={{ marginBottom: '8px' }}>
-            Data Filters {filtersUpdated ? ' (updated)' : ''}
-          </Title>
-          <PlotDesignerDataFilters filters={filters} onFilterChange={onFilterChange} disabled={loading} />
-        </div>
-        <div>
-          <Title order={4} style={{ marginBottom: '8px' }}>
-            Draw plot
-          </Title>
-          <Button onClick={updatePlot} disabled={!filtersUpdated || loading}>
-            {data ? 'Update plot' : 'Draw plot'}
-          </Button>
-        </div>
+        <PlotDesignerDataFilters filters={filters} onFilterChange={onFilterChange} disabled={loading} />
 
         {error && <ErrorMessage error={makeErrorFromOptionalString(error.message)} />}
         {loading && <Loading />}
@@ -120,39 +114,30 @@ export const DashboardPaper = () => {
             {boxPlotData.length > 0 ? (
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(500px, 1fr))', gap: 8 }}>
                 {mapData && (
-                  <div>
-                    <Title order={4} style={{ marginBottom: 4 }}>
-                      Map {filtersUpdated ? ' (out of date)' : ''}
-                    </Title>
-                    <Center style={{ height: 1000, width: '100%', position: 'relative', zIndex: 0 }}>
-                      <CircleMap
-                        data={mapData}
-                        minPointRadius={1}
-                        maxPointRadius={20}
-                        makePopup={(point: CircleMapDataPoint) => (
-                          <>
-                            <Title order={5}>{point.name}</Title>
-                            <Text>
-                              {getMapCircleRadiusSourceLabel(dashboardMapCircleRadiusSource)}: {point.value}
-                            </Text>
-                          </>
-                        )}
-                      />
-                    </Center>
-                  </div>
-                )}
-                <div>
-                  <Title order={4} style={{ marginBottom: 4 }}>
-                    Box Plot {filtersUpdated ? ' (out of date)' : ''}
-                  </Title>
-                  <Center style={{ height: boxPlotHeight }}>
-                    <BoxPlot
-                      data={boxPlotData}
-                      orientation={'vertical'}
-                      valueAxisLabel={dashboardBoxPlotVisualSettings.valueAxisLabel}
+                  <Center style={{ height: boxPlotHeight, width: '100%', position: 'relative', zIndex: 0 }}>
+                    <CircleMap
+                      data={mapData}
+                      minPointRadius={1}
+                      maxPointRadius={20}
+                      makePopup={(point: CircleMapDataPoint) => (
+                        <>
+                          <Title order={5}>{point.name}</Title>
+                          <Text>
+                            {getMapCircleRadiusSourceLabel(dashboardMapCircleRadiusSource)}: {point.value}
+                          </Text>
+                        </>
+                      )}
                     />
                   </Center>
-                </div>
+                )}
+                <Center style={{ height: boxPlotHeight }}>
+                  <BoxPlot
+                    data={boxPlotData}
+                    orientation={'vertical'}
+                    valueAxisLabel={dashboardBoxPlotVisualSettings.valueAxisLabel}
+                    categoryLabelFontSize={dashboardBoxPlotVisualSettings.labelFontSize}
+                  />
+                </Center>
               </div>
             ) : (
               <Center style={{ height: 300 }}>
