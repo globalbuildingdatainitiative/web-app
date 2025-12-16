@@ -51,6 +51,7 @@ export const PlotDesignerDataFilters = ({ filters, onFilterChange, disabled }: P
             onChange={(event) => setFieldEnabled('typologies', event.currentTarget.checked)}
             label='Building Typology'
             disabled={disabled}
+            size='xs'
           />
         }
         placeholder='Select building typologies'
@@ -67,6 +68,7 @@ export const PlotDesignerDataFilters = ({ filters, onFilterChange, disabled }: P
             onChange={(event) => setFieldEnabled('lifeCycleStages', event.currentTarget.checked)}
             label='Life Cycle Stage'
             disabled={disabled}
+            size='xs'
           />
         }
         placeholder='Select life cycle stages'
@@ -83,6 +85,7 @@ export const PlotDesignerDataFilters = ({ filters, onFilterChange, disabled }: P
             onChange={(event) => setFieldEnabled('countries', event.currentTarget.checked)}
             label='Country'
             disabled={disabled}
+            size='xs'
           />
         }
         searchable
@@ -101,6 +104,7 @@ export const PlotDesignerDataFilters = ({ filters, onFilterChange, disabled }: P
             onChange={(event) => setFieldEnabled('frameTypes', event.currentTarget.checked)}
             label='Frame Type (Structure Type)'
             disabled={disabled}
+            size='xs'
           />
         }
         searchable
@@ -119,6 +123,7 @@ export const PlotDesignerDataFilters = ({ filters, onFilterChange, disabled }: P
             onChange={(event) => setFieldEnabled('software', event.currentTarget.checked)}
             label='LCA Software'
             disabled={disabled}
+            size='xs'
           />
         }
         placeholder='Select LCA software'
@@ -138,6 +143,7 @@ export const PlotDesignerDataFilters = ({ filters, onFilterChange, disabled }: P
             onChange={(event) => setFieldEnabled('sources', event.currentTarget.checked)}
             label='Source'
             disabled={disabled}
+            size='xs'
           />
         }
         placeholder='Select sources'
@@ -152,6 +158,7 @@ export const PlotDesignerDataFilters = ({ filters, onFilterChange, disabled }: P
           onChange={(event) => setFieldEnabled('gfaRange', event.currentTarget.checked)}
           label='Gross Floor Area (m²)'
           disabled={disabled}
+          size='xs'
         />
         <RangeSlider
           min={0}
