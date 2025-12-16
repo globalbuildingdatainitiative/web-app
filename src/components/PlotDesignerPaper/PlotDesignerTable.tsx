@@ -8,6 +8,7 @@ import {
   plotParametersToSearchParams,
 } from 'components/datasetFilters/plotSettings'
 import { useState } from 'react'
+import { StatsCard } from 'components/StatsCard/StatsCard'
 
 interface PlotDesignerTableProps {
   prettifiedData: PlotDesignerAggregationResultPretty[]
@@ -97,17 +98,23 @@ export const PlotDesignerTable = ({ prettifiedData, filters, plotParameters }: P
     </Table.Tr>
   ))
 
+  const totalAllItems = prettifiedData.reduce((sum, agg) => sum + agg.count, 0)
+
   return (
     <div style={{ overflowX: 'auto' }}>
+      <div style={{ display: 'flex', gap: 16, marginBottom: 16 }}>
+        <StatsCard title="Item Count" value={prettifiedData.length} />
+        <StatsCard title="Project Count" value={totalAllItems} hoverCardContent="Project count across all items" />
+      </div>
       <div style={{ marginBottom: 16 }}>
-        <div style={{ display: 'flex', gap: 8, marginBottom: 8 }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 8 }}>
           <Button onClick={downloadAsCSV}>Download CSV</Button>
+          <Switch
+            label='Add filters and parameters to CSV headers (may decrease compatibility)'
+            checked={addHeaders}
+            onChange={(event) => setAddHeaders(event.currentTarget.checked)}
+          />
         </div>
-        <Switch
-          label='Add filters and parameters to CSV headers (may decrease compatibility)'
-          checked={addHeaders}
-          onChange={(event) => setAddHeaders(event.currentTarget.checked)}
-        />
       </div>
       <Table>
         <Table.Thead>

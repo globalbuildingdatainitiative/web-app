@@ -107,14 +107,16 @@ export const DashboardPaper = () => {
         <PlotDesignerDataFilters filters={filters} onFilterChange={onFilterChange} disabled={loading} />
 
         {error && <ErrorMessage error={makeErrorFromOptionalString(error.message)} />}
-        {loading && <Loading />}
+        {loading && <div style={{ marginBlock: 64 }}>
+          <Loading />
+        </div>}
 
         {data && (
           <ErrorBoundary>
             {boxPlotData.length > 0 ? (
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(500px, 1fr))', gap: 8 }}>
                 {mapData && (
-                  <Center style={{ height: boxPlotHeight, width: '100%', position: 'relative', zIndex: 0 }}>
+                  <Center style={{ height: boxPlotHeight, minHeight: 500, width: '100%', position: 'relative', zIndex: 0 }}>
                     <CircleMap
                       data={mapData}
                       minPointRadius={1}

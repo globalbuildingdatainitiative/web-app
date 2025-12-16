@@ -18,12 +18,13 @@ import {
   MRT_SortingState,
   useMantineReactTable,
 } from 'mantine-react-table'
-import { ActionIcon, Button, Group, Pagination, ScrollArea, Select, Tooltip } from '@mantine/core'
+import { ActionIcon, Button, Card, Group, Pagination, ScrollArea, Select, Tooltip, Text, Center } from '@mantine/core'
 import { IconUserBolt, IconUserStar, IconUserCancel } from '@tabler/icons-react'
 import { useNavigate } from 'react-router-dom'
-import { TruncatedTextWithTooltip } from '@components'
+import { Loading, TruncatedTextWithTooltip } from '@components'
 import { capitalizeFirstLetter } from '@lib'
 import { downloadCSV } from 'lib/uiUtils/csvExport'
+import { StatsCard } from '../StatsCard/StatsCard'
 
 type User = NonNullable<GetUsersQuery['users']['items']>[number]
 
@@ -221,9 +222,6 @@ export const AdminUserTable = () => {
     renderTopToolbarCustomActions: ({ table }) => {
       return (
         <div style={{ gap: '8px', display: 'flex', alignItems: 'center' }}>
-          <span>
-            Total {table.getRowCount() === 1 ? 'User' : 'Users'}: {table.getRowCount()}
-          </span>
           <Button loading={downloadLoading} onClick={handleDownloadUsersCSV}>
             Download CSV
           </Button>
@@ -282,9 +280,9 @@ export const AdminUserTable = () => {
     mantineToolbarAlertBannerProps:
       error || impersonateError || makeAdminError || unmakeAdminError
         ? {
-            color: 'red',
-            children: `An error occurred. Please try again. If the problem persists, contact support at office@gbdi.io. Error: ${(error || impersonateError || makeAdminError)?.message}`,
-          }
+          color: 'red',
+          children: `An error occurred. Please try again. If the problem persists, contact support at office@gbdi.io. Error: ${(error || impersonateError || makeAdminError)?.message}`,
+        }
         : undefined,
     state: {
       isLoading: loading,
@@ -308,6 +306,21 @@ export const AdminUserTable = () => {
 
   return (
     <div data-testid='AdminUserTable'>
+      <div style={{ display: 'flex', gap: '16px', marginBottom: '16px' }}>
+        {loading ? (
+          <Center style={{ flex: 1, marginBlock: '8px' }}>
+            <Loading />
+          </Center>
+        ) : (
+          <>
+            <StatsCard title="Total Users" value={data?.users.count || 0} />
+            <StatsCard title="Active Last 30 Days" value={data?.users.statistics.activeLast30Days || 0} />
+            <StatsCard title="Active Last 60 Days" value={data?.users.statistics.activeLast60Days || 0} />
+            <StatsCard title="Active Last 90 Days" value={data?.users.statistics.activeLast90Days || 0} />
+          </>
+        )}
+      </div>
+
       <ScrollArea scrollbars='x'>
         <MantineReactTable table={table} />
       </ScrollArea>

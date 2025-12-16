@@ -8,10 +8,12 @@ import {
   useMantineReactTable,
 } from 'mantine-react-table'
 import { GetOrganizationsQuery, useGetOrganizationsQuery, useGetOrganizationsLazyQuery } from '@queries'
-import { Group, Pagination, ScrollArea, Select, Button, HoverCard, Text, ActionIcon } from '@mantine/core'
+import { Group, Pagination, ScrollArea, Select, Button, HoverCard, Text, ActionIcon, Center } from '@mantine/core'
 import { IconInfoCircle } from '@tabler/icons-react'
 import { formatEnumValue } from '@lib'
 import { downloadCSV } from 'lib/uiUtils/csvExport'
+import { StatsCard } from '../StatsCard/StatsCard'
+import { Loading } from '@components'
 
 type Organization = NonNullable<GetOrganizationsQuery['organizations']['items']>[number]
 
@@ -216,31 +218,13 @@ export const AdminOrganizationTable = () => {
     manualPagination: true,
     mantineToolbarAlertBannerProps: error
       ? {
-          color: 'red',
-          children: error?.message,
-        }
+        color: 'red',
+        children: error?.message,
+      }
       : undefined,
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    renderTopToolbarCustomActions: ({ table }) => {
+    renderTopToolbarCustomActions: () => {
       return (
         <div style={{ gap: '8px', display: 'flex', alignItems: 'center' }}>
-          <span>
-            Unique {data?.organizations.uniqueCount === 1 ? 'Organization' : 'Organizations'} count:{' '}
-            {data?.organizations.uniqueCount}
-          </span>
-          <HoverCard width={300} shadow='xl'>
-            <HoverCard.Target>
-              <ActionIcon variant='transparent' color='gray'>
-                <IconInfoCircle />
-              </ActionIcon>
-            </HoverCard.Target>
-            <HoverCard.Dropdown>
-              <Text size='sm'>
-                If some organizations share the same name and country, they are counted only once in this total. <br />
-                The raw, unfiltered count is {data?.organizations.count}.
-              </Text>
-            </HoverCard.Dropdown>
-          </HoverCard>
           <Button loading={downloadLoading} onClick={handleDownloadOrganizationsCSV}>
             Download CSV
           </Button>
@@ -269,6 +253,22 @@ export const AdminOrganizationTable = () => {
 
   return (
     <div data-testid='AdminOrganizationTable'>
+      <div style={{ display: 'flex', gap: '16px', marginBottom: '16px' }}>
+        {loading ? (
+          <Center style={{ flex: 1, marginBlock: '8px' }}>
+            <Loading />
+          </Center>
+        ) : (
+          <>
+            <StatsCard title="Total Organizations" value={data?.organizations.count || 0} />
+            <StatsCard
+              title="Unique Organizations"
+              value={data?.organizations.uniqueCount || 0}
+              hoverCardContent="If some organizations share the same name and country, they are counted only once in this total."
+            />
+          </>
+        )}
+      </div>
       <ScrollArea scrollbars='x'>
         <MantineReactTable table={table} />
       </ScrollArea>
