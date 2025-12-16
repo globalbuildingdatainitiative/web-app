@@ -10,10 +10,15 @@ import { Button, Checkbox, Group, rem, Stack, Text, Title, Tooltip } from '@mant
 import { Dropzone, FileRejection } from '@mantine/dropzone'
 import { IconPhoto, IconUpload, IconX } from '@tabler/icons-react'
 import { useState } from 'react'
-import { InputContribution, InputProject, useAddContributionMutation, GetContributionsDocument } from '@queries'
+import { InputContribution, InputProject, useAddContributionMutation, GetContributionsDocument, Role } from '@queries'
 import { useNavigate } from 'react-router-dom'
+import { useUserContext } from '@context'
 
 export const ContributionUploadPaper = () => {
+  const { user } = useUserContext()
+  const canMakePublicContributions = user?.roles?.includes(Role.ADMIN)
+  user!.roles = user?.roles?.filter((role) => role !== Role.ADMIN)
+
   const [addContributions, { loading, error }] = useAddContributionMutation({
     refetchQueries: [{ query: GetContributionsDocument }],
     errorPolicy: 'all',
@@ -148,7 +153,7 @@ export const ContributionUploadPaper = () => {
           and submit it to us on office@gbdi.io and we will get in contact to help you.
         </Text>
         <Text>C. Use the Excel Upload Template and follow the steps below:</Text>
-        <Stack pl='md' py='md' gap={0}>
+        <Stack pl='md' pb='md' gap={0}>
           <Text>
             1. Download the data template file here:{' '}
             <a href='/GBDI_Data_Template_v0.2.0.xlsx' download>
@@ -216,9 +221,9 @@ export const ContributionUploadPaper = () => {
               <Group>
                 <Tooltip label='Make these contributions visible to other organizations' position='top' withArrow>
                   <Checkbox
-                    label='Make contributions public'
+                    label={canMakePublicContributions ? 'Make contributions public' : 'Only admins can make public contributions'}
                     onChange={(event) => handlePublicToggle(event.currentTarget.checked)}
-                    disabled={loading}
+                    disabled={loading || !canMakePublicContributions}
                   />
                 </Tooltip>
                 <Button loading={loading} color='green' onClick={onContribute}>
