@@ -156,6 +156,11 @@ query getUsers($limit: Int, $offset: Int = 0, $sortBy: SortBy, $filterBy: Filter
       }
     }
     count(filterBy: $filterBy)
+    statistics {
+      activeLast30Days,
+      activeLast60Days,
+      activeLast90Days
+    }
   }
 }
 

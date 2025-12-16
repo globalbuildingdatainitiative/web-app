@@ -1703,6 +1703,8 @@ export type UserGraphQlResponse = {
   count: Scalars['Int']['output']
   /** The list of users in this pagination window. */
   items: Array<User>
+  /** Get statistics on user utilization, with number of connected users in the last 30, 60, and 90 days. */
+  statistics: UserStatistics
 }
 
 export type UserGraphQlResponseCountArgs = {
@@ -1715,6 +1717,13 @@ export type UserGraphQlResponseItemsArgs = {
   limit?: Scalars['Int']['input']
   offset?: Scalars['Int']['input']
   sortBy?: InputMaybe<SortBy>
+}
+
+export type UserStatistics = {
+  __typename?: 'UserStatistics'
+  activeLast30Days: Scalars['Int']['output']
+  activeLast60Days: Scalars['Int']['output']
+  activeLast90Days: Scalars['Int']['output']
 }
 
 export type ValueUnit = {
@@ -1904,6 +1913,7 @@ export type ResolversTypes = {
   UpdateUserInput: UpdateUserInput
   User: ResolverTypeWrapper<User>
   UserGraphQLResponse: ResolverTypeWrapper<UserGraphQlResponse>
+  UserStatistics: ResolverTypeWrapper<UserStatistics>
   ValueUnit: ResolverTypeWrapper<ValueUnit>
 }
 
@@ -1991,6 +2001,7 @@ export type ResolversParentTypes = {
   UpdateUserInput: UpdateUserInput
   User: User
   UserGraphQLResponse: UserGraphQlResponse
+  UserStatistics: UserStatistics
   ValueUnit: ValueUnit
 }
 
@@ -2889,6 +2900,17 @@ export type UserGraphQlResponseResolvers<
     ContextType,
     RequireFields<UserGraphQlResponseItemsArgs, 'filterBy' | 'limit' | 'offset' | 'sortBy'>
   >
+  statistics?: Resolver<ResolversTypes['UserStatistics'], ParentType, ContextType>
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>
+}
+
+export type UserStatisticsResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['UserStatistics'] = ResolversParentTypes['UserStatistics'],
+> = {
+  activeLast30Days?: Resolver<ResolversTypes['Int'], ParentType, ContextType>
+  activeLast60Days?: Resolver<ResolversTypes['Int'], ParentType, ContextType>
+  activeLast90Days?: Resolver<ResolversTypes['Int'], ParentType, ContextType>
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>
 }
 
@@ -2948,6 +2970,7 @@ export type Resolvers<ContextType = any> = {
   UUID?: GraphQLScalarType
   User?: UserResolvers<ContextType>
   UserGraphQLResponse?: UserGraphQlResponseResolvers<ContextType>
+  UserStatistics?: UserStatisticsResolvers<ContextType>
   ValueUnit?: ValueUnitResolvers<ContextType>
 }
 
@@ -3152,6 +3175,12 @@ export type GetUsersQuery = {
       lastLogin?: any | null
       organization?: { __typename?: 'Organization'; id: any; name: string } | null
     }>
+    statistics: {
+      __typename?: 'UserStatistics'
+      activeLast30Days: number
+      activeLast60Days: number
+      activeLast90Days: number
+    }
   }
 }
 
@@ -4278,6 +4307,11 @@ export const GetUsersDocument = gql`
         }
       }
       count(filterBy: $filterBy)
+      statistics {
+        activeLast30Days
+        activeLast60Days
+        activeLast90Days
+      }
     }
   }
 `

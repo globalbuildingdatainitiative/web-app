@@ -10,9 +10,10 @@ import {
 import 'mantine-react-table/styles.css'
 import { useMemo, useState } from 'react'
 import dayjs from 'dayjs'
-import { Button, Group, Pagination, ScrollArea, Select, Text } from '@mantine/core'
-import { TruncatedTextWithTooltip } from '@components'
+import { Button, Center, Group, Loader, Pagination, ScrollArea, Select, Text } from '@mantine/core'
+import { Loading, TruncatedTextWithTooltip } from '@components'
 import { downloadCSV } from 'lib/uiUtils/csvExport'
+import { StatsCard } from '../StatsCard/StatsCard'
 
 export const AdminContributionTable = () => {
   const [pagination, setPagination] = useState<MRT_PaginationState>({ pageIndex: 0, pageSize: 10 })
@@ -198,10 +199,6 @@ export const AdminContributionTable = () => {
     renderTopToolbarCustomActions: ({ table }) => {
       return (
         <div style={{ gap: '8px', display: 'flex', alignItems: 'center' }}>
-          <span>
-            Total {table.getRowCount() === 1 ? 'Contribution' : 'Contributions'}: {table.getRowCount()} (
-            {data?.contributions.publicCount || 0} public, {data?.contributions.privateCount || 0} private)
-          </span>
           <Button loading={downloadLoading} onClick={handleDownloadContributionsCSV}>
             Download CSV
           </Button>
@@ -236,6 +233,19 @@ export const AdminContributionTable = () => {
 
   return (
     <div data-testid='ContributionTable'>
+      <div style={{ display: 'flex', gap: '16px', marginBottom: '16px' }}>
+        {loading ? (
+          <Center style={{ flex: 1, marginBlock: '8px' }}>
+            <Loading />
+          </Center>
+        ) : (
+          <>
+            <StatsCard title="Total Contributions" value={data?.contributions.count || 0} />
+            <StatsCard title="Public" value={data?.contributions.publicCount || 0} />
+            <StatsCard title="Private" value={data?.contributions.privateCount || 0} />
+          </>
+        )}
+      </div>
       <ScrollArea scrollbars='x'>
         <MantineReactTable table={table} />
       </ScrollArea>
