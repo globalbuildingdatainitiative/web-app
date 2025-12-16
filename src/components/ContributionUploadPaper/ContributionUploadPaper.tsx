@@ -17,7 +17,6 @@ import { useUserContext } from '@context'
 export const ContributionUploadPaper = () => {
   const { user } = useUserContext()
   const canMakePublicContributions = user?.roles?.includes(Role.ADMIN)
-  user!.roles = user?.roles?.filter((role) => role !== Role.ADMIN)
 
   const [addContributions, { loading, error }] = useAddContributionMutation({
     refetchQueries: [{ query: GetContributionsDocument }],
