@@ -18,7 +18,7 @@ import {
   MRT_SortingState,
   useMantineReactTable,
 } from 'mantine-react-table'
-import { ActionIcon, Button, Card, Group, Pagination, ScrollArea, Select, Tooltip, Text, Center } from '@mantine/core'
+import { ActionIcon, Button, Group, Pagination, ScrollArea, Select, Tooltip, Center } from '@mantine/core'
 import { IconUserBolt, IconUserStar, IconUserCancel } from '@tabler/icons-react'
 import { useNavigate } from 'react-router-dom'
 import { Loading, TruncatedTextWithTooltip } from '@components'

@@ -10,7 +10,7 @@ import {
 import 'mantine-react-table/styles.css'
 import { useMemo, useState } from 'react'
 import dayjs from 'dayjs'
-import { Button, Center, Group, Loader, Pagination, ScrollArea, Select, Text } from '@mantine/core'
+import { Button, Center, Group, Pagination, ScrollArea, Select, Text } from '@mantine/core'
 import { Loading, TruncatedTextWithTooltip } from '@components'
 import { downloadCSV } from 'lib/uiUtils/csvExport'
 import { StatsCard } from '../StatsCard/StatsCard'

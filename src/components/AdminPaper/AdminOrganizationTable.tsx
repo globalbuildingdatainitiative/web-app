@@ -8,8 +8,7 @@ import {
   useMantineReactTable,
 } from 'mantine-react-table'
 import { GetOrganizationsQuery, useGetOrganizationsQuery, useGetOrganizationsLazyQuery } from '@queries'
-import { Group, Pagination, ScrollArea, Select, Button, HoverCard, Text, ActionIcon, Center } from '@mantine/core'
-import { IconInfoCircle } from '@tabler/icons-react'
+import { Group, Pagination, ScrollArea, Select, Button, Center } from '@mantine/core'
 import { formatEnumValue } from '@lib'
 import { downloadCSV } from 'lib/uiUtils/csvExport'
 import { StatsCard } from '../StatsCard/StatsCard'
