@@ -233,7 +233,6 @@ export const BoxPlot = (props: BoxPlotProps) => {
   ]
   return (
     <>
-      <div data-testid='BoxPlot' />
       <ResponsiveContainer width='100%' height='100%'>
         <ComposedChart
           layout={orientation}

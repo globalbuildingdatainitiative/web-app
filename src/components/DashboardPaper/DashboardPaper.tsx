@@ -103,9 +103,8 @@ export const DashboardPaper = () => {
         </Button>
       </div>
 
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '32px', marginBottom: '16px' }}>
+      <div style={{ display: 'grid', height: '85vh', gridTemplateRows: 'min-content 1fr', gap: 32 }}>
         <PlotDesignerDataFilters filters={filters} onFilterChange={onFilterChange} disabled={loading} />
-
         {error && <ErrorMessage error={makeErrorFromOptionalString(error.message)} />}
         {loading && <div style={{ marginBlock: 64 }}>
           <Loading />
@@ -114,32 +113,28 @@ export const DashboardPaper = () => {
         {data && (
           <ErrorBoundary>
             {boxPlotData.length > 0 ? (
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(500px, 1fr))', gap: 8 }}>
+              <div style={{ display: 'grid', height: '100%', minHeight: boxPlotHeight, gridTemplateColumns: 'repeat(auto-fit, minmax(500px, 1fr))', gridTemplateRows: '1fr', gap: 8 }}>
                 {mapData && (
-                  <Center style={{ height: boxPlotHeight, minHeight: 500, width: '100%', position: 'relative', zIndex: 0 }}>
-                    <CircleMap
-                      data={mapData}
-                      minPointRadius={1}
-                      maxPointRadius={20}
-                      makePopup={(point: CircleMapDataPoint) => (
-                        <>
-                          <Title order={5}>{point.name}</Title>
-                          <Text>
-                            {getMapCircleRadiusSourceLabel(dashboardMapCircleRadiusSource)}: {point.value}
-                          </Text>
-                        </>
-                      )}
-                    />
-                  </Center>
-                )}
-                <Center style={{ height: boxPlotHeight }}>
-                  <BoxPlot
-                    data={boxPlotData}
-                    orientation={'vertical'}
-                    valueAxisLabel={dashboardBoxPlotVisualSettings.valueAxisLabel}
-                    categoryLabelFontSize={dashboardBoxPlotVisualSettings.labelFontSize}
+                  <CircleMap
+                    data={mapData}
+                    minPointRadius={1}
+                    maxPointRadius={20}
+                    makePopup={(point: CircleMapDataPoint) => (
+                      <>
+                        <Title order={5}>{point.name}</Title>
+                        <Text>
+                          {getMapCircleRadiusSourceLabel(dashboardMapCircleRadiusSource)}: {point.value}
+                        </Text>
+                      </>
+                    )}
                   />
-                </Center>
+                )}
+                <BoxPlot
+                  data={boxPlotData}
+                  orientation={'vertical'}
+                  valueAxisLabel={dashboardBoxPlotVisualSettings.valueAxisLabel}
+                  categoryLabelFontSize={dashboardBoxPlotVisualSettings.labelFontSize}
+                />
               </div>
             ) : (
               <Center style={{ height: 300 }}>
