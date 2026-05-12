@@ -3,7 +3,7 @@ import { useMediaQuery } from '@mantine/hooks'
 import { ErrorBoundary, Greeting, SidePanel } from '@components'
 import { Outlet } from 'react-router-dom'
 import { useState, useEffect } from 'react'
-import { V2Banner } from 'components/V2Banner/V2Banner'
+import { V2Banner } from 'components/V2Banner'
 
 export const AppLayout = () => {
   const theme = useMantineTheme()
