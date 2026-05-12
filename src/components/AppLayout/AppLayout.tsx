@@ -1,4 +1,4 @@
-import { AppShell, rem, useMantineTheme, useMatches } from '@mantine/core'
+import { AppShell, useMantineTheme, useMatches } from '@mantine/core'
 import { useMediaQuery } from '@mantine/hooks'
 import { ErrorBoundary, Greeting, SidePanel } from '@components'
 import { Outlet } from 'react-router-dom'
