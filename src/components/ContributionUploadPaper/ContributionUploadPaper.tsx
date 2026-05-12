@@ -1,21 +1,21 @@
 import { Paper } from '@components'
-import {
+/* import {
   mapJsonToInputContribution,
   parseLcaxToContribution,
   parseXlsxToContribution,
   validateContributions,
   ValidationResult,
-} from '@lib'
-import { Button, Checkbox, Group, rem, Stack, Text, Title, Tooltip } from '@mantine/core'
-import { Dropzone, FileRejection } from '@mantine/dropzone'
+} from '@lib' */
+import { Blockquote, /* Button, Checkbox, Group, rem, Stack, Text, */ Title /*, Tooltip */ } from '@mantine/core'
+/* import { Dropzone, FileRejection } from '@mantine/dropzone'
 import { IconPhoto, IconUpload, IconX } from '@tabler/icons-react'
 import { useState } from 'react'
 import { InputContribution, InputProject, useAddContributionMutation, GetContributionsDocument, Role } from '@queries'
 import { useNavigate } from 'react-router-dom'
-import { useUserContext } from '@context'
+import { useUserContext } from '@context' */
 
 export const ContributionUploadPaper = () => {
-  const { user } = useUserContext()
+  /* const { user } = useUserContext()
   const canMakePublicContributions = user?.roles?.includes(Role.ADMIN)
 
   const [addContributions, { loading, error }] = useAddContributionMutation({
@@ -127,11 +127,18 @@ export const ContributionUploadPaper = () => {
     }
 
     return [{ project: { name: files[0].name } as InputProject }]
-  }
+  }*/
 
   return (
     <Paper data-testid='ContributionUploadPaper'>
       <Title order={3}>Contribute Now</Title>
+
+      <Blockquote m='md' color='grape'>
+        We are developing a second version of our data model (OpenBDF) and updating the platform with many new features. <br />
+        If you want to be among the first to explore these changes and participate in our Beta Testing, we invite you to fill out this <a href="https://forms.gle/AN8RFNNneRTcs5zv9" target="_blank" rel="noopener noreferrer">form</a>! 📝
+      </Blockquote>
+
+      {/*
       <Text>In order to process your data correctly, please read the following:</Text>
       <Text mt='sm'>There are 3 ways to contribute data to the platform.</Text>
       <Stack pl='md' py='md' gap='sm'>
@@ -241,6 +248,7 @@ export const ContributionUploadPaper = () => {
           </Stack>
         ) : null}
       </Stack>
+      */}
     </Paper>
   )
 }
