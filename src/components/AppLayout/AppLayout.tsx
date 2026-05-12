@@ -45,7 +45,7 @@ export const AppLayout = () => {
       <AppShell.Navbar p='md'>
         <SidePanel collapsed={collapsed} toggleCollapsed={() => setCollapsed(!collapsed)} />
       </AppShell.Navbar>
-      <AppShell.Main pt={`calc(${rem(80)} + var(--mantine-spacing-xl))`} bg={theme.other.backgroundColor}>
+      <AppShell.Main pt={`calc(12rem + var(--mantine-spacing-xl))`} bg={theme.other.backgroundColor}>
         <ErrorBoundary>
           <Outlet />
         </ErrorBoundary>
