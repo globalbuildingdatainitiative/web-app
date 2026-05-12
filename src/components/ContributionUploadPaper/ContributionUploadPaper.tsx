@@ -135,7 +135,7 @@ export const ContributionUploadPaper = () => {
 
       <Blockquote m='md' color='grape'>
         We are developing a second version of our data model (OpenBDF) and updating the platform with many new features. <br />
-        If you want to be among the first to explore these changes and participate in our Beta Testing, we invite you to fill out this <a href="https://forms.gle/AN8RFNNneRTcs5zv9" target="_blank" rel="noopener noreferrer">form</a>! 📝
+        If you want to be among the first to explore these changes and participate in our Beta Testing, we invite you to fill out this <a href='https://forms.gle/AN8RFNNneRTcs5zv9' target='_blank' rel='noopener noreferrer'>form</a>! 📝
       </Blockquote>
 
       {/*
