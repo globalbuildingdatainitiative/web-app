@@ -8,6 +8,7 @@ import { V2Banner } from 'components/V2Banner'
 export const AppLayout = () => {
   const theme = useMantineTheme()
   const [collapsed, setCollapsed] = useState(false)
+  const [bannerOpen, setBannerOpen] = useState(true)
   const sidepanelBreakpoint = useMediaQuery('(max-width: 1410px)')
 
   useEffect(() => {
@@ -38,14 +39,14 @@ export const AppLayout = () => {
     >
       <AppShell.Header pl={`calc(${navbarWidth}px + var(--mantine-spacing-xl))`} bg={theme.other.backgroundColor}>
         <ErrorBoundary>
-          <V2Banner />
+          {bannerOpen && <V2Banner onClose={() => setBannerOpen(false)} />}
           <Greeting />
         </ErrorBoundary>
       </AppShell.Header>
       <AppShell.Navbar p='md'>
         <SidePanel collapsed={collapsed} toggleCollapsed={() => setCollapsed(!collapsed)} />
       </AppShell.Navbar>
-      <AppShell.Main pt={`calc(12rem + var(--mantine-spacing-xl))`} bg={theme.other.backgroundColor}>
+      <AppShell.Main pt={`calc(${bannerOpen ? '12' : '4'}rem + var(--mantine-spacing-xl))`} bg={theme.other.backgroundColor}>
         <ErrorBoundary>
           <Outlet />
         </ErrorBoundary>

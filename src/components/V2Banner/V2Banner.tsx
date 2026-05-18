@@ -1,13 +1,10 @@
-import { useState } from 'react';
 import { Blockquote, Text, CloseButton, Group } from '@mantine/core';
 
-export const V2Banner = () => {
-  const [opened, setOpened] = useState(true);
+interface V2BannerProps {
+  onClose?: () => void;
+}
 
-  if (!opened) {
-    return null;
-  }
-
+export const V2Banner = ({ onClose }: V2BannerProps) => {
   return (
     <Blockquote color="grape">
       <Group justify="space-between" align="flex-start" wrap="nowrap">
@@ -27,7 +24,7 @@ export const V2Banner = () => {
         <CloseButton
           size="sm"
           variant="transparent"
-          onClick={() => setOpened(false)}
+          onClick={() => onClose?.()}
           aria-label="Close banner"
         />
       </Group>
