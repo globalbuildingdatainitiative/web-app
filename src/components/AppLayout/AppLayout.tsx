@@ -1,5 +1,5 @@
 import { AppShell, useMantineTheme, useMatches } from '@mantine/core'
-import { useMediaQuery } from '@mantine/hooks'
+import { useMediaQuery, useLocalStorage } from '@mantine/hooks'
 import { ErrorBoundary, Greeting, SidePanel } from '@components'
 import { Outlet } from 'react-router-dom'
 import { useState, useEffect } from 'react'
@@ -8,7 +8,10 @@ import { V2Banner } from 'components/V2Banner'
 export const AppLayout = () => {
   const theme = useMantineTheme()
   const [collapsed, setCollapsed] = useState(false)
-  const [bannerOpen, setBannerOpen] = useState(true)
+  const [bannerOpen, setBannerOpen] = useLocalStorage({
+    key: 'v2-banner-open',
+    defaultValue: true
+  })
   const sidepanelBreakpoint = useMediaQuery('(max-width: 1410px)')
 
   useEffect(() => {
