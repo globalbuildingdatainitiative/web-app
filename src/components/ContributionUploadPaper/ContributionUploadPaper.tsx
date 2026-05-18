@@ -6,7 +6,7 @@ import { Paper } from '@components'
   validateContributions,
   ValidationResult,
 } from '@lib' */
-import { Blockquote, /* Button, Checkbox, Group, rem, Stack, Text, */ Title /*, Tooltip */ } from '@mantine/core'
+import { Blockquote, /* Button, Checkbox, Group, rem, Stack, */ Text, Title /*, Tooltip */ } from '@mantine/core'
 /* import { Dropzone, FileRejection } from '@mantine/dropzone'
 import { IconPhoto, IconUpload, IconX } from '@tabler/icons-react'
 import { useState } from 'react'
@@ -134,8 +134,10 @@ export const ContributionUploadPaper = () => {
       <Title order={3}>Contribute Now</Title>
 
       <Blockquote m='md' color='grape'>
-        We are developing a second version of our data model (OpenBDF) and updating the platform with many new features. <br />
-        If you want to be among the first to explore these changes and participate in our Beta Testing, we invite you to fill out this <a href='https://forms.gle/AN8RFNNneRTcs5zv9' target='_blank' rel='noopener noreferrer'>form</a>! 📝
+        <Text c='#5C5CAE'>
+          We are developing the next generation of the Open Building Data Format (OpenBDF) and updating the platform with new features. Join our Gen 2 Beta Testing to be among the first to explore these changes and contribute your insights.<br />
+          Apply via this  <a href='https://forms.gle/AN8RFNNneRTcs5zv9' target='_blank' rel='noopener noreferrer'>form</a>! 📝
+        </Text>
       </Blockquote>
 
       {/*
