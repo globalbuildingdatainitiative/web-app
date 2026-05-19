@@ -8,7 +8,7 @@ export const V2Banner = ({ onClose }: V2BannerProps) => {
   return (
     <Blockquote color="grape" pos="relative">
       <CloseButton
-        size="sm"
+        size="md"
         variant="transparent"
         onClick={() => onClose?.()}
         aria-label="Close banner"
@@ -16,7 +16,7 @@ export const V2Banner = ({ onClose }: V2BannerProps) => {
         top={8}
         right={8}
       />
-      <Text c="#5C5CAE" pr="xl">
+      <Text c="#5C5CAE" pr="xl" size='lg' fw={700}>
         🚀 Exciting News Ahead! We are developing a next-generation version of
         the OpenBDF data model, along with new platform features and updates!{' '}
         <br />
