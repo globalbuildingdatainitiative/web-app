@@ -16,7 +16,7 @@ export const V2Banner = ({ onClose }: V2BannerProps) => {
         top={8}
         right={8}
       />
-      <Text c='#5C5CAE' pr='xl' size='sm' fw={700}>
+      <Text c='#5C5CAE' pr='xl' size='md' fw={700}>
         🚀 Exciting News Ahead! We are developing a next-generation version of the OpenBDF data model, along with new
         platform features and updates! <br />
         Apply to join the Gen 2 Beta Testing via this{' '}
