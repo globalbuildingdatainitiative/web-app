@@ -22,7 +22,7 @@ export const V2Banner = ({ onClose }: V2BannerProps) => {
         <br />
         Apply to join the Gen 2 Beta Testing via this{' '}
         <a
-          href="https://forms.gle/AN8RFNNneRTcs5zv9"
+          href="https://forms.gle/ebUu8FomnYFjEtyE6"
           target="_blank"
           rel="noopener noreferrer"
         >

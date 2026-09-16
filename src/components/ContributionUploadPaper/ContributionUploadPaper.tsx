@@ -136,7 +136,7 @@ export const ContributionUploadPaper = () => {
       <Blockquote m='md' color='grape'>
         <Text c='#5C5CAE'>
           We are developing the next generation of the Open Building Data Format (OpenBDF) and updating the platform with new features. Join our Gen 2 Beta Testing to be among the first to explore these changes and contribute your insights.<br />
-          Apply via this  <a href='https://forms.gle/AN8RFNNneRTcs5zv9' target='_blank' rel='noopener noreferrer'>form</a>! 📝
+          Apply via this  <a href='https://forms.gle/ebUu8FomnYFjEtyE6' target='_blank' rel='noopener noreferrer'>form</a>! 📝
         </Text>
       </Blockquote>
 
